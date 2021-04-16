@@ -8,14 +8,14 @@ module.exports = async client => {
   app.use(bodyParser.urlencoded({ extended: false }));
   app.set('views', path.join(__dirname, '/views'));
   app.set('view engine', 'ejs')
-  
+  const bot = client;
   
   // 404
   app.use("/", async (req, res) => {
-    res.status(404).render("status/404.ejs", {
+    res.render("home.ejs", {
       req,
       res,
-      client
+      bot
     })
   })
   
