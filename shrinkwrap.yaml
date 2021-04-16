@@ -1,4 +1,5 @@
 dependencies:
+  body-parser: 1.19.0
   discord.js: 12.5.3
   dotenv: 8.2.0
   ejs: 3.1.6
@@ -7,6 +8,7 @@ dependencies:
   fs: 0.0.2
   passport: 0.4.1
   passport-discord: 0.1.4
+  path: 0.12.7
 packages:
   /@discordjs/collection/0.1.6:
     dev: false
@@ -519,6 +521,13 @@ packages:
     dev: false
     resolution:
       integrity: sha1-32BBeABfUi8V60SQ5yR6G/qmf4w=
+  /path/0.12.7:
+    dependencies:
+      process: 0.11.10
+      util: 0.10.4
+    dev: false
+    resolution:
+      integrity: sha1-1NwqUGxM4hl+tIHr/NWzbAFAsQ8=
   /pause/0.0.1:
     dev: false
     resolution:
@@ -532,6 +541,12 @@ packages:
       opusscript: ^0.0.8
     resolution:
       integrity: sha512-UHCYuqHipbTR1ZsXr5eg4JUmHER8Ss4YEb9Azn+9zzJ7/jlTtD1h0lc4g6tNx3eMlB8Mp6bfll0LPMAV4R6r3Q==
+  /process/0.11.10:
+    dev: false
+    engines:
+      node: '>= 0.6.0'
+    resolution:
+      integrity: sha1-czIwDoQBYb2j5podHZGn1LwW8YI=
   /proxy-addr/2.0.6:
     dependencies:
       forwarded: 0.1.2
@@ -672,6 +687,12 @@ packages:
       node: '>= 0.8'
     resolution:
       integrity: sha1-sr9O6FFKrmFltIF4KdIbLvSZBOw=
+  /util/0.10.4:
+    dependencies:
+      inherits: 2.0.3
+    dev: false
+    resolution:
+      integrity: sha512-0Pm9hTQ3se5ll1XihRic3FDIku70C+iHUdT/W926rSgHV5QgXsYbKZN8MSC3tJtSkhuROzvsQjAaFENRXr+19A==
   /utils-merge/1.0.1:
     dev: false
     engines:
@@ -697,6 +718,7 @@ registry: 'https://registry.npmjs.org/'
 shrinkwrapMinorVersion: 9
 shrinkwrapVersion: 3
 specifiers:
+  body-parser: ^1.19.0
   discord.js: ^12.5.2
   dotenv: ^8.2.0
   ejs: ^3.1.6
@@ -705,3 +727,4 @@ specifiers:
   fs: ^0.0.2
   passport: ^0.4.1
   passport-discord: ^0.1.4
+  path: ^0.12.7
