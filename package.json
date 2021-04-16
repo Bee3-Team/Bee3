@@ -6,5 +6,8 @@
   "scripts": {
     "start": "node ."
   },
-  "author": "Vins 2106"
+  "author": "Vins 2106",
+  "dependencies": {
+    "discord.js": "^12.5.2"
+  }
 }
