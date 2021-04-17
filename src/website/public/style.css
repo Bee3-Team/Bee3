@@ -19,7 +19,7 @@ body {
 
 .navbar-image {
   border-radius: 50%;
-  width: 33%;
+  width: 40%;
   height: auto;
 }
 
@@ -82,6 +82,10 @@ body {
   margin-left: 20px;
   margin-right: 20px;
   text-decoration: none;
+}
+
+li {
+  list-style-type: none; 
 }
 
 .fo-image {

@@ -11,9 +11,14 @@ module.exports = async client => {
   app.set('view engine', 'ejs')
   const bot = client;
   
+  // web app
+  app.get("/", async (req, res) => {
+    res.render("home.ejs")
+  });
+  
   // 404
   app.use("/", async (req, res) => {
-    res.render("home.ejs", {
+    res.render("status/404.ejs", {
       req,
       res,
       bot
