@@ -92,6 +92,10 @@ li {
   list-style-type: none; 
 }
 
+.navbar-nav {
+  margin-top: 10px;
+}
+
 .animate-img {
         -webkit-animation: action 1s infinite  alternate;
         animation: action 1s infinite  alternate;
@@ -125,6 +129,10 @@ li {
     background-color: #27292e;
   }
   
+  .navbar-nav {
+    margin-top: 0px;
+  }
+  
 }
 
 body::-webkit-scrollbar-track
@@ -143,4 +151,8 @@ body::-webkit-scrollbar-thumb
 {
 	border-radius: 10px;
   background-color: #ffd700;
+}
+
+.nav-item {
+  margin-left: 10px;
 }
