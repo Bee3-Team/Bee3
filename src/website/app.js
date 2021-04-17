@@ -79,9 +79,18 @@ module.exports = async client => {
       lost: false
     });
   });
+  
+  app.get("/commands", async (req, res) => {
+    res.status(200).render("commands.ejs", {
+      req,
+      res,
+      bot,
+      lost: false
+    });
+  })
 
   // 404
-  app.use("/", async (req, res) => {
+  app.get("*", async (req, res) => {
     res.status(404).render("status/404.ejs", {
       req,
       res,
