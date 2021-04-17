@@ -153,18 +153,10 @@ body::-webkit-scrollbar-thumb
   background-color: #ffd700;
 }
 
-.status {
-  display: flex;
-  flex-direction: column;
-  border: 1px solid white;
-}
-
-.status-title {
-  color: white;
-  font-weight: 400;
-  font-size: 25px;
-}
-
-.status-card {
-  m
+.col-sm {
+  background-color: #ffd700;
+  margin-bottom: 20px;
+  padding: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
 }

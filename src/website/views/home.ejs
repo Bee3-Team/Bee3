@@ -18,26 +18,21 @@
           <p class="lead">Auto Mod, Music, Leveling, and much more!</p>
         </div>
       </div>
-      <br>
-      <br>
-      <br>
-      <br>
-      <div class="status">
-        <span class="status-title">status.beee.cf</span>
-        <div class="status-card">
-          <span class="s-title">Were are online in</span>
-          <span class="s-pil"><i class="fas fa-server"></i> <%= bot.guilds.cache.size %></span>
-        </div>
-        <div class="status-card">
-          <span class="s-title">Were are chatting in</span>
-          <span class="s-pil"><i class="fas fa-hashtag"></i> <%= bot.channels.cache.size %></span>
-        </div> 
-        <div class="status-card">
-          <span class="s-title">Were are playling with</span>
-          <span class="s-pil"><i class="fas fa-users"></i> <%= bot.users.cache.size %></span>
-        </div>         
-      </div>
+<div class="container">
+  <div class="row">
+    <div class="col-sm">
+      <i class="fas fa-server"></i> <%= bot.guilds.cache.size %>
+    </div>
+    <div class="col-sm">
+      <i class="fas fa-hashtag"></i> <%= bot.channels.cache.size %>
+    </div>
+    <div class="col-sm">
+      <i class="fas fa-users"></i> <%= bot.users.cache.size %>
+    </div>
+  </div>
+</div>      
     </main>
+    
 
     <%- include('part/footer.ejs') %>
     <%- include('part/bootstrapJS.ejs') %>
