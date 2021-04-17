@@ -9,9 +9,13 @@
     <%- include('part/navbar.ejs') %>
     
     <main role="main" class="container main">
-      <h1>
-        HI
-      </h1>
+      <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+          <img class="jumbotron-image" src="<%= bot.user.displayAvatarURL() %>">
+          <h1 class="display-4">Powerful bot</h1>
+          <p class="lead">This is a modified jumbotron that occupies the entire horizontal space of its parent.</p>
+        </div>
+      </div>
     </main>
     
     <%- include('part/footer.ejs') %>
