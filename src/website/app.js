@@ -13,15 +13,21 @@ module.exports = async client => {
   
   // web app
   app.get("/", async (req, res) => {
-    res.render("home.ejs")
+    res.status(200).render("home.ejs", {
+      req,
+      res,
+      bot,
+      lost: false
+    })
   });
   
   // 404
   app.use("/", async (req, res) => {
-    res.render("status/404.ejs", {
+    res.status(404).render("status/404.ejs", {
       req,
       res,
-      bot
+      bot,
+      lost: true
     })
   })
   

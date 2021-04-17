@@ -88,7 +88,7 @@ li {
   list-style-type: none; 
 }
 
-.fo-image {
+.animate-img {
         -webkit-animation: action 1s infinite  alternate;
         animation: action 1s infinite  alternate;
     }
