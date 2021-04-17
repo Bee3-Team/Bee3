@@ -152,7 +152,3 @@ body::-webkit-scrollbar-thumb
 	border-radius: 10px;
   background-color: #ffd700;
 }
-
-.nav-item {
-  margin-left: 10px;
-}
