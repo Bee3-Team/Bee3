@@ -153,10 +153,16 @@ body::-webkit-scrollbar-thumb
   background-color: #ffd700;
 }
 
+.row {
+  justify-content: center;
+}
+
 .col-sm {
   background-color: #ffd700;
   margin-bottom: 20px;
   padding: 10px;
   margin-left: 10px;
   margin-right: 10px;
+  border-radius: 16px;
+  width: 100px !important;
 }
