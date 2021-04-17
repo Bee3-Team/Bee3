@@ -59,6 +59,10 @@ body {
   font-size: 50px !important;
 }
 
+.lead {
+  color: white;
+}
+
 @media (min-width: 992px) {
   
   .nav-link {
