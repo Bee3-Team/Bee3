@@ -20,11 +20,11 @@
       </li>
       <% if (req.user) { %>
       <li class="nav-item">
-        <a class="nav-link" href="/"><i class="fab fa-user" aria-hidden="true"></i><%= req.user.username %></a>
+        <a class="nav-link" href="/"><%= req.user.username %> <i class="fas fa-user-circle"></i></a>
       </li>      
       <% } else { %>
       <li class="nav-item">
-        <a class="nav-link" href="/"><i class="fas fa-user" aria-hidden="true"></i>Login</a>
+        <a class="nav-link" href="/">Login <i class="fas fa-user-circle"></i></a>
       </li>      
       <% } %>
   </div>
