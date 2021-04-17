@@ -63,6 +63,21 @@ body {
   color: white;
 }
 
+.footer {
+  width: 100%;
+  min-height: 50px; /* Set the fixed height of the footer here */
+  background-color: #ffd700;
+}
+
+.fo-image {
+  border-radius: 50%;
+  box-shadow: 1px 3px 10px black;
+}
+
+.footer-clm {
+  display: flex;
+}
+
 @media (min-width: 992px) {
   
   .nav-link {
