@@ -11,3 +11,44 @@ body {
   min-height: 100% !important;
   margin: 0 auto -50px !important;
 }
+
+.navbar-brand {
+  font-size: 28px !important;
+  font-weight: bold;
+}
+
+.navbar-image {
+  border-radius: 50%;
+  width: 20%;
+  height: auto;
+}
+
+.nav-link {
+  text-align: center;
+  background-color: #27292e;
+  margin-bottom: 10px;
+}
+
+.tooltip-own {
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;  
+}
+
+@media (min-width: 992px) {
+  
+  .nav-link {
+    text-align: right;
+    background-color: transparent;
+    transition: 0.5s;
+  }
+  
+  .nav-link:hover {
+    background-color: #27292e;
+  }
+  
+}
