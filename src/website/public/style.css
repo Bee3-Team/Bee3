@@ -40,6 +40,7 @@ body {
   height: 90%;
   display: block;
   margin: 0 auto;
+  border-radius: 50%;
 }
 
 .jumbotron {
@@ -48,9 +49,8 @@ body {
 
 .jumbo-img {
   width: 100%;
-  height: 90%;
+  height: 200px;
   display: inline-block;
-  border: 2px solid #ccc;
 }
 
 .display-4 {
