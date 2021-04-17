@@ -9,6 +9,7 @@ dependencies:
   passport: 0.4.1
   passport-discord: 0.1.4
   path: 0.12.7
+  smooth-scrollbar: 8.6.1
 packages:
   /@discordjs/collection/0.1.6:
     dev: false
@@ -157,6 +158,11 @@ packages:
       node: '>= 0.6'
     resolution:
       integrity: sha512-+Hp8fLp57wnUSt0tY0tHEXh4voZRDnoIrZPqlo3DPiI4y9lwg/jqx+1Om94/W6ZaPDOUbnjOt/99w66zk+l1Xg==
+  /core-js/3.10.1:
+    dev: false
+    requiresBuild: true
+    resolution:
+      integrity: sha512-pwCxEXnj27XG47mu7SXAwhLP3L5CrlvCB91ANUkIz40P27kUcvNfSdvyZJ9CLHiVoKSp+TTChMQMSKQEH/IQxA==
   /debug/2.6.9:
     dependencies:
       ms: 2.0.0
@@ -397,6 +403,10 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-eLpKyrfG3mzvGE2Du8VoPbeSkRry093+tyNjdYaBbJS9v17knImYGNXQCUV0gLxQtF82m3E8iRb/wdSQZLoq7A==
+  /lodash-es/4.17.21:
+    dev: false
+    resolution:
+      integrity: sha512-mKnC+QJ9pWVzv+C4/U3rRsHapFfHvQFoFB92e52xeyGMcX6/OlIl78je1u8vePzYZSkkogMPJ2yjxxsb89cxyw==
   /media-typer/0.3.0:
     dev: false
     engines:
@@ -636,6 +646,14 @@ packages:
     dev: false
     resolution:
       integrity: sha512-JvdAWfbXeIGaZ9cILp38HntZSFSo3mWg6xGcJJsd+d4aRMOqauag1C63dJfDw7OaMYwEbHMOxEZ1lqVRYP2OAw==
+  /smooth-scrollbar/8.6.1:
+    dependencies:
+      core-js: 3.10.1
+      lodash-es: 4.17.21
+      tslib: 1.14.1
+    dev: false
+    resolution:
+      integrity: sha512-CLokk6gSzzofCiE7CeaR/EPCKQj1ILhmpnFAiuD4DyQLZ2BJiWOluUzZp4IUNsXWaczGZKSHSUdtR+fGGLlsOw==
   /statuses/1.5.0:
     dev: false
     engines:
@@ -656,6 +674,10 @@ packages:
       node: '>=0.6'
     resolution:
       integrity: sha512-yaOH/Pk/VEhBWWTlhI+qXxDFXlejDGcQipMlyxda9nthulaxLZUNcUqFxokp0vcYnvteJln5FNQDRrxj3YcbVw==
+  /tslib/1.14.1:
+    dev: false
+    resolution:
+      integrity: sha512-Xni35NKzjgMrwevysHTCArtLDpPvye8zV/0E4EyYn43P7/7qvQwPh9BGkHewbMulVntbigmcT7rdX3BNo9wRJg==
   /tweetnacl/1.0.3:
     dev: false
     resolution:
@@ -728,3 +750,4 @@ specifiers:
   passport: ^0.4.1
   passport-discord: ^0.1.4
   path: ^0.12.7
+  smooth-scrollbar: ^8.6.0
