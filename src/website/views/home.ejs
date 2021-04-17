@@ -22,12 +22,20 @@
       <br>
       <br>
       <br>
-      <div classs="status">
+      <div class="status">
         <span class="status-title">status.beee.cf</span>
-        <div class="status-servers">
+        <div class="status-card">
           <span class="s-title">Were are online in</span>
-          <span class="s-pil"><i class="fas fa-server"></i> <%= client.guilds.cache.size %></span>
+          <span class="s-pil"><i class="fas fa-server"></i> <%= bot.guilds.cache.size %></span>
         </div>
+        <div class="status-card">
+          <span class="s-title">Were are chatting in</span>
+          <span class="s-pil"><i class="fas fa-hashtag"></i> <%= bot.channels.cache.size %></span>
+        </div> 
+        <div class="status-card">
+          <span class="s-title">Were are playling with</span>
+          <span class="s-pil"><i class="fas fa-users"></i> <%= bot.users.cache.size %></span>
+        </div>         
       </div>
     </main>
 

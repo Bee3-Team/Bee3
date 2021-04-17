@@ -152,3 +152,19 @@ body::-webkit-scrollbar-thumb
 	border-radius: 10px;
   background-color: #ffd700;
 }
+
+.status {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid white;
+}
+
+.status-title {
+  color: white;
+  font-weight: 400;
+  font-size: 25px;
+}
+
+.status-card {
+  m
+}
