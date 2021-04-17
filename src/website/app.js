@@ -92,7 +92,7 @@ module.exports = async client => {
 
   function checkAuth(req, res, next) {
     if (req.isAuthenticated()) return next();
-    res.send("not logged in :(");
+    res.redirect("/login")
   }
 
   app.listen(port, () => {
