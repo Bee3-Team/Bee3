@@ -166,3 +166,15 @@ body::-webkit-scrollbar-thumb
   border-radius: 16px;
   width: 100px !important;
 }
+
+.card-header {
+  cursor: pointer;
+}
+
+.card {
+  width: 100%;
+  height: auto;
+  border-radius: 16px !important;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
