@@ -6,51 +6,69 @@ const path = require("path");
 
 module.exports = async client => {
   app.use(bodyParser.urlencoded({ extended: false }));
-  app.set('views', path.join(__dirname, '/views'));
-  app.use(express.static(__dirname + '/public'));
-  app.set('view engine', 'ejs')
+  app.set("views", path.join(__dirname, "/views"));
+  app.use(express.static(__dirname + "/public"));
+  app.set("view engine", "ejs");
   const bot = client;
-  const session  = require('express-session');
-  const passport = require('passport');
+  const session = require("express-session");
+  const passport = require("passport");
   const Strategy = require("passport-discord").Strategy;
 
-passport.serializeUser(function(user, done) {
-  done(null, user);
-});
-passport.deserializeUser(function(obj, done) {
-  done(null, obj);
-});
+  passport.serializeUser(function(user, done) {
+    done(null, user);
+  });
+  passport.deserializeUser(function(obj, done) {
+    done(null, obj);
+  });
 
-var scopes = ['identify', 'email', /* 'connections', (it is currently broken) */ 'guilds', 'guilds.join'];
-var prompt = 'consent'
+  var scopes = [
+    "identify",
+    /* 'connections', (it is currently broken) */ "guilds"
+  ];
+  var prompt = "consent";
 
-passport.use(new Strategy({
-    clientID: '',
-    clientSecret: '',
-    callbackURL: 'http://localhost:5000/callback',
-    scope: scopes,
-    prompt: prompt
-}, function(accessToken, refreshToken, profile, done) {
-    process.nextTick(function() {
-        return done(null, profile);
-    });
-}));
+  passport.use(
+    new Strategy(
+      {
+        clientID: "832610957405847562",
+        clientSecret: client.config.secret,
+        callbackURL: "https://beee.cf/callback",
+        scope: scopes,
+        prompt: prompt
+      },
+      function(accessToken, refreshToken, profile, done) {
+        process.nextTick(function() {
+          return done(null, profile);
+        });
+      }
+    )
+  );
 
-app.use(session({
-    secret: 'keyboard cat',
-    resave: false,
-    saveUninitialized: false
-}));
-app.use(passport.initialize());
-app.use(passport.session());
-app.get('/login', passport.authenticate('discord', { scope: scopes, prompt: prompt }), function(req, res) {});
-app.get('/callback',
-    passport.authenticate('discord', { failureRedirect: '/' }), function(req, res) { res.redirect(`${req.originalUrl}`) } // auth success
-);
-app.get('/logout', function(req, res) {
+  app.use(
+    session({
+      secret: "mybot",
+      resave: false,
+      saveUninitialized: false
+    })
+  );
+  app.use(passport.initialize());
+  app.use(passport.session());
+  app.get(
+    "/login",
+    passport.authenticate("discord", { scope: scopes, prompt: prompt }),
+    function(req, res) {}
+  );
+  app.get(
+    "/callback",
+    passport.authenticate("discord", { failureRedirect: "/" }),
+    function(req, res, next) {
+      return res.redirect("/account/server-list");
+    } // auth success
+  );
+  app.get("/logout", function(req, res) {
     req.logout();
-    res.redirect('/');
-});
+    res.redirect("/");
+  });
 
   // web app
   app.get("/", async (req, res) => {
@@ -59,9 +77,9 @@ app.get('/logout', function(req, res) {
       res,
       bot,
       lost: false
-    })
+    });
   });
-  
+
   // 404
   app.use("/", async (req, res) => {
     res.status(404).render("status/404.ejs", {
@@ -69,14 +87,14 @@ app.get('/logout', function(req, res) {
       res,
       bot,
       lost: true
-    })
-  })
-  
-function checkAuth(req, res, next) {
+    });
+  });
+
+  function checkAuth(req, res, next) {
     if (req.isAuthenticated()) return next();
-    res.send('not logged in :(');
-}
-  
+    res.send("not logged in :(");
+  }
+
   app.listen(port, () => {
     console.log(`The bot web was running!`);
   });
