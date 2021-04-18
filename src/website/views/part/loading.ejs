@@ -1,8 +1,9 @@
-<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.js"></script>
 <script>
     	$(window).load(function() {
-		$(".se-pre-con").parent().fadeOut("slow");
+		// Animate loader off screen
+		setTimeout(() => {
+      $(".se-pre-con").fadeOut("slow");;
+    }, 2000)
 	});
 </script>
 <style>
@@ -13,8 +14,19 @@
 	width: 100%;
 	height: 100%;
 	z-index: 9999;
-	background: url(https://smallenvelop.com/wp-content/uploads/2014/08/Preloader_11.gif) center no-repeat #fff;
+  background-color: #ffd700;
+  text-align: center;
 }
+  
+  .loading-image {
+    margin-top: 20%;
+    border-radius: 50%;
+    box-shadow: 1px 3px 10px black;
+  }
 </style>
 <div class="se-pre-con">
-</div> -->
+  <img class="loading-image animate-img" src="<%= bot.user.displayAvatarURL() %>">
+  <h1>
+    Loading...
+  </h1>
+</div>  
