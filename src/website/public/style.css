@@ -178,3 +178,7 @@ body::-webkit-scrollbar-thumb
   margin-top: 10px;
   margin-bottom: 10px;
 }
+
+.on-loading {
+  overflow-z: hidden !important;
+}
