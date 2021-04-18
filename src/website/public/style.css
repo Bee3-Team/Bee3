@@ -190,6 +190,7 @@ body::-webkit-scrollbar-thumb
   width: 100%;
   height: auto;
   border-radius: 16px !important;
+  margin: 0 auto;
 }
 
 .acc-img {
@@ -202,11 +203,13 @@ body::-webkit-scrollbar-thumb
   text-align: center;
   background-color: #202225;
   padding: 10px;
+  border-radius: 16px 16px 0px 0px;
 }
 
 .acc-pils {
   padding: 20px;
   background-color: #2f3136;
+  border-radius: 0px 0px 16px 16px;
 }
 
 .acc-name {
