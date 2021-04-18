@@ -95,7 +95,21 @@ module.exports = async client => {
     
     return res.redirect(`https://discord.com/api/oauth2/authorize?client_id=832610957405847562&permissions=${perms}&redirect_uri=https%3A%2F%2Fbeee.cf&scope=bot`)
   });
+  
+  app.get("/support", async (req, res) => {
+    res.redirect("https://discord.gg/vH7fhRWg53");
+  });
 
+  app.get("/account", checkAuth, async (req, res) => {
+    res.render("acc/account.ejs", {
+      req,
+      res,
+      bot,
+      lost: false,
+      user: req.user
+    })
+  })
+  
   // 404
   app.get("*", async (req, res) => {
     res.status(404).render("status/404.ejs", {
