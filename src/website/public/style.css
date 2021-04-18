@@ -188,8 +188,8 @@ body::-webkit-scrollbar-thumb
 
 .acc {
   width: 100%;
-  border: 1px solid white;
   height: auto;
+  border-radius: 16px !important;
 }
 
 .acc-img {
@@ -200,13 +200,13 @@ body::-webkit-scrollbar-thumb
 
 .acc-profile {
   text-align: center;
-  background-color: #262626;
+  background-color: #202225;
   padding: 10px;
 }
 
 .acc-pils {
   padding: 20px;
-  background-color: #4a4a4a;
+  background-color: #2f3136;
 }
 
 .acc-name {
@@ -221,7 +221,10 @@ body::-webkit-scrollbar-thumb
 .acc-pils-list {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+}
+
+.pils-item {
+  margin: 3px 3px 0px;
 }
 
 .acc-pils-name {
@@ -231,7 +234,7 @@ body::-webkit-scrollbar-thumb
 @media (min-width: 992px) {
 .acc {
   width: 30%;
-  border: 1px solid white;
   height: auto;
+  border-radius: 16px !important;
 }  
 }
