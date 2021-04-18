@@ -137,18 +137,21 @@ li {
 
 body::-webkit-scrollbar-track
 {
+  position: absolute;
 	background-color: transparent;
 	border-radius: 10px;
 }
 
 body::-webkit-scrollbar
 {
+  position: absolute;
 	width: 10px;
 	background-color: transparent;
 }
 
 body::-webkit-scrollbar-thumb
 {
+  position: absolute;
 	border-radius: 10px;
   background-color: #ffd700;
 }
@@ -180,5 +183,5 @@ body::-webkit-scrollbar-thumb
 }
 
 .on-loading {
-  overflow-z: hidden !important;
+  overflow-y: hidden;
 }
