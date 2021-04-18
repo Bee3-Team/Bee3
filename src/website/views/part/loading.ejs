@@ -1,9 +1,14 @@
 <script>
     	$(window).load(function() {
 		// Animate loader off screen
+        setTimeout(() => {
+          $(".loading-image").fadeOut("slow");
+          $(".loading-txt").fadeOut("slow");
+        }, 2000)
+        
 		setTimeout(() => {
-      $(".se-pre-con").fadeOut("slow");;
-    }, 2000)
+      $(".se-pre-con").fadeOut("slow");
+    }, 3000)
 	});
 </script>
 <style>
@@ -20,14 +25,22 @@
 }
   
   .loading-image {
+    margin-top: 50%;
+    border-radius: 50%;
+    box-shadow: 1px 3px 10px black;
+  }
+  
+  @media (min-width: 992px) {
+  .loading-image {
     margin-top: 21%;
     border-radius: 50%;
     box-shadow: 1px 3px 10px black;
+  }    
   }
 </style>
 <div class="se-pre-con">
   <img class="loading-image animate-img" src="<%= bot.user.displayAvatarURL() %>">
-  <h1>
+  <h1 class="loading-txt">
     Loading...
   </h1>
 </div>  
