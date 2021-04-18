@@ -9,7 +9,18 @@
     <%- include('../part/navbar.ejs') %>
     
     <main id="main" role="main" class="container main">
-
+      <div class="acc">
+        <div class="acc-profile">
+        <img class="acc-img animate-img" src="<%= user.displayAvatarURL() %>">
+        <h1 class="acc-name">
+          <%= user.username %>
+        </h1>
+        <span class="acc-tag"><%= user.tag %></span>
+        </div>
+        <div class="acc-pils">
+          <h5><a href="/account/server-list" class="badge badge-warning">Dashboard</a></h5>
+        </div>
+      </div>
     </main>
     
 

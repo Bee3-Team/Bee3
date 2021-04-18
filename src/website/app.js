@@ -106,7 +106,7 @@ module.exports = async client => {
       res,
       bot,
       lost: false,
-      user: req.user
+      user: await client.users.fetch(req.user.id.toString())
     })
   })
   

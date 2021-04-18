@@ -185,3 +185,24 @@ body::-webkit-scrollbar-thumb
 .on-loading {
   overflow-y: hidden;
 }
+
+.acc {
+  width: 30%;
+  border: 1px solid white;
+  text-align: center;
+  heigh
+}
+
+.acc-img {
+  margin-top: 5%;
+  border-radius: 50%;
+  box-shadow: 1px 3px 10px black;
+}
+
+.acc-profile {
+  background-color: #262927;
+}
+
+.acc-pils {
+  background-color: #4e5450;
+}
