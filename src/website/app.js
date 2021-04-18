@@ -3,6 +3,7 @@ const app = express();
 const port = process.env.PORT;
 const bodyParser = require("body-parser");
 const path = require("path");
+const { Permissions } = require("discord.js");
 
 module.exports = async client => {
   app.use(bodyParser.urlencoded({ extended: false }));
@@ -80,14 +81,20 @@ module.exports = async client => {
     });
   });
   
-  app.get("/commands", async (req, res) => {
-    res.status(200).render("commands.ejs", {
-      req,
-      res,
-      bot,
-      lost: false
-    });
-  })
+  app.get("/invite", async (req, res) => {
+    let perms;
+    
+    let permsCheck = req.query.permission;
+    if (!permsCheck)  {
+      perms = 8;
+    } else if (permsCheck) {
+      let check = new Permissions(permsCheck);
+      let check2 = check.FLAGS ? true : false;
+      if (!check2) perms = 8; else perms = check.bitfield;
+    }
+    
+    return res.redirect(`https://discord.com/oauth2/authorize?client_id=204255083083333633&scope=bot&permissions=2146827775&guild_id=802075986816401408&disable_guild_select=true&response_type=code&redirect_uri=https%3A%2F%2Fyagpdb.xyz%2Fmanage`)
+  });
 
   // 404
   app.get("*", async (req, res) => {
