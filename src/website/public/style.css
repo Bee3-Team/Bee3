@@ -187,10 +187,9 @@ body::-webkit-scrollbar-thumb
 }
 
 .acc {
-  width: 30%;
+  width: 100%;
   border: 1px solid white;
-  text-align: center;
-  heigh
+  height: auto;
 }
 
 .acc-img {
@@ -200,9 +199,39 @@ body::-webkit-scrollbar-thumb
 }
 
 .acc-profile {
-  background-color: #262927;
+  text-align: center;
+  background-color: #262626;
+  padding: 10px;
 }
 
 .acc-pils {
-  background-color: #4e5450;
+  padding: 20px;
+  background-color: #4a4a4a;
+}
+
+.acc-name {
+  color: white;
+  font-weight: 400;
+}
+
+.acc-tag {
+  color: #c7c7c7;
+}
+
+.acc-pils-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.acc-pils-name {
+  color: white;
+}
+
+@media (min-width: 992px) {
+.acc {
+  width: 30%;
+  border: 1px solid white;
+  height: auto;
+}  
 }
