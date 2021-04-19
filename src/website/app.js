@@ -175,7 +175,11 @@ module.exports = async client => {
 
   function checkAuth(req, res, next) {
     if (req.isAuthenticated()) return next();
-    res.redirect("/login")
+    res.render("status/onlogin.ejs", {
+      req,
+      res,
+      bot
+    })
   }
 
   app.listen(port, () => {
