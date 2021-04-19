@@ -283,4 +283,6 @@ body::-webkit-scrollbar-thumb {
   flex-flow: row wrap;
   display: flex;
   align-items: center;  
+  width: auto;
+  margin-inline-start: -20px;
 }
