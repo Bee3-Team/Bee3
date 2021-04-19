@@ -1,4 +1,5 @@
-html, body {
+html,
+body {
   height: 100%;
   margin: 0;
 }
@@ -89,7 +90,7 @@ body {
 }
 
 li {
-  list-style-type: none; 
+  list-style-type: none;
 }
 
 .navbar-nav {
@@ -97,62 +98,65 @@ li {
 }
 
 .animate-img {
-        -webkit-animation: action 1s infinite  alternate;
-        animation: action 1s infinite  alternate;
-    }
-    @-webkit-keyframes action {
-        0% { transform: translateY(0); }
-        100% { transform: translateY(-10px); }
-    }
-    @keyframes action {
-        0% { transform: translateY(0); }
-        100% { transform: translateY(-10px); }
-    }
+  -webkit-animation: action 1s infinite alternate;
+  animation: action 1s infinite alternate;
+}
+@-webkit-keyframes action {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-10px);
+  }
+}
+@keyframes action {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-10px);
+  }
+}
 
 .navbar-dark .navbar-toggler {
-    color: transparent !importan;
-    border-color: transparent !important;
+  color: transparent !importan;
+  border-color: transparent !important;
 }
 .navbar-dark .navbar-toggler-icon {
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 217, 0%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
 }
 
 @media (min-width: 992px) {
-  
   .nav-link {
     text-align: right;
     background-color: transparent;
     transition: 0.5s;
   }
-  
+
   .nav-link:hover {
     background-color: #27292e;
   }
-  
+
   .navbar-nav {
     margin-top: 0px;
   }
-  
 }
 
-body::-webkit-scrollbar-track
-{
+body::-webkit-scrollbar-track {
   position: absolute;
-	background-color: transparent;
-	border-radius: 10px;
+  background-color: transparent;
+  border-radius: 10px;
 }
 
-body::-webkit-scrollbar
-{
+body::-webkit-scrollbar {
   position: absolute;
-	width: 10px;
-	background-color: transparent;
+  width: 10px;
+  background-color: transparent;
 }
 
-body::-webkit-scrollbar-thumb
-{
+body::-webkit-scrollbar-thumb {
   position: absolute;
-	border-radius: 10px;
+  border-radius: 10px;
   background-color: #ffd700;
 }
 
@@ -235,11 +239,11 @@ body::-webkit-scrollbar-thumb
 }
 
 @media (min-width: 992px) {
-.acc {
-  width: 30%;
-  height: auto;
-  border-radius: 16px !important;
-}  
+  .acc {
+    width: 30%;
+    height: auto;
+    border-radius: 16px !important;
+  }
 }
 
 .server {
@@ -253,14 +257,12 @@ body::-webkit-scrollbar-thumb
 }
 
 .server-name {
-    font-weight: bold;
-    font-size: 18px;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
-    flex: 1 0 1em;
-    color: white;
-  
+  font-weight: bold;
+  font-size: 12px;
+  color: white;
+  text-overflow: ellipsis !important;
+  display: inline-block !important;
+  overflow: hidden !important;
 }
 
 .server-btn {
