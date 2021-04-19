@@ -309,3 +309,19 @@ body::-webkit-scrollbar-thumb {
   vertical-align: top !important;
   border-top: transparent;
 }
+
+.error {
+  background-color: red;
+  padding: 10px;
+  border-radius: 16px;
+  width: 60%;
+  margin: 0 auto;
+  text-align: center;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  transition: 0.5s;
+}
+
+.error:hover {
+  transform: scale(1.1)
+}
