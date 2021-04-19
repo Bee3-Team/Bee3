@@ -253,13 +253,14 @@ body::-webkit-scrollbar-thumb
 }
 
 .server-name {
-  font-weight: bold;
-  font-size: 18px;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
-  flex: 1 0 1em;
-  color: white;
+    font-weight: bold;
+    font-size: 18px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    flex: 1 0 1em;
+    color: white;
+  
 }
 
 .server-btn {
