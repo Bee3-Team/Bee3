@@ -116,7 +116,8 @@ module.exports = async client => {
       res,
       bot,
       lost: false,
-      user: await client.users.fetch(req.user.id.toString())
+      user: await client.users.fetch(req.user.id.toString()),
+      Permissions: Permissions
     })
   });  
   
