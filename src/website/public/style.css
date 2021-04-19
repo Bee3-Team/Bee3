@@ -241,3 +241,11 @@ body::-webkit-scrollbar-thumb
   border-radius: 16px !important;
 }  
 }
+
+.server {
+  display: flex;
+}
+
+.server-icon {
+  
+}

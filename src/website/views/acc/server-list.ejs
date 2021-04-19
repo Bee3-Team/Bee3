@@ -21,7 +21,14 @@
         %>
         <div class='server'>
           <div class="server-icon-name">
-            <img class="server-icon" src="<%= guild.icon %>">
+            <% let icon;
+            if (guild.icon) {
+            icon = `https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}.webp`
+            } else if (!guild.icon) {
+            icon = bot.user.displayAvatarURL()
+            }
+            %>
+            <img class="server-icon" src="<%= icon %>">
             <span class="server-name"><%= guild.name %></span>
           </div>
           <div class="server-section">
@@ -40,5 +47,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.js"></script>
     <%- include('../part/loading.ejs') %>
+    
   </body>
 </html>
