@@ -26,10 +26,7 @@
   <thead>
     <h3 style="color: white; text-align: center;">
       Please select a server
-    </h3>
-      <div class="error">
-        <span class="error-msg">You do not have permissions to edit <strong><%= missing_permission.name %></strong></span>
-      </div>    
+    </h3> 
   </thead>
   <tbody>
         <% guilds.sort((a, b) => b.num - a.num).map(guild => { %>
