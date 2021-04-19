@@ -132,7 +132,8 @@ module.exports = async client => {
       bot,
       lost: false,
       user: await client.users.fetch(req.user.id.toString()),
-      Permissions: Permissions
+      Permissions: Permissions,
+      missing_permission: false
     })
   });  
   
@@ -143,7 +144,18 @@ module.exports = async client => {
     let checkUserGuild = req.user.guilds.find(x => x.id == guild_id);
     if (!checkUserGuild) return res.redirect("/account/server-list");
     
-    
+    let perms = new Permissions(checkUserGuild.permissions);
+    if (!perms.has("MANAGE_GUILD")) {
+      return res.render("acc/server-list", {
+        req,
+        res,
+        bot,
+        lost: false,
+        user: await client.users.fetch(req.user.id.toString()),
+        Permissions: Permissions,
+        missing_permission: true
+      })
+    }
   });
   
   // 404

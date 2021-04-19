@@ -9,6 +9,9 @@
     <%- include('../part/navbar.ejs') %>
     
     <main id="main" role="main" class="container main">
+      <div class="error">
+        <span class="error-msg">You do not have permissions to edit <%= missing_permission.name %></span>
+      </div>
       <div class="server-list">
         <% let guilds = []; %>
         <% req.user.guilds.map(guild => { %>
