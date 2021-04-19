@@ -259,16 +259,18 @@ body::-webkit-scrollbar-thumb {
 .server-name {
   font-weight: bold;
   font-size: 12px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  flex: 1 0 1em;
   color: white;
-  text-overflow: ellipsis !important;
-  display: inline-block !important;
-  overflow: hidden !important;
 }
 
 .server-btn {
-  width: 100px;
-  height: 35px;
-  margin: auto;
+  min-width: 125px !important;
+  max-width: 300px !important;
+  flex-shrink: 0 !important;
+  margin: auto !important;
 }
 
 .server {
