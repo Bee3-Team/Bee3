@@ -308,6 +308,7 @@ body::-webkit-scrollbar-thumb {
   padding: 5px !important;
   vertical-align: top !important;
   border-top: transparent;
+  width: auto;
 }
 
 .error {
