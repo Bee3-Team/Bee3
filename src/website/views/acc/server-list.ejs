@@ -23,7 +23,7 @@
         <% 
         let Check = new Permissions(guild.permissions)
         if (!Check.has("MANAGE_GUILD")) return;
-        guilds.push({num: 1, id: guild.id, name: guild.name, icon: guild.icon, btn: "Add Me", redirect: "/invite?permission=8&guild=`${guild.id}`});
+        guilds.push({num: 1, id: guild.id, name: guild.name, icon: guild.icon, btn: "Add Me", redirect: `/invite?permission=8&guild=${guild.id}`});
         %>      
 <!--          -->
         <% } else { %>
@@ -43,10 +43,10 @@
             }
             %>
             <img class="server-icon" src="<%= icon %>">
-            <span class="server-name"><%= guild.name %></span>
+            <span class="server-name"><%= guild.name.length > 20 ? guild.name.substring(0, 17) + "..." : guild.name %></span>
           </div>
           <div class="server-section">
-            <button onclick="document.location='/invite?permission=8&guild=<%= guild.id %>'" class="btn btn-success">Add Me</button>
+            <button onclick="document.location='<%= guild.redirect %>'" class="btn <%= guild.btn.toLowerCase() == "add me" ? "btn-secondary" : "btn-success" %>"><%= guild.btn %></button>
           </div>
         </div>          
         <% }) %>
