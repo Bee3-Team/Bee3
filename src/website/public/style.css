@@ -9,6 +9,7 @@ html {
 }
 
 body {
+  scroll-behavior: smooth;
   background-color: #36393f !important;
 }
 
@@ -318,19 +319,20 @@ body::-webkit-scrollbar-thumb {
   background-color: red;
   padding: 10px;
   border-radius: 16px;
-  max-width: 100%;
+  max-width: fit-content;
   margin: 0 auto;
   text-align: center;
   margin-top: 5px;
   margin-bottom: 10px;
   transition: 0.5s;
   align-items: center;
-  font-size: 24px;
+  font-size: 13px;
 }
 
 .error-btn {
-  font-size: 35px;
+  font-size: 27px;
   float: right;
-  margin-top: 2px;
+  margin-top: -2px;
   cursor: pointer;
+  margin-left: 13px;
 }

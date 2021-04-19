@@ -159,7 +159,7 @@ module.exports = async client => {
     
     let perms = new Permissions(checkUserGuild.permissions);
     if (!perms.has("MANAGE_GUILD")) {
-      return res.redirect("/account/server-list?mp=true&mpguild=" + checkUserGuild.name)
+      return res.redirect("/account/server-list?mp=true&mpguild=" + checkUserGuild.name + "#error")
     }
   });
   
