@@ -9,36 +9,28 @@
     <%- include('../part/navbar.ejs') %>
     
     <main id="main" role="main" class="container main">
-<table class="table">
-  <thead>
-    <h1>
-      Please server a server
-    </h1>
-  </thead>
-  <tbody>
-    <ul class="list-unstyled">
-      
-    <% req.user.guilds.map(x => { %>
-    <% if (!bot.guilds.cache.get(x.id)) { %>
-    <% 
-    let Check = new Permissions(x.permissions).has("MANAGE_GUILD");
-    
-    if (!Check) return;
-    
-    %>
-      <li><img class="server-icon-item" src="<%=  %>"> <%= x.name %> <button onclick="location.href='/invite?permission=8'" class="btn btn-success">Add Me</button></li>
-    <% } else { %>
-    <% if (!bot.guilds.cache.get(x.id).members.cache.get(user.id).permissions.has("MANAGE_GUILD")) return; %>
-    
-      <li><img class="server-icon-item" src="<%=  %>"> <%= x.name %> <button onclick="location.href='/dashboard/<%= x.id %>'" class="btn btn-success">Manage</button></li>
-    
-    <% } %>
-    
-    
-    <% }) %>
-    </ul>
-  </tbody>
-</table>
+      <div class="server-list">
+        <h1>
+          Please select a server
+        </h1>
+        <% req.user.guilds.map(guild => { %>
+        <% if (!bot.guilds.cache.get(guild.id)) { %>
+        <% 
+        let Check = new Permissions(guild.permissions)
+        if (!Check.has("MANAGE_GUILD")) return;
+        %>
+        <div class='server'>
+          <div class="server-icon-name">
+            <img class="server-icon" src="<%= guild.icon %>">
+            <span class="server-name"><%= guild.name %></span>
+          </div>
+          <div class="server-section">
+            <button class="btn btn-success">Add Me</button>
+          </div>
+        </div>        
+        <% } %>
+        <% }) %>
+      </div>
     </main>
     
 
