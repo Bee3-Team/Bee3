@@ -18,6 +18,10 @@ body {
   margin: 0 auto -50px !important;
 }
 
+.navbar {
+  padding: 10p
+}
+
 .navbar-brand {
   font-size: 28px !important;
   font-weight: bold;
