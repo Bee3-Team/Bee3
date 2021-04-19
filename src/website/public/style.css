@@ -257,13 +257,14 @@ body::-webkit-scrollbar-thumb {
 }
 
 .server-name {
-  font-weight: bold;
-  font-size: 12px;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
-  flex: 1 0 1em;
-  color: white;
+    font-weight: 500;
+    font-size: 15px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    flex: 1 0 1em;
+    color: white;
+    margin-inline-start: 10px;
 }
 
 .server-btn {
@@ -276,4 +277,10 @@ body::-webkit-scrollbar-thumb {
 .server {
   margin-top: 10px;
   margin-bottom: 10px;
+}
+
+.server-icon-name {
+  flex-flow: row wrap;
+  display: flex;
+  align-items: center;  
 }
