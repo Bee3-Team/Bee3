@@ -273,7 +273,7 @@ body::-webkit-scrollbar-thumb {
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
-  flex: 1 0 1em;  
+  flex: 1 0 1em;
 }
 
 .server-btn {
@@ -282,6 +282,9 @@ body::-webkit-scrollbar-thumb {
   flex-shrink: 0 !important;
   margin: auto !important;
   align-items: center !important;
+  line-height: 1 !important;
+  font-size: 13px !important;
+  padding: 8px 25px !important;
 }
 
 .server {
@@ -324,5 +327,5 @@ body::-webkit-scrollbar-thumb {
 }
 
 .error:hover {
-  transform: scale(1.1)
+  transform: scale(1.1);
 }
