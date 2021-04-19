@@ -300,7 +300,7 @@ body::-webkit-scrollbar-thumb {
 }
 
 .table {
-  width: 80% !important;
+  max-width: 800px !important;
   margin-bottom: 1rem !important;
   color: #212529 !important;
   margin: 0 auto !important;
@@ -318,7 +318,7 @@ body::-webkit-scrollbar-thumb {
   background-color: red;
   padding: 10px;
   border-radius: 16px;
-  width: 60%;
+  max-width: 350px;
   margin: 0 auto;
   text-align: center;
   margin-top: 5px;

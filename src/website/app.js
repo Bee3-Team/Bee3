@@ -126,6 +126,8 @@ module.exports = async client => {
   });
   
   app.get("/account/server-list", checkAuth, async (req, res) => {
+    if (req.params.missing-permission === true)
+    
     res.render("acc/server-list.ejs", {
       req,
       res,
@@ -146,15 +148,7 @@ module.exports = async client => {
     
     let perms = new Permissions(checkUserGuild.permissions);
     if (!perms.has("MANAGE_GUILD")) {
-      return res.render("acc/server-list", {
-        req,
-        res,
-        bot,
-        lost: false,
-        user: await client.users.fetch(req.user.id.toString()),
-        Permissions: Permissions,
-        missing_permission: true
-      })
+      return res.redirect("/account/server-list?missing-permission=true")
     }
   });
   
