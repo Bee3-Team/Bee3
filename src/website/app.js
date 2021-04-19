@@ -136,6 +136,16 @@ module.exports = async client => {
     })
   });  
   
+  app.get("/dashboard/:id", checkAuth, async (req, res) => {
+    let guild_id = req.params.id;
+    if (!guild_id) return res.redirect("/account/server-list");
+    
+    let checkUserGuild = req.user.guilds.find(x => x.id == guild_id);
+    if (!checkUserGuild) return res.redirect("/account/server-list");
+    
+    
+  });
+  
   // 404
   app.get("*", async (req, res) => {
     res.status(404).render("status/404.ejs", {

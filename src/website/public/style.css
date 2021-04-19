@@ -281,6 +281,7 @@ body::-webkit-scrollbar-thumb {
   max-width: 300px !important;
   flex-shrink: 0 !important;
   margin: auto !important;
+  align-items: center !important;
 }
 
 .server {
