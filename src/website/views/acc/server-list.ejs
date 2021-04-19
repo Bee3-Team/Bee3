@@ -9,7 +9,30 @@
     <%- include('../part/navbar.ejs') %>
     
     <main id="main" role="main" class="container main">
-
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">First</th>
+      <th scope="col">Last</th>
+      <th scope="col">Handle</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% req.user.guilds.map(x => { %>
+    <% if (!bot.guilds.cache.get(x.id)) { %>
+    <tr style="color: white;">
+      <th scope="row">1</th>
+      <td><%= x.name %></td>
+      <td><%= x.id %></td>
+      <td>Add Me</td>
+    </tr>    
+    <% } %>
+    
+    
+    <% }) %>
+  </tbody>
+</table>
     </main>
     
 
