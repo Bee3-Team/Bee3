@@ -284,5 +284,6 @@ body::-webkit-scrollbar-thumb {
   display: flex;
   align-items: center;  
   max-width: 250px;
+  min-width: 120px;
   margin-inline-start: -20px;
 }
