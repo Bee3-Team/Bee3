@@ -27,6 +27,7 @@
     <h3 style="color: white; text-align: center;">
       Please select a server
     </h3> 
+    <span class="refresh-btn"><i class="fa fa-refresh"></i></span>
     <% if (missing_permission.type) { %>
     <div class="error" id="error">
       <span class="error-msg">You do not have permission to manage <%= missing_permission.guild %> <i onclick="errorDelete()" class="fa fa-close error-btn"></i></span>
