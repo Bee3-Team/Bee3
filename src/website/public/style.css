@@ -246,8 +246,13 @@ body::-webkit-scrollbar-thumb {
   }
 }
 
+.server-list {
+  margin: 0 auto;
+}
+
 .server {
   display: flex;
+  margin: 0 auto;
 }
 
 .server-icon {
@@ -285,5 +290,5 @@ body::-webkit-scrollbar-thumb {
   align-items: center;  
   max-width: 250px;
   min-width: 120px;
-  margin-inline-start: -20px;
+  margin-inline-start: -15px;
 }
