@@ -45,9 +45,7 @@
             <img class="server-icon" src="<%= icon %>">
             <span class="server-name"><%= guild.name.length > 20 ? guild.name.substring(0, 17) + "..." : guild.name %></span>
           </div>
-          <div class="server-section">
-            <button onclick="document.location='<%= guild.redirect %>'" class="btn <%= guild.btn.toLowerCase() == "add me" ? "btn-secondary" : "btn-success" %>"><%= guild.btn %></button>
-          </div>
+            <button onclick="document.location='<%= guild.redirect %>'" class="btn <%= guild.btn.toLowerCase() == "add me" ? "btn-secondary" : "btn-success" %> server-btn"><%= guild.btn %></button>
         </div>          
         <% }) %>
       </div>

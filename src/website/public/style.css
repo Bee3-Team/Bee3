@@ -253,15 +253,22 @@ body::-webkit-scrollbar-thumb
 }
 
 .server-name {
-    font-weight: bold;
-    font-size: 12px;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
-    flex: 1 0 1em;
+  font-weight: bold;
+  font-size: 18px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  flex: 1 0 1em;
+  color: white;
 }
 
-.server-section {
-  justify-content: right;
+.server-btn {
+  width: 100px;
+  height: 35px;
+  margin: auto;
 }
 
+.server {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
