@@ -263,7 +263,7 @@ body::-webkit-scrollbar-thumb {
 
 .server-name {
   font-weight: 500;
-  font-size: 15px;
+  font-size: 20px;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
@@ -288,9 +288,7 @@ body::-webkit-scrollbar-thumb {
   flex-flow: row wrap;
   display: flex;
   align-items: center;
-  max-width: 250px;
   min-width: 120px;
-  margin-inline-start: -15px;
 }
 
 .table {
@@ -298,4 +296,11 @@ body::-webkit-scrollbar-thumb {
   margin-bottom: 1rem !important;
   color: #212529 !important;
   margin: 0 auto !important;
+}
+
+.table td,
+.table th {
+  padding: 5px !important;
+  vertical-align: top !important;
+  border-top: transparent;
 }
