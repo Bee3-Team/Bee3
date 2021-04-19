@@ -318,14 +318,19 @@ body::-webkit-scrollbar-thumb {
   background-color: red;
   padding: 10px;
   border-radius: 16px;
-  max-width: 350px;
+  max-width: 370px;
   margin: 0 auto;
   text-align: center;
   margin-top: 5px;
   margin-bottom: 10px;
   transition: 0.5s;
+  align-items: center;
 }
 
 .error:hover {
   transform: scale(1.1);
+}
+
+.error-btn {
+  font-size: 18px;
 }
