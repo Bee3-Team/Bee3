@@ -175,10 +175,11 @@ module.exports = async client => {
 
   function checkAuth(req, res, next) {
     if (req.isAuthenticated()) return next();
-    res.render("status/onlogin.ejs", {
+    return res.render("status/onlogin.ejs", {
       req,
       res,
-      bot
+      bot,
+      lost: false
     })
   }
 
