@@ -27,6 +27,16 @@
       <td><%= x.id %></td>
       <td>Add Me</td>
     </tr>    
+    <% } else { %>
+    <% if (!bot.guilds.cache.get(x.id).members.cache.get(user.id).permissions.has("MANAGE_GUILD")) return; %>
+    
+    <tr style="color: white;">
+      <th scope="row">1</th>
+      <td><%= x.name %></td>
+      <td><%= x.id %></td>
+      <td>Manage</td>
+    </tr>      
+    
     <% } %>
     
     
