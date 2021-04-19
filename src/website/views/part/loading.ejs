@@ -1,15 +1,7 @@
 <script>
-    	$(window).load(function() {
-		// Animate loader off screen
-        setTimeout(() => {
-          $(".loading-image").fadeOut("slow");
-          $(".loading-txt").fadeOut("slow");
-        }, 2000)
-        
-		setTimeout(() => {
+    	$(window).on("load", function() {
       $(".se-pre-con").fadeOut("slow");
       $(".on-loading").removeClass("on-loading")
-    }, 3000)
 	});
 </script>
 <style>

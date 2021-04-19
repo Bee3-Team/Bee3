@@ -37,7 +37,7 @@
             icon = bot.user.displayAvatarURL()
             }
             %>
-    <tr>
+    <tr class="server">
       <th class="server-icon-name"><img class="server-icon" src="<%= icon %>"> <span class="server-name"><%= guild.name %></span></th>
       <td style="width: 125px;"><button onclick="document.location='<%= guild.redirect %>'" class="btn <%= guild.btn.toLowerCase() == "add me" ? "btn-secondary" : "btn-success" %> server-btn"><%= guild.btn %></button></td>
     </tr>
