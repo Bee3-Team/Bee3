@@ -106,7 +106,7 @@ module.exports = async client => {
     }
       
     // https://discord.com/api/oauth2/authorize?client_id=832610957405847562&permissions=${perms}&redirect_uri=https%3A%2F%2Fbeee.cf%2Faccount%2Fserver-list&scope=bot&guild_id=${guild}&disable_guild_select=true
-    return res.redirect(`https://discord.com/api/oauth2/authorize?client_id=832610957405847562&permissions=${perms}&redirect_uri=https%3A%2F%2Fbeee.cf%2Faccount%2Fserver-list&scope=bot&guild_id=${guild}&disable_guild_select=true`)      
+    return res.redirect(`https://discord.com/api/oauth2/authorize?client_id=832610957405847562&permissions=${perms}&redirect_uri=https%3A%2F%2Fbeee.cf%2Faccount%2Fserver-list&response_type=code&scope=bot&guild_id=${guild}`)      
     }
     
   });
@@ -126,6 +126,10 @@ module.exports = async client => {
   });
   
   app.get("/account/server-list", checkAuth, async (req, res) => {
+    if (req.query.guild_id) {
+      return res.redirect("/dashboard/" + req.query.guild_id)
+    }
+    
     if (req.query.mp === "true") {
       return res.render("acc/server-list.ejs", {
         req,
@@ -161,6 +165,8 @@ module.exports = async client => {
     if (!perms.has("MANAGE_GUILD")) {
       return res.redirect("/account/server-list?mp=true&mpguild=" + checkUserGuild.name + "#error")
     }
+    
+    res.send(":v")
   });
   
   // 404
