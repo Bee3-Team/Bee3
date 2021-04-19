@@ -27,9 +27,9 @@
     <h3 style="color: white; text-align: center;">
       Please select a server
     </h3> 
-    <% if (missing_permission) { %>
+    <% if (missing_permission.type) { %>
     <div class="error">
-      <span class="error-msg">You do not have permission to manage <%= missing_permission %></span>
+      <span class="error-msg">You do not have permission to manage <%= missing_permission.guild %></span>
     </div>    
     <% } %>
   </thead>

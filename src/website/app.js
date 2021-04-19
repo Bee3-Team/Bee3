@@ -126,8 +126,17 @@ module.exports = async client => {
   });
   
   app.get("/account/server-list", checkAuth, async (req, res) => {
-    if (req.params.missing-permission === true)
-    
+    if (req.query.mp === "true") {
+      return res.render("acc/server-list.ejs", {
+        req,
+        res,
+        bot,
+        lost: false,
+        user: await client.users.fetch(req.user.id.toString()),
+        Permissions: Permissions,
+        missing_permission: {type: true, guild: req.query.mpguild}       
+      })
+    } else if (!req.query.mp) {
     res.render("acc/server-list.ejs", {
       req,
       res,
@@ -135,8 +144,10 @@ module.exports = async client => {
       lost: false,
       user: await client.users.fetch(req.user.id.toString()),
       Permissions: Permissions,
-      missing_permission: false
+      missing_permission: {type: false}
     })
+    }
+    
   });  
   
   app.get("/dashboard/:id", checkAuth, async (req, res) => {
@@ -148,7 +159,7 @@ module.exports = async client => {
     
     let perms = new Permissions(checkUserGuild.permissions);
     if (!perms.has("MANAGE_GUILD")) {
-      return res.redirect("/account/server-list?missing-permission=true")
+      return res.redirect("/account/server-list?mp=true&mpguild=" + checkUserGuild.name)
     }
   });
   
