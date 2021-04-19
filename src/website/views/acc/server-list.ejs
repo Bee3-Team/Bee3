@@ -13,12 +13,26 @@
         <h1>
           Please select a server
         </h1>
+<!--          -->
+        <% let guilds = []; %>
+<!--          -->
+<!--          -->
         <% req.user.guilds.map(guild => { %>
+<!--          -->
         <% if (!bot.guilds.cache.get(guild.id)) { %>
         <% 
         let Check = new Permissions(guild.permissions)
         if (!Check.has("MANAGE_GUILD")) return;
-        %>
+        guilds.push({num: 1, id: guild.id, name: guild.name, icon: guild.icon, btn: "Add Me", redirect: "/invite?permission=8&guild=`${guild.id}`});
+        %>      
+<!--          -->
+        <% } else { %>
+        <% guilds.push({num: 2, id: guild.id, name: guild.name, icon: guild.icon, btn: "Manage", redirect: `/dashboard/${guild.id}`}) %>
+        <% } %>
+<!--          -->
+        <% }) %>
+<!--          -->
+        <% guilds.sort((a, b) => b.num - a.num).map(guild => { %>
         <div class='server'>
           <div class="server-icon-name">
             <% let icon;
@@ -34,8 +48,7 @@
           <div class="server-section">
             <button onclick="document.location='/invite?permission=8&guild=<%= guild.id %>'" class="btn btn-success">Add Me</button>
           </div>
-        </div>        
-        <% } %>
+        </div>          
         <% }) %>
       </div>
     </main>

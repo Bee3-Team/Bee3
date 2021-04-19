@@ -105,8 +105,8 @@ module.exports = async client => {
       if (!check2) perms = 8; else perms = check.bitfield;
     }
       
-    
-    return res.redirect(`https://discord.com/oauth2/authorize?client_id=204255083083333633&scope=bot&permissions=${perms}&guild_id=${guild}&disable_guild_select=true&response_type=code&redirect_uri=https%3A%2F%2Fbeee.cf%2Fdashboard%3Fguild%3D${guild}`)      
+    // https://discord.com/api/oauth2/authorize?client_id=832610957405847562&permissions=${perms}&redirect_uri=https%3A%2F%2Fbeee.cf%2Faccount%2Fserver-list&scope=bot&guild_id=${guild}&disable_guild_select=true
+    return res.redirect(`https://discord.com/api/oauth2/authorize?client_id=832610957405847562&permissions=${perms}&redirect_uri=https%3A%2F%2Fbeee.cf%2Faccount%2Fserver-list&scope=bot&guild_id=${guild}&disable_guild_select=true`)      
     }
     
   });
