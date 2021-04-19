@@ -108,7 +108,17 @@ module.exports = async client => {
       lost: false,
       user: await client.users.fetch(req.user.id.toString())
     })
-  })
+  });
+  
+  app.get("/account/server-list", checkAuth, async (req, res) => {
+    res.render("acc/server-list.ejs", {
+      req,
+      res,
+      bot,
+      lost: false,
+      user: await client.users.fetch(req.user.id.toString())
+    })
+  });  
   
   // 404
   app.get("*", async (req, res) => {
