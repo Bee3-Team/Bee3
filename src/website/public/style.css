@@ -262,14 +262,14 @@ body::-webkit-scrollbar-thumb {
 }
 
 .server-name {
-    font-weight: 500;
-    font-size: 15px;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
-    flex: 1 0 1em;
-    color: white;
-    margin-inline-start: 10px;
+  font-weight: 500;
+  font-size: 15px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  flex: 1 0 1em;
+  color: white;
+  margin-inline-start: 10px;
 }
 
 .server-btn {
@@ -287,8 +287,15 @@ body::-webkit-scrollbar-thumb {
 .server-icon-name {
   flex-flow: row wrap;
   display: flex;
-  align-items: center;  
+  align-items: center;
   max-width: 250px;
   min-width: 120px;
   margin-inline-start: -15px;
+}
+
+.table {
+  width: 80% !important;
+  margin-bottom: 1rem !important;
+  color: #212529 !important;
+  margin: 0 auto !important;
 }
