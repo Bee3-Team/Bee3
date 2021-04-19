@@ -32,7 +32,7 @@
             <span class="server-name"><%= guild.name %></span>
           </div>
           <div class="server-section">
-            <button class="btn btn-success">Add Me</button>
+            <button onclick="document.location='/invite?permission=8&guild=<%= guild.id %>'" class="btn btn-success">Add Me</button>
           </div>
         </div>        
         <% } %>
