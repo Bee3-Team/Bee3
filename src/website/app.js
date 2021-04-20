@@ -166,7 +166,7 @@ module.exports = async client => {
       return res.redirect("/account/server-list?mp=true&mpguild=" + checkUserGuild.name + "#error")
     }
     
-    res.render("acc/dashboard.ejs", {
+    res.render("acc/dashboard-stats.ejs", {
       req,
       res,
       bot,
