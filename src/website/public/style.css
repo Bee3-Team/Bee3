@@ -420,8 +420,9 @@ body::-webkit-scrollbar-thumb {
 .nav li:nth-child(7) a:before { content: '\f085'; }
 .nav li:nth-child(8) a:before { content: '\f023'; left: 23px; }
 
-.nav li a:hover {
-  background: #444;
+.sidebar-item:hover {
+  background: #444 !important;
+  width: 220px !important;
 }
 
 .nav li a.active {
