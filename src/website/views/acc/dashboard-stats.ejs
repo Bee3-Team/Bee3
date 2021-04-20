@@ -41,11 +41,8 @@
     <span class='side-panel-toggle'>
       <i class="fa fa-bars"></i>
     </span>
-    <h1>Flexbox Off Canvas Menu</h1>
-    <h2>Lightweight, simple, easy to use</h2>
     <div class="well well-sm">
-<canvas id="myChart" style="width:1000px !important;
-  height:600px !important;"></canvas>   
+<canvas id="myChart" style="max-width: -webkit-fill-available;"></canvas>   
     </div>
     <hr>
   </div>
@@ -112,15 +109,8 @@ var myChart = new Chart(ctx, {
         }]
     },
     options: {
-    responsive: true,
-    maintainAspectRatio: false,
-    scales: {
-        yAxes: [{
-            ticks: {
-                beginAtZero:true
-            }
-        }]
-    }
+  responsive: true,
+  barValueSpacing: 2
     }
 });
 </script>         
