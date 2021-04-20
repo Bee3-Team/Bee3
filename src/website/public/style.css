@@ -342,23 +342,8 @@ body::-webkit-scrollbar-thumb {
   margin-left: 13px;
 }
 
-.refresh:hover {
-  border-radius: 16px;
-}
-.refresh {
-  margin-left: 10px;
-  font-size: 34px;
-  color: black;
-  text-align: center;
-  border-radius: 50%;
-  transition: 0.5s;
-  margin-top: 5px;
-  margin-bottom: 5px;
-  max-width: 782px;
-  margin: auto;
-  text-align: left;
-}
-
 .refresh-btn {
   cursor: pointer;
+  float: left;
+  margin-left: 13px;
 }
