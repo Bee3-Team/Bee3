@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <%- include('../part/head.ejs') %>
+    <%- include('../part/bootstrapCSS.ejs') %>
+  </head>
+  <body class="on-loading">
+    
+    <%- include('../part/navbar.ejs') %>
+    
+    <main id="main" role="main" class="container main">
+<div class="wrapper">
+  <div class="sidebar">
+    <div class="title">Simple.Team</div>
+    <ul class="nav">
+      <li>
+        <a>Dashboard</a>
+      </li>
+      <li>
+        <a>Statistics</a>
+      </li>
+      <li>
+        <a class='active'>Milestones</a>
+      </li>
+      <li>
+        <a>Experiments</a>
+      </li>
+      <li>
+        <a>Previews</a>
+      </li>
+      <li>
+        <a>Assets</a>
+      </li>
+      <li>
+        <a>Settings</a>
+      </li>
+      <li>
+        <a>Logout</a>
+      </li>
+    </ul>
+  </div> 
+  <div class="content content-is-open">
+    <span class='side-panel-toggle'>
+      <i class="fa fa-bars"></i>
+    </span>
+    <h1>Flexbox Off Canvas Menu</h1>
+    <h2>Lightweight, simple, easy to use</h2>
+    <div class="well well-sm">
+      
+      <p>Banh mi street art organic, bicycle rights synth YOLO Neutra. Try-hard cliche vegan mlkshk actually. Godard pour-over locavore tousled synth, try-hard Portland single-origin coffee church-key gluten-free 90's blog. Cliche blog tote bag, literally Banksy viral biodiesel Portland High Life. Marfa Neutra selvage, photo booth tilde whatever 8-bit pork belly irony post-ironic forage slow-carb. Pickled chia wayfarers, gentrify letterpress gastropub food truck seitan meditation trust fund cliche biodiesel sartorial. Tousled skateboard Thundercats, mumblecore jean shorts 90's flexitarian deep v gentrify.</p>
+      
+      <p>Banh mi street art organic, bicycle rights synth YOLO Neutra. Try-hard cliche vegan mlkshk actually. Godard pour-over locavore tousled synth, try-hard Portland single-origin coffee church-key gluten-free 90's blog. Cliche blog tote bag, literally Banksy viral biodiesel Portland High Life. Marfa Neutra selvage, photo booth tilde whatever 8-bit pork belly irony post-ironic forage slow-carb. Pickled chia wayfarers, gentrify letterpress gastropub food truck seitan meditation trust fund cliche biodiesel sartorial. Tousled skateboard Thundercats, mumblecore jean shorts 90's flexitarian deep v gentrify.</p>
+    </div>
+    <hr>
+  </div>
+</div>
+    </main>
+    
+
+    <%- include('../part/footer.ejs') %>
+    <%- include('../part/bootstrapJS.ejs') %>
+    <script src="https://kit.fontawesome.com/071ea1fa85.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.js"></script>
+    <%- include('../part/loading.ejs') %>
+    <script>
+$(window).resize(function() {
+	var path = $(this);
+	var contW = path.width();
+	if(contW >= 769){
+    $('.content').css('margin-left', '220px');
+	}else{
+    $('.content').css('margin-left', '0px');
+	}
+});
+
+$(document).ready(function() {
+	$(".side-panel-toggle").click(function(e) {
+		e.preventDefault();
+    var marginLeft = $('.content').css('margin-left');
+    if (marginLeft === '220px') {
+      $('.content').css('margin-left', '0px');
+    } else {
+      $('.content').css('margin-left', '220px');
+    }
+	});
+});    
+    </script>
+  </body>
+</html>

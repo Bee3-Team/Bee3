@@ -347,3 +347,114 @@ body::-webkit-scrollbar-thumb {
   float: left;
   margin-left: 13px;
 }
+
+/*  */
+/*  */
+/*  */
+
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,700');
+@import url('https://netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.css');
+
+.wrapper {
+  display: -webkit-flex;
+  display: flex;
+  min-height: 100%;
+}
+
+.sidebar {
+  position: absolute;
+  width: 220px;
+}
+
+.content {
+  -webkit-flex: 1;
+  flex: 1;
+  padding: 30px;
+  background: #eee;
+  box-shadow: 0 0 5px rgba(0,0,0,1);
+  transform: translate3d(0,0,0);
+  transition: all .3s;
+}
+
+.side-panel-toggle {
+  cursor: pointer;
+  font-size: 42px;
+  display: none;
+}
+
+/* Demo Navigation */
+
+.title {
+  font-size: 16px;
+  line-height: 50px;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 7px;
+  color: #eee;
+  border-bottom: 1px solid #222;
+  background: #2a2a2a;
+}
+
+.nav li a {
+  position: relative;
+  display: block;
+  padding: 15px 15px 15px 50px;
+  font-size: 12px;
+  color: #eee;
+  border-bottom: 1px solid #222;
+}
+
+.nav li a:before {
+  font: 14px fontawesome;
+  position: absolute;
+  top: 14px;
+  left: 20px;
+}
+
+.nav li:nth-child(1) a:before { content: '\f00a'; }
+.nav li:nth-child(2) a:before { content: '\f012'; }
+.nav li:nth-child(3) a:before { content: '\f0e8'; }
+.nav li:nth-child(4) a:before { content: '\f0c3'; }
+.nav li:nth-child(5) a:before { content: '\f022'; }
+.nav li:nth-child(6) a:before { content: '\f115'; }
+.nav li:nth-child(7) a:before { content: '\f085'; }
+.nav li:nth-child(8) a:before { content: '\f023'; left: 23px; }
+
+.nav li a:hover {
+  background: #444;
+}
+
+.nav li a.active {
+  box-shadow: inset 5px 0 0 #5b5, inset 6px 0 0 #222;
+  background: #444;
+}
+
+/* Demo Description */
+
+h1 {
+  margin: 25px 0 15px;
+  font-size: 28px;
+  font-weight: 400;
+}
+
+h2 {
+  font-size: 18px;
+  font-weight: 400;
+  color: #999;
+}
+
+@media only screen and (max-width: 768px) {
+  .content {
+    margin-left: 0;
+  }
+
+  .side-panel-toggle {
+    display: block;
+  }
+}
+
+@media only screen and (min-width: 769px) {
+  .content {
+    margin-left: 220px;
+  }
+}

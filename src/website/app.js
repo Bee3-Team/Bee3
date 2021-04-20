@@ -173,8 +173,8 @@ module.exports = async client => {
       lost: false,
       user: await client.users.fetch(req.user.id.toString()),
       Permission: Permissions,
-      guild: 
-    })
+      guild: client.guilds.cache.get(checkUserGuild.id)
+    });
   });
   
   // 404
