@@ -364,22 +364,25 @@ body::-webkit-scrollbar-thumb {
 .sidebar {
   position: absolute;
   width: 220px;
+  border-radius: 16px 0px 16px 0px;
 }
 
 .content {
   -webkit-flex: 1;
   flex: 1;
-  padding: 30px;
-  background: #eee;
+  padding: 10px;
+  background: white;
   box-shadow: 0 0 5px rgba(0,0,0,1);
   transform: translate3d(0,0,0);
   transition: all .3s;
+  border-radius: 16px;
 }
 
 .side-panel-toggle {
   cursor: pointer;
   font-size: 42px;
   display: none;
+  color: #ffd700;
 }
 
 /* Demo Navigation */
@@ -388,9 +391,9 @@ body::-webkit-scrollbar-thumb {
   font-size: 16px;
   line-height: 50px;
   text-align: left;
-  color: #eee;
+  color: white;
   border-bottom: 1px solid #222;
-  background: #2a2a2a;
+  background: transparent;
   padding-left: 10px;
 }
 

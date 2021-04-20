@@ -11,7 +11,14 @@
     <main id="main" role="main" class="container main">
 <div class="wrapper">
   <div class="sidebar">
-    <div class="title"><%= guild.name %></div>
+            <% let icon;
+            if (guild.icon) {
+            icon = `https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}.webp`
+            } else if (!guild.icon) {
+            icon = bot.user.displayAvatarURL()
+            }
+            %>    
+    <div class="title"><img class="server-icon" src="<%= icon %>"> <%= guild.name %></div>
     <ul class="nav">
       <li class="sidebar-item">
         <a class="a"><i class="fa fa-gear"></i> Dashboard</a>
@@ -24,7 +31,10 @@
       </li>
       <li class="sidebar-item">
         <a class="a"><i class="fas fa-code"></i> Custom Commands</a>
-      </li>      
+      </li>
+      <li class="sidebar-item">
+        <a class="a"><i class="fas fa-clipboard"></i> Leaderboard</a>
+      </li>
     </ul>
   </div> 
   <div class="content content-is-open">
