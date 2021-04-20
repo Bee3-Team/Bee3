@@ -476,9 +476,13 @@ h2 {
 }
 
 .server-info-item {
-  background-color: #000;
-  color: white;
+  background-color: #ffd700;
+  color: black;
   margin: 5px;
   padding: 5px;
   width: 100px;
+  border-radius: 6px;
+  text-align: center;
+  font-weight: 400;
+  
 }

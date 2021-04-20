@@ -63,10 +63,10 @@
           1 (run cmd)
         </div>
         <div class="server-info-item">
-          <%= bot.config.status %>
+          <%= bot.config.status || "Ready" %>
         </div>
         <div class="server-info-item">
-          <%= guild.membersCount %>
+          <%= guild.members.cache.size %>
         </div>
         <div class="server-info-item">
           1 
