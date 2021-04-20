@@ -387,12 +387,11 @@ body::-webkit-scrollbar-thumb {
 .title {
   font-size: 16px;
   line-height: 50px;
-  text-align: center;
-  text-transform: uppercase;
-  letter-spacing: 7px;
+  text-align: left;
   color: #eee;
   border-bottom: 1px solid #222;
   background: #2a2a2a;
+  padding-left: 10px;
 }
 
 .sidebar-item .a {
@@ -402,8 +401,12 @@ body::-webkit-scrollbar-thumb {
   font-size: 12px;
   color: #eee;
   border-bottom: 1px solid #222;
-  width: 220px !important;
+  width: 300px !important;
   cursor: pointer;
+  padding: 10px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;  
 }
 
 .sidebar-item .a:before {
