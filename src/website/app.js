@@ -166,7 +166,15 @@ module.exports = async client => {
       return res.redirect("/account/server-list?mp=true&mpguild=" + checkUserGuild.name + "#error")
     }
     
-    res.send(":v")
+    res.render("acc/dashboard.ejs", {
+      req,
+      res,
+      bot,
+      lost: false,
+      user: await client.users.fetch(req.user.id.toString()),
+      Permission: Permissions,
+      guild: 
+    })
   });
   
   // 404

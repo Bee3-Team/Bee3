@@ -23,7 +23,7 @@
         <% } %>
         <% }) %>
     <h3 style="color: white; text-align: center;">
-      <i class="fa fa-refresh refresh-btn"></i> Please select a server
+      Please select a server
     </h3>         
 <table class="table table-borderless" id="server-list">
   <thead>
@@ -60,12 +60,5 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.js"></script>
     <%- include('../part/loading.ejs') %>
     <%- include('../part/errorScript.ejs') %>
-    <script>
-    
-      async function refreshServerList() {
-        $("#server-list").load(window.location.href + " #server-list" );
-      }
-    
-    </script>    
   </body>
 </html>
