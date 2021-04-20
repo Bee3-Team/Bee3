@@ -469,3 +469,7 @@ h2 {
   box-shadow: 0 0 5px rgb(0 0 0) !important;
   border-radius: 16px !important;  
 }
+
+.server-info {
+  margin: 0 auto !important;
+}
