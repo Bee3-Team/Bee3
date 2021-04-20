@@ -22,14 +22,14 @@
         <% guilds.push({num: 2, id: guild.id, name: guild.name, icon: guild.icon, btn: "Manage", redirect: `/dashboard/${guild.id}`}) %>
         <% } %>
         <% }) %>
-<table class="table table-borderless">
-  <thead>
-    <h3 style="color: white; text-align: center;">
-      Please select a server
-    </h3> 
     <div class="refresh">
       <i class="fa fa-refresh refresh-btn"></i>
     </div>
+    <h3 style="color: white; text-align: center;">
+      Please select a server
+    </h3>         
+<table class="table table-borderless" id="server-list">
+  <thead>
     <% if (missing_permission.type) { %>
     <div class="error" id="error">
       <span class="error-msg">You do not have permission to manage <%= missing_permission.guild %> <i onclick="errorDelete()" class="fa fa-close error-btn"></i></span>
@@ -63,6 +63,12 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.js"></script>
     <%- include('../part/loading.ejs') %>
     <%- include('../part/errorScript.ejs') %>
+    <script>
     
+      async function refreshServerList() {
+        $("#server-list").load(window.location.href + " #server-list" );
+      }
+    
+    </script>    
   </body>
 </html>
