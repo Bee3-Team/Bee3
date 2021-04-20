@@ -458,8 +458,12 @@ h2 {
   height: -webkit-fill-available !important;
   min-width: 200px !important;
   min-height: 200px !important;
-  display: block;
-  box-sizing: border-box;
-  width: 200px;
-  height: 200px;
+  display: block !important;
+  box-sizing: border-box !important;
+  width: fit-content !important;
+  height: 20% !important;
+  -webkit-flex: 1 !important;
+  background: white !important;
+  box-shadow: 0 0 5px rgb(0 0 0) !important;
+  border-radius: 16px !important;  
 }

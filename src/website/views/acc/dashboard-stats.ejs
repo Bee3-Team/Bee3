@@ -41,9 +41,8 @@
     <span class='side-panel-toggle'>
       <i class="fa fa-bars"></i>
     </span>
-    <div class="well well-sm" style="height: 500px;">
-<canvas id="barChart" 
-        ;"></canvas>   
+    <div class="well well-sm">
+      <canvas id="barChart"></canvas>   
     </div>
     <hr>
   </div>
@@ -141,7 +140,6 @@ var ctx = document.getElementById("barChart").getContext("2d");
 				type: 'bar',
 				data: barData,
 				options: {
-					responsive: true,
           maintainAspectRation: false,
           padding: 0,
 					legend: {
