@@ -472,4 +472,13 @@ h2 {
 
 .server-info {
   margin: 0 auto !important;
+  justify-content: left;
+}
+
+.server-info-item {
+  background-color: #000;
+  color: white;
+  margin: 5px;
+  padding: 5px;
+  width: 100px;
 }

@@ -58,13 +58,19 @@
     </div>
     <hr>
     <div class="well well-sm">
-      <div class="server-info">
-        <ul class="server-info-list">
-          <li class="server-info-item">1</li>
-          <li class="server-info-item">Ready</li>
-          <li class="server-info-item">1 Members</li>
-          <li class="server-info-item">1</li>
-        </ul>
+      <div class="server-info row">
+        <div class="server-info-item">
+          1 (run cmd)
+        </div>
+        <div class="server-info-item">
+          <%= bot.config.status %>
+        </div>
+        <div class="server-info-item">
+          <%= guild.membersCount %>
+        </div>
+        <div class="server-info-item">
+          1 
+        </div>
       </div>
     </div>
   </div>
