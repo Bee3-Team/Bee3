@@ -21,19 +21,25 @@
     <div class="title"><img class="server-icon" src="<%= icon %>"> <%= guild.name %></div>
     <ul class="nav">
       <li class="sidebar-item">
-        <a class="a"><i class="fa fa-gear"></i> Dashboard</a>
+        <a href="/dashboard/<%= guild.id %>/commands" class="a"><i class="fas fa-chart-bar"></i> Commands</a>
+      </li>      
+      <li class="sidebar-item">
+        <a href="/dashboard/<%= guild.id %>/settings" class="a"><i class="fas fa-cog"></i> Settings</a>
+      </li>      
+      <li class="sidebar-item">
+        <a href="/dashboard/<%= guild.id %>" class="a"><i class="fas fa-chart-bar"></i> Statistics</a>
       </li>
       <li class="sidebar-item">
-        <a class="a"><i class="fas fa-chart-bar"></i> Statistics</a>
+        <a href="/dashboard/<%= guild.id %>/auto-mod" class="a"><i class="fas fa-ban"></i> Auto Mod</a>
       </li>
       <li class="sidebar-item">
-        <a class="a"><i class="fas fa-ban"></i> Auto Mod</a>
+        <a href="/dashboard/<%= guild.id %>/cc" class="a"><i class="fas fa-code"></i> Custom Commands</a>
       </li>
       <li class="sidebar-item">
-        <a class="a"><i class="fas fa-code"></i> Custom Commands</a>
+        <a href="/dashboard/<%= guild.id %>/music-player" class="a"><i class="fas fa-music"></i> Music</a>
       </li>
       <li class="sidebar-item">
-        <a class="a"><i class="fas fa-clipboard"></i> Leaderboard</a>
+        <a href="/leaderboard?guild=<%= guild.id %>" class="a"><i class="fas fa-clipboard"></i> Leaderboard</a>
       </li>
     </ul>
   </div> 
@@ -42,9 +48,12 @@
       <i class="fa fa-bars"></i>
     </span>
     <div class="well well-sm">
-      <canvas id="barChart"></canvas>   
+      <canvas id="CommandsUsed"></canvas>
     </div>
     <hr>
+    <div class="well well-sm">
+      <canvas id=""></canvas>
+    </div>
   </div>
 </div>
     </main>
@@ -102,7 +111,7 @@ function randomScalingFactor() {
 	}
 
 var barData = {
-			labels: ["1", "2", "3", "4", "5"],
+			labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
 			datasets: [{
 				label: 'Commands Used',
 				backgroundColor: color(chartColors.red).alpha(0.5).rgbString(),
@@ -121,7 +130,7 @@ var barData = {
 
 		};
 var index = 11;
-var ctx = document.getElementById("barChart").getContext("2d");
+var ctx = document.getElementById("CommandsUsed").getContext("2d");
 		var	myNewChartB = new Chart(ctx, {
 				type: 'bar',
 				data: barData,
