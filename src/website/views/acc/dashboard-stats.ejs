@@ -41,7 +41,7 @@
     <span class='side-panel-toggle'>
       <i class="fa fa-bars"></i>
     </span>
-    <div class="well well-sm">
+    <div class="well well-sm" style="height: 50%;">
 <canvas id="myChart" style="max-width: -webkit-fill-available;"></canvas>   
     </div>
     <hr>
@@ -81,38 +81,24 @@ $(document).ready(function() {
 });    
     </script>
 <script>
-var ctx = document.getElementById('myChart').getContext('2d');
-var myChart = new Chart(ctx, {
-    type: 'bar',
-    data: {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-        datasets: [{
-            label: '# of Votes',
-            data: [12, 19, 3, 5, 2, 3],
-            backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)'
-            ],
-            borderColor: [
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)'
-            ],
-            borderWidth: 1
-        }]
-    },
-    options: {
+var dData = function() {
+  return Math.round(Math.random() * 90) + 10
+};
+
+var index = 11;
+var ctx = document.getElementById("myChart").getContext("2d");
+var barChartDemo = new Chart(ctx, {
+  labels: ["dD 1", "dD 2", "dD 3", "dD 4", "dD 5", "dD 6", "dD 7", "dD 8", "dD 9", "dD 10"],
+  datasets: [{
+    fillColor: "rgba(0,60,100,1)",
+    strokeColor: "black",
+    data: [dData(), dData(), dData(), dData(), dData(), dData(), dData(), dData(), dData(), dData()]
+  }],
+  options: {
   responsive: true,
   barValueSpacing: 2
-    }
+  }
 });
-</script>         
+    </script>
   </body>
 </html>
