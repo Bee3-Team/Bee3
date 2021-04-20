@@ -352,8 +352,8 @@ body::-webkit-scrollbar-thumb {
 /*  */
 /*  */
 
-@import url('https://fonts.googleapis.com/css?family=Montserrat:400,700');
-@import url('https://netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.css');
+@import url("https://fonts.googleapis.com/css?family=Montserrat:400,700");
+@import url("https://netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.css");
 
 .wrapper {
   display: -webkit-flex;
@@ -372,9 +372,9 @@ body::-webkit-scrollbar-thumb {
   flex: 1;
   padding: 10px;
   background: white;
-  box-shadow: 0 0 5px rgba(0,0,0,1);
-  transform: translate3d(0,0,0);
-  transition: all .3s;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 1);
+  transform: translate3d(0, 0, 0);
+  transition: all 0.3s;
   border-radius: 16px;
 }
 
@@ -409,7 +409,7 @@ body::-webkit-scrollbar-thumb {
   padding: 10px;
   overflow: hidden;
   white-space: nowrap;
-  text-overflow: ellipsis;  
+  text-overflow: ellipsis;
 }
 
 .sidebar-item .a:before {
@@ -451,4 +451,15 @@ h2 {
   .content {
     margin-left: 220px;
   }
+}
+
+#barChart {
+  max-width: -webkit-fill-available !important;
+  height: -webkit-fill-available !important;
+  min-width: 200px !important;
+  min-height: 200px !important;
+  display: block;
+  box-sizing: border-box;
+  width: 200px;
+  height: 200px;
 }
