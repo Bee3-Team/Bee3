@@ -34,7 +34,7 @@
   <thead>
     <% if (missing_permission.type) { %>
     <div class="error" id="error">
-      <span class="error-msg">You do not have permission to manage <%= missing_permission.guild %> <i onclick="errorDelete()" class="fa fa-close error-btn"></i></span>
+      <span class="error-msg">You do not have permission to manage <strong><%= missing_permission.guild %></strong> <i onclick="errorDelete()" class="fa fa-close error-btn"></i></span>
     </div>
     <% } %>
   </thead>
