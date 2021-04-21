@@ -570,3 +570,7 @@ svg {
 /* atur ae dah, yg penting bagus */
 /* gw lagi atur footer jan chat moloe gw lagi liat, kereload mulu*/
 /* pake https://beee.cf baca dm discord :v... bang itu 320px juga itungan mobile kah?*/ 
+
+.nav-item {
+  top: 50%;
+}
