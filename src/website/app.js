@@ -67,11 +67,11 @@ module.exports = async client => {
       lost: false
     })    
   });
-  app.get(
+  app.get( 
     "/callback",
     passport.authenticate("discord", { failureRedirect: "/" }),
     function(req, res, next) {
-      return res.redirect("/account/server-list");
+      return next();
     } // auth success
   );
   app.get("/logout", function(req, res) {
