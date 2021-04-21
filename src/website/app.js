@@ -4,6 +4,7 @@ const port = process.env.PORT;
 const bodyParser = require("body-parser");
 const path = require("path");
 const { Permissions } = require("discord.js");
+var back = require('express-back');
 
 module.exports = async client => {
   app.use(bodyParser.urlencoded({ extended: false }));
@@ -54,6 +55,8 @@ module.exports = async client => {
   );
   app.use(passport.initialize());
   app.use(passport.session());
+  app.use(back());  
+  
   app.get(
     "/login/discord",
     passport.authenticate("discord", { scope: scopes, prompt: prompt }),
@@ -70,8 +73,8 @@ module.exports = async client => {
   app.get( 
     "/callback",
     passport.authenticate("discord", { failureRedirect: "/" }),
-    function(req, res, next) {
-      return next();
+    function(req, res, next, back) {
+      return res.prevPath();
     } // auth success
   );
   app.get("/logout", function(req, res) {
