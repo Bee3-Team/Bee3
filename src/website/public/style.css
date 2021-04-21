@@ -472,7 +472,7 @@ h2 {
 
 .server-info {
   margin: 0 auto !important;
-  justify-content: left;
+  justify-content: center;
 }
 
 .server-info-item {
@@ -484,7 +484,6 @@ h2 {
   border-radius: 6px;
   text-align: center;
   font-weight: 400;
-  
 }
 
 .server-info-item {
@@ -504,6 +503,7 @@ h2 {
   font-size: 16px;
   padding: 13px;
   width: 220px;
+  transition: 0.5s;
 }
 .server-info-item:hover:before{
   border: solid;
