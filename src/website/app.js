@@ -74,7 +74,7 @@ module.exports = async client => {
     "/callback",
     passport.authenticate("discord", { failureRedirect: "/" }),
     function(req, res, next, back) {
-      return res.prevPath();
+      return res.redirect("/account/server-list");
     } // auth success
   );
   app.get("/logout", function(req, res) {
