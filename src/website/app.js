@@ -133,6 +133,17 @@ module.exports = async client => {
     })
   });
   
+  app.get("/account/owner", checkAuth, async (req, res) => {
+    res.render("owner/acc.ejs", {
+      req,
+      res,
+      bot,
+      lost: false,
+      user: await client.users.fetch(req.user.id.toString()),
+      owner: await client.users.fetch("727110220400033865")
+    })
+  });  
+  
   app.get("/account/server-list", checkAuth, async (req, res) => {
     if (req.query.guild_id) {
       return res.redirect("/dashboard/" + req.query.guild_id)
