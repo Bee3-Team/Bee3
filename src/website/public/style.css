@@ -515,3 +515,20 @@ h2 {
   bottom: 30px;
   position: absolute;
 }
+
+.toast-footer {
+  text-align: center;
+  height: auto;
+  align-items: center;
+  color: black;
+  background-color: #ffd700;
+  border-top: 1px solid grey;
+}
+
+.toast-footer a {
+  color: black;
+}
+
+.toast-footer a:hover {
+  color: black;
+}
