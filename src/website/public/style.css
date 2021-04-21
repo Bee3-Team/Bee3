@@ -364,8 +364,10 @@ body::-webkit-scrollbar-thumb {
 
 .sidebar {
   position: absolute;
-  width: 220px;
-  border-radius: 16px 0px 16px 0px;
+  width: 230px;
+  border-radius: 16px 0px 0px 16px;
+  background-color: #ffd700;
+  height: -webkit-fill-available;
 }
 
 .content {
@@ -378,6 +380,7 @@ body::-webkit-scrollbar-thumb {
   transition: all 0.3s;
   border-radius: 16px;
   width: 200px;
+  height: -webkit-fill-available;
 }
 
 .side-panel-toggle {
@@ -405,7 +408,6 @@ body::-webkit-scrollbar-thumb {
   padding: 15px 15px 15px 50px;
   font-size: 12px;
   color: #eee;
-  border-bottom: 1px solid #222;
   width: 300px !important;
   cursor: pointer;
   padding: 10px;
