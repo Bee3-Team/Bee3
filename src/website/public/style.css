@@ -88,6 +88,7 @@ body {
 
 .footer-clm {
   display: flex;
+  flex-direction: row;
 }
 
 .clm {
@@ -552,8 +553,16 @@ h2 {
     width: 50%;
   }
   
+  
+}
+
+@media (max-width: 320px) {
+  .footer-clm {
+    flex-direction: column;
+    text-align: center !important;
+  }
 }
 /* jadi ngebug jir di hp yg nav-link :v wait :v*/
 /* atur ae dah, yg penting bagus */
 /* gw lagi atur footer jan chat moloe gw lagi liat, kereload mulu*/
-/* pake https://beee.cf */
+/* pake https://beee.cf baca dm discord :v... */
