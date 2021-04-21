@@ -88,12 +88,14 @@ body {
 
 .footer-clm {
   display: flex;
+  flex-direction: column;
 }
 
 .clm {
   margin-left: 20px;
   margin-right: 20px;
   text-decoration: none;
+  margin-top: 10px;
 }
 
 li {
@@ -379,7 +381,7 @@ body::-webkit-scrollbar-thumb {
   transition: all 0.3s;
   border-radius: 16px;
   width: 200px;
-  height: -webkit-fill-available;
+  height: 500px;
 }
 
 .side-panel-toggle {
@@ -532,3 +534,22 @@ h2 {
 .toast-footer a:hover {
   color: black;
 }
+
+.graph-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.graph {
+  width: 100%;
+  height: auto;
+  background-color: #d6d6d6;
+  border-radius: 7px;
+  box-shadow: 0px 0px 7px black;
+}
+
+@media (min-width: 922px) {
+  .graph {
+    width: 50%;
+  }
+} 
