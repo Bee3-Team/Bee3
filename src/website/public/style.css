@@ -20,8 +20,8 @@ body {
 }
 
 .navbar {
-  padding: 0px 0px 0px 3px !important;
   min-height: 90px;
+  box-shadow: 0px 3px 10px rgb(0, 0, 0, 0.5);
 }
 
 .navbar-brand {
