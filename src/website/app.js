@@ -55,10 +55,18 @@ module.exports = async client => {
   app.use(passport.initialize());
   app.use(passport.session());
   app.get(
-    "/login",
+    "/login/discord",
     passport.authenticate("discord", { scope: scopes, prompt: prompt }),
     function(req, res) {}
   );
+  app.get("/login", async (req, res) => {
+    return res.render("status/onlogin.ejs", {
+      req,
+      res,
+      bot,
+      lost: false
+    })    
+  });
   app.get(
     "/callback",
     passport.authenticate("discord", { failureRedirect: "/" }),
@@ -189,12 +197,7 @@ module.exports = async client => {
 
   function checkAuth(req, res, next) {
     if (req.isAuthenticated()) return next();
-    return res.render("status/onlogin.ejs", {
-      req,
-      res,
-      bot,
-      lost: false
-    })
+    return res.redirect("login")
   }
 
   app.listen(port, () => {
