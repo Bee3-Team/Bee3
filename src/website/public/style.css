@@ -38,6 +38,7 @@ body {
 .nav-link {
   text-align: center;
   background-color: #27292e;
+  margin-bottom: 10px;
 }
 
 .jumbotron {
@@ -562,6 +563,11 @@ h2 {
   }
 }
 
+@media (min-width: 992px) {
+  .nav-link {
+    margin-bottom: 0px;
+  }
+}
 svg {
   margin-top: 11px;
 }
