@@ -55,9 +55,15 @@
     </span>
     <div class="graph-list">
     <div class="well well-sm graph">
-      <form method="post" >
-        
+      <form method="post" class="form">
+        <label for="username" class="label">Username</label>
+        <input type="text" onchange="updateEgName()" class="input" id="username" value="<%= bot.user.username %>" name="newUsername" required>
+        <label for="prefix" class="label">Prefix</label>
+        <input type="text" class="input" id="prefix" value="!" name="newPrefix" required>        
       </form>
+      <p class="example-bot">
+        <span class="example-bot-name" id="bot-name"></span>
+      </p>
     </div>      
     </div>
     <hr>
@@ -68,6 +74,12 @@
 
     <%- include('../part/footer.ejs') %>
     <script>
+      document.getElementById("bot-name").innerHTML = document.getElementById("username").value || <%= bot.user.username %>;
+      
+      setInterval(function() {
+        document.getElementById("bot-name").innerHTML = document.getElementById("username").value || <%= bot.user.username %>;
+      }, 3000)
+      
 $(window).resize(function() {
 	var path = $(this);
 	var contW = path.width();
