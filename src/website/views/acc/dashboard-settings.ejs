@@ -56,10 +56,14 @@
     <div class="graph-list">
     <div class="well well-sm graph">
       <form method="post" class="form" onchange="updateExample()">
+        <div class="input-item" id="username-clm">
         <label for="username" class="label">Username</label>
         <input type="text" class="input" id="username" value="<%= bot.user.username %>" name="newUsername" required>
+        </div>
+        <div class="input-item" id="prefix-clm">
         <label for="prefix" class="label">Prefix</label>
-        <input type="text" class="input" id="prefix" value="!" name="newPrefix" required>        
+        <input type="text" class="input" id="prefix" value="!" name="newPrefix" required>               
+        </div>
       </form>
       <p class="example-bot">
         <span class="example-bot-name" id="bot-name"></span>

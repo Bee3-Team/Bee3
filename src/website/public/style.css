@@ -613,3 +613,14 @@ h2 {
 .input:focus {
   outline: none !important;
 }
+
+.input-item {
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(191, 191, 191, 0.5);
+    border: 1px solid rgb(0, 0, 0, 0.5);
+    margin-bottom: 10px;
+    padding: 5px;
+    border-radius: 10px;
+  transition: 0.5s;
+}
