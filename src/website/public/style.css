@@ -588,3 +588,28 @@ h2 {
 .nav-item {
   top: 50%;
 }
+
+/*  */
+.form {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+
+.label {
+    margin-bottom: 1px !important;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.input {
+    margin-bottom: 10px;
+    border: none;
+    font-size: 18px;
+    padding: 5px;
+    border-radius: 9px;
+}
+
+.input:focus {
+  outline: none !important;
+}

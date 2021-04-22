@@ -55,14 +55,15 @@
     </span>
     <div class="graph-list">
     <div class="well well-sm graph">
-      <form method="post" class="form">
+      <form method="post" class="form" onchange="updateExample()">
         <label for="username" class="label">Username</label>
-        <input type="text" onchange="updateEgName()" class="input" id="username" value="<%= bot.user.username %>" name="newUsername" required>
+        <input type="text" class="input" id="username" value="<%= bot.user.username %>" name="newUsername" required>
         <label for="prefix" class="label">Prefix</label>
         <input type="text" class="input" id="prefix" value="!" name="newPrefix" required>        
       </form>
       <p class="example-bot">
         <span class="example-bot-name" id="bot-name"></span>
+        <span class="example-bot-msg" id="bot-msg"></span>
       </p>
     </div>      
     </div>
@@ -75,10 +76,12 @@
     <%- include('../part/footer.ejs') %>
     <script>
       document.getElementById("bot-name").innerHTML = document.getElementById("username").value || <%= bot.user.username %>;
+      document.getElementById("bot-msg").innerHTML = `${document.getElementById("prefix").value || "!"}help`
       
-      setInterval(function() {
+      async function updateExample() {
         document.getElementById("bot-name").innerHTML = document.getElementById("username").value || <%= bot.user.username %>;
-      }, 3000)
+        document.getElementById("bot-msg").innerHTML = `${document.getElementById("prefix").value || "!"}help`
+      }
       
 $(window).resize(function() {
 	var path = $(this);
