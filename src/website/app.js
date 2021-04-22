@@ -200,6 +200,30 @@ module.exports = async client => {
     });
   });
   
+  app.get("/dashboard/:id/settings", checkAuth, async (req, res) => {
+    let guild_id = req.params.id;
+    if (!guild_id) return res.redirect("/account/server-list");
+    if (isNaN(guild_id)) return res.redirect("/account/server-list")
+    
+    let checkUserGuild = req.user.guilds.find(x => x.id == guild_id);
+    if (!checkUserGuild) return res.redirect("/account/server-list");
+    
+    let perms = new Permissions(checkUserGuild.permissions);
+    if (!perms.has("MANAGE_GUILD")) {
+      return res.redirect("/account/server-list?mp=true&mpguild=" + checkUserGuild.name + "#error")
+    }
+    
+    res.render("acc/dashboard-settings.ejs", {
+      req,
+      res,
+      bot,
+      lost: false,
+      user: await client.users.fetch(req.user.id.toString()),
+      Permission: Permissions,
+      guild: client.guilds.cache.get(checkUserGuild.id)
+    });
+  });  
+  
   // 404
   app.get("*", async (req, res) => {
     res.status(404).render("status/404.ejs", {
