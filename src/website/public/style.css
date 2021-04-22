@@ -17,6 +17,7 @@ body {
 .main {
   min-height: 100% !important;
   margin: 0 auto !important;
+  margin-top: 10px;
 }
 
 .navbar {
@@ -79,6 +80,7 @@ body {
   width: 100%;
   min-height: 50px; /* Set the fixed height of the footer here */
   background-color: #ffd700;
+  margin-top: -1px;
 }
 
 .fo-image {
