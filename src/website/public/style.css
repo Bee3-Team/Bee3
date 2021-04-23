@@ -619,13 +619,18 @@ h2 {
 
 .input-item {
   display: flex;
-  border: 1px solid #d4d4d4 !important;
+  border: 1px solid #a8a8a8 !important;
   flex-direction: column;
   margin-bottom: 10px;
   padding: inherit;
   transition: 0.5s;
+  background: #cfcfcf;
+  border-radius: 7px;
 }
 
 .button-list {
   text-align: center;
+  background-color: rgb(105, 105, 105, 0.5);
+  padding: 10px;
+  border-radius: 7px;
 }
