@@ -83,7 +83,8 @@
     <script>
 var button = $('#save-btn');
 var orig = [];
-
+button.hide();
+      
 $.fn.getType = function () {
     return this[0].tagName == "INPUT" ? $(this[0]).attr("type").toLowerCase() : this[0].tagName.toLowerCase();
 }
@@ -118,6 +119,12 @@ $('form').bind('change keyup', function () {
         }
     });
 
+  if (disable) {
+    button.hide();
+  } else if (!disable) {
+    button.show();
+  }
+  updateExample()
     button.prop('disabled', disable);
 });    
     </script>
