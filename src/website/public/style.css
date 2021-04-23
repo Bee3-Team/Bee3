@@ -637,50 +637,54 @@ h2 {
 
 /*  */
 .example-bot {
-    padding: 10px;
-    background: #36393f;
+  padding: 10px;
+  background: #36393f;
 }
 
 .example-bot-sec {
-    align-items: center;
-    display: flex;
+  align-items: end;
+  display: flex;
 }
 
 .example-bot-avatar {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
 }
 
 .example-bot-name {
-    margin-left: 8px;
-    color: white;
-    font-weight: 500;
-    font-size: 19px;
+  margin-left: 8px;
+  color: white;
+  font-weight: 500;
+  font-size: 19px;
 }
+
+/*kenapa example-bot-sec nya nga make itu eh apa ya lupa*/
 
 .example-bot-tag {
-    background: #7289da;
-    height: .9375rem;
-    font-size: .625rem;
-    color: white;
-    vertical-align: top;
-    padding: 0 .275rem;
-    border-radius: .1875rem;
-    margin-left: .25rem;
+  background: #7289da;
+  height: 0.9375rem;
+  font-size: 0.625rem;
+  color: white;
+  vertical-align: top;
+  padding: 0 0.275rem;
+  border-radius: 0.1875rem;
+  margin-left: 0.25rem;
 }
 
+/* g sengaja cok, gw kira itu margin top aowkowkokw ga teliti aing hmmm wait gw nyoba nyoba ya biar rada work :v antara bisa atau kaga ga tau gw */
 .example-bot-time {
-    color: #72767d;
-    font-size: 0.75rem;
-    margin-left: .25rem;
+  color: #72767d;
+  font-size: 0.75rem;
+  margin-left: 0.25rem;
 }
+
+/* sorry lupa :v wowkwokwk */
 
 .example-bot-msg {
-    margin-left: 46px;
-    color: #dcddde;
+  margin-left: 46px;
+  color: #dcddde;
 }
-/* 
+
 .sidebar-item {
-  text-decoration: none !important;
-} :v udah gw important di atas:vvvvvv */
+  text-decoration: none !impor

@@ -58,11 +58,11 @@
       <form method="post" class="form" onchange="updateExample()">
         <div class="input-item" id="username-clm">
         <label for="username" class="label">nickname<i style="color: red;">*</i></label>
-        <input type="text" class="input" id="username" value="<%= bot.user.username %>" name="newUsername" required>
+        <input type="text" class="input" id="username" value="<%= bot.user.username %>" name="newUsername" minlength="3" maxlength="20" required>
         </div>
         <div class="input-item" id="prefix-clm">
         <label for="prefix" class="label">prefix<i style="color: red;">*</i></label>
-        <input type="text" class="input" id="prefix" value="!" name="newPrefix" required>               
+        <input type="text" class="input" id="prefix" value="!" name="newPrefix" minlength="1" maxlength="4" required>               
         </div>
         <div class="button-list">
           <button class="btn btn-success" disabled="" type="submit" id="save-btn">Save changes</button>
@@ -79,7 +79,6 @@
     </div>    
         <span class=" example-bot-time"="">Today at 2:28 AM</span>
   </div>
-  <br>
   <span class="example-bot-msg" id="bot-msg">!help</span>
     </div>
     </div>      
