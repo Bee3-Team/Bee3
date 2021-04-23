@@ -57,16 +57,16 @@
     <div class="well well-sm graph">
       <form method="post" class="form" onchange="updateExample()">
         <div class="input-item" id="username-clm">
-        <label for="username" class="label">Username</label>
+        <label for="username" class="label">nickname<i style="color: red;">*</i></label>
         <input type="text" class="input" id="username" value="<%= bot.user.username %>" name="newUsername" required>
         </div>
         <div class="input-item" id="prefix-clm">
-        <label for="prefix" class="label">Prefix</label>
+        <label for="prefix" class="label">prefix<i style="color: red;">*</i></label>
         <input type="text" class="input" id="prefix" value="!" name="newPrefix" required>               
         </div>
         <div class="button-list">
           <button class="btn btn-success" disabled="" type="submit" id="save-btn">Save changes</button>
-          <button class="btn btn-success" onclick="deleteBtnList() updateExample()" disabled="" type="reset" id="reset-btn">Reset</button>
+          <button class="btn btn-success" onclick="deleteBtnList()" disabled="" type="reset" id="reset-btn">Reset</button>
         </div>
       </form>
       <p class="example-bot">
@@ -134,16 +134,19 @@ $('form').bind('change keyup', function () {
   updateExample()
     button.prop('disabled', disable);
     button2.prop('disabled', disable);
-});    
+});
       
-      async function deleteBtnList() {
-        button.hide(500);
-        button2.hide(500);
-      }
     </script>
     <script>
       document.getElementById("bot-name").innerHTML = document.getElementById("username").value || <%= bot.user.username %>;
       document.getElementById("bot-msg").innerHTML = `${document.getElementById("prefix").value || "!"}help`
+      
+      async function deleteBtnList() {
+        document.getElementById("bot-name").innerHTML = document.getElementById("username").value || <%= bot.user.username %>;
+        document.getElementById("bot-msg").innerHTML = `${document.getElementById("prefix").value || "!"}help`        
+        $('#save-btn').hide(500);
+        $('#reset-btn').hide(500);
+      }
       
       async function updateExample() {
         document.getElementById("bot-name").innerHTML = document.getElementById("username").value || <%= bot.user.username %>;

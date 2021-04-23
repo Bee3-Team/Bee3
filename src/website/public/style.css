@@ -472,7 +472,7 @@ h2 {
   -webkit-flex: 1 !important;
   background: white !important;
   box-shadow: 0 0 5px rgb(0 0 0) !important;
-  border-radius: 16px !important;  
+  border-radius: 16px !important;
 }
 
 .server-info {
@@ -496,7 +496,7 @@ h2 {
   display: inline;
   position: relative;
 }
-.server-info-item:hover:after{
+.server-info-item:hover:after {
   display: -webkit-flex;
   display: flex;
   -webkit-justify-content: center;
@@ -511,7 +511,7 @@ h2 {
   width: 220px;
   transition: 0.5s;
 }
-.server-info-item:hover:before{
+.server-info-item:hover:before {
   border: solid;
   border-color: #444 transparent;
   border-width: 12px 6px 0 6px;
@@ -561,7 +561,7 @@ h2 {
     margin-left: 5px;
     margin-right: 5px;
   }
-  
+
   .graph-list {
     justify-content: space-between;
     flex-direction: row;
@@ -583,7 +583,7 @@ h2 {
 /* jadi ngebug jir di hp yg nav-link :v wait :v*/
 /* atur ae dah, yg penting bagus */
 /* gw lagi atur footer jan chat moloe gw lagi liat, kereload mulu*/
-/* pake https://beee.cf baca dm discord :v... bang itu 320px juga itungan mobile kah?*/ 
+/* pake https://beee.cf baca dm discord :v... bang itu 320px juga itungan mobile kah?*/
 
 .nav-item {
   top: 50%;
@@ -591,26 +591,26 @@ h2 {
 
 /*  */
 .form {
-    display: flex;
-    flex-direction: column;
-    padding: 10px;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
 }
 
 .label {
-    margin-bottom: 1px !important;
-    font-size: 20px;
-    font-weight: 500;
-    margin-left: 17px;
+  margin-bottom: 1px !important;
+  font-size: 20px;
+  font-weight: 500;
+  margin-left: 17px;
 }
 
 .input {
-    margin-bottom: 10px;
-    border: none;
-    font-size: 18px;
-    padding: 5px;
-    background: #ffffff;
-    transition: 0.5s;
-    border-radius: 20px;
+  margin-bottom: 10px;
+  border: none;
+  font-size: 18px;
+  padding: 5px;
+  background: #ffffff;
+  transition: 0.5s;
+  border-radius: 20px;
 }
 
 .input:focus {
@@ -618,9 +618,14 @@ h2 {
 }
 
 .input-item {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 10px;
-    padding: inherit;
-    transition: 0.5s;
+  display: flex;
+  border: 1px solid #d4d4d4 !important;
+  flex-direction: column;
+  margin-bottom: 10px;
+  padding: inherit;
+  transition: 0.5s;
+}
+
+.button-list {
+  text-align: center;
 }
