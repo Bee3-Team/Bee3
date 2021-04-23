@@ -8,4 +8,5 @@ client.login(config.token);
 
 require("../other/clientNavigation.js")(client);
 require("../mongodb/connect.js")(client);
+require("../event/eventManager.js")(client);
 require("../website/app.js")(client);

@@ -15,7 +15,7 @@ module.exports = async (client) => {
       let catConfig  = require(`./list/${category}/config.js`);
       if (!catConfig) return;
       
-      fs.readdir(`./src/command/list/${catConfig}`, async (err, commands) => {
+      fs.readdir(`./src/command/list/${category}`, async (err, commands) => {
         
         commands.forEach(command => {
           
@@ -32,7 +32,7 @@ module.exports = async (client) => {
           
         });
         
-        client.Modules.set(catConfig.name.toLowerCase())
+        client.Modules.set(catConfig.name.toLowerCase(), catConfig);
         
       });
       
