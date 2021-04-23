@@ -684,8 +684,8 @@ h2 {
 
 .example-bot-msg {
     color: #dcddde;
-    position: relative;
-    margin-left: -187px;
+    position: fixed;
+    margin-left: 49px;
     margin-top: 19px;
 }
 
