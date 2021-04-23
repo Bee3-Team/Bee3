@@ -657,6 +657,7 @@ h2 {
   color: white;
   font-weight: 500;
   font-size: 19px;
+  line-height: 0.8;
 }
 
 /*kenapa example-bot-sec nya nga make itu eh apa ya lupa*/
@@ -682,8 +683,10 @@ h2 {
 /* sorry lupa :v wowkwokwk */
 
 .example-bot-msg {
-  margin-left: 46px;
-  color: #dcddde;
+    color: #dcddde;
+    position: relative;
+    margin-left: -187px;
+    margin-top: 19px;
 }
 
 .sidebar-item {
