@@ -600,6 +600,7 @@ h2 {
     margin-bottom: 1px !important;
     font-size: 20px;
     font-weight: 500;
+    margin-left: 17px;
 }
 
 .input {
@@ -607,7 +608,9 @@ h2 {
     border: none;
     font-size: 18px;
     padding: 5px;
-    border-radius: 9px;
+    background: #ffffff;
+    transition: 0.5s;
+    border-radius: 20px;
 }
 
 .input:focus {
@@ -617,10 +620,7 @@ h2 {
 .input-item {
     display: flex;
     flex-direction: column;
-    background-color: rgb(191, 191, 191, 0.5);
-    border: 1px solid rgb(0, 0, 0, 0.5);
     margin-bottom: 10px;
-    padding: 5px;
-    border-radius: 10px;
-  transition: 0.5s;
+    padding: inherit;
+    transition: 0.5s;
 }

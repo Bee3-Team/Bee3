@@ -64,7 +64,10 @@
         <label for="prefix" class="label">Prefix</label>
         <input type="text" class="input" id="prefix" value="!" name="newPrefix" required>               
         </div>
-        <button class="btn btn-success" disabled="" type="submit" id="save-btn">Save changes</button>
+        <div class="button-list">
+          <button class="btn btn-success" disabled="" type="submit" id="save-btn">Save changes</button>
+          <button class="btn btn-success" onclick="deleteBtnList() updateExample()" disabled="" type="reset" id="reset-btn">Reset</button>
+        </div>
       </form>
       <p class="example-bot">
         <span class="example-bot-name" id="bot-name"></span>
@@ -82,8 +85,10 @@
     
     <script>
 var button = $('#save-btn');
+var button2 = $("#reset-btn")
 var orig = [];
 button.hide();
+button2.hide();      
       
 $.fn.getType = function () {
     return this[0].tagName == "INPUT" ? $(this[0]).attr("type").toLowerCase() : this[0].tagName.toLowerCase();
@@ -120,13 +125,21 @@ $('form').bind('change keyup', function () {
     });
 
   if (disable) {
-    button.hide();
+    button.hide(500);
+    button2.hide(500);
   } else if (!disable) {
-    button.show();
+    button.show(500);
+    button2.show(500);
   }
   updateExample()
     button.prop('disabled', disable);
+    button2.prop('disabled', disable);
 });    
+      
+      async function deleteBtnList() {
+        button.hide(500);
+        button2.hide(500);
+      }
     </script>
     <script>
       document.getElementById("bot-name").innerHTML = document.getElementById("username").value || <%= bot.user.username %>;
