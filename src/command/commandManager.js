@@ -32,6 +32,7 @@ module.exports = async (client) => {
           
           client.Commands.set(cmdConfig.name.toLowerCase(), cmdConfig);
           
+          catConfig.commands.push(cmdConfig);
         });
         
         client.Modules.set(catConfig.name.toLowerCase(), catConfig);
