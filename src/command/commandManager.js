@@ -10,6 +10,8 @@ module.exports = async (client) => {
   // command category
   fs.readdir("./src/command/list", async (err, categorys) => {
     
+    if (!categorys[0]) return;
+    
     categorys.forEach(category => {
       
       let catConfig  = require(`./list/${category}/config.js`);

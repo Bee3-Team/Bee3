@@ -14,7 +14,7 @@ module.exports = async (client) => {
       
       client.on(`${eventConfig.name}`, async (...args) => {
         
-        eventCallback(...args)
+        eventCallback(...args, client)
         
       });
       

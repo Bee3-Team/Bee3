@@ -1,10 +1,10 @@
 module.exports = {
   name: "message",
-  execute: async (message) => {
+  execute: async (message, client) => {
+    let config = client.config;
     
-    if (message.content === "foo vins") {
-      message.reply("foo ?")
-    }
+    
+    if (message.author.bot) return console.log(`[DISCORD] cannot response to bot`)
     
   }
 }
