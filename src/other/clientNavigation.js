@@ -78,14 +78,14 @@ module.exports = async client => {
       };
     }
   };
-  client.Guild.find = async function b(id) {
+  client.Guild.Find = async function b(id) {
     let find = await client.Guild.findOne({
       ID: id.toString
     });
 
     if (!find) {
       
-      let newData 
+      let newData = client.Guild.Create(false, id)
       
     }
   };
