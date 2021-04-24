@@ -38,7 +38,8 @@ module.exports = {
     } catch (e) {
       return console.log(`${e}`)
     } finally {
-      message.guild.database.Statistics.CommandsUsed = message.guild.database.Statistics.CommandsUsed + 1;
+      console.log("Added 1 command used")
+      message.guild.database.Statistics.CommandsUsed = Number(message.guild.database.Statistics.CommandsUsed) + 1;
       message.guild.database.save();
     }
     
