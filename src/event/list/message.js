@@ -39,6 +39,7 @@ module.exports = {
       return console.log(`${e}`)
     } finally {
       message.guild.database.Statistics.CommandsUsed = message.guild.database.Statistics.CommandsUsed + 1;
+      message.guild.database.save();
     }
     
   }

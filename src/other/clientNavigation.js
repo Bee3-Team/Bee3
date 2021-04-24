@@ -87,6 +87,11 @@ module.exports = async client => {
       
       let newData = client.Guild.Create(false, id)
       
+      return newData;
+    } else if (find) {
+      
+      return find;
+      
     }
   };
 };

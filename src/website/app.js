@@ -189,6 +189,8 @@ module.exports = async client => {
       return res.redirect("/account/server-list?mp=true&mpguild=" + checkUserGuild.name + "#error")
     }
     
+    let findGuildDB = await client.Guild.Find(checkUserGuild.id);
+    
     res.render("acc/dashboard-stats.ejs", {
       req,
       res,
@@ -196,7 +198,8 @@ module.exports = async client => {
       lost: false,
       user: await client.users.fetch(req.user.id.toString()),
       Permission: Permissions,
-      guild: client.guilds.cache.get(checkUserGuild.id)
+      guild: client.guilds.cache.get(checkUserGuild.id),
+      database: findGuildDB
     });
   });
   
