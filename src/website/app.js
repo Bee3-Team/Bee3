@@ -240,6 +240,6 @@ module.exports = async client => {
   }
 
   app.listen(port, () => {
-    console.log(`The bot web was running!`);
+    console.log(`[WEBSITE] the bot web was running!`);
   });
 };
