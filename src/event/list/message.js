@@ -29,6 +29,8 @@ module.exports = {
     const args = message.content.slice(message.guild.database.Settings.Prefix.length).trim().split(/ +/g);
     const cmd = args.shift().toLowerCase();
     
+    console.log(cmd)
+    
     const command = client.Commands.get(cmd) || client.Commands.get(client.Aliases.get(cmd));
     if (!command) return;
     

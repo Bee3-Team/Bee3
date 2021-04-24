@@ -1,6 +1,6 @@
 const { Schema, model } = require("mongoose");
 module.exports = model(
-  "url",
+  "Guild",
   new Schema({
     ID: String,
     Danger: {

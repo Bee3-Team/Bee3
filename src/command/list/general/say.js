@@ -1,6 +1,7 @@
 module.exports = {
   name: "say",
   description: "Repeat message",
+  aliases: ["repeat"],
   permissions: {
     user: [],
     client: []

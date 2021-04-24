@@ -32,12 +32,15 @@ module.exports = async (client) => {
           
           client.Commands.set(cmdConfig.name.toLowerCase(), cmdConfig);
           
+          console.log(`[HANDLER] loaded ${cmdConfig.name}`)
           catConfig.commands.push(cmdConfig);
         });
         
-        client.Modules.set(catConfig.name.toLowerCase(), catConfig);
         
       });
+      
+      console.log(`[HANDLER] loaded ${catConfig.name}`)
+      client.Modules.set(catConfig.name.toLowerCase(), catConfig);
       
     });
     
