@@ -3,8 +3,8 @@ let Guild = require("../mongodb/schemas/Guild.js");
 
 module.exports = async client => {
   client.config = config;
-  client.Database.Guild = Guild;
-  client.Database.Guild.Create = async function(message) {
+  client.Guild = Guild;
+  client.Guild.Create = async function a(message) {
     let newData = new Guild({
       ID: message.guild.id.toString(),
       Danger: {

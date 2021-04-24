@@ -5,10 +5,10 @@ module.exports = {
     
     try {
       
-      const findGuildDatabase = await client.Database.Guild.findOne({ID: message.guild.id});
+      const findGuildDatabase = await client.Guild.findOne({ID: message.guild.id});
       if (!findGuildDatabase) {
         
-        let newData = await client.Database.Guild.Create(message);
+        let newData = await client.Guild.Create(message);
         
         message.guild.database = newData;
         
@@ -22,11 +22,11 @@ module.exports = {
       return console.log(`[ERROR] ${e}`)
     }
     
-    if (!message.content.startsWith(message.guild.database.prefix)) return;
+    if (!message.content.startsWith(message.guild.database.Settings.Prefix)) return;
     
     if (message.author.bot) return;
     
-    const args = message.content.slice(message.guild.database.prefix.length).trim().split(/ +/g);
+    const args = message.content.slice(message.guild.database.Settings.Prefix.length).trim().split(/ +/g);
     const cmd = args.shift().toLowerCase();
     
     const command = client.Commands.get(cmd) || client.Commands.get(client.Aliases.get(cmd));
@@ -34,9 +34,9 @@ module.exports = {
     
     try {
       if (message.guild.database.Banned) return;
-      command.execute(message, args, client)
+      command.run(message, args, client)
     } catch (e) {
-      return;
+      return console.log(`${e}`)
     } finally {
       message.guild.database.Statistics.CommandsUsed = message.guild.database.Statistics.CommandsUsed + 1;
     }
