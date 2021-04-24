@@ -93,7 +93,7 @@
     
     <script>
 var button = $('#save-btn');
-var button2 = $("#reset-btn")
+var button2 = $("#reset-btn");
 var orig = [];
 button.hide();
 button2.hide();   
@@ -153,10 +153,11 @@ $('form').bind('change keyup', function () {
       document.getElementById("bot-msg").innerHTML = `${document.getElementById("prefix").value || "!"}help`
       
       async function deleteBtnList() {
-        document.getElementById("bot-name").innerHTML = document.getElementById("username").value || <%= bot.user.username %>;
-        document.getElementById("bot-msg").innerHTML = `${document.getElementById("prefix").value || "!"}help`        
+        document.getElementById("bot-name").innerHTML = document.getElementById("username").value || `<%= bot.user.username %>`;
+        document.getElementById("bot-msg").innerHTML = `${document.getElementById("prefix").value || "!"}help`   
         $('#save-btn').hide(500);
         $('#reset-btn').hide(500);
+    $('.button-list').hide(500);        
       }
       
       async function updateExample() {
