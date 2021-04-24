@@ -17,22 +17,23 @@ module.exports = async (client) => {
       let catConfig  = require(`./list/${category}/config.js`);
       if (!catConfig) return;
       
-      fs.readdir(`./src/command/list/${category}`, async (err, commands) => {
+      fs.readdir(`./src/command/list/${category}/`, async (err, commands) => {
         
         commands.forEach(command => {
           
           if (!command.endsWith(".js")) return;
           
           let cmdConfig = require(`./list/${category}/${command}`);
-          if (!cmdConfig.exec) return;
+          if (!cmdConfig.run) return;
           
           cmdConfig.aliases.map(ali => {
             client.Aliases.set(ali, cmdConfig.name);
           });
           
+          console.log(`[HANDLER] loaded ${cmdConfig.name}`)
+          
           client.Commands.set(cmdConfig.name.toLowerCase(), cmdConfig);
           
-          console.log(`[HANDLER] loaded ${cmdConfig.name}`)
           catConfig.commands.push(cmdConfig);
         });
         
