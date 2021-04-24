@@ -1,5 +1,5 @@
 const config = require("./config.js");
-const Guild = require("../mongodb/schemas/Guild.js");
+let Guild = require("../mongodb/schemas/Guild.js");
 
 module.exports = async client => {
   client.config = config;

@@ -26,7 +26,20 @@ module.exports = {
     
     if (message.author.bot) return;
     
-    const args = message.content.slice(message.guild.database.prefix.length).trim().split(+)
+    const args = message.content.slice(message.guild.database.prefix.length).trim().split(/ +/g);
+    const cmd = args.shift().toLowerCase();
+    
+    const command = client.Commands.get(cmd) || client.Commands.get(client.Aliases.get(cmd));
+    if (!command) return;
+    
+    try {
+      if (message.guild.database.Banned) return;
+      command.execute(message, args, client)
+    } catch (e) {
+      return;
+    } finally {
+      message.guild.database.Statistics.CommandsUsed = message.guild.database.Statistics.CommandsUsed + 1;
+    }
     
   }
 }

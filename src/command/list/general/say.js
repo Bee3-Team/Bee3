@@ -7,5 +7,11 @@ module.exports = {
   },
   run: async (message, args, client) => {
     
+    let say = args.join(" ");
+    if (!say) return;
+    
+    message.delete();
+    message.channel.send(`${say}`)
+    
   }
 }
