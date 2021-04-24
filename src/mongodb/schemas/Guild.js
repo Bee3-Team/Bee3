@@ -7,11 +7,19 @@ module.exports = model(
       Banned: Boolean
     },
     Settings: {
-      Prefix: String
+      Prefix: String,
+      DisabledCommands: []
     },
-    Graph: {
+    Statistics: {
       CommandsUsed: Number
     },
-    CustomCommands: []
+    CustomCommands: [],
+    Leveling: []
   })
 );
+
+// leveling json
+// 
+// userID: String,
+// Level: Number,
+// XP: Number
