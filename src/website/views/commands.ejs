@@ -3,12 +3,14 @@
   <head>
     <%- include('part/head.ejs') %>
     <%- include('part/bootstrapCSS.ejs') %>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
   </head>
   <body class="on-loading">
     <%- include('part/bootstrapJS.ejs') %>
     <script src="https://kit.fontawesome.com/071ea1fa85.js" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.js"></script>    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>
     <%- include('part/loading.ejs') %>
     
     <%- include('part/navbar.ejs') %>
@@ -25,19 +27,26 @@
       });
       
       if (blockedCMD[0]) {
-      bot.Commands.filter(x => blockedCMD.includes(x.name.toLowerCase())).map(x => commands.push(x))
+      bot.Modules.map(mod => {
+      mod.commands.filter(x => blockedCMD.includes(x.name.toLowerCase())).map(x => commands.push({cmd: x, module: mod}))
+      });
       } else {
-      bot.Commands.map(x => commands.push(x))
+      bot.Modules.map(mod => {
+      mod.commands.map(x => commands.push({cmd: x, module: mod}))
+      });
       }      
       
       } else {
-      bot.Commands.map(x => commands.push(x))
+      bot.Modules.map(mod => {
+      mod.commands.map(x => commands.push({cmd: x, module: mod}))
+      });
       }
+      
       
       %>
       
-<div class="container">
-  <div class="row">
+<div>
+  <div>
     <div class="col-xs-12">
       
 <table id="cmdList"  class="table table-bordered table-hover dt-responsive display" cellspacing="0" width="100%">
@@ -45,6 +54,7 @@
             <tr>
                 <th>Name</th>
                 <th>Aliases</th>
+                <th>Category</th>
                 <th>Description</th>
                 <th>Cooldown</th>
                 <th>User Perms</th>
@@ -55,6 +65,7 @@
             <tr>
                 <th>Name</th>
                 <th>Aliases</th>
+                <th>Category</th>
                 <th>Description</th>
                 <th>Cooldown</th>
                 <th>User Perms</th>
@@ -64,12 +75,13 @@
         <tbody>
           <% commands.map(cmd => { %>
             <tr>
-                <td><%= cmd.name %></td>
-                <td><%= cmd.aliases.join(", ") %></td>
-                <td><%= cmd.description %></td>
-                <td><%= cmd.cooldown %></td>
-                <td><%= cmd.permissions.user.join(", ") || "None" %></td>
-                <td><%= cmd.permissions.client.join(", ") || "None" %></td>
+                <td><%= cmd.cmd.name %></td>
+                <td><%= cmd.cmd.aliases.join(", ") %></td>
+                <td><%= cmd.module.name %></td>
+                <td><%= cmd.cmd.description %></td>
+                <td><%= cmd.cmd.cooldown %></td>
+                <td><%= cmd.cmd.permissions.user.join(", ") || "None" %></td>
+                <td><%= cmd.cmd.permissions.client.join(", ") || "None" %></td>
             </tr>          
           <% }) %>
         </tbody>
