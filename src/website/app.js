@@ -261,7 +261,27 @@ module.exports = async client => {
   });
   
   app.get("/commands", async (req, res) => {
+    let guild_id = req.query.id;
+    if (!guild_id) return res.redirect("/");
     
+    let findGuild = client.guilds.cache.get(guild_id);
+    if (!findGuild) return res.redirect("/");
+    
+    let findGuildDB = await client.Guild.findOne({ID: findGuild.id});
+    
+    if (!findGuildDB) {
+      findGuildDB = await client.Guild.Create(false, guild_id)
+    }
+    
+    return res.render("commands.ejs", {
+      res,
+      req,
+      bot,
+      lost: false,
+      Permission: Permissions,
+      guild: findGuild,
+      database: findGuildDB
+    })
   });
   
   app.post("/dashboard/:id/settings", checkAuth, async (req, res) => {
