@@ -51,14 +51,14 @@
         <div class="cmdlist-primary">
           <div class="cmdlist-item cmdlist-tag">
 <ul class="tags">
-  <li class="tag active" id="all"><a>All</a></li>
+  <li class="tag active" onclick="openCity(event, 'all')" id="all"><a>All</a></li>
   <% bot.Modules.map(mod => { %>
-  <li class="tag" id="<%= mod.name %>"><a><%= mod.name %></a></li>
+  <li class="tag" onclick="openCity(event, '<%= mod.name %>')" id="<%= mod.name %>"><a><%= mod.name %></a></li>
   <% }) %>
 </ul>            
           </div>
           <div class="cmdlist-item cmdlist-cmds">
-            <div class="tag-content" id="all">
+            <div class="tagcontent" id="all">
 <div class="accordion" id="accordionExample">
   <% bot.Commands.map(cmd => { %>
   <div class="card">
@@ -81,7 +81,7 @@
 </div>                  
             </div>            
             <% bot.Modules.map(mod => { %>
-            <div class="tag-content" id="<%= mod.name %>">
+            <div class="tagcontent" id="<%= mod.name %>">
 <div class="accordion" id="accordionExample">
   <% mod.commands.map(cmd => { %>
   <div class="card">
@@ -112,27 +112,19 @@
 
     <%- include('part/footer.ejs') %>
     <script>
-const buttonElement = document.querySelectorAll('.tag');
-const tabContent = document.querySelectorAll(".tag-content");
-
-tabContent[0].style.display = "block";
-
-buttonElement.forEach(function (i) {
-    i.addEventListener('click', function (event) {
-
-        for (let x = 0; x < buttonElement.length; x++) {
-            if (event.target.id == buttonElement[x].id) {
-                buttonElement[x].className = buttonElement[x].className.replace(" active", "");
-                tabContent[x].style.display = "block";
-                event.currentTarget.className += " active";
-            } else {
-                tabContent[x].style.display = "none";
-                buttonElement[x].className = buttonElement[x].className.replace(" active", "");
-            }
-        }
-        
-    });
-});    
+function openCity(evt, cityName) {
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("tagcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tag");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+  document.getElementById(cityName).style.display = "block";
+  evt.currentTarget.className += " active";
+}
     </script>
   </body>
 </html>
