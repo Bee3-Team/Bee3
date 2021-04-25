@@ -15,8 +15,7 @@ module.exports = {
     message.delete();
     message.channel.send(`${say}
     
-    
-    `)
+- ${message.author.tag}`)
     
   }
 }

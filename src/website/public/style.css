@@ -679,3 +679,36 @@ h2 {
   margin-left: 49px;
   margin-top: 19px;
 }
+
+/*  */
+/*  */
+/*  */
+h2 {
+  text-align: center;
+  padding: 20px 0;
+}
+
+table caption {
+	padding: .5em 0;
+}
+
+table.dataTable th,
+table.dataTable td {
+  white-space: nowrap;
+}
+
+.p {
+  text-align: center;
+  padding-top: 140px;
+  font-size: 14px;
+}
+
+th:first-child + th + th,
+td:first-child + td + td {
+  display:none;
+} 
+
+tr.group,
+tr.group:hover {
+    background-color: #ddd !important;
+}

@@ -24,8 +24,14 @@
       blockedCMD.push(x.name.toLowerCase())
       });
       
-      client.Commands.filter(x => !blockedCMD.includes(x.name.toLowerCase())).map(x => commands.push(x))
+      if (blockedCMD[0]) {
+      bot.Commands.filter(x => blockedCMD.includes(x.name.toLowerCase())).map(x => commands.push(x))
+      } else {
+      bot.Commands.map(x => commands.push(x))
+      }      
       
+      } else {
+      bot.Commands.map(x => commands.push(x))
       }
       
       %>
@@ -34,7 +40,7 @@
   <div class="row">
     <div class="col-xs-12">
       
-<table id="example"  class="table table-bordered table-hover dt-responsive display" cellspacing="0" width="100%">
+<table id="cmdList"  class="table table-bordered table-hover dt-responsive display" cellspacing="0" width="100%">
         <thead>
             <tr>
                 <th>Name</th>
@@ -62,8 +68,8 @@
                 <td><%= cmd.aliases.join(", ") %></td>
                 <td><%= cmd.description %></td>
                 <td><%= cmd.cooldown %></td>
-                <td><%= cmd.permissions.user.join(", ") %></td>
-                <td><%= cmd.permissions.client.join(", ") %></td>
+                <td><%= cmd.permissions.user.join(", ") || "None" %></td>
+                <td><%= cmd.permissions.client.join(", ") || "None" %></td>
             </tr>          
           <% }) %>
         </tbody>
@@ -74,5 +80,35 @@
     </main>
 
     <%- include('part/footer.ejs') %>
+    <script>
+
+
+$(document).ready(function() {
+    var table = $('#cmdList').DataTable({
+        "columnDefs": [
+            { "visible": false, "targets": 2 }
+        ],
+        "order": [[ 2, 'asc' ]],
+        "displayLength": 25,
+        "drawCallback": function ( settings ) {
+            var api = this.api();
+            var rows = api.rows( {page:'current'} ).nodes();
+            var last=null;
+ 
+            api.column(2, {page:'current'} ).data().each( function ( group, i ) {
+                if ( last !== group ) {
+                    $(rows).eq( i ).before(
+                        '<tr class="group"><td colspan="5">'+group+'</td></tr>'
+                    );
+ 
+                    last = group;
+                }
+            } );
+        }
+    } );
+ 
+   
+} );    
+    </script>
   </body>
 </html>
