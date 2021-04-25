@@ -12,6 +12,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.js"></script>
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>
     <%- include('part/loading.ejs') %>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>
+    <script src="https://cdn.datatables.net/fixedheader/3.1.8/js/dataTables.fixedHeader.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.7/js/dataTables.responsive.min.js"></script>
     
     <%- include('part/navbar.ejs') %>
     
@@ -92,35 +96,15 @@
     </main>
 
     <%- include('part/footer.ejs') %>
+    
     <script>
-
-
 $(document).ready(function() {
-    var table = $('#cmdList').DataTable({
-        "columnDefs": [
-            { "visible": false, "targets": 2 }
-        ],
-        "order": [[ 2, 'asc' ]],
-        "displayLength": 25,
-        "drawCallback": function ( settings ) {
-            var api = this.api();
-            var rows = api.rows( {page:'current'} ).nodes();
-            var last=null;
- 
-            api.column(2, {page:'current'} ).data().each( function ( group, i ) {
-                if ( last !== group ) {
-                    $(rows).eq( i ).before(
-                        '<tr class="group"><td colspan="5">'+group+'</td></tr>'
-                    );
- 
-                    last = group;
-                }
-            } );
-        }
+    var table = $('#cmdList').DataTable( {
+        responsive: true
     } );
  
-   
-} );    
+    new $.fn.dataTable.FixedHeader( table );
+} );
     </script>
   </body>
 </html>
