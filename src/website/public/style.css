@@ -684,6 +684,13 @@ h2 {
 /*  */
 /*  */
 .tags {
-  display: flex;
-  flex-direction: row;
+    display: flex;
+    flex-direction: row;
+    margin: 0px;
+}
+
+.tag {
+    margin: 5px 20px 5px 5px;
+    font-size: 22px;
+    background: transparent;
 }
