@@ -679,3 +679,11 @@ h2 {
   margin-left: 49px;
   margin-top: 19px;
 }
+
+/*  */
+/*  */
+/*  */
+.tags {
+  display: flex;
+  flex-direction: row;
+}
