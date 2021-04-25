@@ -5,6 +5,7 @@ const bodyParser = require("body-parser");
 const path = require("path");
 const { Permissions } = require("discord.js");
 var back = require('express-back');
+const urlencodedParser = require("body-parser");
 
 module.exports = async client => {
   app.use(bodyParser.urlencoded({ extended: false }));

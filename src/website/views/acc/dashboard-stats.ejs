@@ -121,19 +121,19 @@ var DEFAULT_DATASET_SIZE = 7,
   let data = [];
   let dataDate = [];
   
-  <% database.Statistics.CommandsUsed.sort((a, b) => b.Number - a.Number).map(x => { %>
+  <% database.Statistics.CommandsUsed.sort((a, b) => new Date(a.Date).getTime() - new Date(b.Date).getTime()).map(x => { %>
   data.push(`<%= x.Number %>`)
-  dataDate.push(`<%= new Date(new Date(x.Date).toLocaleDateString() %>`)
+  dataDate.push(`<%= new Date(x.Date).toLocaleDateString() %>`)
   <% }) %>
   
 var barData = {
-			labels: dataDate,
+			labels: dataDate.slice(dataDate.length - 5, dataDate.length),
 			datasets: [{
 				label: 'Commands Used',
 				backgroundColor: color(chartColors.red).alpha(0.5).rgbString(),
 				borderColor: chartColors.red,
 				borderWidth: 1,
-				data: data
+				data: data.slice(data.length - 5, data.length)
 			}]
 
 		};
