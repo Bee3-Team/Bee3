@@ -694,3 +694,35 @@ h2 {
     font-size: 22px;
     background: transparent;
 }
+
+.cmdlist-search {
+    width: 100%;
+    border: none;
+    outline: none;
+    font-size: 30px;
+    transition: 0.5s;
+    background: transparent;
+    color: white;
+    border-radius: 2px;
+    border-bottom: 3px solid #ffd700;
+}
+
+.tags {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: 0px;
+    padding: 0px !important;
+}
+
+.tag {
+    font-size: 22px;
+    background: transparent;
+    width: 8%;
+    margin: 10px;
+    text-align: center;
+}
+
+.tag a, .tag a:hover {
+  color: #ffd700;
+}
