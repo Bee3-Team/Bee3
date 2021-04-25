@@ -51,31 +51,59 @@
         <div class="cmdlist-primary">
           <div class="cmdlist-item cmdlist-tag">
 <ul class="tags">
-  <li class="tag" id="all"><a>All</a></li>
-  <% commands.map(mod => { %>
-  <li class="tag" id="<%= mod.module.name %>"><a><%= mod.module.name %></a></li>
+  <li class="tag active" id="all"><a>All</a></li>
+  <% bot.Modules.map(mod => { %>
+  <li class="tag" id="<%= mod.name %>"><a><%= mod.name %></a></li>
   <% }) %>
 </ul>            
           </div>
           <div class="cmdlist-item cmdlist-cmds">
+            <div class="tag-content" id="all">
 <div class="accordion" id="accordionExample">
+  <% bot.Commands.map(cmd => { %>
   <div class="card">
-    <div class="card-header" id="headingOne" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+    <div class="card-header" id="headingOne" data-toggle="collapse" data-target="#<%= cmd.name %>" aria-expanded="true" aria-controls="<%= cmd.name %>">
       <h2 class="mb-0">
-        name -<small style="font-size: 20px !important;"> description</small>
+        <%= cmd.name %> -<small style="font-size: 20px !important;"> <%= cmd.description %></small>
       </h2>
     </div>
 
-    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+    <div id="<%= cmd.name %>" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
       <div class="card-body">
         <div class="card-sec-item">
           <h5>Aliases:</h5>
-          <pre><code>test, test, test</code></pre>
+          <pre><code><%= cmd.aliases.join(", ") %></code></pre>
         </div>
       </div>
     </div>
-  </div>
-</div>            
+  </div>  
+  <% }) %>
+</div>                  
+            </div>            
+            <% bot.Modules.map(mod => { %>
+            <div class="tag-content" id="<%= mod.name %>">
+<div class="accordion" id="accordionExample">
+  <% mod.commands.map(cmd => { %>
+  <div class="card">
+    <div class="card-header" id="headingOne" data-toggle="collapse" data-target="#<%= cmd.name %>" aria-expanded="true" aria-controls="<%= cmd.name %>">
+      <h2 class="mb-0">
+        <%= cmd.name %> -<small style="font-size: 20px !important;"> <%= cmd.description %></small>
+      </h2>
+    </div>
+
+    <div id="<%= cmd.name %>" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+      <div class="card-body">
+        <div class="card-sec-item">
+          <h5>Aliases:</h5>
+          <pre><code><%= cmd.aliases.join(", ") %></code></pre>
+        </div>
+      </div>
+    </div>
+  </div>  
+  <% }) %>
+</div>                  
+            </div>
+            <% }) %>
           </div>
         </div>
       </div>
@@ -83,5 +111,28 @@
     </main>
 
     <%- include('part/footer.ejs') %>
+    <script>
+const buttonElement = document.querySelectorAll('.tag');
+const tabContent = document.querySelectorAll(".tag-content");
+
+tabContent[0].style.display = "block";
+
+buttonElement.forEach(function (i) {
+    i.addEventListener('click', function (event) {
+
+        for (let x = 0; x < buttonElement.length; x++) {
+            if (event.target.id == buttonElement[x].id) {
+                buttonElement[x].className = buttonElement[x].className.replace(" active", "");
+                tabContent[x].style.display = "block";
+                event.currentTarget.className += " active";
+            } else {
+                tabContent[x].style.display = "none";
+                buttonElement[x].className = buttonElement[x].className.replace(" active", "");
+            }
+        }
+        
+    });
+});    
+    </script>
   </body>
 </html>

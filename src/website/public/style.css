@@ -723,6 +723,11 @@ h2 {
     text-align: center;
 }
 
-.tag a, .tag a:hover {
-  color: #ffd700;
+.tag a {
+  color: #ffd700 !important;
+  cursor: pointer;
+}
+
+.tag a:hover {
+  text-decoration: underline !important;
 }
