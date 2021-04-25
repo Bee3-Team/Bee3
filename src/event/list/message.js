@@ -42,7 +42,10 @@ module.exports = {
     } finally {
       console.log(Guild)
       console.log("Added 1 command used")
-      Guild.Statistics.CommandsUsed = Number(Guild.Statistics.CommandsUsed) + 1;
+      Guild.Statistics.CommandsUsed.push({
+        Number: Guild.Statistics.CommandsUsed.length + 1,
+        Date: Date()
+      });
       Guild.save();
     }
     

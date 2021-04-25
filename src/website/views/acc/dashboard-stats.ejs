@@ -118,9 +118,9 @@ var DEFAULT_DATASET_SIZE = 7,
 		grey: 'rgb(231,233,237)'
 	};
 
-function randomScalingFactor() {
-  return <%= database.Statistics.CommandsUsed.toString() %>
-	}
+  <% let data = [] %>
+  
+  <% database.Statistics.CommandsUsed.sort((a, b) => b.Date() - a.Date()).map(x => data.push(x)) %>
 
 var barData = {
 			labels: ["0", "0", "0", "0", "0"],
@@ -129,15 +129,7 @@ var barData = {
 				backgroundColor: color(chartColors.red).alpha(0.5).rgbString(),
 				borderColor: chartColors.red,
 				borderWidth: 1,
-				data: [
-                    randomScalingFactor(),
-                    randomScalingFactor(),
-                    randomScalingFactor(),
-                    randomScalingFactor(),
-                    randomScalingFactor(),
-                    randomScalingFactor(),
-                    randomScalingFactor()
-				]
+				data: <%= data %>
 			}]
 
 		};

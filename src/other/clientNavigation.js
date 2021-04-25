@@ -19,7 +19,7 @@ module.exports = async client => {
           DisabledCommands: []
         },
         Statistics: {
-          CommandsUsed: 0
+          CommandsUsed: []
         },
         CustomCommands: [],
         Leveling: []
@@ -39,7 +39,7 @@ module.exports = async client => {
           DisabledCommands: []
         },
         Statistics: {
-          CommandsUsed: 0
+          CommandsUsed: []
         },
         CustomCommands: [],
         Leveling: []

@@ -1,6 +1,6 @@
 const { Schema, model } = require("mongoose");
 module.exports = model(
-  "Guild",
+  "GuildDB",
   new Schema({
     ID: String,
     Danger: {
@@ -11,7 +11,7 @@ module.exports = model(
       DisabledCommands: []
     },
     Statistics: {
-      CommandsUsed: Number
+      CommandsUsed: []
     },
     CustomCommands: [],
     Leveling: []
@@ -23,3 +23,8 @@ module.exports = model(
 // userID: String,
 // Level: Number,
 // XP: Number
+
+// commands used json
+//
+// Number: Number,
+// Date: String
