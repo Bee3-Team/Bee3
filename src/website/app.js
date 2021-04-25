@@ -192,7 +192,7 @@ module.exports = async client => {
     let findGuildDB = await client.Guild.findOne({ID: checkUserGuild.id});
     
     if (!findGuildDB) {
-      findGuildDB = client.Guild.Create(checkUserGuild.id)
+      findGuildDB = client.Guild.Create(false, checkUserGuild.id)
     }
     
     res.render("acc/dashboard-stats.ejs", {
@@ -223,7 +223,7 @@ module.exports = async client => {
     let findGuildDB = await client.Guild.findOne({ID: checkUserGuild.id});
     
     if (!findGuildDB) {
-      findGuildDB = client.Guild.Create(checkUserGuild.id)
+      findGuildDB = client.Guild.Create(false, checkUserGuild.id)
     }
     
     res.render("acc/dashboard-settings.ejs", {
