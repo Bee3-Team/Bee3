@@ -38,10 +38,8 @@ module.exports = {
       if (Guild.Danger.Banned) return;
       command.run(message, args, client)
     } catch (e) {
-      return console.log(`${e}`)
+      return console.log(`[ERROR] ${e}`)
     } finally {
-      console.log(Guild)
-      console.log("Added 1 command used")
       Guild.Statistics.CommandsUsed.push({
         Number: Guild.Statistics.CommandsUsed.length + 1,
         Date: Date()
