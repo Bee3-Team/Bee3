@@ -155,16 +155,16 @@ function openCity(evt, cityName) {
 
 //       
 $(document).ready(function(){
-  $('.noResult').hide();
+	$('.noResult').hide();
   
   $(".cmdlist-search").on("keyup", function() {
     var value = $(this).val().toLowerCase();
     $(".tagcontent").filter(function() {
       $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-      $('.noResult').hide();
+     	$('.noResult').hide();
       
-      var noResult = true;
-      $(".cmdlist-item").children('.tagcontent').each(function () {
+			var noResult = true;
+     	$("#button-container").children('div').each(function () {
       	if ($(this).children(':visible').length != 0) {
         	noResult = false;
         }
@@ -174,7 +174,7 @@ $(document).ready(function(){
       }
     });
   });
-});      
+});
     </script>
   </body>
 </html>
