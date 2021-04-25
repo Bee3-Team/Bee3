@@ -71,8 +71,22 @@
     <div id="<%= cmd.name %>" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
       <div class="card-body">
         <div class="card-sec-item">
+        <div class="card-sec-item">
           <h5>Aliases:</h5>
-          <pre><code><%= cmd.aliases.join(", ") %></code></pre>
+          <pre><code><%= cmd.aliases.join(", ") || "None" %></code></pre>
+        </div>
+        <div class="card-sec-item">
+          <h5>Cooldown:</h5>
+          <pre><code><%= cmd.cooldown %>s</code></pre>
+        </div>
+        <div class="card-sec-item">
+          <h5>User Permissions:</h5>
+          <pre><code><%= cmd.permissions.user.join(", ") || "None" %></code></pre>
+        </div>
+        <div class="card-sec-item">
+          <h5>Bot Permissions:</h5>
+          <pre><code><%= cmd.permissions.client.join(", ") || "None" %></code></pre>
+        </div>
         </div>
       </div>
     </div>
@@ -95,7 +109,19 @@
       <div class="card-body">
         <div class="card-sec-item">
           <h5>Aliases:</h5>
-          <pre><code><%= cmd.aliases.join(", ") %></code></pre>
+          <pre><code><%= cmd.aliases.join(", ") || "None" %></code></pre>
+        </div>
+        <div class="card-sec-item">
+          <h5>Cooldown:</h5>
+          <pre><code><%= cmd.cooldown %>s</code></pre>
+        </div>
+        <div class="card-sec-item">
+          <h5>User Permissions:</h5>
+          <pre><code><%= cmd.permissions.user.join(", ") || "None" %></code></pre>
+        </div>
+        <div class="card-sec-item">
+          <h5>Bot Permissions:</h5>
+          <pre><code><%= cmd.permissions.client.join(", ") || "None" %></code></pre>
         </div>
       </div>
     </div>
