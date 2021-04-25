@@ -45,50 +45,38 @@
       
       %>
       
-<div>
-  <div>
-    <div class="col-xs-12">
       
-<table id="cmdList"  class="table table-bordered table-hover dt-responsive display" cellspacing="0" width="100%">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Aliases</th>
-                <th>Category</th>
-                <th>Description</th>
-                <th>Cooldown</th>
-                <th>User Perms</th>
-                <th>Bot Perms</th>
-            </tr>
-        </thead>
-        <tfoot>
-            <tr>
-                <th>Name</th>
-                <th>Aliases</th>
-                <th>Category</th>
-                <th>Description</th>
-                <th>Cooldown</th>
-                <th>User Perms</th>
-                <th>Bot Perms</th>
-            </tr>
-        </tfoot>
-        <tbody>
-          <% commands.map(cmd => { %>
-            <tr>
-                <td><%= cmd.cmd.name %></td>
-                <td><%= cmd.cmd.aliases.join(", ") %></td>
-                <td><%= cmd.module.name %></td>
-                <td><%= cmd.cmd.description %></td>
-                <td><%= cmd.cmd.cooldown %></td>
-                <td><%= cmd.cmd.permissions.user.join(", ") || "None" %></td>
-                <td><%= cmd.cmd.permissions.client.join(", ") || "None" %></td>
-            </tr>          
-          <% }) %>
-        </tbody>
-    </table>
+      <div class="cmdlist">
+        <input class="cmdlist-search" placeholder="search 🔍">
+        <div class="cmdlist-primary">
+          <div class="cmdlist-item cmdlist-tag">
+            <span class="cmdlist-tag-item active">All</span>
+          </div>
+          <div class="cmdlist-item cmdlist-cmds">
+<div class="accordion" id="accordionExample">
+  <div class="card">
+    <div class="card-header" id="headingOne">
+      <h2 class="mb-0">
+        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          Collapsible Group Item #1
+        </button>
+      </h2>
     </div>
+
+    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+      <div class="card-body">
+        <div class="card-sec-item">
+          <h5>Aliases:</h5>
+          <pre><code>test, test, test</code></pre>
+        </div>
+      </div>
     </div>
-</div>      
+  </div>
+</div>            
+          </div>
+        </div>
+      </div>
+      
     </main>
 
     <%- include('part/footer.ejs') %>
