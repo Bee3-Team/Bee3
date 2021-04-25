@@ -27,21 +27,7 @@ module.exports = async client => {
 
       newData.save();
 
-      return {
-        ID: findGuild.id.toString(),
-        Danger: {
-          Banned: false
-        },
-        Settings: {
-          Prefix: config.prefix,
-          DisabledCommands: []
-        },
-        Statistics: {
-          CommandsUsed: 0
-        },
-        CustomCommands: [],
-        Leveling: []
-      };
+      return newData;
     } else {
       let newData = new Guild({
         ID: message.guild.id.toString(),
@@ -61,21 +47,7 @@ module.exports = async client => {
 
       newData.save();
 
-      return {
-        ID: message.guild.id.toString(),
-        Danger: {
-          Banned: false
-        },
-        Settings: {
-          Prefix: config.prefix,
-          DisabledCommands: []
-        },
-        Statistics: {
-          CommandsUsed: 0
-        },
-        CustomCommands: [],
-        Leveling: []
-      };
+      return newData;
     }
   };
   client.Guild.Find = async function b(id) {
@@ -90,6 +62,7 @@ module.exports = async client => {
       return newData;
     } else if (find) {
       
+      console.log(find)
       return find;
       
     }

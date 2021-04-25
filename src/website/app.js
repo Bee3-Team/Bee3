@@ -189,7 +189,7 @@ module.exports = async client => {
       return res.redirect("/account/server-list?mp=true&mpguild=" + checkUserGuild.name + "#error")
     }
     
-    let findGuildDB = await client.Guild.Find(checkUserGuild.id);
+    let findGuildDB = await client.Guild.findOne({ID: checkUserGuild.id});
     
     res.render("acc/dashboard-stats.ejs", {
       req,

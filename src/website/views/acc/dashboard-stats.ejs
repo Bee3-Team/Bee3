@@ -119,7 +119,7 @@ var DEFAULT_DATASET_SIZE = 7,
 	};
 
 function randomScalingFactor() {
-  return `<%= database.Statistics.CommandsUsed %>`
+  return <%= database.Statistics.CommandsUsed.toString() %>
 	}
 
 var barData = {

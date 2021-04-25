@@ -3,6 +3,8 @@ module.exports = {
   execute: async (message, client) => {
     let config = client.config;
     
+    let Guild = null;
+    
     try {
       
       const findGuildDatabase = await client.Guild.findOne({ID: message.guild.id});
@@ -10,11 +12,11 @@ module.exports = {
         
         let newData = await client.Guild.Create(message);
         
-        message.guild.database = newData;
+        Guild = newData;
         
       } else if (findGuildDatabase) {
         
-        message.guild.database = findGuildDatabase;
+        Guild = findGuildDatabase;
         
       }
       
@@ -22,25 +24,26 @@ module.exports = {
       return console.log(`[ERROR] ${e}`)
     }
     
-    if (!message.content.startsWith(message.guild.database.Settings.Prefix)) return;
+    if (!message.content.startsWith(Guild.Settings.Prefix)) return;
     
     if (message.author.bot) return;
     
-    const args = message.content.slice(message.guild.database.Settings.Prefix.length).trim().split(/ +/g);
+    const args = message.content.slice(Guild.Settings.Prefix.length).trim().split(/ +/g);
     const cmd = args.shift().toLowerCase();
     
     const command = client.Commands.get(cmd) || client.Commands.get(client.Aliases.get(cmd));
     if (!command) return;
     
     try {
-      if (message.guild.database.Banned) return;
+      if (Guild.Danger.Banned) return;
       command.run(message, args, client)
     } catch (e) {
       return console.log(`${e}`)
     } finally {
-      message.guild.database.Statistics.CommandsUsed = Number(message.guild.database.Statistics.CommandsUsed) + 1;
-      message.guild.database.save();
+      console.log(Guild)
       console.log("Added 1 command used")
+      Guild.Statistics.CommandsUsed = Number(Guild.Statistics.CommandsUsed) + 1;
+      Guild.save();
     }
     
   }
