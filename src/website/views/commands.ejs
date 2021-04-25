@@ -51,9 +51,10 @@
         <div class="cmdlist-primary">
           <div class="cmdlist-item cmdlist-tag">
 <ul class="tags">
-  <li class="tag"><a href="#all">All</a></li>
-  <li class="tag"><a href="#all">All</a></li>
-  <li class="tag"><a href="#all">All</a></li>
+  <li class="tag" id="all"><a>All</a></li>
+  <% commands.map(mod => { %>
+  <li class="tag" id="<%= mod.module.name %>"><a><%= mod.module.name %></a></li>
+  <% }) %>
 </ul>            
           </div>
           <div class="cmdlist-item cmdlist-cmds">
