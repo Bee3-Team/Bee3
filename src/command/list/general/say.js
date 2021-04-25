@@ -6,13 +6,17 @@ module.exports = {
     user: [],
     client: []
   },
+  cooldown: 5,
   run: async (message, args, client) => {
     
     let say = args.join(" ");
     if (!say) return;
     
     message.delete();
-    message.channel.send(`${say}`)
+    message.channel.send(`${say}
+    
+    
+    `)
     
   }
 }
