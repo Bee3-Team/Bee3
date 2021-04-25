@@ -60,7 +60,7 @@
     <div class="well well-sm graph">
       <div class="server-info row">
         <div class="server-info-item" data-toggle="tooltip" data-placement="bottom" title="Run Commands">
-          <%= database.Statistics.CommandsUsed %>
+          <%= database.Statistics.CommandsUsed.length %>
         </div>
         <div class="server-info-item" data-toggle="tooltip" data-placement="bottom" title="Bot Status">
           <%= bot.config.status || "Ready" %>
@@ -118,18 +118,22 @@ var DEFAULT_DATASET_SIZE = 7,
 		grey: 'rgb(231,233,237)'
 	};
 
-  <% let data = [] %>
+  let data = [];
+  let dataDate = [];
   
-  <% database.Statistics.CommandsUsed.sort((a, b) => b.Date() - a.Date()).map(x => data.push(x)) %>
-
+  <% database.Statistics.CommandsUsed.sort((a, b) => b.Number - a.Number).map(x => { %>
+  data.push(`<%= x.Number %>`)
+  dataDate.push(`<%= new Date(new Date(x.Date).toLocaleDateString() %>`)
+  <% }) %>
+  
 var barData = {
-			labels: ["0", "0", "0", "0", "0"],
+			labels: dataDate,
 			datasets: [{
 				label: 'Commands Used',
 				backgroundColor: color(chartColors.red).alpha(0.5).rgbString(),
 				borderColor: chartColors.red,
 				borderWidth: 1,
-				data: <%= data %>
+				data: data
 			}]
 
 		};
