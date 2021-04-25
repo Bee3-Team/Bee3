@@ -47,7 +47,7 @@
       
       
       <div class="cmdlist">
-        <input class="cmdlist-search" placeholder="search 🔍">
+<!--         <input class="cmdlist-search" placeholder="search 🔍"> -->
         <div class="cmdlist-primary">
           <div class="cmdlist-item cmdlist-tag">
 <ul class="tags">
@@ -58,18 +58,17 @@
 </ul>            
           </div>
           <div class="cmdlist-item cmdlist-cmds">
-            <h2 class="noResult">No Result</h2>
             <div class="tagcontent" id="all">
 <div class="accordion" id="accordionExample">
   <% bot.Commands.map(cmd => { %>
   <div class="card">
-    <div class="card-header" id="headingOne" data-toggle="collapse" data-target="#<%= cmd.name %>" aria-expanded="true" aria-controls="<%= cmd.name %>">
+    <div class="card-header" id="headingOne" data-toggle="collapse" data-target="#<%= cmd.name %>-all" aria-expanded="true" aria-controls="<%= cmd.name %>-all">
       <h2 class="mb-0">
-        <%= cmd.name %> -<small style="font-size: 20px !important;"> <%= cmd.description %></small>
+        <strong><%= cmd.name %></strong> -<small style="font-size: 20px !important;"> <%= cmd.description %></small>
       </h2>
     </div>
 
-    <div id="<%= cmd.name %>" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+    <div id="<%= cmd.name %>-all" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
       <div class="card-body">
         <div class="card-sec-item">
         <div class="card-sec-item">
@@ -152,29 +151,6 @@ function openCity(evt, cityName) {
   document.getElementById(cityName).style.display = "block";
   evt.currentTarget.className += " active";
 }
-
-//       
-$(document).ready(function(){
-	$('.noResult').hide();
-  
-  $(".cmdlist-search").on("keyup", function() {
-    var value = $(this).val().toLowerCase();
-    $(".tagcontent").filter(function() {
-      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-     	$('.noResult').hide();
-      
-			var noResult = true;
-     	$("#button-container").children('div').each(function () {
-      	if ($(this).children(':visible').length != 0) {
-        	noResult = false;
-        }
-      });   
-      if (noResult) {
-      	$('.noresults').show();
-      }
-    });
-  });
-});
     </script>
   </body>
 </html>
