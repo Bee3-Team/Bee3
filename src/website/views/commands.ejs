@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
     <%- include('part/head.ejs') %>
     <%- include('part/bootstrapCSS.ejs') %>
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
   </head>
   <body class="on-loading">
     <%- include('part/bootstrapJS.ejs') %>
@@ -102,8 +102,6 @@ $(document).ready(function() {
     var table = $('#cmdList').DataTable( {
         responsive: true
     } );
- 
-    new $.fn.dataTable.FixedHeader( table );
 } );
     </script>
   </body>
