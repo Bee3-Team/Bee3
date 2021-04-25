@@ -58,6 +58,7 @@
 </ul>            
           </div>
           <div class="cmdlist-item cmdlist-cmds">
+            <h2 class="noResult">No Result</h2>
             <div class="tagcontent" id="all">
 <div class="accordion" id="accordionExample">
   <% bot.Commands.map(cmd => { %>
@@ -151,6 +152,29 @@ function openCity(evt, cityName) {
   document.getElementById(cityName).style.display = "block";
   evt.currentTarget.className += " active";
 }
+
+//       
+$(document).ready(function(){
+  $('.noResult').hide();
+  
+  $(".cmdlist-search").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $(".tagcontent").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+      $('.noResult').hide();
+      
+      var noResult = true;
+      $(".cmdlist-item").children('.tagcontent').each(function () {
+      	if ($(this).children(':visible').length != 0) {
+        	noResult = false;
+        }
+      });   
+      if (noResult) {
+      	$('.noresults').show();
+      }
+    });
+  });
+});      
     </script>
   </body>
 </html>
