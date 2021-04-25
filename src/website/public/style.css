@@ -580,10 +580,6 @@ h2 {
     margin-bottom: 0px;
   }
 }
-/* jadi ngebug jir di hp yg nav-link :v wait :v*/
-/* atur ae dah, yg penting bagus */
-/* gw lagi atur footer jan chat moloe gw lagi liat, kereload mulu*/
-/* pake https://beee.cf baca dm discord :v... bang itu 320px juga itungan mobile kah?*/
 
 .nav-item {
   top: 50%;
@@ -660,8 +656,6 @@ h2 {
   line-height: 0.8;
 }
 
-/*kenapa example-bot-sec nya nga make itu eh apa ya lupa*/
-
 .example-bot-tag {
   background: #7289da;
   height: 0.9375rem;
@@ -673,21 +667,15 @@ h2 {
   margin-left: 0.25rem;
 }
 
-/* g sengaja cok, gw kira itu margin top aowkowkokw ga teliti aing hmmm wait gw nyoba nyoba ya biar rada work :v antara bisa atau kaga ga tau gw */
 .example-bot-time {
   color: #72767d;
   font-size: 0.75rem;
   margin-left: 0.25rem;
 }
 
-/* sorry lupa :v wowkwokwk */
-
 .example-bot-msg {
-    color: #dcddde;
-    position: fixed;
-    margin-left: 49px;
-    margin-top: 19px;
+  color: #dcddde;
+  position: fixed;
+  margin-left: 49px;
+  margin-top: 19px;
 }
-
-.sidebar-item {
-  text-decoration: none !impor
