@@ -257,6 +257,16 @@ module.exports = async client => {
       findGuildDB = await client.Guild.Create(false, guild_id)
     }
     
+    res.render("acc/dashboard-commands.ejs", {
+      req,
+      res,
+      bot,
+      lost: false,
+      user: await client.users.fetch(req.user.id.toString()),
+      Permission: Permissions,
+      guild: client.guilds.cache.get(checkUserGuild.id),
+      database: findGuildDB
+    })
     
   });
   
