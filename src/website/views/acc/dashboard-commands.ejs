@@ -82,7 +82,7 @@
     <div class="db-cmdlist">
       <% cmds.map(cmd => { %>
       <div class="db-cmd">
-        <h3 class="db-cmd-name"><%= cmd.cmd.name.length > 9 ? cmd.cmd.name.substring(0, 6) + "..." : cmd.cmd.name %> <label class="switch"><input type="checkbox" <% cmd.disabled ? "" : %> checked <% %></inpu>><span class="slider round"></span></label></h3>
+        <h3 class="db-cmd-name"><%= cmd.cmd.name.length > 9 ? cmd.cmd.name.substring(0, 6) + "..." : cmd.cmd.name %> <% if (cmd.disabled) { %> <label class="switch"><input type="checkbox" id="<%= cmd.cmd.name %>"><span class="slider round"></span></label> <% } else if (!cmd.disabled) { %> <label class="switch"><input type="checkbox" id="<%= cmd.cmd.name %>" checked><span class="slider round"></span></label> <% } %></h3>
         <span class="db-cmd-desc"><%= cmd.cmd.description %></span>
       </div>         
       <% }) %>
@@ -92,7 +92,7 @@
       
       <% }) %>
       
-      <div class="module">
+<!--       <div class="module">
         <h1 class="module-name">Module Name</h1>
         
     <div class="db-cmdlist">
@@ -122,7 +122,7 @@
       </div>      
     </div>        
         
-      </div>
+      </div> -->
     </div>
   </div>
 </div>
