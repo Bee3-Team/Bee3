@@ -731,3 +731,33 @@ h2 {
 .tag a:hover {
   text-decoration: underline !important;
 }
+
+/*  */
+/*  */
+/*  */
+.db-cmdlist {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.db-cmd {
+  margin: 10px;
+  border-radius: 20px;
+  background: #ffd700;
+  width: -webkit-fill-available;
+  padding: 10px;
+}
+
+@media (min-width: 992px) {
+  
+  .db-cmdlist {
+    display: flex;
+    flex-direction: row;
+  }
+  
+  .db-cmd {
+    width: 100%;
+  }
+  
+}
