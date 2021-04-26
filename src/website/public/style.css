@@ -737,7 +737,7 @@ h2 {
 /*  */
 .db-cmdlist {
   display: grid;
-  grid-template-columns: auto auto;
+  grid-template-columns: auto auto auto;
   justify-content: center;
 }
 
@@ -746,12 +746,11 @@ h2 {
   border-radius: 20px;
   background: #ffd700;
   padding: 10px;
-  width: 200px;
-  height: 200px;
-}
+  width: auto;
+  height: auto;
 }
 
-@media (min-width: 992px) {
+@media (min-width: 1009) {
   
   .db-cmdlist {
     display: grid;
@@ -759,8 +758,8 @@ h2 {
   }
   
   .db-cmd {
-    width: 200px;
-    height: 200px;
+    width: auto;
+    height: auto;
   }
   
 }
