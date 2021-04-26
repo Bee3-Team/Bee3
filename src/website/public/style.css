@@ -737,29 +737,33 @@ h2 {
 /*  */
 .db-cmdlist {
   display: grid;
-  grid-template-columns: auto auto auto;
-  justify-content: center;
+  grid-template-columns: auto auto;
 }
 
 .db-cmd {
-  margin: 10px;
-  border-radius: 20px;
   background: #ffd700;
+  border-radius: 20px;
+  margin: 10px;
   padding: 10px;
-  width: auto;
-  height: auto;
+  box-shadow: 0px 0px 10px rgb(0, 0, 0, 0.5);
+  transition: 0.5s;
+  cursor: pointer;
 }
 
-@media (min-width: 1009) {
+.db-cmd-disable {
+  background: #e0c216 !important;
+  cursor: not-allowed;
+}
+
+.db-cmd:hover {
+  box-shadow: 0px 0px 15px rgb(0, 0, 0);
+  transform: scale(1.02);
+}
+
+@media (min-width: 1009px) {
   
   .db-cmdlist {
-    display: grid;
     grid-template-columns: auto auto auto auto;
-  }
-  
-  .db-cmd {
-    width: auto;
-    height: auto;
   }
   
 }
