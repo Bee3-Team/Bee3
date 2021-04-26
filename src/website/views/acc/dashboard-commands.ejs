@@ -49,11 +49,49 @@
       </li>
     </ul>
   </div> 
+  
+  <% let disabled = [] 
+  if (database.Settings.DisabledCommands[0]) {
+  database.Settings.DisabledCommands.map(cmd => {
+  disabled.push(cmd.name.toLowerCase());
+  });
+  }
+  %>
+  
   <div class="content content-is-open" style="height: auto;">
     <span class='side-panel-toggle'>
       <i class="fa fa-bars"></i>
     </span>
     <div class="module-list">
+      
+      <% bot.Modules.map(mod => { %>
+      
+      <% let cmds = []
+      mod.commands.map(cmd => {
+      if (disabled.includes(cmd.name.toLowerCase())) {
+      cmds.push({cmd: cmd, disabled: true})
+      } else if (!disabled.includes(cmd.name.toLowerCase())) {
+      cmds.push({cmd: cmd, disabled: false})
+      }
+      });
+      %>
+<!--        -->
+      <div class="module">
+        <h1 class="module-name"><%= mod.name %></h1>
+        
+    <div class="db-cmdlist">
+      <% cmds.map(cmd => { %>
+      <div class="db-cmd">
+        <h3 class="db-cmd-name"><%= cmd.cmd.name.length > 9 ? cmd.cmd.name.substring(0, 6) + "..." : cmd.cmd.name %> <label class="switch"><input type="checkbox" <% cmd.disabled ? "" : %> checked <% %></inpu>><span class="slider round"></span></label></h3>
+        <span class="db-cmd-desc"><%= cmd.cmd.description %></span>
+      </div>         
+      <% }) %>
+    </div>        
+        
+      </div>      
+      
+      <% }) %>
+      
       <div class="module">
         <h1 class="module-name">Module Name</h1>
         
