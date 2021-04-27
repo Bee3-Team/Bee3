@@ -289,19 +289,22 @@ module.exports = async client => {
       findGuildDB = await client.Guild.Create(false, guild_id)
     }
     
-    let inputValue = req.body['test']; // Whatever is in the field with a name of "test" will be stored here
-    let checkedValue = req.body['say']; // This will have one of two values, 'undefined' if it wasn't checked, or 'on' if it is checked
-
-    let output = `The value in the input field was ${inputValue} and `;
-
-    if(checkedValue) { // Runs if the box is not undefined
-       output += 'the box WAS checked';
-    } else {
-       output += 'the box was NOT checked';
-    }
-
-    console.log(req.body)
-    res.json({message: output});
+    let disabled = [];
+    let noDisabled = [];
+    
+    client.Commands.map(cmd => {
+      let cmdDisabled_ = req.body[`${cmd.name}`];
+      if (cmdDisabled_) {
+        disabled.push(cmd)
+      } else if (!cmdDisabled_) {
+        noDisabled.push(cmd)
+      }
+    });
+    
+    findGuildDB.Settings.DisabledCommands = disabled;
+    findGuildDB.save();
+    
+    res.redirect(`/dashboard/${guild_id}/commands`)
     
   });
   

@@ -69,9 +69,9 @@
       <% let cmds = []
       mod.commands.map(cmd => {
       if (disabled.includes(cmd.name.toLowerCase())) {
-      cmds.push({cmd: cmd, disabled: true})
-      } else if (!disabled.includes(cmd.name.toLowerCase())) {
       cmds.push({cmd: cmd, disabled: false})
+      } else if (!disabled.includes(cmd.name.toLowerCase())) {
+      cmds.push({cmd: cmd, disabled: true})
       }
       });
       %>
@@ -86,12 +86,12 @@
           <h3 class="db-cmd-name"><%= cmd.cmd.name.length > 9 ? cmd.cmd.name.substring(0, 6) + "..." : cmd.cmd.name %></h3>
             <% if (cmd.disabled) { %>
 <label class="switch">
-  <input type="checkbox" name="say">
+  <input type="checkbox" name="<%= cmd.cmd.name %>">
   <span class="slider round"></span>
 </label>            
             <% } else { %>
 <label class="switch">
-  <input type="checkbox" name="say" checked>
+  <input type="checkbox" name="<%= cmd.cmd.name %>" checked>
   <span class="slider round"></span>
 </label>            
             <% } %>
