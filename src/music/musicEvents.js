@@ -6,4 +6,10 @@ module.exports = async (client) => {
     
   });
   
+  client.on("trackStop", message => {
+    
+    message.react("🚫")
+    
+  });
+  
 };

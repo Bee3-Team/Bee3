@@ -4,12 +4,12 @@ module.exports = {
   aliases: ["h"],
   permissions: {
     user: [],
-    client: []
+    client: ["SPEAK", "CONNECT"]
   },
   cooldown: 5,
   run: async (message, args, client) => {
     
-    message.channel.send(`https://beee.cf/commands?id=${message.guild.id}`)
+    
     
   }
 }

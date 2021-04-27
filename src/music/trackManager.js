@@ -3,27 +3,27 @@ class trackManager {
     this.track = track;
   }
   
-  addTrack(website = false) {
+  addTrack(website = false, message, args) {
     
   }
   
-  skip(website = false) {
+  skip(website = false, message, args) {
     
   }
   
-  stop(website = false) {
+  stop(website = false, message, args) {
     
   }
   
-  removeTrack(website = false) {
+  removeTrack(website = false, message, args) {
     
   }
   
-  resume(website = false) {
+  resume(website = false, message, args) {
     
   }
   
-  pause(website = false) {
+  pause(website = false, message, args) {
     
   }
 }
