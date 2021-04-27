@@ -1,31 +1,34 @@
 const { trackManager } = require("./trackManager.js");
+const { client } = require("../client/index.js");
 
 class ServerQueue extends trackManager {
   constructor(website = false, message, song) {
     super();
     
+    this.play(website, message, song);
+    
+  }
+  
+  async play(website = false, message, song) {
     this.message = message;
     this.query = song;
     this.textChannel = message.channel;
     this.author = message.author;
     
-    let VoiceChannel = _voice(message);
+    let VoiceChannel = await _voice(message);
     
-    this.voiceChannel = VoiceChannel;
-    
-    
+    this.voiceChannel = VoiceChannel;    
+  }
+  
+  async list(website = false) {
     
   }
   
-  list(website = false) {
+  async shuffle(website = false) {
     
   }
   
-  shuffle(website = false) {
-    
-  }
-  
-  nowPlaying(website = false) {
+  async nowPlaying(website = false) {
     
   }
   
@@ -41,6 +44,9 @@ async function _voice(message) {
   return VoiceChannel;
 }
 
-async function _queue() {
+async function _queue(id) {
+  let _check = client.music.get(id);
+  if (!_check) return false;
   
+  return _check;
 }

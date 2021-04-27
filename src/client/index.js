@@ -11,3 +11,8 @@ require("../mongodb/connect.js")(client);
 require("../event/eventManager.js")(client);
 require("../command/commandManager.js")(client);
 require("../website/app.js")(client);
+
+// export client.
+module.exports = {
+  client
+}
