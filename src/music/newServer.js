@@ -9,9 +9,11 @@ class ServerQueue extends trackManager {
     this.textChannel = message.channel;
     this.author = message.author;
     
-    let VoiceChannel = onVoice(message);
+    let VoiceChannel = _voice(message);
     
     this.voiceChannel = VoiceChannel;
+    
+    
     
   }
   
@@ -32,9 +34,13 @@ class ServerQueue extends trackManager {
 module.exports = {ServerQueue}
 
 // another function
-async function onVoice(message) {
+async function _voice(message) {
   let VoiceChannel = message.member.voice.channel;
   if (!VoiceChannel) return message.channel.send(`You do not join any voice channel yet.`);
   
   return VoiceChannel;
+}
+
+async function _queue() {
+  
 }
