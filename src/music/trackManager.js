@@ -3,19 +3,29 @@ class trackManager {
     this.track = track;
   }
   
-  addTrack() {
+  addTrack(website = false) {
     
   }
   
-  skip() {
+  skip(website = false) {
     
   }
   
-  stop() {
+  stop(website = false) {
     
   }
   
-  removeTrack() {
+  removeTrack(website = false) {
+    
+  }
+  
+  resume(website = false) {
+    
+  }
+  
+  pause(website = false) {
     
   }
 }
+
+module.exports = {trackManager}

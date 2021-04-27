@@ -1,17 +1,23 @@
+const { trackManager } = require("./trackManager.js");
 
-
-class ServerQueue {
+class ServerQueue extends trackManager {
   constructor(message, song) {
     this.message = message;
     this.query = song;
     
   }
   
-  list() {
+  list(website = false) {
     
   }
   
-  shuff
+  shuffle(website = false) {
+    
+  }
+  
+  nowPlaying(website = false) {
+    
+  }
   
 }
 
