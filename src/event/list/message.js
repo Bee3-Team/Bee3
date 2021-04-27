@@ -31,16 +31,21 @@ module.exports = {
     const args = message.content.slice(Guild.Settings.Prefix.length).trim().split(/ +/g);
     const cmd = args.shift().toLowerCase();
     
+    let disable = [];
+    Guild.Settings.DisabledCommands.map(disabledCMD => {
+      disable.push(disabledCMD.name.toLowerCase());
+    });
+    
     const command = client.Commands.get(cmd) || client.Commands.get(client.Aliases.get(cmd));
     if (!command) return;
     
     try {
       if (Guild.Danger.Banned) return;
-      Guild.Settings.DisabledCommands.map(disableCMD => {
-        if (disableCMD.name.toLowerCase().includes(command.name.toLowerCase())) {
-          return;
+        let disabled_ = true;
+        if (disable.includes(command.name.toLowerCase())) {
+        disabled_ = false;
         }
-      });
+      if (disabled_) return;
       command.run(message, args, client)
     } catch (e) {
       return console.log(`[ERROR] ${e}`)
