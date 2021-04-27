@@ -63,7 +63,7 @@
       <i class="fa fa-bars"></i>
     </span>
     <div class="module-list" onchange="save()">
-      <form method="POST">
+      <form method="POST" id="formnya">
       <% bot.Modules.map(mod => { %>
       
       <% let cmds = []
@@ -97,7 +97,7 @@
       </div>
       
       <% }) %>            
-      <button class="btn btn-warning save-btn-item" type="submit">Save</button>
+      <button class="btn btn-warning save-btn-item" id="thebtn" type="submit">Save</button>
       </form>
     </div>
       <div class="navigation">  
@@ -110,6 +110,13 @@
 
     <%- include('../part/footer.ejs') %>
     <script>
+      
+      let TheForm = document.getElementById('thebtn');
+      TheForm.style.display = "none";
+      
+      async function save() {
+      TheForm.style.display = "block";
+      }
       
 $(window).resize(function() {
 	var path = $(this);

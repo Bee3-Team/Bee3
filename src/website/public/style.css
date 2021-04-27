@@ -866,6 +866,11 @@ h2 {
 }
 
 .db-cmd-first {
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
+}
+
+.save-btn-item {
+  width: 100%;
+  margin: auto;
 }
