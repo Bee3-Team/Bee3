@@ -63,7 +63,7 @@
       <i class="fa fa-bars"></i>
     </span>
     <div class="module-list" onchange="save()">
-      <form method="post">
+      <form method="POST">
       
       <% bot.Modules.map(mod => { %>
       
@@ -83,7 +83,7 @@
     <div class="db-cmdlist">
       <% cmds.map(cmd => { %>
       <div class="db-cmd">
-        <h3 class="db-cmd-name"><%= cmd.cmd.name.length > 9 ? cmd.cmd.name.substring(0, 6) + "..." : cmd.cmd.name %> <% if (cmd.disabled) { %> <label class="switch"><input name="<%= cmd.cmd.name %>" type="checkbox" id="<%= cmd.cmd.name %>"><span class="slider round"></span></label> <% } else if (!cmd.disabled) { %> <label class="switch"><input type="checkbox" id="<%= cmd.cmd.name %>" checked><span class="slider round"></span></label> <% } %></h3>
+        <h3 class="db-cmd-name"><%= cmd.cmd.name.length > 9 ? cmd.cmd.name.substring(0, 6) + "..." : cmd.cmd.name %> <% if (cmd.disabled) { %> <label class="switch"><input name="say" value="abc" type="checkbox" id="<%= cmd.cmd.name %>"><span class="slider round"></span></label> <% } else if (!cmd.disabled) { %> <label class="switch"><input type="checkbox" id="<%= cmd.cmd.name %>" checked><span class="slider round"></span></label> <% } %></h3>
         <span class="db-cmd-desc"><%= cmd.cmd.description %></span>          
       </div>         
       <% }) %>
