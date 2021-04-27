@@ -45,7 +45,8 @@ module.exports = {
         if (disable.includes(command.name.toLowerCase())) {
         disabled_ = false;
         }
-      if (disabled_) return;
+      if (disabled_) return message.channel.send(`This command was \`turn off\` by admin`)
+      
       command.run(message, args, client)
     } catch (e) {
       return console.log(`[ERROR] ${e}`)
