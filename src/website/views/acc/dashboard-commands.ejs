@@ -100,11 +100,12 @@
       <% }) %>
     </div>
         
+        <hr>
       </div>
       
       <% }) %>            
         <div class="save-list">
-          <a class="save-btn-item">Reset</a>
+          <a class="save-btn-item reset-btn" onclick="resetFORM()" style="text-align: right; margin-right: 24px; cursor: pointer;">Reset</a>
           <button class="btn btn-warning save-btn-item" id="thebtn" type="submit">Save</button>
         </div>
       </form>
@@ -120,11 +121,21 @@
     <%- include('../part/footer.ejs') %>
     <script>
       
+      let form = $('#formnya')
       let TheForm = $('#thebtn')
+      let resetBTN = $('.reset-btn')
       TheForm.hide()
+      resetBTN.hide()
       
       async function save() {
-      TheForm.show(500)
+      resetBTN.show(500)
+      TheForm.show(600)
+      }
+      
+      async function resetFORM() {
+        form.trigger("reset");
+        TheForm.hide();
+        resetBTN.hide();
       }
       
 $(window).resize(function() {

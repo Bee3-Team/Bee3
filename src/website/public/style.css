@@ -874,3 +874,15 @@ h2 {
   width: 100%;
   margin: auto;
 }
+
+.save-list {
+    display: flex;
+}
+
+.reset-btn {
+  color: black;
+}
+
+.reset-btn:hover {
+  color: black;
+}
