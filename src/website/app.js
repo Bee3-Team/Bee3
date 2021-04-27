@@ -289,6 +289,9 @@ module.exports = async client => {
       findGuildDB = await client.Guild.Create(false, guild_id)
     }
     
+    console.log(req.body.say)
+    
+    res.redirect(`/dashboard/${req.params.id}/commands`)
     
   });
   
