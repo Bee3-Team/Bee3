@@ -1,6 +1,6 @@
 class trackManager {
-  constructor(track) {
-    this.track = track;
+  constructor() {
+    
   }
   
   addTrack(website = false, message, args) {

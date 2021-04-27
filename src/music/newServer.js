@@ -1,7 +1,9 @@
 const { trackManager } = require("./trackManager.js");
 
 class ServerQueue extends trackManager {
-  constructor(message, song) {
+  constructor(website = false, message, song) {
+    super();
+    
     this.message = message;
     this.query = song;
     this.textChannel = message.channel;
