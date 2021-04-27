@@ -1,43 +1,18 @@
+
+
 class ServerQueue {
   constructor(message, song) {
     this.message = message;
     this.query = song;
-  }
-  
-  skip(message) {
     
   }
   
-  add(message, song) {
+  list() {
     
   }
   
-  search(message, song) {
-    
-  }
-  
-  pause(message) {
-    
-  }
-  
-  resume(message) {
-    
-  }
-  
-  stop() {
-    
-  }
-  
-  shuffle() {
-    
-  }
-  
-  nowPlaying() {
-    
-  }
-  
-  removeTrack(num) {
-    
-  }
+  shuff
   
 }
+
+module.exports = {ServerQueue}
