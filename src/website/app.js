@@ -270,6 +270,28 @@ module.exports = async client => {
     
   });
   
+  app.post("/dashboard/:id/commands", checkAuth, async (req, res) => {
+    let guild_id = req.params.id;
+    if (!guild_id) return res.redirect("/account/server-list");
+    if (isNaN(guild_id)) return res.redirect("/account/server-list")
+    
+    let checkUserGuild = req.user.guilds.find(x => x.id == guild_id);
+    if (!checkUserGuild) return res.redirect("/account/server-list");
+    
+    let perms = new Permissions(checkUserGuild.permissions);
+    if (!perms.has("MANAGE_GUILD")) {
+      return res.redirect("/account/server-list?mp=true&mpguild=" + checkUserGuild.name + "#error")
+    }
+    
+    let findGuildDB = await client.Guild.findOne({ID: checkUserGuild.id});
+    
+    if (!findGuildDB) {
+      findGuildDB = await client.Guild.Create(false, guild_id)
+    }
+    
+    
+  });
+  
   app.get("/commands", async (req, res) => {
     let guild_id = req.query.id;
     if (!guild_id) return res.redirect("/");
