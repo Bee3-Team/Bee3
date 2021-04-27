@@ -1,5 +1,6 @@
 const config = require("./config.js");
 let Guild = require("../mongodb/schemas/Guild.js");
+const { ServerQueue } = require('../music/newServer.js');
 
 module.exports = async client => {
   client.config = config;
@@ -67,4 +68,10 @@ module.exports = async client => {
       
     }
   };
+  client.ServerQueue = ServerQueue;
+  client.isYtUrl = function validatorURL(url) {
+    var p = /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/;
+    return (url.match(p)) ? true : false;
+}
+
 };
