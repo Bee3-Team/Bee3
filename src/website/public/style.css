@@ -864,3 +864,8 @@ h2 {
   width: 45%;
   margin: 5px;
 }
+
+.db-cmd-first {
+    display: flex;
+    justify-content: space-between;
+}

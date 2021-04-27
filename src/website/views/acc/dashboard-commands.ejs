@@ -63,6 +63,7 @@
       <i class="fa fa-bars"></i>
     </span>
     <div class="module-list" onchange="save()">
+      <form method="POST">
       <% bot.Modules.map(mod => { %>
       
       <% let cmds = []
@@ -80,12 +81,15 @@
         
     <div class="db-cmdlist">
       <% cmds.map(cmd => { %>
-      <div class="db-cmd">
-        <form method="POST">  
-          <h3 class="db-cmd-name"><%= cmd.cmd.name.length > 9 ? cmd.cmd.name.substring(0, 6) + "..." : cmd.cmd.name %> <% if (cmd.disabled) { %> <label class="switch"><input name="say" value="abc" type="checkbox" id="<%= cmd.cmd.name %>"><span class="slider round"></span></label> <% } else if (!cmd.disabled) { %> <label class="switch"><input type="checkbox" id="<%= cmd.cmd.name %>" checked><span class="slider round"></span></label> <% } %></h3>
-          <span class="db-cmd-desc"><%= cmd.cmd.description %></span>          
-          <button class="btn btn-warning save-btn-item" type="submit">Save</button>
-        </form>
+      <div class="db-cmd">  
+          <div class="db-cmd-first">
+          <h3 class="db-cmd-name"><%= cmd.cmd.name.length > 9 ? cmd.cmd.name.substring(0, 6) + "..." : cmd.cmd.name %></h3>
+            <% if (cmd.disabled) { %>
+            <input name="say" type="checkbox" class="switch">
+            <% } else { %>
+            <input name="say" type="checkbox" class="switch" checked>
+            <% } %>
+          </div>
       </div>         
       <% }) %>
     </div>
@@ -93,6 +97,8 @@
       </div>
       
       <% }) %>            
+      <button class="btn btn-warning save-btn-item" type="submit">Save</button>
+      </form>
     </div>
       <div class="navigation">  
         <a class="navigation-link" href="/commands?id=<%= guild.id %>" target="_blank">Go to commands list <i class="fas fa-external-link-alt"></i></a>
