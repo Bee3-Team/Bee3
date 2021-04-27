@@ -732,6 +732,14 @@ h2 {
   text-decoration: underline !important;
 }
 
+@media (max-width: 992px) {
+  
+  .tags {
+    flex-direction: column;
+  }
+  
+}
+
 /*  */
 /*  */
 /*  */
