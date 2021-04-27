@@ -36,6 +36,11 @@ module.exports = {
     
     try {
       if (Guild.Danger.Banned) return;
+      Guild.Settings.DisabledCommands.map(disableCMD => {
+        if (disableCMD.name.toLowerCase().includes(command.name.toLowerCase())) {
+          return;
+        }
+      });
       command.run(message, args, client)
     } catch (e) {
       return console.log(`[ERROR] ${e}`)
