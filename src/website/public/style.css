@@ -852,3 +852,12 @@ h2 {
 .navigation {
   text-align: center;
 }
+
+.saves {
+    background: grey;
+    text-align: center;
+    padding: 10px;
+    border-radius: 18px;
+    margin: 10px;
+    transition: 0.5s;
+}

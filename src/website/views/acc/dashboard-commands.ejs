@@ -63,6 +63,7 @@
       <i class="fa fa-bars"></i>
     </span>
     <div class="module-list">
+      <form method="post">
       
       <% bot.Modules.map(mod => { %>
       
@@ -81,53 +82,26 @@
         
     <div class="db-cmdlist">
       <% cmds.map(cmd => { %>
-      <div class="db-cmd" data-toggle="modal" data-target="#<%= cmd.name %>-modal">
-        <h3 class="db-cmd-name"><%= cmd.cmd.name.length > 9 ? cmd.cmd.name.substring(0, 6) + "..." : cmd.cmd.name %> <% if (cmd.disabled) { %> <label class="switch"><input type="checkbox" id="<%= cmd.cmd.name %>"><span class="slider round"></span></label> <% } else if (!cmd.disabled) { %> <label class="switch"><input type="checkbox" id="<%= cmd.cmd.name %>" checked><span class="slider round"></span></label> <% } %></h3>
-        <span class="db-cmd-desc"><%= cmd.cmd.description %></span>
+      <div class="db-cmd">
+        <h3 class="db-cmd-name"><%= cmd.cmd.name.length > 9 ? cmd.cmd.name.substring(0, 6) + "..." : cmd.cmd.name %> <% if (cmd.disabled) { %> <label class="switch"><input name="<%= cmd.cmd.name %>" type="checkbox" id="<%= cmd.cmd.name %>"><span class="slider round"></span></label> <% } else if (!cmd.disabled) { %> <label class="switch"><input type="checkbox" id="<%= cmd.cmd.name %>" checked><span class="slider round"></span></label> <% } %></h3>
+        <span class="db-cmd-desc"><%= cmd.cmd.description %></span>          
       </div>         
       <% }) %>
-    </div>        
+    </div>
         
       </div>
       
       <% }) %>            
       
+        <div class="saves">
+          <button class="btn btn-success save-btn-item" type="reset">Reset</button>
+          <button class="btn btn-success save-btn-item" type="submit">Save</button>
+        </div>
+      </form>
+    </div>
       <div class="navigation">  
         <a class="navigation-link" href="/commands?id=<%= guild.id %>" target="_blank">Go to commands list <i class="fas fa-external-link-alt"></i></a>
       </div>
-      
-<!--       <div class="module">
-        <h1 class="module-name">Module Name</h1>
-        
-    <div class="db-cmdlist">
-      <div class="db-cmd">
-        <h3 class="db-cmd-name">Name Here <label class="switch"><input type="checkbox" checked><span class="slider round"></span></label></h3>
-        <span class="db-cmd-desc">Description here</span>
-      </div>
-      <div class="db-cmd">
-        <h3 class="db-cmd-name">Name Here <label class="switch"><input type="checkbox" checked><span class="slider round"></span></label></h3>
-        <span class="db-cmd-desc">Description here</span>
-      </div>
-      <div class="db-cmd">
-        <h3 class="db-cmd-name">Name Here <label class="switch"><input type="checkbox" checked><span class="slider round"></span></label></h3>
-        <span class="db-cmd-desc">Description here</span>
-      </div>
-      <div class="db-cmd db-cmd-disable">
-        <h3 class="db-cmd-name">Name Here <label class="switch"><input type="checkbox" checked><span class="slider round"></span></label></h3>
-        <span class="db-cmd-desc">Description here</span>
-      </div>   
-      <div class="db-cmd">
-        <h3 class="db-cmd-name">Name Here <label class="switch"><input type="checkbox" checked><span class="slider round"></span></label></h3>
-        <span class="db-cmd-desc">Description here</span>
-      </div>   
-      <div class="db-cmd">
-        <h3 class="db-cmd-name">Name Here <label class="switch"><input type="checkbox" checked><span class="slider round"></span></label></h3>
-        <span class="db-cmd-desc">Description here</span>
-      </div>      
-    </div>        
-        
-      </div> -->
-    </div>
   </div>
 </div>
     </main>
@@ -136,7 +110,9 @@
     <%- include('../part/footer.ejs') %>
     <script>
       
-      
+      async function save() {
+        
+      }
       
 $(window).resize(function() {
 	var path = $(this);
