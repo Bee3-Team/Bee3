@@ -12,7 +12,7 @@ module.exports = model(
     },
     Statistics: {
       CommandsUsed: []
-    },
+    }, 
     CustomCommands: [],
     Leveling: []
   })

@@ -41,9 +41,9 @@ module.exports = {
     
     try {
       if (Guild.Danger.Banned) return;
-        let disabled_ = true;
+        let disabled_ = false;
         if (disable.includes(command.name.toLowerCase())) {
-        disabled_ = false;
+        disabled_ = true;
         }
       if (disabled_) return message.channel.send(`This command was \`turn off\` by admin`)
       
