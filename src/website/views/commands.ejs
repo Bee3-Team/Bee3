@@ -57,6 +57,14 @@
   <% }) %>
 </ul>            
           </div>
+          <%
+          let disabled = [];
+          if (database.Settings.DisabledCommands[0]) {
+          database.Settings.DisabledCommands.map(cmd => {
+          disabled.push(cmd.name.toLowerCase())
+          });
+          } %>
+          
           <div class="cmdlist-item cmdlist-cmds">
             <div class="tagcontent" id="all">
 <div class="accordion" id="accordionExample">
@@ -64,7 +72,13 @@
   <div class="card">
     <div class="card-header" id="headingOne" data-toggle="collapse" data-target="#<%= cmd.name %>-all" aria-expanded="true" aria-controls="<%= cmd.name %>-all">
       <h2 class="mb-0">
-        <strong><%= cmd.name %></strong> -<small style="font-size: 20px !important;"> <%= cmd.description %></small>
+        <% 
+        let disabled_ = true;
+        if (disabled.includes(cmd.name.toLowerCase())) {
+        disabled_ = false;
+        }
+        %>
+        <strong><%= cmd.name %> <%= disabled_ ? "(disabled)" : "" %></strong> -<small style="font-size: 20px !important;"> <%= cmd.description %></small>
       </h2>
     </div>
 
