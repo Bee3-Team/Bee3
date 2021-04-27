@@ -10,10 +10,8 @@ html {
 
 body {
   scroll-behavior: smooth;
-/*   background-color: #36393f !important; */
+  background-color: #36393f !important;
   overflow-x: hidden;
-  background-image: url('');
-  background-size: cover;
 }
 
 .main {
