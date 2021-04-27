@@ -85,9 +85,15 @@
           <div class="db-cmd-first">
           <h3 class="db-cmd-name"><%= cmd.cmd.name.length > 9 ? cmd.cmd.name.substring(0, 6) + "..." : cmd.cmd.name %></h3>
             <% if (cmd.disabled) { %>
-            <input name="say" type="checkbox" class="switch">
+<label class="switch">
+  <input type="checkbox" name="say">
+  <span class="slider round"></span>
+</label>            
             <% } else { %>
-            <input name="say" type="checkbox" class="switch" checked>
+<label class="switch">
+  <input type="checkbox" name="say" checked>
+  <span class="slider round"></span>
+</label>            
             <% } %>
           </div>
       </div>         
@@ -97,7 +103,10 @@
       </div>
       
       <% }) %>            
-      <button class="btn btn-warning save-btn-item" id="thebtn" type="submit">Save</button>
+        <div class="save-list">
+          <a class="save-btn-item">Reset</a>
+          <button class="btn btn-warning save-btn-item" id="thebtn" type="submit">Save</button>
+        </div>
       </form>
     </div>
       <div class="navigation">  
@@ -111,11 +120,11 @@
     <%- include('../part/footer.ejs') %>
     <script>
       
-      let TheForm = document.getElementById('thebtn');
-      TheForm.style.display = "none";
+      let TheForm = $('#thebtn')
+      TheForm.hide()
       
       async function save() {
-      TheForm.style.display = "block";
+      TheForm.show(500)
       }
       
 $(window).resize(function() {
