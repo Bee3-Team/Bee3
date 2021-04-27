@@ -63,8 +63,6 @@
       <i class="fa fa-bars"></i>
     </span>
     <div class="module-list" onchange="save()">
-      <form method="POST">
-      
       <% bot.Modules.map(mod => { %>
       
       <% let cmds = []
@@ -83,8 +81,11 @@
     <div class="db-cmdlist">
       <% cmds.map(cmd => { %>
       <div class="db-cmd">
-        <h3 class="db-cmd-name"><%= cmd.cmd.name.length > 9 ? cmd.cmd.name.substring(0, 6) + "..." : cmd.cmd.name %> <% if (cmd.disabled) { %> <label class="switch"><input name="say" value="abc" type="checkbox" id="<%= cmd.cmd.name %>"><span class="slider round"></span></label> <% } else if (!cmd.disabled) { %> <label class="switch"><input type="checkbox" id="<%= cmd.cmd.name %>" checked><span class="slider round"></span></label> <% } %></h3>
-        <span class="db-cmd-desc"><%= cmd.cmd.description %></span>          
+        <form method="POST">  
+          <h3 class="db-cmd-name"><%= cmd.cmd.name.length > 9 ? cmd.cmd.name.substring(0, 6) + "..." : cmd.cmd.name %> <% if (cmd.disabled) { %> <label class="switch"><input name="say" value="abc" type="checkbox" id="<%= cmd.cmd.name %>"><span class="slider round"></span></label> <% } else if (!cmd.disabled) { %> <label class="switch"><input type="checkbox" id="<%= cmd.cmd.name %>" checked><span class="slider round"></span></label> <% } %></h3>
+          <span class="db-cmd-desc"><%= cmd.cmd.description %></span>          
+          <button class="btn btn-warning save-btn-item" type="submit">Save</button>
+        </form>
       </div>         
       <% }) %>
     </div>
@@ -92,17 +93,6 @@
       </div>
       
       <% }) %>            
-      
-        <div class="saves" id="save">
-          <button class="btn btn-warning save-btn-item" onclick="resetBTN()" type="reset">Reset</button>
-          <button class="btn btn-warning save-btn-item" type="submit">Save</button>
-        </div>
-      </form>
-      <form method="POST">
-     <input type="text" name="test" value="hi" />
-     <input type="checkbox" name="box1" />
-     <button>Submit</button>
- </form>
     </div>
       <div class="navigation">  
         <a class="navigation-link" href="/commands?id=<%= guild.id %>" target="_blank">Go to commands list <i class="fas fa-external-link-alt"></i></a>
@@ -114,16 +104,6 @@
 
     <%- include('../part/footer.ejs') %>
     <script>
-      let saves = document.getElementById('save');
-      saves.style.display = "none";
-      
-      async function save() {
-        saves.style.display = "block";
-      }
-      
-      async function resetBTN() {
-        saves.style.display = "none";
-      }
       
 $(window).resize(function() {
 	var path = $(this);
