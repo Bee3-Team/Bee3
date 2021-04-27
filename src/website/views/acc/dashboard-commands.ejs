@@ -93,8 +93,8 @@
       
       <% }) %>            
       
-        <div class="saves">
-          <button class="btn btn-warning save-btn-item" type="reset" onclick="reset()">Reset</button>
+        <div class="saves" id="save">
+          <button class="btn btn-warning save-btn-item" onclick="resetBTN()" type="reset">Reset</button>
           <button class="btn btn-warning save-btn-item" type="submit">Save</button>
         </div>
       </form>
@@ -109,44 +109,17 @@
 
     <%- include('../part/footer.ejs') %>
     <script>
-var button = $('.saves');
-var orig = [];
-button.hide();
+      let saves = document.getElementById('save');
+      saves.style.display = "none";
       
-$.fn.getType = function () {
-    return this[0].tagName == "INPUT" ? $(this[0]).attr("type").toLowerCase() : this[0].tagName.toLowerCase();
-}
-
-$("form :input").each(function () {
-    var type = $(this).getType();
-    var tmp = {
-        'type': type,
-        'value': $(this).val()
-    };
-    if (type == 'radio') {
-        tmp.checked = $(this).is(':checked');
-    }
-    orig[$(this).attr('id')] = tmp;
-});
-
-$('form').bind('change keyup', function () {
-
-    var disable = true;
-    $("form :input").each(function () {
-        var type = $(this).getType();
-        var id = $(this).attr('id');
-
-        if (type == 'text' || type == 'select') {
-            disable = (orig[id].value == $(this).val());
-        } else if (type == 'radio') {
-            disable = (orig[id].checked == $(this).is(':checked'));
-        }
-
-        if (!disable) {
-            return false; // break out of loop
-        }
-    });
-  
+      async function save() {
+        saves.style.display = "block";
+      }
+      
+      async function resetBTN() {
+        saves.style.display = "none";
+      }
+      
 $(window).resize(function() {
 	var path = $(this);
 	var contW = path.width();
