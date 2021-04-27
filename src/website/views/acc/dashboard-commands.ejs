@@ -86,7 +86,7 @@
           <h3 class="db-cmd-name"><%= cmd.cmd.name.length > 9 ? cmd.cmd.name.substring(0, 6) + "..." : cmd.cmd.name %></h3>
             <% if (cmd.cmd.name === "help") { %>
 <label class="switch">
-  <input type="checkbox" name="<%= cmd.cmd.name %>" disabled>
+  <input type="checkbox" name="<%= cmd.cmd.name %>" checked disabled>
   <span class="slider round"></span>
 </label>               
             <% } else { %>

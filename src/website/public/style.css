@@ -886,3 +886,7 @@ h2 {
 .reset-btn:hover {
   color: black;
 }
+
+input:disabled {
+  cursor: not-allowed !important;
+}
