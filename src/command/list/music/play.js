@@ -13,9 +13,9 @@ module.exports = {
     const query = args.join(" ");
     
     if (client.isYtUrl(query)) {
-      message.channel.send("Yes")
+      
     } else {
-      message.channel.send("No")
+      
     }
   }
 }

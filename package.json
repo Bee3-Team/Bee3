@@ -20,7 +20,10 @@
     "body-parser": "^1.19.0",
     "smooth-scrollbar": "^8.6.0",
     "mongoose": "^5.12.4",
-    "express-back": "^0.0.2"
+    "express-back": "^0.0.2",
+    "simple-youtube-api": "^5.2.1",
+    "ytdl-core": "^4.4.5",
+    "ffmpeg": "^0.0.4"
   },
   "engines": {
     "node": "12.x"
