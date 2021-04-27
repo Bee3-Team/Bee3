@@ -848,3 +848,7 @@ h2 {
 .slider.round:before {
   border-radius: 50%;
 }
+
+.navigation {
+  text-align: center;
+}
