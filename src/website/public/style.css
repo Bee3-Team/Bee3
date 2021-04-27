@@ -718,7 +718,7 @@ h2 {
 .tag {
   font-size: 22px;
   background: transparent;
-  width: 8%;
+  width: fit-content;
   margin: 10px;
   text-align: center;
 }
