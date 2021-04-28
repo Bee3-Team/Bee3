@@ -151,6 +151,7 @@ class ServerQueue extends trackManager {
           duration: video.durationSeconds
         });
       });
+    
     for (const video of Object.values(videos)) {
       let songAns, video2;
       try {
