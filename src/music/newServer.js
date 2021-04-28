@@ -21,19 +21,23 @@ class ServerQueue extends trackManager {
     this.play(website, message, song, youtube);
   }
 
-  async play(website, message, song, youtube) {
+  async play(website, message, song, youtube, skip) {
     this.message = message;
     this.query = song;
     this.textChannel = message.channel;
     this.author = message.author;
     let type, stream, songAns, songInfo, serverQueue;
 
+    
     let VoiceChannel = await _voice(message);
 
     this.voiceChannel = VoiceChannel;
 
     serverQueue = await _queue(message.guild.id, message);
 
+    songAns = song;
+    
+    if (!skip) {
     if (youtube) {
       let _playlist = await client.isYtPlaylistUrl(song);
       if (_playlist) return this.playlist(website, message, song);
@@ -68,6 +72,7 @@ class ServerQueue extends trackManager {
         console.log(e);
         return message.reply("Error: " + e.message);
       }
+    }      
     }
 
     // start manage the music
@@ -134,17 +139,36 @@ class ServerQueue extends trackManager {
   }
 
   async nowPlaying(website = false) {}
-
+ 
   async playlist(website = false, message, song) {
     const playlist = await youtubeApi.getPlaylist(song);
-    const videos = await playlist.getVideos();
+    const videoss = await playlist.getVideos();
+    const videos = videoss.filter((video) => video.title != "Private video" && video.title != "Deleted video")
+      .map((video) => {
+        return (song = {
+          title: video.title,
+          url: video.url,
+          duration: video.durationSeconds
+        });
+      });
     for (const video of Object.values(videos)) {
-      const video2 = await ytdl.getInfo(video.url); // eslint-disable-line no-await-in-loop
-      this.play(website, message, video2.videoDetails.video_url, true)
+      let songAns, video2;
+      try {
+      video2 = await ytdl.getInfo(video.url); // eslint-disable-line no-await-in-loop
+      songAns = {
+          title: video2.videoDetails.title,
+          url: video2.videoDetails.video_url,
+          duration: video2.videoDetails.lengthSeconds        
+      }
+      } catch (e) {
+        return;
+      }
+      
+      this.play(website, message, songAns, true, true)
     }
   }
 }
-
+ 
 module.exports = { ServerQueue };
 
 // another function
