@@ -7,7 +7,7 @@ const { Permissions } = require("discord.js");
 var back = require("express-back");
 const http = require("http").Server(app);
 const io = require("socket.io")(http);
-
+ 
 module.exports = async client => {
   app.use(bodyParser.urlencoded({ extended: false }));
   app.use(bodyParser.json());
