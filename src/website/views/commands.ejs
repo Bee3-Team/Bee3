@@ -73,9 +73,9 @@
     <div class="card-header" id="headingOne" data-toggle="collapse" data-target="#<%= cmd.name %>-all" aria-expanded="true" aria-controls="<%= cmd.name %>-all">
       <h2 class="mb-0">
         <% 
-        let disabled_ = true;
+        let disabled_ = false;
         if (disabled.includes(cmd.name.toLowerCase())) {
-        disabled_ = false;
+        disabled_ = true;
         }
         %>
         <strong><%= cmd.name %> <%= disabled_ ? "(disabled)" : "" %></strong> -<small style="font-size: 20px !important;"> <%= cmd.description %></small>
