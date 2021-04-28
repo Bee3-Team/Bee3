@@ -19,7 +19,7 @@
           <div class="jumbo-img">
             <img class="jumbotron-image animate-img" src="<%= bot.user.displayAvatarURL() %>">
           </div>
-          <h1 class="display-4">Powerful bot</h1>
+          <h1 class="display-4" id="h1">Powerful bot</h1>
           <p class="lead">Auto Mod, Music, Leveling, and much more!</p>
         </div>
       </div>
@@ -39,5 +39,16 @@
     </main>
 
     <%- include('part/footer.ejs') %>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      const socket = io();
+      
+      let h1 = document.getElementById('h1');
+      
+      socket.on("welcome", message => {
+        h1.value = message.toString();
+      });
+      
+    </script>
   </body>
 </html>
