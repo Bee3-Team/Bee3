@@ -7,70 +7,71 @@ const YouTubeAPI = require("simple-youtube-api");
 const youtubeApi = new YouTubeAPI(config.yt);
 
 class ServerQueue extends trackManager {
-  constructor(website = false, message, song, youtube = false, playlist = false) {
-    super(); 
+  constructor(
+    website = false,
+    message,
+    song,
+    youtube = false,
+    playlist = false
+  ) {
+    super();
 
-    if (playlist) return this.playlist(website, message, song, youtube);
-    
+    if (playlist) return this.playlist(website, message, song);
+
     this.play(website, message, song, youtube);
   }
 
-  async play(website, message, song, youtube) {
+  async play(website, message, song, youtube, playlist) {
     this.message = message;
     this.query = song;
     this.textChannel = message.channel;
     this.author = message.author;
     let type, stream, songAns, songInfo, serverQueue;
-    
+
     let VoiceChannel = await _voice(message);
 
     this.voiceChannel = VoiceChannel;
 
-    serverQueue = await _queue(message.guild.id, message)
-    
+    serverQueue = await _queue(message.guild.id, message);
+
     if (youtube) {
-      
       let _playlist = await client.isYtPlaylistUrl(song);
       if (_playlist) return this.playlist(website, message, song);
 
       try {
-        
         songInfo = await ytdl.getInfo(song);
         songAns = {
           title: songInfo.videoDetails.title,
           url: songInfo.videoDetails.video_url,
           duration: songInfo.videoDetails.lengthSeconds
         };
-      } catch (e) { 
+      } catch (e) {
         console.log(e);
         return message.reply("Error: " + e.message);
       }
-      
     } else if (!youtube) {
-      
       let _playlist = await client.isYtPlaylistUrl(song);
       if (_playlist) return this.playlist(website, message, song);
-      
+
       try {
-        
-        let searchSong = await youtubeApi.searchVideos(song, 1, {part: "snippet"});
+        let searchSong = await youtubeApi.searchVideos(song, 1, {
+          part: "snippet"
+        });
         songInfo = await ytdl.getInfo(searchSong[0].url);
-        
+
         songAns = {
           title: songInfo.videoDetails.title,
           url: songInfo.videoDetails.video_url,
-          duration: songInfo.videoDetails.lengthSeconds          
-        }
-
+          duration: songInfo.videoDetails.lengthSeconds
+        };
       } catch (e) {
         console.log(e);
         return message.reply("Error: " + e.message);
       }
     }
-    
+
     // start manage the music
     if (!serverQueue) {
-      
       let serverQueueAns = {
         channel: {
           text: message.channel,
@@ -86,40 +87,39 @@ class ServerQueue extends trackManager {
         control: this,
         event: null
       };
-      
+
       serverQueueAns.songs.push(songAns);
       client.music.set(message.guild.id, serverQueueAns);
-      
+
       try {
         serverQueueAns.connection = await VoiceChannel.join();
         await serverQueueAns.connection.voice.setSelfDeaf(true);
         client.music.get(message.guild.id).event = new ServerEvent();
-        this.playSong(website, serverQueueAns.songs[0], message)
+        this.playSong(website, serverQueueAns.songs[0], message);
       } catch (e) {
         console.log(e);
         client.music.delete(message.guild.id);
         await VoiceChannel.leave();
-        return message.channel.send("Error: " + e.message)
+        return message.channel.send("Error: " + e.message);
       }
-      
     } else if (serverQueue) {
-      
-      return this.addTrack(website, songAns, serverQueue, message);
-      
+      return this.addTrack(website, songAns, serverQueue, message, playlist);
     }
   }
 
   async list(website = false, message) {
     let serverQueue = _queue(message);
-    if (!serverQueue) return message.channel.send(`There is no songs in queue, try added one.`);
-    
-    return message.channel.send(`https://beee.cf/queue?id=${message.guild.id}`)
-  } 
+    if (!serverQueue)
+      return message.channel.send(`There is no songs in queue, try added one.`);
+
+    return message.channel.send(`https://beee.cf/queue?id=${message.guild.id}`);
+  }
 
   async shuffle(website = false, message) {
     let serverQueue = await _queue(message);
-    if (!_modify(message.member)) return message.channel.send(`You must join same voice channel with me.`)
-    
+    if (!_modify(message.member))
+      return message.channel.send(`You must join same voice channel with me.`);
+
     let songs = serverQueue.songs;
     for (let i = songs.length - 1; i > 1; i--) {
       let j = 1 + Math.floor(Math.random() * i);
@@ -127,16 +127,21 @@ class ServerQueue extends trackManager {
     }
     serverQueue.songs = songs;
     client.music.set(message.guild.id, serverQueue);
-    
-    return message.channel.send(`The songs on queue was shuffled!\nhttps://beee.cf/queue?id=${message.guild.id}`)
+
+    return message.channel.send(
+      `The songs on queue was shuffled!\nhttps://beee.cf/queue?id=${message.guild.id}`
+    );
   }
 
-  async nowPlaying(website = false) {
-    
-  }
+  async nowPlaying(website = false) {}
 
   async playlist(website = false, message, song) {
-    
+    const playlist = await youtubeApi.getPlaylist(song);
+    const videos = await playlist.getVideos();
+    for (const video of Object.values(videos)) {
+      const video2 = await ytdl.getInfo(video.url); // eslint-disable-line no-await-in-loop
+      this.play(website, message, video2.videoDetails.video_url, true)
+    }
   }
 }
 
@@ -166,5 +171,5 @@ async function _modify(member) {
     return false;
   }
 
-  return true;  
-};
+  return true;
+}
