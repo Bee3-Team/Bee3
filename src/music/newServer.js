@@ -1,8 +1,9 @@
+const config = require("../other/config.js");
 const { trackManager } = require("./trackManager.js");
 const { client } = require("../client/index.js");
 const ytdl = require("ytdl-core");
 const YouTubeAPI = require("simple-youtube-api");
-const youtube = new YouTubeAPI(client.config.yt);
+const youtube = new YouTubeAPI(config.yt);
 
 class ServerQueue extends trackManager {
   constructor(website = false, message, song, youtube = false) {
@@ -16,12 +17,14 @@ class ServerQueue extends trackManager {
     this.query = song;
     this.textChannel = message.channel;
     this.author = message.author;
-    let type, stream, songAns, songInfo;
-
+    let type, stream, songAns, songInfo, serverQueue;
+    
     let VoiceChannel = await _voice(message);
 
     this.voiceChannel = VoiceChannel;
 
+    serverQueue = _queue(message.guild.id)
+    
     if (youtube) {
       
       let _playlist = await client.isYtPlaylistUrl(song);
