@@ -5,7 +5,9 @@ class MusicUtility {
       
     });
     
-    voiceChannel.on("kick" )
+    voiceChannel.on("kick", voice => {
+      
+    });
     
   }
 }

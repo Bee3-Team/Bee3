@@ -2,22 +2,35 @@ const { trackManager } = require("./trackManager.js");
 const { client } = require("../client/index.js");
 
 class ServerQueue extends trackManager {
-  constructor(website = false, message, song) {
+  constructor(website = false, message, song, youtube = false) {
     super();
     
-    this.play(website, message, song);
+    this.play(website, message, song, youtube);
     
   }
   
-  async play(website = false, message, song) {
+  async play(website, message, song, youtube) {
     this.message = message;
     this.query = song;
     this.textChannel = message.channel;
     this.author = message.author;
+    let type, stream;
     
     let VoiceChannel = await _voice(message);
     
-    this.voiceChannel = VoiceChannel;    
+    this.voiceChannel = VoiceChannel;
+    
+    if (youtube) {
+      
+      let _playlist = await client.isYtPlaylistUrl(song);
+      if (_playlist) return this.playlist(website, message, song);
+      
+    } else if (!youtube) {
+      
+      let _playlist = await client.isYtPlaylistUrl(song);
+      if (_playlist) return this.playlist(website, message, song);
+      
+    }
   }
   
   async list(website = false) {
@@ -29,6 +42,10 @@ class ServerQueue extends trackManager {
   }
   
   async nowPlaying(website = false) {
+    
+  }
+  
+  async playlist(website = false, message, url) {
     
   }
   
