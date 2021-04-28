@@ -351,7 +351,21 @@ module.exports = async client => {
     let guild_id = req.query.id;
     if (!guild_id) return res.redirect("/");
     
-    let findGuld
+    let findGuild = client.guilds.cache.get(guild_id);
+    if (!findGuild) return res.redirect("/");
+    
+    let serverQueue = client.music.get(findGuild.id);
+    if (!serverQueue) return res.redirect("/");
+    
+    return res.render("queue.ejs", {
+      res,
+      res,
+      bot,
+      lost: false,
+      Permission: Permissions,
+      guild: findGuild,
+      queue: serverQueue
+    })
   });
 
   app.post("/dashboard/:id/settings", checkAuth, async (req, res) => {
