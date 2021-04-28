@@ -139,8 +139,8 @@ class ServerQueue extends trackManager {
     const playlist = await youtubeApi.getPlaylist(song);
     const videos = await playlist.getVideos();
     for (const video of Object.values(videos)) {
-      const video2 = await ytdl.getInfo(video.url); // eslint-disable-line no-await-in-loop
-      this.play(website, message, video2.videoDetails.video_url, true, true)
+      const video2 = await ytdl.getInfo(video.url);
+      this.play(website, message, video2.videoDetails.video_url, false, true)
     } 
   }
 }

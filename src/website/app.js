@@ -7,13 +7,13 @@ const { Permissions } = require("discord.js");
 var back = require("express-back");
 const http = require("http").Server(app);
 const io = require("socket.io")(http);
- 
+
 module.exports = async client => {
   app.use(bodyParser.urlencoded({ extended: false }));
   app.use(bodyParser.json());
   app.set("views", path.join(__dirname, "/views"));
   app.use(express.static(__dirname + "/public"));
-  app.set("view engine", "ejs");
+  app.set("view engine", "ejs"); 
   const bot = client;
   const session = require("express-session");
   const passport = require("passport");
@@ -363,7 +363,7 @@ module.exports = async client => {
       bot,
       lost: false,
       Permission: Permissions,
-      guild: findGuild,
+      guild: findGuild, 
       queue: serverQueue
     })
   });
