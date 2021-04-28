@@ -115,7 +115,13 @@
   <div class="card">
     <div class="card-header" id="headingOne" data-toggle="collapse" data-target="#<%= cmd.name %>" aria-expanded="true" aria-controls="<%= cmd.name %>">
       <h2 class="mb-0">
-        <%= cmd.name %> -<small style="font-size: 20px !important;"> <%= cmd.description %></small>
+        <% 
+        let disabled_ = false;
+        if (disabled.includes(cmd.name.toLowerCase())) {
+        disabled_ = true;
+        }
+        %>
+        <strong><%= cmd.name %> <%= disabled_ ? "(disabled)" : "" %></strong> -<small style="font-size: 20px !important;"> <%= cmd.description %></small>
       </h2>
     </div>
 

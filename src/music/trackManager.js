@@ -18,7 +18,7 @@ class trackManager {
   }
   
   skip(website = false, message, args) {
-     
+    
   }
   
   stop(website = false, message, args) {
