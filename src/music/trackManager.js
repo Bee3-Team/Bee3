@@ -18,7 +18,7 @@ class trackManager {
   }
   
   skip(website = false, message, args) {
-    
+     
   }
   
   stop(website = false, message, args) {
@@ -51,7 +51,7 @@ class trackManager {
       return client.music.delete(message.guild.id);
     }
     
-    this.serverQueue.connection.on("disconnect", () => client.queue.delete(message.guild.id));
+    this.serverQueue.connection.on("disconnect", () => client.music.delete(message.guild.id));
     
     let streamType;
     
