@@ -49,8 +49,16 @@ class trackManager {
     
     this.serverQueue.connection.on("disconnect", () => client.queue.delete(message.guild.id));
     
+    let streamType;
+    
+    if (songAns.duration == 0) {
+      streamType = {type: "opus"};
+    } else {
+      streamType = {filter: "audioonly", type: "opus"};
+    }
+    
     const dispatcher = this.serverQueue.connection
-      .play(await ytdl(songAns.url, {type: "opus"}))
+      .play(await ytdl(songAns.url, streamType))
       .on("finish", () => {
         if (this.serverQueue.settings.loop) {
           // if loop is on, push the song back at the end of the queue
