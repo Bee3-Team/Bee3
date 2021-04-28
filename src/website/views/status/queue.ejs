@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <%- include('part/head.ejs') %>
+    <%- include('part/bootstrapCSS.ejs') %>
+  </head>
+  <body class="on-loading">
+    <%- include('part/bootstrapJS.ejs') %>
+    <script src="https://kit.fontawesome.com/071ea1fa85.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.js"></script>
+    <%- include('part/loading.ejs') %>
+    
+    <%- include('part/navbar.ejs') %>
+    
+    <main id="main" role="main" class="container main">
+  <% queue.songs.map(cmd => { %>
+  <div class="card">
+    <div class="card-header" id="headingOne" data-toggle="collapse" data-target="#<%= cmd.name %>" aria-expanded="true" aria-controls="<%= cmd.title %>">
+      <h2 class="mb-0"><%= cmd.title %></h2>
+    </div>
+
+    <div id="<%= cmd.title %>" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+      <div class="card-body">
+        <div class="card-sec-item">
+          <h5>Duration:</h5>
+          <pre><code><%= cmd.duration.toHHMMSS() %></code></pre>
+        </div>
+        <div class="card-sec-item">
+          <h5>URL:</h5>
+          <pre><code><%= cmd.url %>s</code></pre>
+        </div>
+      </div>
+    </div>
+  </div>  
+  <% }) %>
+    </main>
+
+    <%- include('part/footer.ejs') %>
+    <script>
+function openCity(evt, cityName) {
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("tagcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tag");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+  document.getElementById(cityName).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+    </script>
+  </body>
+</html>
