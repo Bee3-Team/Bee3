@@ -7,9 +7,11 @@ const YouTubeAPI = require("simple-youtube-api");
 const youtubeApi = new YouTubeAPI(config.yt);
 
 class ServerQueue extends trackManager {
-  constructor(website = false, message, song, youtube = false) {
+  constructor(website = false, message, song, youtube = false, playlist = false) {
     super(); 
 
+    if (playlist) return this.playlist(website, message, song, youtube);
+    
     this.play(website, message, song, youtube);
   }
 
@@ -114,11 +116,28 @@ class ServerQueue extends trackManager {
     return message.channel.send(`https://beee.cf/queue?id=${message.guild.id}`)
   } 
 
-  async shuffle(website = false) {}
+  async shuffle(website = false, message) {
+    let serverQueue = await _queue(message);
+    if (!_modify(message.member)) return message.channel.send(`You must join same voice channel with me.`)
+    
+    let songs = serverQueue.songs;
+    for (let i = songs.length - 1; i > 1; i--) {
+      let j = 1 + Math.floor(Math.random() * i);
+      [songs[i], songs[j]] = [songs[j], songs[i]];
+    }
+    serverQueue.songs = songs;
+    client.music.set(message.guild.id, serverQueue);
+    
+    return message.channel.send(`The songs on queue was shuffled!\nhttps://beee.cf/queue?id=${message.guild.id}`)
+  }
 
-  async nowPlaying(website = false) {}
+  async nowPlaying(website = false) {
+    
+  }
 
-  async playlist(website = false, message, url) {}
+  async playlist(website = false, message, song) {
+    
+  }
 }
 
 module.exports = { ServerQueue };
@@ -144,7 +163,7 @@ async function _modify(member) {
   const botChannel = member.guild.voice.channelID;
 
   if (channelID !== botChannel) {
-    return;
+    return false;
   }
 
   return true;  
