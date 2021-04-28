@@ -69,7 +69,19 @@ class ServerQueue extends trackManager {
     // start manage the music
     if (!serverQueue) {
       
-      
+      let serverQueueAns = {
+        channel: {
+          text: message.channel,
+          voice: VoiceChannel
+        },
+        connection: null,
+        settings: {
+          loop: false,
+          volume: 100,
+          playing: true
+        },
+        songs: []
+      };
       
     } else if (serverQueue) {
       
