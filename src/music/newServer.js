@@ -138,3 +138,14 @@ async function _queue(id, message) {
 
   return _check;
 }
+
+async function _modify(member) {
+  const { channelID } = member.voice;
+  const botChannel = member.guild.voice.channelID;
+
+  if (channelID !== botChannel) {
+    return;
+  }
+
+  return true;  
+};
