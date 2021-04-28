@@ -23,7 +23,7 @@ module.exports = async client => {
   });
   passport.deserializeUser(function(obj, done) {
     done(null, obj);
-  });
+  }); 
 
   var scopes = [
     "identify",
