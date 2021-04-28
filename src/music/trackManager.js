@@ -14,6 +14,7 @@ class trackManager {
     serverQueue.songs.push(songAns);
     
     if (playlist) return;
+    
     return serverQueue.event.onSongAdded(message)
     
   }
