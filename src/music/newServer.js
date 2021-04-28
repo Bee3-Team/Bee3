@@ -107,7 +107,7 @@ class ServerQueue extends trackManager {
 
   async list(website = false, message) {
     let serverQueue = _queue(message)
-  }
+  } 
 
   async shuffle(website = false) {}
 
