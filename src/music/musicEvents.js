@@ -1,11 +1,10 @@
 class ServerEvent {
   constructor() {
+  }
+  
+  onSongAdded(message) {
     
-    this.on("songAdded", message => {
-      
-      message.react("✅")
-      
-    });
+    message.react("✅");
     
   }
 }

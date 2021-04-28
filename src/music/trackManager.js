@@ -13,7 +13,7 @@ class trackManager {
     
     serverQueue.songs.push(songAns);
     
-    return serverQueue.event.emit("songAdded", message)
+    return serverQueue.event.onSongAdded(message)
     
   }
   
