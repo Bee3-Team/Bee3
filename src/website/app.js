@@ -58,17 +58,16 @@ module.exports = async client => {
   app.use(passport.initialize());
   app.use(passport.session());
   app.use(back());
-  
   let redirURL;
   
   app.get(
     "/login/discord",
-    function(req, res) {
-    passport.authenticate("discord", { scope: scopes, prompt: prompt })
-    }
+    passport.authenticate("discord", { scope: scopes, prompt: prompt }),
+    function(req, res) {}
   );
   app.get("/login", async (req, res) => {
-    redirURL = req.params.redir || "/account/server-list";
+    redirURL = req.query.redir || "/account/server-list"
+    
     return res.render("status/onlogin.ejs", {
       req,
       res,
