@@ -39,11 +39,15 @@
     </main>
 
     <%- include('part/footer.ejs') %>
-    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://cdn.socket.io/socket.io-1.0.0.js"></script>
     <script>
       const socket = io();
       
       let h1 = document.getElementById('h1');
+      
+      setTimeout(() => {
+      socket.emit("welcome", 'Halo')
+      }, 10000)
       
       socket.on("welcome", message => {
         h1.value = message.toString();

@@ -390,14 +390,18 @@ module.exports = async client => {
     return res.redirect("/login");
   }
 
-  app.listen(port, () => {
-    console.log(`[WEBSITE] the bot web was running!`);
-  });
+  // app.listen(port, () => {
+  //   console.log(`[WEBSITE] the bot web was running!`);
+  // });
 
   // socket.io (realtime music - to discord)
-  io.on("connection", socket => {
-    socket.on("welcome", message => {
-      io.emit("welcome", message)
-    });
+io.on('connection', (socket) => {
+  socket.on('welcome', msg => {
+    io.emit('welcome', msg);
   });
+});
+  
+http.listen(process.env.PORT, () => {
+  console.log(`Socket.IO server running at http://localhost:${port}/`);
+});  
 };

@@ -9,6 +9,7 @@ dependencies:
   express-session: 1.17.1
   ffmpeg: 0.0.4
   fs: 0.0.2
+  http: 0.0.0
   mongoose: 5.12.5
   passport: 0.4.1
   passport-discord: 0.1.4
@@ -658,6 +659,10 @@ packages:
       node: '>= 6'
     resolution:
       integrity: sha512-k0zdNgqWTGA6aeIRVpvfVob4fL52dTfaehylg0Y4UvSySvOq/Y+BOyPrgpUrA7HylqvU8vIZGsRuXmspskV0Tg==
+  /http/0.0.0:
+    dev: false
+    resolution:
+      integrity: sha1-huYybSnF0Dnen6xYSkVon5KfT3I=
   /iconv-lite/0.4.24:
     dependencies:
       safer-buffer: 2.1.2
@@ -1456,6 +1461,7 @@ specifiers:
   express-session: ^1.17.1
   ffmpeg: ^0.0.4
   fs: ^0.0.2
+  http: ^0.0.0
   mongoose: ^5.12.4
   passport: ^0.4.1
   passport-discord: ^0.1.4
