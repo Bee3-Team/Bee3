@@ -61,8 +61,9 @@ module.exports = async client => {
 
   app.get(
     "/login/discord",
-    passport.authenticate("discord", { scope: scopes, prompt: prompt }),
-    function(req, res) {}
+    function(req, res) {
+    passport.authenticate("discord", { scope: scopes, prompt: prompt, redirecturl: req.params.redirecturl || "/account/server-list" })
+    }
   );
   app.get("/login", async (req, res) => {
     return res.render("status/onlogin.ejs", {
@@ -76,7 +77,7 @@ module.exports = async client => {
     "/callback",
     passport.authenticate("discord", { failureRedirect: "/" }),
     function(req, res, next) {
-      return res.redirect("/account/server-list");
+      return res.redirect(`${req.params.redirecturl ? req.params.redirecturl === "/" ? "/account/server-list" : `${req.params.redirecturl}` : "/account/server-list"}`);
     } // auth success
   );
   app.get("/logout", function(req, res) {
