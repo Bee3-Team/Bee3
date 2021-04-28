@@ -35,24 +35,18 @@
       <i class="fas fa-users"></i> <%= bot.users.cache.size %>
     </div>
   </div>
-</div>      
+</div>     
     </main>
 
     <%- include('part/footer.ejs') %>
-    <script src="https://cdn.socket.io/socket.io-1.0.0.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+
     <script>
-      const socket = io();
-      
-      let h1 = document.getElementById('h1');
-      
-      setTimeout(() => {
-      socket.emit("welcome", 'Halo')
-      }, 10000)
-      
-      socket.on("welcome", message => {
-        h1.value = message.toString();
+      var socket = io();
+
+      socket.on('easterEgg', function(msg) {
+        document.getElementById("h1").innerHTML = msg;
       });
-      
     </script>
   </body>
 </html>

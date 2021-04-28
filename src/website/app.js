@@ -396,12 +396,12 @@ module.exports = async client => {
 
   // socket.io (realtime music - to discord)
 io.on('connection', (socket) => {
-  socket.on('welcome', msg => {
-    io.emit('welcome', msg);
+  socket.on('easterEgg', msg => {
+    io.emit('easterEgg', msg);
   });
 });
   
 http.listen(process.env.PORT, () => {
-  console.log(`Socket.IO server running at http://localhost:${port}/`);
+  console.log(`[WEBSITE] the bot web was running!`);
 });  
 };
