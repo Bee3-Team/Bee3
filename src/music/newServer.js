@@ -8,7 +8,7 @@ const youtubeApi = new YouTubeAPI(config.yt);
 
 class ServerQueue extends trackManager {
   constructor(website = false, message, song, youtube = false) {
-    super();
+    super(); 
 
     this.play(website, message, song, youtube);
   }
@@ -80,7 +80,8 @@ class ServerQueue extends trackManager {
           volume: 100,
           playing: true
         },
-        songs: []
+        songs: [],
+        control: this
       };
       
       serverQueueAns.songs.push(songAns);
