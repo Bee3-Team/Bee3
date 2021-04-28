@@ -83,6 +83,20 @@ class ServerQueue extends trackManager {
         songs: []
       };
       
+      serverQueueAns.songs.push(songAns);
+      client.music.set(message.guild.id, serverQueueAns);
+      
+      try {
+        serverQueueAns.connection = await VoiceChannel.join();
+        await serverQueueAns.connection.voice.setSelfDeaf(true);
+        this.playSong(website, serverQueueAns.songs[0], message)
+      } catch (e) {
+        console.log(e);
+        client.music.delete(message.guild.id);
+        await VoiceChannel.leave();
+        return message.channel.send("Error: " + e.message)
+      }
+      
     } else if (serverQueue) {
       
       return this.addTrack(website, songAns, message);

@@ -26,6 +26,12 @@ class trackManager {
   pause(website = false, message, args) {
     
   }
+  
+  async playSong(website = false, songAns, message) {
+    
+    this.serverQueue = message.client.music.get(message.guild.id);
+    
+  }
 }
 
 module.exports = {trackManager}
