@@ -307,9 +307,9 @@ module.exports = async client => {
 
     client.Commands.map(cmd => {
       let cmdDisabled_ = req.body[`${cmd.name}`];
-      if (cmdDisabled_) {
+      if (!cmdDisabled_) {
         disabled.push(cmd);
-      } else if (!cmdDisabled_) {
+      } else if (cmdDisabled_) {
         noDisabled.push(cmd);
       }
     });

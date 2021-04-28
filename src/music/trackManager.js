@@ -9,7 +9,11 @@ class trackManager {
     
   }
   
-  addTrack(website = false, songAns, message) {
+  addTrack(website = false, songAns, serverQueue, message) {
+    
+    serverQueue.songs.push(songAns);
+    
+    return message.channel.send(`Queued **${songAns.title}**`);
     
   }
   

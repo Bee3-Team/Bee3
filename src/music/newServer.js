@@ -100,7 +100,7 @@ class ServerQueue extends trackManager {
       
     } else if (serverQueue) {
       
-      return this.addTrack(website, songAns, message);
+      return this.addTrack(website, songAns, serverQueue, message);
       
     }
   }
