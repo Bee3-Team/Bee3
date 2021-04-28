@@ -78,5 +78,7 @@ module.exports = async client => {
     
     return (url.match(p)) ? true : false;
   }
-  client.music = new Map()
+  client.music = new Map();
+  
+  module.exports = {client}
 };
