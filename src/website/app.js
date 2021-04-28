@@ -346,6 +346,13 @@ module.exports = async client => {
       database: findGuildDB
     });
   });
+  
+  app.get("/queue", async (req, res) => {
+    let guild_id = req.query.id;
+    if (!guild_id) return res.redirect("/");
+    
+    let findGuld
+  });
 
   app.post("/dashboard/:id/settings", checkAuth, async (req, res) => {
     let guild_id = req.params.id;

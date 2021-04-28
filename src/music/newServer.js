@@ -108,7 +108,10 @@ class ServerQueue extends trackManager {
   }
 
   async list(website = false, message) {
-    let serverQueue = _queue(message)
+    let serverQueue = _queue(message);
+    if (!serverQueue) return message.channel.send(`There is no songs in queue, try added one.`);
+    
+    
   } 
 
   async shuffle(website = false) {}
