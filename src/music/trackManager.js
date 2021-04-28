@@ -35,7 +35,7 @@ class trackManager {
   
   async playSong(website = false, songAns, message) {
     
-    this.serverQueue = message.client.music.get(message.guild.id);
+    this.serverQueue = client.music.get(message.guild.id);
     
     if (!songAns) {
       setTimeout(() => {
@@ -44,46 +44,30 @@ class trackManager {
         this.serverQueue.channel.text.send(`I leave from voice channel because no inactive song in queue.`)
       }, 30000)
       this.serverQueue.channel.text.send(`Queue ended.`);
-      return message.client.music.delete(message.guild.id);
+      return client.music.delete(message.guild.id);
     }
     
-    let stream = null, streamType = songAns.url.includes("youtube.com") ? "opus" : "ogg/opus";
-    
-    try {      
-      if (songAns.url.includes("youtube.com")) {
-        stream = await ytdl(songAns.url, { highWaterMark: 1 << 25 });
-      }
-    } catch (e) {
-      if (this.serverQueue) {
-        this.serverQueue.songs.shift();
-        this.playSong(this.serverQueue.songs[0], message);
-      }
-
-      console.log(e);
-      return message.channel.send("Error: " + e.message);
-    }
-    
-    this.serverQueue.connection.on("disconnect", () => message.client.queue.delete(message.guild.id));
+    this.serverQueue.connection.on("disconnect", () => client.queue.delete(message.guild.id));
     
     const dispatcher = this.serverQueue.connection
-      .play(stream, { type: streamType })
+      .play(await ytdl(songAns.url, {type: "opus"}))
       .on("finish", () => {
         if (this.serverQueue.settings.loop) {
           // if loop is on, push the song back at the end of the queue
           // so it can repeat endlessly
           let lastSong = this.serverQueue.songs.shift();
           this.serverQueue.songs.push(lastSong);
-          this.playSong(this.serverQueue.songs[0], message);
+          this.playSong(website, this.serverQueue.songs[0], message);
         } else {
           // Recursively play the next song
           this.serverQueue.songs.shift();
-          this.playSong(this.serverQueue.songs[0], message);
+          this.playSong(website, this.serverQueue.songs[0], message);
         }
       })
       .on("error", (err) => {
         console.error(err);
         this.serverQueue.songs.shift();
-        this.playSong(this.serverQueue.songs[0], message);
+        this.playSong(website, this.serverQueue.songs[0], message);
       });
     dispatcher.setVolumeLogarithmic(this.serverQueue.settings.volume / 100);    
     

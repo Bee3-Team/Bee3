@@ -1,7 +1,7 @@
 const config = require("../other/config.js");
 const { trackManager } = require("./trackManager.js");
 const { ServerEvent } = require("./musicEvents.js");
-const { client } = require("../other/clientNavigation.js");
+const { client } = require("../client/index.js");
 const ytdl = require("ytdl-core");
 const YouTubeAPI = require("simple-youtube-api");
 const youtubeApi = new YouTubeAPI(config.yt);

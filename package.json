@@ -23,7 +23,8 @@
     "express-back": "^0.0.2",
     "simple-youtube-api": "^5.2.1",
     "ytdl-core": "^4.4.5",
-    "ffmpeg": "^0.0.4"
+    "ffmpeg": "^0.0.4",
+    "@discordjs/opus": "^0.5.0"
   },
   "engines": {
     "node": "12.x"

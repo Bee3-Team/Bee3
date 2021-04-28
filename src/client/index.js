@@ -6,6 +6,7 @@ const config = require("../other/config.js");
 
 client.login(config.token);
 client.config = config;
+client.music = new Map();
 
 // require("../other/clientNavigation.js")(client);
 require("../mongodb/connect.js")(client);
@@ -86,7 +87,6 @@ client.isYtPlaylistUrl = function validatorPlaylistURL(url) {
 
   return url.match(p) ? true : false;
 };
-client.music = new Map();
 //
 
 // export client.
