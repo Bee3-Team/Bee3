@@ -1,5 +1,6 @@
 const config = require("../other/config.js");
 const { trackManager } = require("./trackManager.js");
+const { ServerEvent } = require("./musicEvents.js");
 const { client } = require("../client/index.js");
 const ytdl = require("ytdl-core");
 const YouTubeAPI = require("simple-youtube-api");
@@ -63,6 +64,17 @@ class ServerQueue extends trackManager {
         console.log(e);
         return message.reply("Error: " + e.message);
       }
+    }
+    
+    // start manage the music
+    if (!serverQueue) {
+      
+      
+      
+    } else if (serverQueue) {
+      
+      return this.addTrack(website, songAns, message);
+      
     }
   }
 

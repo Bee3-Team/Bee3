@@ -3,7 +3,7 @@ class trackManager {
     
   }
   
-  addTrack(website = false, message, args) {
+  addTrack(website = false, songAns, message) {
     
   }
   
