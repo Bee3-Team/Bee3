@@ -9,15 +9,9 @@ class trackManager {
     
   }
   
-  addTrack(website = false, songAns, serverQueue, message, playlist, songs) {
+  addTrack(website = false, songAns, serverQueue, message) {
     
-    if (playlist) {
-      songs.map(song => {
-      serverQueue.songs.push(song);
-    });
-      
-      return;
-    }
+    serverQueue.songs.push(songAns);
     
     return serverQueue.event.onSongAdded(message)
     
