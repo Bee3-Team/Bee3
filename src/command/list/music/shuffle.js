@@ -1,9 +1,9 @@
 const { ServerQueue } = require("../../../music/newServer.js");
 
 module.exports = {
-  name: "queue",
+  name: "shuffle",
   description: "Get songs list",
-  aliases: ["q"],
+  aliases: ["shuff"],
   permissions: {
     user: [],
     client: []

@@ -141,7 +141,7 @@ class ServerQueue extends trackManager {
     for (const video of Object.values(videos)) {
       const video2 = await ytdl.getInfo(video.url); // eslint-disable-line no-await-in-loop
       this.play(website, message, video2.videoDetails.video_url, true)
-    }
+    } 
   }
 }
 
