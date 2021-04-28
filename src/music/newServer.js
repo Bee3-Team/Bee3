@@ -7,7 +7,7 @@ const YouTubeAPI = require("simple-youtube-api");
 const youtubeApi = new YouTubeAPI(config.yt);
 
 class ServerQueue extends trackManager {
-  constructor(
+  constructor( 
     website = false,
     message,
     song,
@@ -21,7 +21,7 @@ class ServerQueue extends trackManager {
     this.play(website, message, song, youtube);
   }
 
-  async play(website, message, song, youtube, playlist) {
+  async play(website, message, song, youtube, playlist, skip, songs) {
     this.message = message;
     this.query = song;
     this.textChannel = message.channel;
@@ -33,7 +33,12 @@ class ServerQueue extends trackManager {
     this.voiceChannel = VoiceChannel;
 
     serverQueue = await _queue(message.guild.id, message);
+    
+    if (skip) {
+      songAns = song;
+    }
 
+    if (!skip) {
     if (youtube) {
       let _playlist = await client.isYtPlaylistUrl(song);
       if (_playlist) return this.playlist(website, message, song);
@@ -68,6 +73,7 @@ class ServerQueue extends trackManager {
         console.log(e);
         return message.reply("Error: " + e.message);
       }
+    }      
     }
 
     // start manage the music
@@ -83,12 +89,11 @@ class ServerQueue extends trackManager {
           volume: 100,
           playing: true
         },
-        songs: [],
+        songs: songs,
         control: this,
         event: null
       };
 
-      serverQueueAns.songs.push(songAns);
       client.music.set(message.guild.id, serverQueueAns);
 
       try {
@@ -103,7 +108,7 @@ class ServerQueue extends trackManager {
         return message.channel.send("Error: " + e.message);
       }
     } else if (serverQueue) {
-      return this.addTrack(website, songAns, serverQueue, message, playlist);
+      return this.addTrack(website, songAns, serverQueue, message, playlist, songs);
     }
   }
 
@@ -138,10 +143,18 @@ class ServerQueue extends trackManager {
   async playlist(website = false, message, song) {
     const playlist = await youtubeApi.getPlaylist(song);
     const videos = await playlist.getVideos();
-    for (const video of Object.values(videos)) {
-      const video2 = await ytdl.getInfo(video.url);
-      this.play(website, message, video2.videoDetails.video_url, false, true)
-    } 
+    let songs = [];
+    
+    videos.map(async vid => {
+      const songInfo = await ytdl.getInfo(vid.url);
+      songs.push({
+          title: songInfo.videoDetails.title,
+          url: songInfo.videoDetails.video_url,
+          duration: songInfo.videoDetails.lengthSeconds        
+      });
+    });
+    
+    this.play(website, message, false, true, true, true, songs)
   }
 }
 
