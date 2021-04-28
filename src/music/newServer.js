@@ -4,7 +4,7 @@ const { ServerEvent } = require("./musicEvents.js");
 const { client } = require("../other/clientNavigation.js");
 const ytdl = require("ytdl-core");
 const YouTubeAPI = require("simple-youtube-api");
-const youtube = new YouTubeAPI(config.yt);
+const youtubeApi = new YouTubeAPI(config.yt);
 
 class ServerQueue extends trackManager {
   constructor(website = false, message, song, youtube = false) {
@@ -24,7 +24,7 @@ class ServerQueue extends trackManager {
 
     this.voiceChannel = VoiceChannel;
 
-    serverQueue = _queue(message.guild.id)
+    serverQueue = await _queue(message.guild.id, message)
     
     if (youtube) {
       
@@ -39,7 +39,7 @@ class ServerQueue extends trackManager {
           url: songInfo.videoDetails.video_url,
           duration: songInfo.videoDetails.lengthSeconds
         };
-      } catch (e) {
+      } catch (e) { 
         console.log(e);
         return message.reply("Error: " + e.message);
       }
@@ -51,7 +51,7 @@ class ServerQueue extends trackManager {
       
       try {
         
-        let searchSong = await youtube.searchVideos(song, 1, {part: "snippet"});
+        let searchSong = await youtubeApi.searchVideos(song, 1, {part: "snippet"});
         songInfo = await ytdl.getInfo(searchSong[0].url);
         
         songAns = {
@@ -124,7 +124,7 @@ async function _voice(message) {
   return VoiceChannel;
 }
 
-async function _queue(id) {
+async function _queue(id, message) {
   let _check = client.music.get(id);
   if (!_check) return false;
 

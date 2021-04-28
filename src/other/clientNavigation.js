@@ -80,5 +80,4 @@ module.exports = async client => {
   }
   client.music = new Map();
   
-  module.exports = {client}
 };

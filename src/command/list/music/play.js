@@ -10,8 +10,6 @@ module.exports = {
   },
   cooldown: 5,
   run: async (message, args, client) => {
-    const { ServerQueue } = client;
-    
     const query = args.join(" ");
     if (!query) return message.channel.send(`Please give a song url / title`)
     
