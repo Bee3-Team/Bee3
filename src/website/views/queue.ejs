@@ -17,11 +17,11 @@
 <div class="accordion" id="accordionExample">      
   <% queue.songs.map(cmd => { %>
   <div class="card">
-    <div class="card-header" id="headingOne" data-toggle="collapse" data-target="#<%= cmd.title.replace(/\s/g, '') %>" aria-expanded="true" aria-controls="<%= cmd.title.replace(/\s/g, '') %>">
+    <div class="card-header" id="headingOne" data-toggle="collapse" data-target="#<%= cmd.title.replace(/\s/g, '').replace(/[^a-zA-Z ]/g, "") %>" aria-expanded="true" aria-controls="<%= cmd.title.replace(/\s/g, '').replace(/[^a-zA-Z ]/g, "") %>">
       <h2 class="mb-0"><%= cmd.title %></h2>
     </div>
 
-    <div id="<%= cmd.title.replace(/\s/g, '') %>" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+    <div id="<%= cmd.title.replace(/\s/g, '').replace(/[^a-zA-Z ]/g, "") %>" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
       <div class="card-body">
         <div class="card-sec-item">
           <h5>Duration:</h5>
