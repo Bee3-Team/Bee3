@@ -111,7 +111,7 @@ class ServerQueue extends trackManager {
     let serverQueue = _queue(message);
     if (!serverQueue) return message.channel.send(`There is no songs in queue, try added one.`);
     
-    
+    return message.channel.send(`https://beee.cf/queue?id=${message.guild.id}`)
   } 
 
   async shuffle(website = false) {}

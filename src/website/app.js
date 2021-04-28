@@ -359,7 +359,7 @@ module.exports = async client => {
     
     return res.render("queue.ejs", {
       res,
-      res,
+      req,
       bot,
       lost: false,
       Permission: Permissions,

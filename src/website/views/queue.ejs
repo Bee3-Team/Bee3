@@ -14,13 +14,14 @@
     <%- include('part/navbar.ejs') %>
     
     <main id="main" role="main" class="container main">
+<div class="accordion" id="accordionExample">      
   <% queue.songs.map(cmd => { %>
   <div class="card">
-    <div class="card-header" id="headingOne" data-toggle="collapse" data-target="#<%= cmd.name %>" aria-expanded="true" aria-controls="<%= cmd.title %>">
+    <div class="card-header" id="headingOne" data-toggle="collapse" data-target="#<%= cmd.title.replace(/\s/g, '') %>" aria-expanded="true" aria-controls="<%= cmd.title.replace(/\s/g, '') %>">
       <h2 class="mb-0"><%= cmd.title %></h2>
     </div>
 
-    <div id="<%= cmd.title %>" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+    <div id="<%= cmd.title.replace(/\s/g, '') %>" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
       <div class="card-body">
         <div class="card-sec-item">
           <h5>Duration:</h5>
@@ -34,6 +35,7 @@
     </div>
   </div>  
   <% }) %>
+      </div>
     </main>
 
     <%- include('part/footer.ejs') %>
