@@ -1,7 +1,7 @@
 class ServerEvent {
-  constructor(serverqueue) {
+  constructor() {
     
-    serverqueue.on("songAdded", message => {
+    this.on("songAdded", message => {
       
       message.react("✅")
       

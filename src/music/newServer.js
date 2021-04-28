@@ -81,7 +81,8 @@ class ServerQueue extends trackManager {
           playing: true
         },
         songs: [],
-        control: this
+        control: this,
+        event: null
       };
       
       serverQueueAns.songs.push(songAns);
@@ -90,6 +91,7 @@ class ServerQueue extends trackManager {
       try {
         serverQueueAns.connection = await VoiceChannel.join();
         await serverQueueAns.connection.voice.setSelfDeaf(true);
+        client.music.get(message.guild.id).event = new ServerEvent();
         this.playSong(website, serverQueueAns.songs[0], message)
       } catch (e) {
         console.log(e);

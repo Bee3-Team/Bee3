@@ -13,7 +13,7 @@ class trackManager {
     
     serverQueue.songs.push(songAns);
     
-    return message.channel.send(`Queued **${songAns.title}**`);
+    return serverQueue.event.emit("songAdded", message)
     
   }
   
