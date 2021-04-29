@@ -9,7 +9,11 @@ class Music extends MusicManager {
   }
   
   async createClient(client) {
-    client.music = new Player(client);
+    client.music = new Player(client, {
+      autoSelfDeaf: true,
+      leaveOnEmptyCooldown: 30000,
+      leaveOnEndCooldown: 30000
+    });
     
     this.music = client.music;
     this.createEvent(client);
@@ -62,8 +66,6 @@ class Music extends MusicManager {
     });
     
     client.music.on("queueEnd", async (message, queue) => {
-      client.tracks.delete(message.guild.id)
-      
       message.channel.send("Queue ended.")
     });
     
@@ -83,26 +85,10 @@ ${tracks.map((t, i) => `[${i + 1}] ${t.title}`).join('\n')}
     });
     
     client.music.on("trackAdd", async (message, queue, track) => {
-      let getTracks = client.tracks.get(message.guild.id);
-      let queueSS = client.music.getQueue(message);
-      if (!getTracks) {
-      client.tracks.set(message.guild.id, queueSS.tracks);
-      } else {
-        getTracks = queueSS.tracks;
-      }
-      
       message.channel.send(`Queued **${track.title}**.`)
     });
     
     client.music.on("trackStart", async (message, track) => {
-      let getTracks = client.tracks.get(message.guild.id);
-      let queueSS = client.music.getQueue(message);
-      if (!getTracks) {
-      client.tracks.set(message.guild.id, queueSS.tracks);
-      } else {
-        getTracks = queueSS.tracks;
-      }
-      
       message.channel.send(`Playing **${track.title}**.`)
     });
     
@@ -140,6 +126,19 @@ ${tracks.map((t, i) => `[${i + 1}] ${t.title}`).join('\n')}
     }
     
     return true;
+  }
+  
+  async _updateQueue(message, client, song, queue = false) {
+    
+    
+    
+    let checkFirst = await client.tracks.get(message.guild.id);
+    if (!checkFirst) {
+      client.tracks
+    } else if (checkFirst) {
+      
+    }
+    
   }
 }
 
