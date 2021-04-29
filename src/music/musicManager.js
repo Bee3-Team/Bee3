@@ -23,11 +23,11 @@ class MusicManager {
 
     await this.can(message);
 
-    if (client.music.getQueue(message).repeatMode) {
-      client.music.setRepeatMode(message, false);
+    if (this.music.getQueue(message).repeatMode) {
+      this.music.setRepeatMode(message, false);
       return message.channel.send(`Loop now **off**.`);
     } else {
-      client.music.setRepeatMode(message, true);
+      this.music.setRepeatMode(message, true);
       return message.channel.send(`Loop now **on**.`);
     }
   }
@@ -41,8 +41,8 @@ class MusicManager {
 
     await this.can(message);
 
-    client.music.setRepeatMode(message, false);
-    client.music.stop(message);
+    this.music.setRepeatMode(message, false);
+    this.music.stop(message);
 
     message.channel.send(`Music was stopped by ${message.author.tag}`);
   }
@@ -56,7 +56,7 @@ class MusicManager {
 
     await this.can(message);
 
-    client.music.skip(message);
+    this.music.skip(message);
 
     message.channel.send(`Music was skipped by ${message.author.tag}`);
   }
@@ -65,7 +65,7 @@ class MusicManager {
     let queue = await this._queue(message);
     if (!queue) return;
 
-    let serverQueue = client.music.getQueue(message);
+    let serverQueue = this.music.getQueue(message);
 
     message.channel.send(
       `Current song: ${serverQueue.playing.title}\nQueue: https://beee.cf/queue?id=${message.guild.id}`
@@ -121,7 +121,7 @@ class MusicManager {
 
     if (!args[0] || isNaN(args[0]) || args[0] === "Infinity")
       return message.channel.send(
-        `Give valid number - current volume: **${client.music.getQueue(message).volume}%**`
+        `Give valid number - current volume: **${this.music.getQueue(message).volume}%**`
       );
 
     if (
@@ -132,7 +132,7 @@ class MusicManager {
         `Please give valid number between 1 - 100`
       );
 
-    const success = client.music.setVolume(message, parseInt(args[0]));
+    const success = this.music.setVolume(message, parseInt(args[0]));
 
     if (success)
       message.channel.send(
