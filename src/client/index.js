@@ -6,13 +6,16 @@ const config = require("../other/config.js");
 
 client.login(config.token);
 client.config = config;
-client.music = new Map();
 
 // require("../other/clientNavigation.js")(client);
 require("../mongodb/connect.js")(client);
 require("../event/eventManager.js")(client);
 require("../command/commandManager.js")(client);
 require("../website/app.js")(client);
+
+const Music = require("../music/newServer.js");
+
+client.music = new Music.Music(client);
 
 const Guild = require("../mongodb/schemas/Guild.js");
 

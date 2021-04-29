@@ -11,10 +11,10 @@ class Music extends MusicManager {
   async createClient(client) {
     const distube = new DisTube(client, {
       emitNewSongOnly: true,
-      leaveOnEmpty: true,
-      updateYouTubeDL: true
+      leaveOnEmpty: true
     });
 
+    this.distube = distube;
     this.createEvent(client, distube);
   }
 
@@ -76,3 +76,5 @@ class Music extends MusicManager {
       });
   }
 }
+
+module.exports = { Music }
