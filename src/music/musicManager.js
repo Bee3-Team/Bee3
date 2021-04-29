@@ -5,7 +5,10 @@ class MusicManager {
   
   async onplay(website = false, message, args, client) {
     
-    this.can(message);
+    let voice = await this._voice(message);
+    if (!voice) return;
+    
+    await this.can(message);
     
     let query = await this._query(message, args);
     

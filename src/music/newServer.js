@@ -28,16 +28,16 @@ class Music extends MusicManager {
     client.music.on("error", async (error, message) => {
     switch (error) {
         case 'NotPlaying':
-            message.channel.send("There is no songs.");
+            return message.channel.send("There is no songs.");
             break;
         case 'NotConnected':
-            message.channel.send("Please join a voice channel.");
+            return message.channel.send("Please join a voice channel.");
             break;
         case 'UnableToJoin':
-            message.channel.send("I do not have permission (unable) to join this voice channel.");
+            return message.channel.send("I do not have permission (unable) to join this voice channel.");
             break;
         default:
-            message.channel.send("Error: " + error);
+            return message.channel.send("Error: " + error);
     };      
     });
     
@@ -98,6 +98,15 @@ ${tracks.map((t, i) => `[${i + 1}] ${t.title}`).join('\n')}
   async _queue(message) {
     
     if (!this.music.getQueue(message)) return message.channel.send("There is no songs.")
+    
+  }
+  
+  async _voice(message) {
+    
+    if (!message.member.voice.channel) {
+      this.music.emit("error", "NotConnected", message)
+      return false;
+    }
     
   }
 }
