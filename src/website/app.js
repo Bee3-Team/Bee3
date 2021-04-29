@@ -58,16 +58,13 @@ module.exports = async client => {
   app.use(passport.initialize());
   app.use(passport.session());
   app.use(back());
-  let redirURL;
-  
   app.get(
     "/login/discord",
     passport.authenticate("discord", { scope: scopes, prompt: prompt }),
     function(req, res) {}
   );
+  
   app.get("/login", async (req, res) => {
-    redirURL = req.query.redir || "/account/server-list"
-    
     return res.render("status/onlogin.ejs", {
       req,
       res,
@@ -75,11 +72,12 @@ module.exports = async client => {
       lost: false
     });
   });
+  
   app.get(
     "/callback",
     passport.authenticate("discord", { failureRedirect: "/" }),
     function(req, res, next) {
-      return res.redirect(`${redirURL}`);
+      return res.redirect("/account/server-list");
     } // auth success
   );
   app.get("/logout", function(req, res) {
@@ -401,9 +399,15 @@ module.exports = async client => {
 
   // music player
   
-  app.get("/musicplayer", async (req, res) => {
+  app.get("/musicplayer", checkAuth, async (req, res) => {
+    const guildQ = req.query.g;
+    if (!guildQ) return res.redirect("/");
     
-  })
+    let guild = client.guilds.cache.get(guildQ);
+    if (!guild) return res.redirect("/");
+    
+    
+  });
   
   // music player end
   
