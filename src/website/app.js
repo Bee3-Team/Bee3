@@ -34,7 +34,7 @@ module.exports = async client => {
   passport.use(
     new Strategy(
       {
-        clientID: "832610957405847562",
+        clientID: "837251737630408734",
         clientSecret: client.config.secret,
         callbackURL: "https://beee.cf/callback",
         scope: scopes,
@@ -136,9 +136,7 @@ module.exports = async client => {
     res.redirect("https://discord.gg/vH7fhRWg53");
   });
 
-  app.get("/account", async (req, res) => {
-    checkAuth(req, res, "/account")
-    
+  app.get("/account", checkAuth, async (req, res) => {
     res.render("acc/account.ejs", {
       req,
       res,
@@ -148,8 +146,7 @@ module.exports = async client => {
     });
   });
 
-  app.get("/account/owner", async (req, res) => {
-    checkAuth(req, res, "/account/owner")
+  app.get("/account/owner", checkAuth, async (req, res) => {
     res.render("owner/acc.ejs", {
       req,
       res,
@@ -160,8 +157,7 @@ module.exports = async client => {
     });
   });
 
-  app.get("/account/server-list", async (req, res) => {
-    checkAuth(req, res, "/account/server-list")
+  app.get("/account/server-list", checkAuth, async (req, res) => {
     if (req.query.guild_id) {
       return res.redirect("/dashboard/" + req.query.guild_id);
     }
@@ -189,9 +185,7 @@ module.exports = async client => {
     }
   });
 
-  app.get("/dashboard/:id", async (req, res) => {
-    checkAuth(req, res, "/dashboard/" + req.params.id);
-    
+  app.get("/dashboard/:id", checkAuth, async (req, res) => {
     let guild_id = req.params.id;
     if (!guild_id) return res.redirect("/account/server-list");
     if (isNaN(guild_id)) return res.redirect("/account/server-list");
@@ -407,10 +401,9 @@ module.exports = async client => {
 
   // music player
   
-  app.get("/musicplayer", checkAuth, async (req, res) => {
-    let guild = req.query.g;
-    if (!guild) return res.redirect("/")
-  });
+  app.get("/musicplayer", async (req, res) => {
+    
+  })
   
   // music player end
   
@@ -424,9 +417,9 @@ module.exports = async client => {
     });
   });
 
-  function checkAuth(req, res, next, redir) {
+  function checkAuth(req, res, next) {
     if (req.isAuthenticated()) return next();
-    return res.redirect("/login?redir=" + redir);
+    return res.redirect("/login");
   }
 
   // app.listen(port, () => {
