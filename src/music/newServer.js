@@ -157,8 +157,8 @@ class ServerQueue extends trackManager {
 
   async shuffle(website = false, message) {
     let serverQueue = await _queue(message.guild.id, message);
-    if (!_modify(message.member))
-      return message.channel.send(`You must join same voice channel with me.`);
+    let modify = await _modify(message.member, message);
+    if (!modify) return message.channel.send(`You must join same voice channel with me.`);
 
     let songs = serverQueue.songs;
     console.log(songs.length)
@@ -216,11 +216,8 @@ async function _queue(id, message) {
   return _check;
 }
 
-async function _modify(member) {
-  const { channelID } = member.voice;
-  const botChannel = member.guild.me.voice.channelID;
-
-  if (channelID !== botChannel) {
+async function _modify(member, message) {
+  if (member.voice.channel.id !== message.guild.me.voice.channel.id) {
     return false;
   }
 
