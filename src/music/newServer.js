@@ -80,8 +80,10 @@ ${tracks.map((t, i) => `[${i + 1}] ${t.title}`).join('\n')}
   
   async can(message) {
     
-    if (message.guild.me.voice.channe) {
+    if (this.music.getQueue(message)) {
+    if (message.guild.me.voice.channel) {
       if (message.member.voice.channel.id !== message.guild.me.voice.channel.id) return message.channel.send("You cannot use this.");
+    }      
     }
     
     return true;
@@ -91,6 +93,12 @@ ${tracks.map((t, i) => `[${i + 1}] ${t.title}`).join('\n')}
     if (!args.join(" ")) return message.channel.send("Please provide song title / url");
     
     return args.join(" ");
+  }
+  
+  async _queue(message) {
+    
+    if (!this.music.getQueue(message)) return message.channel.send("There is no songs.")
+    
   }
 }
 
