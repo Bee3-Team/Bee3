@@ -12,7 +12,8 @@ class Music extends MusicManager {
     client.music = new Player(client, {
       autoSelfDeaf: true,
       leaveOnEmptyCooldown: 30000,
-      leaveOnEndCooldown: 30000
+      leaveOnEndCooldown: 30000,
+      ytdlDownloadOptions: {filter: "audioandvideo"}
     });
     
     this.music = client.music;
