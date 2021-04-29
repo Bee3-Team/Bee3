@@ -1,14 +1,15 @@
 const DisTube = require("distube");
 const { MusicManager } = require("./musicManager.js");
 
-class Music exten {
+class Music extends MusicManager {
   constructor(client) {
+    super(client)
+    
     this.createClient(client);
   }
   
   async createClient(client) {
     const distube = new DisTube(client, {
-      searchSongs: true,
       emitNewSongOnly: true,
       leaveOnEmpty: true,
       updateYouTubeDL: true
