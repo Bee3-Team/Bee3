@@ -12,7 +12,7 @@ module.exports = {
   run: async (message, args, client) => {
     
     const serverQueue = client.music.get(message.guild.id);
-    if (!serverQueue) return message.channel.send(`There is not songs.`);
+    if (!serverQueue) return message.channel.send(`There is no songs.`);
     
     serverQueue.control.shuffle(false, message);
     

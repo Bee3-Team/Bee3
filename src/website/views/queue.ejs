@@ -14,15 +14,14 @@
     <%- include('part/navbar.ejs') %>
     
     <main id="main" role="main" class="container main">
-      <input class="cmdlist-search" onkeyup="search()" placeholder="search queue..." id="search">
 <div class="accordion" id="accordionExample">      
   <% queue.songs.map(cmd => { %>
   <div class="card" id="search-item">
-    <div class="card-header" id="headingOne" data-toggle="collapse" data-target="#<%= cmd.title.replace(/\s/g, '').replace(/[^a-zA-Z ]/g, "") %>" aria-expanded="true" aria-controls="<%= cmd.title.replace(/\s/g, '').replace(/[^a-zA-Z ]/g, "") %>">
+    <div class="card-header" id="head-<%= cmd.title.replace(/\s/g, '').replace(/[^a-zA-Z ]/g, "") %>" data-toggle="collapse" data-target="#<%= cmd.title.replace(/\s/g, '').replace(/[^a-zA-Z ]/g, "") %>" aria-expanded="true" aria-controls="<%= cmd.title.replace(/\s/g, '').replace(/[^a-zA-Z ]/g, "") %>">
       <h2 class="mb-0" id="search-item-name"><a><%= cmd.title %></a></h2>
     </div>
 
-    <div id="<%= cmd.title.replace(/\s/g, '').replace(/[^a-zA-Z ]/g, "") %>" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+    <div id="<%= cmd.title.replace(/\s/g, '').replace(/[^a-zA-Z ]/g, "") %>" class="collapse" aria-labelledby="head-<%= cmd.title.replace(/\s/g, '').replace(/[^a-zA-Z ]/g, "") %>" data-parent="#accordionExample">
       <div class="card-body">
         <div class="card-sec-item">
           <h5>Duration:</h5>
@@ -54,25 +53,6 @@ function openCity(evt, cityName) {
   document.getElementById(cityName).style.display = "block";
   evt.currentTarget.className += " active";
 }
-function search() {
-  var input, filter, table, tr, td, i, txtValue;
-  input = document.getElementById("search");
-  filter = input.value.toUpperCase();
-  table = document.getElementById("accordionExample");
-  tr = table.getElementsByTagName("div");
-  for (i = 0; i < tr.length; i++) {
-    if (!tr[i].id === "search-item") return;
-    td = tr[i].getElementsByTagName("a")[0];
-    if (td) {
-      txtValue = td.textContent || td.innerText;
-      if (txtValue.toUpperCase().indexOf(filter) > -1) {
-        tr[i].style.display = "";
-      } else {
-        tr[i].style.display = "none";
-      }
-    }       
-  }
-}    
     </script>
   </body>
 </html>

@@ -148,7 +148,7 @@ class ServerQueue extends trackManager {
   }
 
   async list(website = false, message) {
-    let serverQueue = _queue(message);
+    let serverQueue = _queue(message.guild.id, message);
     if (!serverQueue)
       return message.channel.send(`There is no songs in queue, try added one.`);
 
@@ -156,11 +156,12 @@ class ServerQueue extends trackManager {
   }
 
   async shuffle(website = false, message) {
-    let serverQueue = await _queue(message);
+    let serverQueue = await _queue(message.guild.id, message);
     if (!_modify(message.member))
       return message.channel.send(`You must join same voice channel with me.`);
 
     let songs = serverQueue.songs;
+    console.log(songs.length)
     for (let i = songs.length - 1; i > 1; i--) {
       let j = 1 + Math.floor(Math.random() * i);
       [songs[i], songs[j]] = [songs[j], songs[i]];
@@ -209,7 +210,7 @@ async function _voice(message) {
 }
 
 async function _queue(id, message) {
-  let _check = client.music.get(id);
+  let _check = client.music.get(message.guild.id);
   if (!_check) return false;
 
   return _check;
@@ -217,7 +218,7 @@ async function _queue(id, message) {
 
 async function _modify(member) {
   const { channelID } = member.voice;
-  const botChannel = member.guild.voice.channelID;
+  const botChannel = member.guild.me.voice.channelID;
 
   if (channelID !== botChannel) {
     return false;
