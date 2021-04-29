@@ -406,7 +406,12 @@ module.exports = async client => {
     let guild = client.guilds.cache.get(guildQ);
     if (!guild) return res.redirect("/");
     
+    let status;
     
+    let queue = client.music.music.getQueue({guild});
+    if (!queue) {
+      status: false
+    }
   });
   
   // music player end
