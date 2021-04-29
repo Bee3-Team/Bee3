@@ -21,7 +21,7 @@ class ServerQueue extends trackManager {
     this.play(website, message, song, youtube);
   }
 
-  async play(website, message, song, youtube, skip) {
+  async play(website, message, song, youtube, skip, playlistVideos) {
     this.message = message;
     this.query = song;
     this.textChannel = message.channel;
@@ -34,8 +34,6 @@ class ServerQueue extends trackManager {
     this.voiceChannel = VoiceChannel;
 
     serverQueue = await _queue(message.guild.id, message);
-
-    songAns = song;
     
     if (!skip) {
     if (youtube) {
@@ -88,12 +86,11 @@ class ServerQueue extends trackManager {
           volume: 100,
           playing: true
         },
-        songs: [],
+        songs: playlistVideos,
         control: this,
         event: null
       };
 
-      serverQueueAns.songs.push(songAns);
       client.music.set(message.guild.id, serverQueueAns);
 
       try {
@@ -108,7 +105,7 @@ class ServerQueue extends trackManager {
         return message.channel.send("Error: " + e.message);
       }
     } else if (serverQueue) {
-      return this.addTrack(website, songAns, serverQueue, message);
+      return this.addTrack(website, songAns, serverQueue, message, skip, ...playlistVideos);
     }
   }
 
@@ -143,30 +140,16 @@ class ServerQueue extends trackManager {
   async playlist(website = false, message, song) {
     const playlist = await youtubeApi.getPlaylist(song);
     const videoss = await playlist.getVideos();
-    const videos = videoss.filter((video) => video.title != "Private video" && video.title != "Deleted video")
-      .map((video) => {
-        return (song = {
-          title: video.title,
-          url: video.url,
-          duration: video.durationSeconds
-        });
+    let videos = []
+          
+    videoss.filter((video) => video.title != "Private video" && video.title != "Deleted video")
+      .map(async (video) => {
+      let songInfo = await ytdl.getInfo(video.url);
+      
       });
     
-    for (const video of Object.values(videos)) {
-      let songAns, video2;
-      try {
-      video2 = await ytdl.getInfo(video.url); // eslint-disable-line no-await-in-loop
-      songAns = {
-          title: video2.videoDetails.title,
-          url: video2.videoDetails.video_url,
-          duration: video2.videoDetails.lengthSeconds        
-      }
-      } catch (e) {
-        return;
-      }
-      
-      this.play(website, message, songAns, true, true)
-    }
+      this.play(false, message, false, false, true, videos)
+    
   }
 }
  

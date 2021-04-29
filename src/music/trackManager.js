@@ -9,11 +9,14 @@ class trackManager {
     
   }
   
-  addTrack(website = false, songAns, serverQueue, message) {
+  addTrack(website = false, songAns, serverQueue, message, skip, playlistVideos) {
     
-    serverQueue.songs.push(songAns);
-    
-    return serverQueue.event.onSongAdded(message)
+    if (skip) {
+      return serverQueue.songs.push(...playlistVideos);
+    } else {
+      serverQueue.songs.push(songAns)
+      return serverQueue.event.onSongAdded(message)
+    }
     
   }
   
@@ -38,7 +41,7 @@ class trackManager {
   }
   
   async playSong(website = false, songAns, message) {
-    
+     
     this.serverQueue = client.music.get(message.guild.id);
     
     if (!songAns) {
