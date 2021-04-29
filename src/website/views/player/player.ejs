@@ -14,10 +14,19 @@
     <%- include('../part/navbar.ejs') %>
     
     <main id="main" role="main" class="container main"> 
-      <div class="music-player" id="music-player">
-        <div class="music-player-search">
+      <div class="not-in-channel" id="unchannel">
+        <form id="not-in-channel-form">
           <input type="text" placeholder="search YouTube">
-        </div>
+          <button class="btn btn-danger">Go! <i class="fa fa-youtube"></i></button>
+        </form>
+        <form id="result" style="display: none;">
+          <ul>
+            <li></li>
+          </ul>
+        </form>
+      </div>
+      <div id="channel">
+        Hi
       </div>
     </main>
 
@@ -26,8 +35,17 @@
 
     <script>
       var socket = io();
-
-      socket.on("", function(msg) {
+      const status = true;
+      
+      if (!status) {
+        document.getElementById("unchannel").style.display = "block";
+        document.getElementById("channel").style.display = "none";
+      } else if (status) {
+        document.getElementById("unchannel").style.display = "none";
+        document.getElementById("channel").style.display = "block";
+      }
+      
+      socket.on("e", function(msg) {
         document.getElementById("h1").innerHTML = msg;
       });
     </script>
