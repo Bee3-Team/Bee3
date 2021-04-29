@@ -70,7 +70,21 @@ class MusicManager {
     message.channel.send(`Current song: ${serverQueue.playing.title}\nQueue: https://beee.cf/queue?id=${message.guild.id}`)
   }
 
-  async onpause(website = false, message, args, client) {}
+  async onpause(website = false, message, args, client) {
+    let voice = await this._voice(message);
+    if (!voice) return;
+
+    let queue = await this._queue(message);
+    if (!queue) return;
+    
+    await this.can(message);    
+    
+    if (this.music.getQueue(message).paused) return message.channel.send(`Already paused.`);
+    
+    this.music.pause(message);
+    
+    return message.channel.send(`The song was paused by ${message.author.tag}.`)
+  }
 
   async onresume(website = false, message, args, client) {}
 
