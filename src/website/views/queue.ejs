@@ -19,7 +19,7 @@
   <% queue.songs.map(cmd => { %>
   <div class="card" id="search-item">
     <div class="card-header" id="headingOne" data-toggle="collapse" data-target="#<%= cmd.title.replace(/\s/g, '').replace(/[^a-zA-Z ]/g, "") %>" aria-expanded="true" aria-controls="<%= cmd.title.replace(/\s/g, '').replace(/[^a-zA-Z ]/g, "") %>">
-      <h2 class="mb-0" id="search-item-name"><%= cmd.title %></h2>
+      <h2 class="mb-0" id="search-item-name"><a><%= cmd.title %></a></h2>
     </div>
 
     <div id="<%= cmd.title.replace(/\s/g, '').replace(/[^a-zA-Z ]/g, "") %>" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
@@ -55,19 +55,24 @@ function openCity(evt, cityName) {
   evt.currentTarget.className += " active";
 }
 function search() {
-    var input, filter, ul, li, a, i, txtValue;
-    input = document.getElementById("search");
-    filter = input.value.toUpperCase();
-    li = document.getElementsByTagName("h2");
-    for (i = 0; i < li.length; i++) {
-        txtValue = li.innerHTML || li.innerText;
-        if (txtValue.toUpperCase().indexOf(filter) > -1) {
-            li[i].style.display = "";
-        } else {
-            li[i].style.display = "none";
-        }
-    }
-}      
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("search");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("accordionExample");
+  tr = table.getElementsByTagName("div");
+  for (i = 0; i < tr.length; i++) {
+    if (!tr[i].id === "search-item") return;
+    td = tr[i].getElementsByTagName("a")[0];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }       
+  }
+}    
     </script>
   </body>
 </html>
