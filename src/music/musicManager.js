@@ -7,7 +7,7 @@ class MusicManager {
     let voice = await this._voice(message);
     if (!voice) return;
 
-    await this.can(message);
+    this.can(message);
 
     let query = await this._query(message, args);
 
@@ -61,7 +61,13 @@ class MusicManager {
     message.channel.send(`Music was skipped by ${message.author.tag}`)
   }
 
-  async onqueue(website = false, message, args, client) {}
+  async onqueue(website = false, message, args, client) {    
+    let queue = await this._queue(message);
+    if (!queue) return;    
+    
+    let serverQueue = client.music.getQueue(message);
+    
+    message.channel.send(`Current song: ${serverQueue.playing.title}\nQueue: https://beee.cf/queue?id=${message.guild.id}`)}
 
   async onjump(website = false, message, args, client) {}
 

@@ -15,7 +15,7 @@
     
     <main id="main" role="main" class="container main">
 <div class="accordion" id="accordionExample">      
-  <% queue.songs.map(cmd => { %>
+  <% serverQueue.tracks.map(cmd => { %>
   <div class="card" id="search-item">
     <div class="card-header" id="head-<%= cmd.title.replace(/\s/g, '').replace(/[^a-zA-Z ]/g, "") %>" data-toggle="collapse" data-target="#<%= cmd.title.replace(/\s/g, '').replace(/[^a-zA-Z ]/g, "") %>" aria-expanded="true" aria-controls="<%= cmd.title.replace(/\s/g, '').replace(/[^a-zA-Z ]/g, "") %>">
       <h2 class="mb-0" id="search-item-name"><a><%= cmd.title %></a></h2>

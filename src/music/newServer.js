@@ -73,6 +73,8 @@ ${tracks.map((t, i) => `[${i + 1}] ${t.title}`).join('\n')}
     });
     
     client.music.on("trackStart", async (message, track) => {
+      let queue;
+      
       message.channel.send(`Playing **${track.title}**.`)
     });
     
@@ -109,6 +111,7 @@ ${tracks.map((t, i) => `[${i + 1}] ${t.title}`).join('\n')}
       return false;
     }
     
+    return true;
   }
 }
 
