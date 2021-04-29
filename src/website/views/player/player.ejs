@@ -16,12 +16,27 @@
     <main id="main" role="main" class="container main"> 
       <div class="not-in-channel" id="unchannel">
         <form id="not-in-channel-form">
+          <select>
+            <option value="a">a</option>
+            <option value="b">b</option>
+            <option value="c">c</option>
+            <option value="d">d</option>
+          </select>
           <input type="text" placeholder="search YouTube">
           <button class="btn btn-danger">Go! <i class="fa fa-youtube"></i></button>
         </form>
-        <form id="result" style="display: none;">
+        <form id="result">
           <ul>
-            <li></li>
+            <li><img class="video-result-img" width="168" height="94" src="<%= bot.user.displayAvatarURL() %>"> Result name</li>
+            <li><img class="video-result-img" width="168" height="94" src="<%= bot.user.displayAvatarURL() %>"> Result name</li>
+            <li><img class="video-result-img" width="168" height="94" src="<%= bot.user.displayAvatarURL() %>"> Result name</li>
+            <li><img class="video-result-img" width="168" height="94" src="<%= bot.user.displayAvatarURL() %>"> Result name</li>
+            <li><img class="video-result-img" width="168" height="94" src="<%= bot.user.displayAvatarURL() %>"> Result name</li>
+            <li><img class="video-result-img" width="168" height="94" src="<%= bot.user.displayAvatarURL() %>"> Result name</li>
+            <li><img class="video-result-img" width="168" height="94" src="<%= bot.user.displayAvatarURL() %>"> Result name</li>
+            <li><img class="video-result-img" width="168" height="94" src="<%= bot.user.displayAvatarURL() %>"> Result name</li>
+            <li><img class="video-result-img" width="168" height="94" src="<%= bot.user.displayAvatarURL() %>"> Result name</li>
+            <li><img class="video-result-img" width="168" height="94" src="<%= bot.user.displayAvatarURL() %>"> Result name</li>
           </ul>
         </form>
       </div>
@@ -35,7 +50,7 @@
 
     <script>
       var socket = io();
-      const status = true;
+      const status = false;
       
       if (!status) {
         document.getElementById("unchannel").style.display = "block";
