@@ -18,10 +18,14 @@ class Music extends MusicManager {
   async createEvent(client) {
     
     client.music.on("botDisconnect", async (message) => {
+      client.music.delete(message.guild.id);
+      
       message.channel.send("I have been kicked from voice channel.")
     });
     
     client.music.on("channelEmpty", async (message, queue) => {
+      client.music.delete(message.guild.id);
+      
       message.channel.send("The voice channel is empty, stopped the music.")
     });
     
@@ -46,10 +50,20 @@ class Music extends MusicManager {
     });
     
     client.music.on("playlistAdd", async (message, queue, playlist) => {
+      let getTracks = client.tracks.get(message.guild.id);
+      let queueSS = client.music.getQueue(message);
+      if (!getTracks) {
+      client.tracks.set(message.guild.id, queueSS.tracks);
+      } else {
+        getTracks = queueSS.tracks;
+      }
+      
       message.channel.send(`Queued **${playlist.title}** playlist.`)
     });
     
     client.music.on("queueEnd", async (message, queue) => {
+      client.tracks.delete(message.guild.id)
+      
       message.channel.send("Queue ended.")
     });
     
@@ -61,7 +75,7 @@ class Music extends MusicManager {
       message.channel.send(`Invalid number, must between 1 - ${tracks.length}.`)
     });
     
-    client.music.on("searchResults", async (message, query, tracks, collector) => {
+    client.music.on("searchResults", async (message, query, tracks, collector) => {      
       message.channel.send(`Result for **${query}**.
 \`\`\`nim
 ${tracks.map((t, i) => `[${i + 1}] ${t.title}`).join('\n')}
@@ -69,11 +83,25 @@ ${tracks.map((t, i) => `[${i + 1}] ${t.title}`).join('\n')}
     });
     
     client.music.on("trackAdd", async (message, queue, track) => {
+      let getTracks = client.tracks.get(message.guild.id);
+      let queueSS = client.music.getQueue(message);
+      if (!getTracks) {
+      client.tracks.set(message.guild.id, queueSS.tracks);
+      } else {
+        getTracks = queueSS.tracks;
+      }
+      
       message.channel.send(`Queued **${track.title}**.`)
     });
     
     client.music.on("trackStart", async (message, track) => {
-      let queue;
+      let getTracks = client.tracks.get(message.guild.id);
+      let queueSS = client.music.getQueue(message);
+      if (!getTracks) {
+      client.tracks.set(message.guild.id, queueSS.tracks);
+      } else {
+        getTracks = queueSS.tracks;
+      }
       
       message.channel.send(`Playing **${track.title}**.`)
     });
