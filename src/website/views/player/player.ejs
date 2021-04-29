@@ -1,44 +1,22 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <%- include('part/head.ejs') %>
-    <%- include('part/bootstrapCSS.ejs') %>
+    <%- include('../part/head.ejs') %>
+    <%- include('../part/bootstrapCSS.ejs') %>
   </head>
   <body class="on-loading">
-    <%- include('part/bootstrapJS.ejs') %>
+    <%- include('../part/bootstrapJS.ejs') %>
     <script src="https://kit.fontawesome.com/071ea1fa85.js" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.js"></script>    
-    <%- include('part/loading.ejs') %>
+    <%- include('../part/loading.ejs') %>
     
-    <%- include('part/navbar.ejs') %>
+    <%- include('../part/navbar.ejs') %>
     
-    <main id="main" role="main" class="container main">
-      <div class="jumbotron jumbotron-fluid">
-        <div class="container">
-          <div class="jumbo-img">
-            <img class="jumbotron-image animate-img" src="<%= bot.user.displayAvatarURL() %>">
-          </div>
-          <h1 class="display-4" id="h1">Powerful bot</h1>
-          <p class="lead">Auto Mod, Music, Leveling, and much more!</p>
-        </div>
-      </div>
-<div class="container">
-  <div class="row">
-    <div class="col-sm">
-      <i class="fas fa-server"></i> <%= bot.guilds.cache.size %>
-    </div>
-    <div class="col-sm">
-      <i class="fas fa-hashtag"></i> <%= bot.channels.cache.size %>
-    </div>
-    <div class="col-sm">
-      <i class="fas fa-users"></i> <%= bot.users.cache.size %>
-    </div>
-  </div>
-</div>     
+    <main id="main" role="main" class="container main"> 
     </main>
 
-    <%- include('part/footer.ejs') %>
+    <%- include('../part/footer.ejs') %>
     <script src="/socket.io/socket.io.js"></script>
 
     <script>

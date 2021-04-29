@@ -408,7 +408,7 @@ module.exports = async client => {
     
     let status;
     
-    let queue = client.music.music.getQueue({guild});
+    let queue = client.music.music.getQueue({guild: {id: guild.id}});
     if (!queue) {
       status = false;
     } else if (queue) {
