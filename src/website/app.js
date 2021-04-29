@@ -136,7 +136,9 @@ module.exports = async client => {
     res.redirect("https://discord.gg/vH7fhRWg53");
   });
 
-  app.get("/account", checkAuth, async (req, res) => {
+  app.get("/account", async (req, res) => {
+    checkAuth(req, res, "/account")
+    
     res.render("acc/account.ejs", {
       req,
       res,
@@ -146,7 +148,8 @@ module.exports = async client => {
     });
   });
 
-  app.get("/account/owner", checkAuth, async (req, res) => {
+  app.get("/account/owner", async (req, res) => {
+    checkAuth(req, res, "/account/owner")
     res.render("owner/acc.ejs", {
       req,
       res,
@@ -157,7 +160,8 @@ module.exports = async client => {
     });
   });
 
-  app.get("/account/server-list", checkAuth, async (req, res) => {
+  app.get("/account/server-list", async (req, res) => {
+    checkAuth(req, res, "/account/server-list")
     if (req.query.guild_id) {
       return res.redirect("/dashboard/" + req.query.guild_id);
     }
@@ -185,7 +189,9 @@ module.exports = async client => {
     }
   });
 
-  app.get("/dashboard/:id", checkAuth, async (req, res) => {
+  app.get("/dashboard/:id", async (req, res) => {
+    checkAuth(req, res, "/dashboard/" + req.params.id);
+    
     let guild_id = req.params.id;
     if (!guild_id) return res.redirect("/account/server-list");
     if (isNaN(guild_id)) return res.redirect("/account/server-list");
@@ -399,6 +405,15 @@ module.exports = async client => {
     return res.redirect(`/dashboard/${guild_id}/settings`);
   });
 
+  // music player
+  
+  app.get("/musicplayer", checkAuth, async (req, res) => {
+    let guild = req.query.g;
+    if (!guild) return res.redirect("/")
+  });
+  
+  // music player end
+  
   // 404
   app.get("*", async (req, res) => {
     res.status(404).render("status/404.ejs", {
@@ -409,9 +424,9 @@ module.exports = async client => {
     });
   });
 
-  function checkAuth(req, res, next) {
+  function checkAuth(req, res, next, redir) {
     if (req.isAuthenticated()) return next();
-    return res.redirect("/login");
+    return res.redirect("/login?redir=" + redir);
   }
 
   // app.listen(port, () => {

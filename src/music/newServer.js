@@ -46,7 +46,7 @@ class Music extends MusicManager {
             return message.channel.send("I do not have permission (unable) to join this voice channel.");
             break;
         default:
-            return message.channel.send("Error: " + error);
+            return;
     };      
     });
     
