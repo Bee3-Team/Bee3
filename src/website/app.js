@@ -410,8 +410,12 @@ module.exports = async client => {
     
     let queue = client.music.music.getQueue({guild});
     if (!queue) {
-      status: false
+      status = false;
+    } else if (queue) {
+      status = true;
     }
+    
+    res.render("player/player.ejs")
   });
   
   // music player end
