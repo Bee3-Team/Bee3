@@ -2,63 +2,80 @@ class MusicManager {
   constructor(client) {
     this.client = client;
   }
-  
+
   async onplay(website = false, message, args, client) {
-    
     let voice = await this._voice(message);
     if (!voice) return;
+
+    await this.can(message);
+
+    let query = await this._query(message, args);
+
+    this.music.play(message, query);
+  }
+
+  async onloop(website = false, message, args, client) {
+    let voice = await this._voice(message);
+    if (!voice) return;
+
+    let queue = await this._queue(message);
+    if (!queue) return;
+    
+    await this.can(message);
+
+    if (client.music.getQueue(message).repeatMode) {
+      client.music.setRepeatMode(message, false);
+      return message.channel.send(`Loop now **off**.`);
+    } else {
+      client.music.setRepeatMode(message, true);
+      return message.channel.send(`Loop now **on**.`);
+    }
+  }
+
+  async onstop(website = false, message, args, client) {
+    let voice = await this._voice(message);
+    if (!voice) return;
+
+    let queue = await this._queue(message);
+    if (!queue) return;
     
     await this.can(message);
     
-    let query = await this._query(message, args);
+    client.music.setRepeatMode(message, false);
+    client.music.stop(message);
     
-    this.music.play(message, query)
-    
+    message.channel.send(`Music was stopped by ${message.author.tag}`)
   }
-  
-  async onloop(website = false, message, args, client) {
-    
-  }
-  
-  async onstop(website = false, message, args, client) {
-    
-  }
-  
+
   async onskip(website = false, message, args, client) {
+    let voice = await this._voice(message);
+    if (!voice) return;
+
+    let queue = await this._queue(message);
+    if (!queue) return;
     
-  }
-  
-  async onqueue(website = false, message, args, client) {
+    await this.can(message);    
     
-  }
-  
-  async onjump(website = false, message, args, client) {
+    client.music.skip(message);
     
+    message.channel.send(`Music was skipped by ${message.author.tag}`)
   }
-  
-  async onpause(website = false, message, args, client) {
-    
-  }
-  
-  async onresume(website = false, message, args, client) {
-    
-  }
-  
-  async onsearch(website = false, message, args, client) {
-    
-  }
-  
-  async onseek(website = false, message, args, client) {
-    
-  }
-  
-  async onvolume(website = false, message, args, client) {
-    
-  }
-  
-  async onshuffle(website = false, message, args, client) {
-    
-  }
+
+  async onqueue(website = false, message, args, client) {}
+
+  async onjump(website = false, message, args, client) {}
+
+  async onpause(website = false, message, args, client) {}
+
+  async onresume(website = false, message, args, client) {}
+
+  async onsearch(website = false, message, args, client) {}
+
+  async onseek(website = false, message, args, client) {}
+
+  async onvolume(website = false, message, args, client) {}
+
+  async onshuffle(website = false, message, args, client) {}
 }
 
-module.exports = { MusicManager }
+module.exports = { MusicManager };

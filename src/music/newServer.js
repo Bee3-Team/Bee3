@@ -99,6 +99,7 @@ ${tracks.map((t, i) => `[${i + 1}] ${t.title}`).join('\n')}
     
     if (!this.music.getQueue(message)) return message.channel.send("There is no songs.")
     
+    return true;
   }
   
   async _voice(message) {
