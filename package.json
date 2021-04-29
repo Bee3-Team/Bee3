@@ -28,7 +28,8 @@
     "socket.io": "^4.0.1",
     "http": "^0.0.0",
     "ffmpeg-static": "^4.3.0",
-    "distube": "^2.8.13"
+    "distube": "^2.8.13",
+    "discord-player": "^4.0.5"
   },
   "engines": {
     "node": "12.x"
