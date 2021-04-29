@@ -33,13 +33,52 @@ class Music extends MusicManager {
             message.channel.send("Please join a voice channel.");
             break;
         case 'UnableToJoin':
-            message.channel.send("I do not have permissio");
+            message.channel.send("I do not have permission (unable) to join this voice channel.");
             break;
         default:
-            message.channel.send(`${client.emotes.error} - Something went wrong ... Error : ${error}`);
+            message.channel.send("Error: " + error);
     };      
-    })
+    });
     
+    client.music.on("noResults", async (message, query) => {
+      message.channel.send(`No result found for **${query}**.`)
+    });
+    
+    client.music.on("playlistAdd", async (message, queue, playlist) => {
+      message.channel.send(`Queued **${playlist.title}** playlist.`)
+    });
+    
+    client.music.on("queueEnd", async (message, queue) => {
+      message.channel.send("Queue ended.")
+    });
+    
+    client.music.on("searchCancel", async (message, query, tracks) => {
+      message.channel.send("Cancel to search songs.")
+    });
+    
+    client.music.on("searchInvalidResponse", async (message, query, tracks, content, collector) => {
+      message.channel.send(`Invalid number, must between 1 - ${tracks.length}.`)
+    });
+    
+    client.music.on("searchResults", async (message, query, tracks, collector) => {
+      message.channel.send(`Result for **${query}**.
+\`\`\`nim
+${tracks.map((t, i) => `[${i + 1}] ${t.title}`).join('\n')}
+\`\`\``)
+    });
+    
+    client.music.on("trackAdd", async (message, queue, track) => {
+      message.channel.send(`Queued **${track.title}**.`)
+    });
+    
+    client.music.on("trackStart", async (message, track) => {
+      message.channel.send(`Playing **${track.title}**.`)
+    });
+    
+  }
+  
+  async can(message) {
+    if (message.member.voice.channel.id )
   }
 }
 
