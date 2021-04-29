@@ -113,7 +113,7 @@ module.exports = async client => {
       }
 
       return res.redirect(
-        `https://discord.com/api/oauth2/authorize?client_id=832610957405847562&permissions=${perms}&redirect_uri=https%3A%2F%2Fbeee.cf&scope=bot`
+        `https://discord.com/api/oauth2/authorize?client_id=${client.user.id}&permissions=${perms}&redirect_uri=https%3A%2F%2Fbeee.cf&scope=bot`
       );
     } else {
       if (!permsCheck) {

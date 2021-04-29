@@ -11,6 +11,7 @@ class Music extends MusicManager {
   async createClient(client) {
     client.music = new Player(client);
     
+    this.music = client.music;
     this.createEvent(client);
   }
   
@@ -78,7 +79,18 @@ ${tracks.map((t, i) => `[${i + 1}] ${t.title}`).join('\n')}
   }
   
   async can(message) {
-    if (message.member.voice.channel.id )
+    
+    if (message.guild.me.voice.channe) {
+      if (message.member.voice.channel.id !== message.guild.me.voice.channel.id) return message.channel.send("You cannot use this.");
+    }
+    
+    return true;
+  }
+  
+  async _query(message, args) {
+    if (!args.join(" ")) return message.channel.send("Please provide song title / url");
+    
+    return args.join(" ");
   }
 }
 
