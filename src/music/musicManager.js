@@ -140,7 +140,19 @@ class MusicManager {
       );    
   }
 
-  async onshuffle(website = false, message, args, client) {}
+  async onshuffle(website = false, message, args, client) {
+    let voice = await this._voice(message);
+    if (!voice) return;
+
+    let queue = await this._queue(message);
+    if (!queue) return;
+
+    await this.can(message);
+    
+    this.music.shuffle(message);
+    
+    message.channel.send("Queue shuffled")
+  }
 }
 
 module.exports = { MusicManager };
