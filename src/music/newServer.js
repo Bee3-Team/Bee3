@@ -73,7 +73,8 @@ class ServerQueue extends trackManager {
     }      
     }
 
-    // start manage the music
+    if (skip) {
+      setTimeout(async () => {
     if (!serverQueue) {
       let serverQueueAns = {
         channel: {
@@ -106,6 +107,42 @@ class ServerQueue extends trackManager {
       }
     } else if (serverQueue) {
       return this.addTrack(website, songAns, serverQueue, message, skip, ...playlistVideos);
+    }        
+      }, 500)
+    } else {
+    if (!serverQueue) {
+      let serverQueueAns = {
+        channel: {
+          text: message.channel,
+          voice: VoiceChannel
+        },
+        connection: null,
+        settings: {
+          loop: false,
+          volume: 100,
+          playing: true
+        },
+        songs: playlistVideos,
+        control: this,
+        event: null
+      };
+
+      client.music.set(message.guild.id, serverQueueAns);
+
+      try {
+        serverQueueAns.connection = await VoiceChannel.join();
+        await serverQueueAns.connection.voice.setSelfDeaf(true);
+        client.music.get(message.guild.id).event = new ServerEvent();
+        this.playSong(website, serverQueueAns.songs[0], message);
+      } catch (e) {
+        console.log(e);
+        client.music.delete(message.guild.id);
+        await VoiceChannel.leave();
+        return message.channel.send("Error: " + e.message);
+      }
+    } else if (serverQueue) {
+      return this.addTrack(website, songAns, serverQueue, message, skip, ...playlistVideos);
+    }      
     }
   }
 
@@ -145,10 +182,16 @@ class ServerQueue extends trackManager {
     videoss.filter((video) => video.title != "Private video" && video.title != "Deleted video")
       .map(async (video) => {
       let songInfo = await ytdl.getInfo(video.url);
-      
+      videos.push({
+          title: songInfo.videoDetails.title,
+          url: songInfo.videoDetails.video_url,
+          duration: songInfo.videoDetails.lengthSeconds        
+      })
       });
-    
-      this.play(false, message, false, false, true, videos)
+     
+      setTimeout(() => {
+        this.play(false, message, false, false, true, videos)
+      }, 500)
     
   }
 }

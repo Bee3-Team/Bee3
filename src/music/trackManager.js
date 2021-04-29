@@ -61,7 +61,7 @@ class trackManager {
     if (songAns.duration == 0) {
       streamType = {type: "opus"};
     } else {
-      streamType = {filter: "audioonly", type: "opus"};
+      streamType = {filter: "audioonly", type: "opus", highWaterMark: 1 << 25 };
     }
     
     const dispatcher = this.serverQueue.connection
