@@ -122,11 +122,12 @@ class ServerQueue extends trackManager {
           volume: 100,
           playing: true
         },
-        songs: playlistVideos,
+        songs: [],
         control: this,
         event: null
       };
 
+      serverQueueAns.songs.push(songAns)
       client.music.set(message.guild.id, serverQueueAns);
 
       try {
@@ -141,7 +142,7 @@ class ServerQueue extends trackManager {
         return message.channel.send("Error: " + e.message);
       }
     } else if (serverQueue) {
-      return this.addTrack(website, songAns, serverQueue, message, skip, ...playlistVideos);
+      return this.addTrack(website, songAns, serverQueue, message);
     }      
     }
   }
