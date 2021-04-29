@@ -415,7 +415,15 @@ module.exports = async client => {
       status = true;
     }
     
-    res.render("player/player.ejs")
+    res.render("player/player.ejs", {
+      res,
+      req,
+      bot,
+      lost: false,
+      Permission: Permissions,
+      guild: guild, 
+      queue
+    })
   });
   
   // music player end
