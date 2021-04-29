@@ -93,7 +93,7 @@ class ServerQueue extends trackManager {
       };
 
       client.music.set(message.guild.id, serverQueueAns);
-
+ 
       try {
         serverQueueAns.connection = await VoiceChannel.join();
         await serverQueueAns.connection.voice.setSelfDeaf(true);
@@ -106,7 +106,7 @@ class ServerQueue extends trackManager {
         return message.channel.send("Error: " + e.message);
       }
     } else if (serverQueue) {
-      return this.addTrack(website, songAns, serverQueue, message, skip, ...playlistVideos);
+      return this.addTrack(website, songAns, serverQueue, message, skip, playlistVideos);
     }        
       }, 500)
     } else {
