@@ -70,7 +70,9 @@ class MusicManager {
     message.channel.send(`Current song: ${serverQueue.playing.title}\nQueue: https://beee.cf/queue?id=${message.guild.id}`)
   }
 
-  async onjump(website = false, message, args, client) {}
+  async onjump(website = false, message, args, client) {
+    
+  }
 
   async onpause(website = false, message, args, client) {}
 
