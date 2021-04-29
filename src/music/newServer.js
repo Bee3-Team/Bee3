@@ -127,19 +127,6 @@ ${tracks.map((t, i) => `[${i + 1}] ${t.title}`).join('\n')}
     
     return true;
   }
-  
-  async _updateQueue(message, client, song, queue = false) {
-    
-    
-    
-    let checkFirst = await client.tracks.get(message.guild.id);
-    if (!checkFirst) {
-      client.tracks
-    } else if (checkFirst) {
-      
-    }
-    
-  }
 }
 
 module.exports = { Music }

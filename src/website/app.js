@@ -354,7 +354,7 @@ module.exports = async client => {
     let findGuild = client.guilds.cache.get(guild_id);
     if (!findGuild) return res.redirect("/");
     
-    let serverQueue = client.tracks.get(findGuild.id);
+    let serverQueue = client.music.music.getQueue({guild: {id: findGuild.id}})
     if (!serverQueue) return res.redirect("/");
     
     return res.render("queue.ejs", {
