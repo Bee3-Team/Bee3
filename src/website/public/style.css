@@ -927,6 +927,7 @@ h2 {
   margin-bottom: 15px;
   text-align: center;
   width: min-content;
+  border: 2px solid white;
 }
 
 .search-btn {
@@ -984,6 +985,7 @@ select {
   cursor: pointer;
   font-size: 1em;
   font-family: "Open Sans", sans-serif;
+  color: white;
 }
 select::-ms-expand {
   display: none;
