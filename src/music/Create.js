@@ -1,11 +1,12 @@
 const MusicRoutes = require("./Routes.js");
 const ytdl = require('ytdl-core');
+const MusicConfig = require("./Config.js");
 
 class CreateMusic extends MusicRoutes {
-  constructor(voiceChannel, option = {}, textChannel = null) {
+  constructor(client, option) {
     super();
     
-    this.start(voiceChannel, option, textChannel)
+    this.option = option;
   }
   
   async start(voiceChannel, option = {}, textChannel = null) {
