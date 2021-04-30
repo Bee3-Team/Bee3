@@ -25,7 +25,7 @@
       <div class="card-body">
         <div class="card-sec-item">
           <h5>Duration:</h5>
-          <pre><code><%= cmd.duration == "0:00" ? "Live" : cmd.duration.toHHMMSS() || "Unknown" %></code></pre>
+          <pre><code><%= cmd.duration == "0:00" ? "Live" : cmd.duration || "Unknown" %></code></pre>
         </div>
         <div class="card-sec-item">
           <h5>URL: <i class="fas fa-external-link-alt"></i></h5>
