@@ -78,9 +78,9 @@ class CreateMusic extends MusicRoutes {
     
     let song, isVideoURL, isPlaylistURL;
     
-    isVideoURL = await this.validate
+    isVideoURL = await this.validateVideoURL(query);
     
-    if (await this.validateVideoURL(query)) {
+    if (isVideoURL) {
       
       // video
       try {
