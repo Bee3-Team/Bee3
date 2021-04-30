@@ -121,7 +121,7 @@ class MusicManager {
 
     if (!args[0] || isNaN(args[0]) || args[0] === "Infinity")
       return message.channel.send(
-        `Give valid number - current volume: **${this.music.getQueue(message).volume}%**`
+        `Give valid number - current volume: **${this.music.getQueue(message).calculatedVolume}%**`
       );
 
     if (
@@ -133,6 +133,7 @@ class MusicManager {
       );
 
     const success = this.music.setVolume(message, parseInt(args[0]));
+    this.music.getQueue(message).calculatedVolume = 200;
 
     if (success)
       message.channel.send(
