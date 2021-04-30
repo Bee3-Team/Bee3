@@ -131,9 +131,8 @@ class MusicManager {
       return message.channel.send(
         `Please give valid number between 1 - 100`
       );
-
-    const success = this.music.setVolume(message, parseInt(args[0]));
-    this.music.getQueue(message).calculatedVolume = 200;
+    
+    const success = this.music.getQueue(message).voiceConnection.dispatcher.setVolumeLogarithmic(args[0] / 100)
 
     if (success)
       message.channel.send(
