@@ -121,23 +121,20 @@ class MusicManager {
 
     if (!args[0] || isNaN(args[0]) || args[0] === "Infinity")
       return message.channel.send(
-        `Give valid number - current volume: **${this.music.getQueue(message).calculatedVolume}%**`
+        `Give valid number - current volume: **${this.music.getQueue(message).calculatedVolume}% / 200%**`
       );
 
     if (
       Math.round(parseInt(args[0])) < 1 ||
-      Math.round(parseInt(args[0])) > 100
+      Math.round(parseInt(args[0])) > 200
     )
       return message.channel.send(
-        `Please give valid number between 1 - 100`
+        `Please give valid number between 1 - 200`
       );
     
-    const success = this.music.getQueue(message).voiceConnection.dispatcher.setVolumeLogarithmic(args[0] / 100)
+    const success = this.music.getQueue(message).voiceConnection.dispatcher.setVolumeLogarithmic(args[0] / 200)
 
-    if (success)
-      message.channel.send(
-        `Volume set to **${parseInt(args[0])}%**.`
-      );    
+    return message.channel.send(`Volume set to **${parseInt(args[0])}%**.`);    
   }
 
   async onshuffle(website = false, message, args, client) {

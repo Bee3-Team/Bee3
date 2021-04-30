@@ -13,6 +13,8 @@ class Music extends MusicManager {
       autoSelfDeaf: true,
       leaveOnEmptyCooldown: 30000,
       leaveOnEndCooldown: 30000,
+      leaveOnEmptyCooldown: 30000,
+      enableLive: true,
       ytdlDownloadOptions: {filter: "audioandvideo"}
     });
     
@@ -55,14 +57,6 @@ class Music extends MusicManager {
     });
     
     client.music.on("playlistAdd", async (message, queue, playlist) => {
-      let getTracks = client.tracks.get(message.guild.id);
-      let queueSS = client.music.getQueue(message);
-      if (!getTracks) {
-      client.tracks.set(message.guild.id, queueSS.tracks);
-      } else {
-        getTracks = queueSS.tracks;
-      }
-      
       message.channel.send(`Queued **${playlist.title}** playlist.`)
     });
     
