@@ -76,9 +76,11 @@ class CreateMusic extends MusicRoutes {
   async VideoPlaylist(query) {
     if (!query) throw new TypeError("Need a query to search song.");
     
-    let song;
+    let song, isVideoURL, isPlaylistURL;
     
-    if (this.validateVideoURL(query)) {
+    isVideoURL = await this.validate
+    
+    if (await this.validateVideoURL(query)) {
       
       // video
       try {
@@ -109,7 +111,7 @@ class CreateMusic extends MusicRoutes {
         throw new Error("Cannot optain result with this query.")
       }      
       
-    }
+    } 
     
     // callback.
     return song;

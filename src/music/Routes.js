@@ -13,9 +13,9 @@ class MusicRoutes extends EventEmitter {
     if (!song) {
       
       if (textChannel) {
-        this.emit("trackEnd", textChannel);
+        return this.emit("trackEnd", textChannel);
       } else {
-        this.emit("trackEndWeb", queue.voiceChannel);
+        return this.emit("trackEndWeb", queue.voiceChannel);
       }
       
     }
@@ -34,11 +34,10 @@ class MusicRoutes extends EventEmitter {
       .on("error", (err) => {
       console.error(err);
       queue.songs.shift();
-      module.exports.play(textChannel, id, queue.songs[0]);
+      this.play(textChannel, id, queue.songs[0]);
     });
    
     this.dispatcher.setVolumeLogarithmic(queue.volume / 100);
-    console.log(queue)
     
     if (textChannel) {
       textChannel.send(`Playing **${song.title}** 🎶`);
