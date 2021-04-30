@@ -22,29 +22,52 @@ class CreateMusic extends MusicRoutes {
     return this.client.guilds.cache.get(id) || undefined;
   }
 
-  async handle(voiceChannel, id, query) {
+  async handle(voiceChannel, textChannel = null, id, query) {
     let guild = await this.getGuild(id);
-    if (!guild) throw new TypeError("Cannot find this guild.");
+    if (!guild) {
+      if (textChannel) {
+        textChannel.send('Cannot find this guild.');
+      } else {
+        throw new TypeError("Cannot find this guild.");
+      }
+    }
 
-    let check = await this.getQueue(id);
-    if (check) throw new TypeError("This server is playing songs.");
+    let serverQueue = await this.getQueue(id);
 
-    let song = await this.VideoPlaylist(query);
+    let song = await this.VideoPlaylist(query).catch(e => {})
 
-    const Constructor = {
-      connection: null,
-      songs: [],
-      volume: this.option.volume,
-      playing: true,
-      loop: false
-    };
+    if (!serverQueue) {
+      const Constructor = {
+        connection: null,
+        songs: [],
+        volume: this.option.volume,
+        playing: true,
+        loop: false,
+        voiceChannel: voiceChannel,
+        textChannel
+      };
 
-    Constructor.songs.push(song);
-    this.queue.set(id, constructor);
+      Constructor.songs.push(song);
+      this.queue.set(id, constructor);      
+      
+      try {
+        const connection = await voiceChannel
+      } catch (e) {
+        this.queue.delete(id);
+        if (textChannel) {
+          textChannel.send(`Error: ${e.message}`);
+        } else {
+          throw new TypeError(`Error: ${e.message}`)
+        }
+      }
+      
+    } else {
+      
+    }
   }
 
   async VideoPlaylist(query) {
-    if (!query) throw new Error("Need a query to search song.");
+    if (!query) throw new TypeError("Need a query to search song.");
     
     let song;
     
@@ -56,25 +79,32 @@ class CreateMusic extends MusicRoutes {
     } else if (this.validateVideoURL(query)) {
       
       // video
-      const songInfo = await ytdl.getInfo(query);
-      song = {
-        title: songInfo.videoDetails.title,
-        url: songInfo.videoDetails.video_url,
-        duration: songInfo.videoDetails.lengthSeconds
+      try {
+        const songInfo = await ytdl.getInfo(query);
+        song = {
+          title: songInfo.videoDetails.title,
+          url: songInfo.videoDetails.video_url,
+          duration: songInfo.videoDetails.lengthSeconds
+        }        
+      } catch (e) {
+        throw new TypeError("Cannot optain result with this query.")
       }
       
     } else {
       
       // if not playlist and video: search.
+      try {
+        let result = await youtube.searchVideos(query, 1, {part: "snippet"});
       
-      let result = await youtube.searchVideos(query, 1, {part: "snippet"});
+        const songInfo = await ytdl.getInfo(result[0].url);
       
-      const songInfo = await ytdl.getInfo(result[0].url);
-      
-      song = {
-        title: songInfo.videoDetails.title,
-        url: songInfo.videoDetails.video_url,
-        duration: songInfo.videoDetails.lengthSeconds
+        song = {
+          title: songInfo.videoDetails.title,
+          url: songInfo.videoDetails.video_url,
+          duration: songInfo.videoDetails.lengthSeconds
+        }     
+      } catch (e) {
+        throw new Error("Cannot optain result with this query.")
       }      
       
     }
