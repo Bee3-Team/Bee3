@@ -34,7 +34,13 @@ class CreateMusic extends MusicRoutes {
 
     let serverQueue = await this.getQueue(id);
 
-    let song = await this.VideoPlaylist(query).catch(e => {})
+    let song = await this.VideoPlaylist(query).catch(e => {
+      if (textChannel) {
+        return textChannel.send(`${e.message}`);
+      } else {
+        throw new TypeError(e.message);
+      }
+    });
 
     if (!serverQueue) {
       const Constructor = {
@@ -51,7 +57,11 @@ class CreateMusic extends MusicRoutes {
       this.queue.set(id, constructor);      
       
       try {
-        const connection = await voiceChannel
+        Constructor.connection = await voiceChannel.join();
+        
+        if (this.option.autoSelfDeaf) {
+          await Constructor.connection.voice.setSelfDeaf(true);
+        }
       } catch (e) {
         this.queue.delete(id);
         if (textChannel) {
