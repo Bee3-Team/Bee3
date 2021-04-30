@@ -12,6 +12,7 @@ class CreateMusic extends MusicRoutes {
     this.option = option;
     this.queue = new Map();
     this.client = client;
+    console.log(this.option.volume)
   }
 
   getQueue(id) {
@@ -34,13 +35,7 @@ class CreateMusic extends MusicRoutes {
 
     let serverQueue = await this.getQueue(id);
 
-    let song = await this.VideoPlaylist(query).catch(e => {
-      if (textChannel) {
-        return textChannel.send(`${e.message}`);
-      } else {
-        throw new TypeError(e.message);
-      }
-    });
+    let song = await this.VideoPlaylist(query);
 
     if (!serverQueue) {
       const Constructor = {
@@ -84,12 +79,7 @@ class CreateMusic extends MusicRoutes {
     
     let song;
     
-    if (this.validatePlaylistURL(query)) {
-      
-      // playlist
-      return this.handlePlaylist(query);
-      
-    } else if (this.validateVideoURL(query)) {
+    if (this.validateVideoURL(query)) {
       
       // video
       try {
@@ -100,6 +90,7 @@ class CreateMusic extends MusicRoutes {
           duration: songInfo.videoDetails.lengthSeconds
         }        
       } catch (e) {
+        console.log(e)
         throw new TypeError("Cannot optain result with this query.")
       }
       
@@ -107,9 +98,9 @@ class CreateMusic extends MusicRoutes {
       
       // if not playlist and video: search.
       try {
-        let result = await youtube.searchVideos(query, 1, {part: "snippet"});
+        let results = await youtube.searchVideos(query, 1, {part: "snippet"});
       
-        const songInfo = await ytdl.getInfo(result[0].url);
+        const songInfo = await ytdl.getInfo(results[0].url);
       
         song = {
           title: songInfo.videoDetails.title,

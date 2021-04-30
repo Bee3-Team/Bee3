@@ -20,7 +20,7 @@ class MusicRoutes extends EventEmitter {
       
     }
     
-    this.dispatcher = queue.connection.play(ytdl(song.url, this.option.stream), {type: "opus"})
+    this.dispatcher = queue.connection.play(ytdl(song.url, this.option.stream))
       .on("finish", () => {
       if (queue.loop) {
         let lastSong = queue.songs.shift();
@@ -38,6 +38,7 @@ class MusicRoutes extends EventEmitter {
     });
    
     this.dispatcher.setVolumeLogarithmic(queue.volume / 100);
+    console.log(queue.volume)
     
     if (textChannel) {
       textChannel.send(`Playing **${song.title}** 🎶`);
