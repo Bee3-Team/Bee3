@@ -902,3 +902,35 @@ h2 {
 .results {
   padding-inline-start: 0px !important;
 }
+
+.search-input {
+    line-height: 2;
+    text-align: center;
+    font-size: 20px;
+    padding: 5px;
+    height: 38px;
+    float: left;
+    margin-right: 5px;
+    border-radius: 21px;
+    border: none;
+    margin-bottom: 5px;
+    transition: 0.5s;
+}
+
+.search-input:focus {
+  outline: none;
+  border-radius: 10px;
+}
+
+.result {
+    margin-bottom: 15px;
+    width: fit-content;
+}
+
+.search-btn {
+    width: fit-content;
+}
+
+#result {
+  text-align: center;
+}
