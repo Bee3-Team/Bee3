@@ -1,6 +1,9 @@
 const MusicRoutes = require("./Routes.js");
 const ytdl = require("ytdl-core");
 const MusicConfig = require("./Config.js");
+const YouTube = require("simple-youtube-api");
+const config = require("../other/config.js");
+const youtube = new YouTube(config.yt);
 
 class CreateMusic extends MusicRoutes {
   constructor(client, option) {
@@ -26,7 +29,7 @@ class CreateMusic extends MusicRoutes {
     let check = await this.getQueue(id);
     if (check) throw new TypeError("This server is playing songs.");
 
-    let song 
+    let song = await this.VideoPlaylist(query);
 
     const Constructor = {
       connection: null,
@@ -36,11 +39,48 @@ class CreateMusic extends MusicRoutes {
       loop: false
     };
 
+    Constructor.songs.push(song);
     this.queue.set(id, constructor);
   }
 
-  async VideoPlaying(query) {
-    if (!query) throw new Error("Need a query to search song.")
+  async VideoPlaylist(query) {
+    if (!query) throw new Error("Need a query to search song.");
+    
+    let song;
+    
+    if (this.validatePlaylistURL(query)) {
+      
+      // playlist
+      return this.handlePlaylist(query);
+      
+    } else if (this.validateVideoURL(query)) {
+      
+      // video
+      const songInfo = await ytdl.getInfo(query);
+      song = {
+        title: songInfo.videoDetails.title,
+        url: songInfo.videoDetails.video_url,
+        duration: songInfo.videoDetails.lengthSeconds
+      }
+      
+    } else {
+      
+      // if not playlist and video: search.
+      
+      let result = await youtube.searchVideos(query, 1, {part: "snippet"});
+      
+      const songInfo = await ytdl.getInfo(result[0].url);
+      
+      song = {
+        title: songInfo.videoDetails.title,
+        url: songInfo.videoDetails.video_url,
+        duration: songInfo.videoDetails.lengthSeconds
+      }      
+      
+    }
+    
+    // callback.
+    return song;
   }
 
   async validateVideoURL(url) {
