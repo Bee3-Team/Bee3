@@ -54,13 +54,14 @@ class CreateMusic extends MusicRoutes {
       };
 
       Constructor.songs.push(song);
-      this.queue.set(id, constructor);      
+      this.queue.set(id, constructor);
+      const queue = this.queue.get(id);
       
       try {
-        Constructor.connection = await voiceChannel.join();
+        queue.connection = await voiceChannel.join();
         
         if (this.option.autoSelfDeaf) {
-          await Constructor.connection.voice.setSelfDeaf(true);
+          await queue.connection.voice.setSelfDeaf(true);
         }
         
         this.play(textChannel, id, Constructor.songs[0]);
@@ -121,6 +122,7 @@ class CreateMusic extends MusicRoutes {
       
     }
     
+    console.log(song)
     // callback.
     return song;
   }

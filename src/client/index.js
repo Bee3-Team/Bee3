@@ -15,11 +15,28 @@ require("../website/app.js")(client);
 
 const Music = require("../music/Create.js");
 const MusicConfig = require("../music/Config.js");
-const EventManager = require("../music/EventManager.js");
-
-new EventManager(Music);
 
 client.music = new Music(client, MusicConfig);
+
+    client.music.on("trackEnd", channel => {
+      let queue = this.queue.get(channel.guild.id);
+      
+      channel.send("Queue ended.")
+      setTimeout(() => {
+        queue.voiceChannel.leave();
+        this.queue.delete(channel.guild.id);
+      }, this.option.leaveOnEndDelay * 1000 || 1000);
+    });
+    
+    
+    client.music.on("trackEndWeb", async (channel) => {
+      let queue = this.queue.get(channel.guild.id);
+
+      setTimeout(() => {
+        queue.voiceChannel.leave();
+        this.queue.delete(channel.guild.id);
+      }, this.option.leaveOnEndDelay * 1000 || 1000);      
+    });
 
 const Guild = require("../mongodb/schemas/Guild.js");
 

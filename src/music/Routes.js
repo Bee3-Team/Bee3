@@ -1,7 +1,9 @@
 const ytdl = require("ytdl-core");
+const {EventEmitter} = require("events");
 
-class MusicRoutes {
+class MusicRoutes extends EventEmitter {
   constructor() {
+    super()
   }
   
   async play(textChannel = null, id, song) {
