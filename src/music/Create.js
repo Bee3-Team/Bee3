@@ -7,14 +7,17 @@ class CreateMusic extends MusicRoutes {
     super();
     
     this.option = option;
+    this.queue = new Map();
   }
   
-  async start(voiceChannel, option = {}, textChannel = null) {
-    if (!voiceChannel) throw new TypeError("Please join a voice channel.");
-    
-    let connection = await voiceChannel.join();
-    
-    connection.play(ytdl('https://youtube.com/watch?v=SlPhMPnQ58k', {filter: "audioandvideo"}))
+  getQueue(id) {
+    return this.queue.get(id) || null;
+  }
+  
+  async createAndPlay(voiceChannel, id, query) {
+    const Constructor = {
+      
+    };
   }
 }
 
