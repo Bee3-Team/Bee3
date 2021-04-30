@@ -927,7 +927,6 @@ h2 {
   margin-bottom: 15px;
   text-align: center;
   width: min-content;
-  border: 2px solid white;
 }
 
 .search-btn {
@@ -936,6 +935,23 @@ h2 {
 
 #result {
   text-align: center;
+}
+
+select.basic {
+  width: 200px;
+  height: 35px;
+}
+select.simple {
+  background: #f5f5f5;
+  border: 0;
+}
+
+select.basic.simple {
+  border-radius: 10px;
+}
+
+select:focus {
+  outline: none;
 }
 
 @media (max-width: 768px) {
@@ -967,21 +983,8 @@ h2 {
     width: -webkit-fill-available;
     margin-bottom: 10px;
   }
-}
-
-select.basic {
-  width: 200px;
-  height: 35px;
-}
-select.simple {
-  background: #f5f5f5;
-  border: 0;
-}
-
-select.basic.simple {
-  border-radius: 10px;
-}
-
-select:focus {
-  outline: none;
+  
+  select.basic.simple {
+    width: 100%;
+  }
 }
