@@ -428,14 +428,14 @@ module.exports = async client => {
   
   // music player end
   
-  app.get("/chatapp", (req, res) => {
-    res.render("chatapp/chat.ejs", {
-      res,
-      req,
-      bot,
-      lost: false
-    })
-  })
+  // app.get("/chatapp", (req, res) => {
+  //   res.render("chatapp/chat.ejs", {
+  //     res,
+  //     req,
+  //     bot,
+  //     lost: false
+  //   })
+  // })
   
   // 404
   app.get("*", async (req, res) => {
@@ -459,10 +459,10 @@ module.exports = async client => {
   // socket.io (realtime music - to discord)
 //listen on every connection
 io.on('connection', (socket) => {
-	socket.emit("new_message", {message: ""})
 
 	//default username
 	socket.username = "Anonymous"
+	socket.emit("new_message", {message: `Welcome ${socket.username}`, username: "Bot"})
 
     //listen on change_username
     socket.on('change_username', (data) => {

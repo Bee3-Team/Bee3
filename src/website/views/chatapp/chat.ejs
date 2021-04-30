@@ -91,7 +91,7 @@ p.message {
     
     <main id="main" role="main" class="container main">
     <header>
-      <h1>Super Chat</h1>
+      <h1 id="feedback">Super Chat</h1>
     </header>
 
     <section>
@@ -99,10 +99,6 @@ p.message {
 	<input id="username" type="text" />
 	<button id="send_username" type="button">Change username</button>
       </div>
-    </section>
-
-    <section id="chatroom">
-      <section id="feedback"></section>
     </section>
 
     
@@ -148,7 +144,7 @@ $(function(){
 
 	//Emit typing
 	message.bind("keypress", () => {
-		socket.emit('typing')
+		socket.emit('typing', {username: username.val()})
 	})
 
 	//Listen on typing
