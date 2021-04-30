@@ -428,6 +428,15 @@ module.exports = async client => {
   
   // music player end
   
+  app.get("/chatapp", (req, res) => {
+    res.render("chatapp/chat.ejs", {
+      res,
+      req,
+      bot,
+      lost: false
+    })
+  })
+  
   // 404
   app.get("*", async (req, res) => {
     res.status(404).render("status/404.ejs", {
@@ -448,11 +457,29 @@ module.exports = async client => {
   // });
 
   // socket.io (realtime music - to discord)
+//listen on every connection
 io.on('connection', (socket) => {
-  socket.on('easterEgg', msg => {
-    io.emit('easterEgg', msg);
-  });
-});
+	socket.emit("new_message", {message: ""})
+
+	//default username
+	socket.username = "Anonymous"
+
+    //listen on change_username
+    socket.on('change_username', (data) => {
+        socket.username = data.username
+    })
+
+    //listen on new_message
+    socket.on('new_message', (data) => {
+        //broadcast the new message
+        io.sockets.emit('new_message', {message : data.message, username : socket.username});
+    })
+
+    //listen on typing
+    socket.on('typing', (data) => {
+    	socket.broadcast.emit('typing', {username : socket.username})
+    })
+})
   
 http.listen(process.env.PORT, () => {
   console.log(`[WEBSITE] the bot web was running!`);

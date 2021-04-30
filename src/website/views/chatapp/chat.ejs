@@ -1,57 +1,162 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <%- include('part/head.ejs') %>
-    <%- include('part/bootstrapCSS.ejs') %>
+    <%- include('../part/head.ejs') %>
+    <%- include('../part/bootstrapCSS.ejs') %>
   </head>
   <body class="on-loading">
-    <%- include('part/bootstrapJS.ejs') %>
+    <%- include('../part/bootstrapJS.ejs') %>
     <script src="https://kit.fontawesome.com/071ea1fa85.js" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.js"></script>    
-    <%- include('part/loading.ejs') %>
+    <%- include('../part/loading.ejs') %>
     
-    <%- include('part/navbar.ejs') %>
+    <%- include('../part/navbar.ejs') %>
+    
+    <style>
+header {
+    text-align: center;
+}
+
+h1 {
+    font-family: 'Comfortaa', sans-serif;
+    margin: 0px;
+}
+
+div#change_username, section#input_zone {
+    border: 5px outset #8258FA;
+}
+
+div#change_username {
+    height: 3%;
+    display: inline-block;
+    background-color: #BCA9F5;
+}
+
+section#chatroom {
+    border: 5px inset #8258FA;
+    height: 85%;
+    overflow: auto;
+}
+
+section#input_zone {
+    height: 7%;
+    text-align: center;
+    background-color: #BCA9F5;
+}
+
+.vertical-align {
+    position: relative;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+input#username {
+    font-family: 'Comfortaa', sans-serif;
+}
+
+input#message {
+    display: inline-block;
+    width: 88%;
+    height: 70%;
+    font-family: 'Comfortaa', sans-serif;
+    font-size: 2vh;
+}
+
+button#send_message {
+    display: inline-block;
+    height: 70%;
+    width: 10%;
+}
+
+p.message {
+    margin: 0px;
+    width: 100%;
+    height: 40px;
+    font-size: 2vh;
+    font-family: 'Comfortaa', sans-serif;
+    padding: 1vh;
+}
+
+.message:nth-child(even) {
+    background-color: #81DAF5;
+}
+
+.message:nth-child(odd) {
+    background-color: #81BEF7;
+}    
+    </style>
     
     <main id="main" role="main" class="container main">
-      <div class="message">
-        <div class="messages">
-          <div class="msg">
-            <span class="name">BOT</span>
-            <span class="msg-msg">Welcome.</span>
-          </div>
-        </div>
-        <form id="form">
-        <input type="text" palceholder="name" value="Anonymouse" id="name" maxlength="10" required>
-        <input type="text" palceholder="message" id="message" maxlength="100" required>
-        <button type="submit"></button>          
-        </form>
+    <header>
+      <h1>Super Chat</h1>
+    </header>
+
+    <section>
+      <div id="change_username">
+	<input id="username" type="text" />
+	<button id="send_username" type="button">Change username</button>
       </div>
+    </section>
+
+    <section id="chatroom">
+      <section id="feedback"></section>
+    </section>
+
+    
+
+    <section id="input_zone"> 
+      <input id="message" class="vertical-align" type="text" />
+      <button id="send_message" class="vertical-align" type="button">Send</button>
+    </section>
     </main>
 
-    <%- include('part/footer.ejs') %>
+    <%- include('../part/footer.ejs') %>
     <script src="/socket.io/socket.io.js"></script>
 
     <script>
-      var socket = io();
+$(function(){
+   	//make connection
+	var socket = io()
 
- var form = document.getElementById('form');
-  var username = document.getElementById('name');
-  var message = document.getElementById('message');
+	//buttons and inputs
+	var message = $("#message")
+	var username = $("#username")
+	var send_message = $("#send_message")
+	var send_username = $("#send_username")
+	var chatroom = $("#chatroom")
+	var feedback = $("#feedback")
 
-  form.addEventListener('submit', function(e) {
-    e.preventDefault();
-    if (message.value) {
-      socket.emit('chat', username.value, message.value);
-    }
-  });      
-      
-      socket.on('chat', function(names, messages) {
-        var item = document.createElement('li');
-        item.textContent = msg;
-        messages.appendChild(item);
-        window.scrollTo(0, document.body.scrollHeight);        
-      });
+	//Emit message
+	send_message.click(function(){
+		socket.emit('new_message', {message : message.val()})
+	})
+
+	//Listen on new_message
+	socket.on("new_message", (data) => {
+		feedback.html('');
+		message.val('');
+		chatroom.append("<p class='message'>" + data.username + ": " + data.message + "</p>")
+	})
+
+	//Emit a username
+	send_username.click(function(){
+		socket.emit('change_username', {username : username.val()})
+	})
+
+	//Emit typing
+	message.bind("keypress", () => {
+		socket.emit('typing')
+	})
+
+	//Listen on typing
+	socket.on('typing', (data) => {
+		feedback.html("<p><i>" + data.username + " is typing a message..." + "</i></p>")
+	})
+});
+
     </script>
   </body>
 </html>
