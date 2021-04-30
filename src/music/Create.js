@@ -4,9 +4,13 @@ export class CreateMusic extends MusicRoutes {
   constructor(voiceChannel, option, textChannel = null) {
     super();
     
+  }
+  
+  async start(voiceChannel, option, textChannel = null) {
     if (!voiceChannel) throw new TypeError("Please join a voice channel.");
     
-    this.volume = option.volume;
-    this.songs
+    let connection = await voiceChannel.join();
+    
+    connection.connection
   }
 }
