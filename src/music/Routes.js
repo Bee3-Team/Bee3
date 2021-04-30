@@ -28,7 +28,7 @@ class MusicRoutes extends EventEmitter {
         this.play(textChannel, id, queue.songs[0]);
       } else {
         queue.songs.shift();
-        module.exports.play(textChannel, id, queue.songs[0]);
+        this.play(textChannel, id, queue.songs[0]);
       }
     })
       .on("error", (err) => {
@@ -38,7 +38,7 @@ class MusicRoutes extends EventEmitter {
     });
    
     this.dispatcher.setVolumeLogarithmic(queue.volume / 100);
-    console.log(queue.volume)
+    console.log(queue)
     
     if (textChannel) {
       textChannel.send(`Playing **${song.title}** 🎶`);

@@ -19,13 +19,13 @@ const MusicConfig = require("../music/Config.js");
 client.music = new Music(client, MusicConfig);
 
     client.music.on("trackEnd", channel => {
-      let queue = Music.queue.get(channel.guild.id);
+      let queue = client.music.queue.get(channel.guild.id);
       
       channel.send("Queue ended.")
       setTimeout(() => {
         queue.voiceChannel.leave();
-        Music.queue.delete(channel.guild.id);
-      }, Music.option.leaveOnEndDelay * 1000 || 1000);
+        client.music.queue.delete(channel.guild.id);
+      }, client.music.option.leaveOnEndDelay * 1000 || 1000);
     });
     
     

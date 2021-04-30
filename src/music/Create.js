@@ -12,7 +12,6 @@ class CreateMusic extends MusicRoutes {
     this.option = option;
     this.queue = new Map();
     this.client = client;
-    console.log(this.option.volume)
   }
 
   getQueue(id) {
@@ -33,7 +32,7 @@ class CreateMusic extends MusicRoutes {
       }
     }
 
-    let serverQueue = await this.getQueue(id);
+    let serverQueue = this.queue.get(id);
 
     let song = await this.VideoPlaylist(query);
 
@@ -49,7 +48,7 @@ class CreateMusic extends MusicRoutes {
       };
 
       Constructor.songs.push(song);
-      this.queue.set(id, constructor);
+      this.queue.set(id, Constructor);
       const queue = this.queue.get(id);
       
       try {
@@ -90,7 +89,6 @@ class CreateMusic extends MusicRoutes {
           duration: songInfo.videoDetails.lengthSeconds
         }        
       } catch (e) {
-        console.log(e)
         throw new TypeError("Cannot optain result with this query.")
       }
       
@@ -113,7 +111,6 @@ class CreateMusic extends MusicRoutes {
       
     }
     
-    console.log(song)
     // callback.
     return song;
   }
