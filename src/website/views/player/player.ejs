@@ -16,12 +16,16 @@
     <main id="main" role="main" class="container main"> 
       <div class="not-in-channel" id="unchannel">
         <form id="not-in-channel-form">
-          <select required class="channels">
-            <option value="a" class="channel">a</option>
-            <option value="b" class="channel">b</option>
-            <option value="c" class="channel">c</option>
-            <option value="d" class="channel">d</option>
-          </select>
+          <div class="select">
+            <select name="format" id="format">
+              <option selected disabled>Choose a book format</option>
+              <option value="pdf">PDF</option>
+              <option value="txt">txt</option>
+              <option value="epub">ePub</option>
+              <option value="fb2">fb2</option>
+              <option value="mobi">mobi</option>
+            </select>
+          </div>
           <br>
           <input class="search-input" type="text" placeholder="search YouTube">
           <button class="btn btn-danger search-btn">Go! <i class="fa fa-youtube"></i></button>
