@@ -977,3 +977,11 @@ select.simple {
   background: #f5f5f5;
   border: 0;
 }
+
+select.basic.simple {
+  border-radius: 10px;
+}
+
+select:focus {
+  outline: none;
+}
