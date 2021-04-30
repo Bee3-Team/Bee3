@@ -62,6 +62,8 @@ class CreateMusic extends MusicRoutes {
         if (this.option.autoSelfDeaf) {
           await Constructor.connection.voice.setSelfDeaf(true);
         }
+        
+        this.play(textChannel, id, Constructor.songs[0]);
       } catch (e) {
         this.queue.delete(id);
         if (textChannel) {

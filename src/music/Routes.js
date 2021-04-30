@@ -1,8 +1,17 @@
 class MusicRoutes {
   constructor() {}
 
-  async play(voiceChannel, textChannel = null) {
-    if (!voiceChannel) throw new TypeError("Please join a voice channel.");
+  async play(textChannel = null, id, song) {
+    const queue = this.queue.get(id);
+    if (!queue) return;
+    
+    if (!song) {
+      
+      if (textChannel) {
+        textChannel.send("Song was ")
+      }
+      
+    }
   }
 }
 
