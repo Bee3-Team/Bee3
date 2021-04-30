@@ -19,6 +19,7 @@ class CreateMusic extends MusicRoutes {
       
     };
   }
+  
 }
 
 module.exports = CreateMusic;
