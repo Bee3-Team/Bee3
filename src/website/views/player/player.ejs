@@ -16,14 +16,18 @@
     <main id="main" role="main" class="container main"> 
       <div class="not-in-channel" id="unchannel">
         <form id="not-in-channel-form">
+          
+          <% let allowedCHL = [];
+          guild.channels.cache.map(chl => {
+          allowedCHL.push(chl);
+          })
+          %>
           <div class="select">
             <select class="basic simple" name="format" id="format">
-              <option selected disabled>bound channel</option>
-              <option value="pdf">PDF</option>
-              <option value="txt">txt</option>
-              <option value="epub">ePub</option>
-              <option value="fb2">fb2</option>
-              <option value="mobi">mobi</option>
+              <option selected disabled>select channel</option>
+              <% allowedCHL.map(chl => { %>
+              <option value="<%= chl.id %>">#<%= chl.name %></option>
+              <% }) %>
             </select>
           </div>
           <br>
