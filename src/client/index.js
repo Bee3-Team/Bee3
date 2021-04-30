@@ -13,10 +13,13 @@ require("../event/eventManager.js")(client);
 require("../command/commandManager.js")(client);
 require("../website/app.js")(client);
 
-// const Music = require("../music/newServer.js");
+const Music = require("../music/Create.js");
+const MusicConfig = require("../music/Config.js");
+const EventManager = require("../music/EventManager.js");
 
-// client.music = new Music.Music(client);
-// client.tracks = new Map();
+new EventManager(Music);
+
+client.music = new Music(client, MusicConfig);
 
 const Guild = require("../mongodb/schemas/Guild.js");
 

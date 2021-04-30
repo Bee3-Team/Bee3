@@ -1,9 +1,7 @@
-const MusicEvents = require("./Events.js");
 const ytdl = require("ytdl-core");
 
-class MusicRoutes extends MusicEvents {
+class MusicRoutes {
   constructor() {
-    super();
   }
   
   async play(textChannel = null, id, song) {
@@ -21,9 +19,29 @@ class MusicRoutes extends MusicEvents {
     }
     
     this.dispatcher = queue.connection.play(ytdl(song.url, this.option.stream), {type: "opus"})
-    .on("finish", async () => {
-      
+      .on("finish", () => {
+      if (queue.loop) {
+        let lastSong = queue.songs.shift();
+        queue.songs.push(lastSong);
+        this.play(textChannel, id, queue.songs[0]);
+      } else {
+        queue.songs.shift();
+        module.exports.play(textChannel, id, queue.songs[0]);
+      }
+    })
+      .on("error", (err) => {
+      console.error(err);
+      queue.songs.shift();
+      module.exports.play(textChannel, id, queue.songs[0]);
     });
+   
+    this.dispatcher.setVolumeLogarithmic(queue.volume / 100);
+    
+    if (textChannel) {
+      textChannel.send(`Playing **${song.title}** 🎶`);
+    } else {
+      return true;
+    }
   }
 }
 

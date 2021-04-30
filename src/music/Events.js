@@ -1,25 +1,10 @@
 class Events {
-  constructor(client) {
+  constructor(Music) {
     
-    this.on("trackEnd", channel => {
-      let queue = this.queue.get(channel.guild.id);
-      
-      channel.send("Queue ended.")
-      setTimeout(() => {
-        queue.voiceChannel.leave();
-        this.queue.delete(channel.guild.id);
-      }, this.option.leaveOnEndDelay * 1000 || 1000);
-    });
+    const EventManager = require("./EventManager.js");
     
+    new EventManager(Music);
     
-    this.on("trackEndWeb", async (channel) => {
-      let queue = this.queue.get(channel.guild.id);
-
-      setTimeout(() => {
-        queue.voiceChannel.leave();
-        this.queue.delete(channel.guild.id);
-      }, this.option.leaveOnEndDelay * 1000 || 1000);      
-    });
   }
 }
 
