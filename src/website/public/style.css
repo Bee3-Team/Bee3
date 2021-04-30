@@ -898,3 +898,7 @@ h2 {
 .disabled {
   cursor: not-allowed !important;
 }
+
+.results {
+  padding-inline-start: 0px !important;
+}
