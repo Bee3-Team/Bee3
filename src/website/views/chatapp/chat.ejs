@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <%- include('part/head.ejs') %>
+    <%- include('part/bootstrapCSS.ejs') %>
+  </head>
+  <body class="on-loading">
+    <%- include('part/bootstrapJS.ejs') %>
+    <script src="https://kit.fontawesome.com/071ea1fa85.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.js"></script>    
+    <%- include('part/loading.ejs') %>
+    
+    <%- include('part/navbar.ejs') %>
+    
+    <main id="main" role="main" class="container main">
+      <div class="message">
+        <div class="messages">
+          <div class="msg">
+            <span class="name">BOT</span>
+            <span class="msg-msg">Welcome.</span>
+          </div>
+        </div>
+        <form id="form">
+        <input type="text" palceholder="name" value="Anonymouse" id="name" maxlength="10" required>
+        <input type="text" palceholder="message" id="message" maxlength="100" required>
+        <button type="submit"></button>          
+        </form>
+      </div>
+    </main>
+
+    <%- include('part/footer.ejs') %>
+    <script src="/socket.io/socket.io.js"></script>
+
+    <script>
+      var socket = io();
+
+ var form = document.getElementById('form');
+  var username = document.getElementById('name');
+  var message = document.getElementById('message');
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    if (message.value) {
+      socket.emit('chat', username.value, message.value);
+    }
+  });      
+      
+      socket.on('chat', function(names, messages) {
+        var item = document.createElement('li');
+        item.textContent = msg;
+        messages.appendChild(item);
+        window.scrollTo(0, document.body.scrollHeight);        
+      });
+    </script>
+  </body>
+</html>
