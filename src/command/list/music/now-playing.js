@@ -9,7 +9,7 @@ module.exports = {
   cooldown: 5,
   run: async (message, args, client) => {
     
-    client.music.nowplaying(message.guild.id, message.channel)
+    client.music.nowPlaying(message.guild.id, message.channel)
     
   }
 }

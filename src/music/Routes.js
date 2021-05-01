@@ -86,7 +86,7 @@ class MusicRoutes extends EventEmitter {
     }
     
     if (textChannel) {
-      return textChannel.send(`Now playing: **${queue.songs[0].title}** [\`${queue.songs[0].duration.toHHMMSS()}\`]
+      return textChannel.send(`Now playing: **${queue.songs[0].title}** [\`${queue.songs[0].duration == 0 ? "Live" : queue.songs[0].duration.toHHMMSS()}\`]
 to see songs, use \`queue\` command.`);
     } else {
       return {
