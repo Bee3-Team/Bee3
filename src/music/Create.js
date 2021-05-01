@@ -161,34 +161,39 @@ class CreateMusic extends MusicRoutes {
     }
     
     
-      videos = await playlist.getVideos(100);
-      
-      const newSongs = videos
+      videos = await playlist.getVideos(100, {part: "snippet"});
+      let newSongs = [];  
+    
+      videos
       .filter((video) => video.title != "Private video" && video.title != "Deleted video")
       .map(async (video) => {
         let songInfo = await ytdl.getInfo(video.url);
-                
-        return (song = {
+        
+        return newSongs.push({
           title: songInfo.videoDetails.title,
           url: songInfo.videoDetails.video_url,
           duration: songInfo.videoDetails.lengthSeconds
-        });
-      });
+        })
+      }); 
+    
+    
+    
+    setTimeout(async () => {
     
     let Constructor = {
       connection: null,
-      songs: [],
+      songs: newSongs,
       volume: this.option.volume,
       playing: true,
       loop: false,
       voiceChannel: voiceChannel,
       textChannel
-    };      
-    
-    
-    setTimeout(async () => {
+    };   
       
-    serverQueue ? serverQueue.songs.push(...videos) : Constructor.songs.push(...videos);
+      if (serverQueue) {
+        return serverQueue.songs.push(...newSongs);
+      }
+      
   
     if (!serverQueue) {
       this.queue.set(id, Constructor);
