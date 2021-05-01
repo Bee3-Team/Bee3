@@ -17,41 +17,50 @@ require("../event/eventManager.js")(client);
 require("../command/commandManager.js")(client);
 require("../website/app.js")(client);
 
+client.music.on("trackEnd", channel => {
+  let queue = client.music.queue.get(channel.guild.id);
 
-    client.music.on("trackEnd", channel => {
-      let queue = client.music.queue.get(channel.guild.id);
-      
-      client.music.queue.delete(channel.guild.id);
-      channel.send("Queue ended.")
-      setTimeout(() => {
-        queue.voiceChannel.leave();
-      }, client.music.option.leaveOnEndDelay * 1000 || 1000);
-    });
-    
-    
-    client.music.on("trackEndWeb", async (channel) => {
-      let queue = this.queue.get(channel.guild.id);
+  client.music.queue.delete(channel.guild.id);
+  channel.send("Queue ended.");
+  setTimeout(() => {
+    queue.voiceChannel.leave();
+  }, client.music.option.leaveOnEndDelay * 1000 || 1000);
+});
 
-      setTimeout(() => {
-        queue.voiceChannel.leave();
-        this.queue.delete(channel.guild.id);
-      }, this.option.leaveOnEndDelay * 1000 || 1000);      
-    });
+client.music.on("trackEndWeb", async channel => {
+  let queue = this.queue.get(channel.guild.id);
+
+  setTimeout(() => {
+    queue.voiceChannel.leave();
+    this.queue.delete(channel.guild.id);
+  }, this.option.leaveOnEndDelay * 1000 || 1000);
+});
+
+client.music.on("trackAdded", async (track, channel) => {
+  if (!channel) return;
+  channel.send(`Queued **${track.title}**`)
+});
 
 const Guild = require("../mongodb/schemas/Guild.js");
 
 // GLOBAL
-String.prototype.toHHMMSS = function () {
-    var sec_num = parseInt(this, 10); // don't forget the second param
-    var hours   = Math.floor(sec_num / 3600);
-    var minutes = Math.floor((sec_num - (hours * 3600)) / 60);
-    var seconds = sec_num - (hours * 3600) - (minutes * 60);
+String.prototype.toHHMMSS = function() {
+  var sec_num = parseInt(this, 10); // don't forget the second param
+  var hours = Math.floor(sec_num / 3600);
+  var minutes = Math.floor((sec_num - hours * 3600) / 60);
+  var seconds = sec_num - hours * 3600 - minutes * 60;
 
-    if (hours   < 10) {hours   = "0"+hours;}
-    if (minutes < 10) {minutes = "0"+minutes;}
-    if (seconds < 10) {seconds = "0"+seconds;}
-    return hours + ':' + minutes + ':' + seconds;
-}
+  if (hours < 10) {
+    hours = "0" + hours;
+  }
+  if (minutes < 10) {
+    minutes = "0" + minutes;
+  }
+  if (seconds < 10) {
+    seconds = "0" + seconds;
+  }
+  return hours + ":" + minutes + ":" + seconds;
+};
 
 //
 client.Guild = Guild;

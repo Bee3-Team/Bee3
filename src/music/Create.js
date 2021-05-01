@@ -69,7 +69,8 @@ class CreateMusic extends MusicRoutes {
       }
       
     } else {
-      
+      serverQueue.songs.push(song);
+      this.emit("trackAdded", song, textChannel);
     }
   }
 
