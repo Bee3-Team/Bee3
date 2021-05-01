@@ -34,10 +34,14 @@ class CreateMusic extends MusicRoutes {
 
     let serverQueue = this.queue.get(id);
 
-    let song;
+    let song = null;
+    
     song = await this.VideoPlaylist(voiceChannel, textChannel, id, query).catch(e => {
-        throw new Error(e)
+      textChannel ? textChannel.send(e.message.toString()) : new TypeError(e.message);
+      return;
     });
+    
+    if (!song) return;
 
     if (!serverQueue) {
       const Constructor = {
@@ -78,13 +82,7 @@ class CreateMusic extends MusicRoutes {
   }
 
   async VideoPlaylist(voiceChannel, textChannel, id, query) {
-    if (!query) {
-      if (textChannel) {
-        return textChannel.send(`Need a query to search song/playlist.`)
-      } else {
-        throw new TypeError("Need a query to search song/playlist.");
-      }
-    }
+    if (!query) throw new TypeError("Need a query to search song/playlist.")
     
     let song, isVideoURL, isPlaylistURL;
     
@@ -139,7 +137,7 @@ class CreateMusic extends MusicRoutes {
     serverQueue = this.queue.get(id);
     
     
-    isPlaylist = await this.validatePlayistURL(query);
+    isPlaylist = await this.validatePlaylistURL(query);
     
     if (isPlaylist) {
       
@@ -186,11 +184,16 @@ class CreateMusic extends MusicRoutes {
       textChannel
     };      
     
-    serverQueue ? serverQueue.songs.push(...videos) : Constructor.songs.push(...videos);
     
-    this.emit("playlistAdded", playlist, textChannel)
+    if (serverQueue) {
+      serverQueue.songs.push(...videos);
+      this.emit("playlistAdded", playlist, textChannel);
+      return;
+    }
+    
     
     if (!serverQueue) {
+      Constructor.songs.push(...videos);
       this.queue.set(id, Constructor);
       const queue = this.queue.get(id);
       
@@ -202,6 +205,7 @@ class CreateMusic extends MusicRoutes {
         }
         
         this.play(textChannel, id, Constructor.songs[0]);
+        this.emit("playlistAdded", playlist, textChannel);
       } catch (e) {
         this.queue.delete(id);
         if (textChannel) {
