@@ -83,7 +83,18 @@ class MusicRoutes extends EventEmitter {
       } else {
         throw new TypeError("There is no songs.");
       }
-    }    
+    }
+    
+    if (textChannel) {
+      return textChannel.send(`Now playing: **${queue.songs[0].title}** [\`${queue.songs[0].duration.toHHMMSS()}\`]
+to see songs, use \`queue\` command.`);
+    } else {
+      return {
+        title: queue.songs[0].title,
+        url: queue.songs[0].url,
+        duration: queue.songs[0].duration
+      }
+    }
   }
 }
 
