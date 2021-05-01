@@ -45,6 +45,10 @@ class MusicRoutes extends EventEmitter {
       return true;
     }
   }
+  
+  async stop(voiceChannel, textChannel) {
+    
+  }
 }
 
 module.exports = MusicRoutes;
