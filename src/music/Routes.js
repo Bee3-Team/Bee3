@@ -49,9 +49,25 @@ class MusicRoutes extends EventEmitter {
   async stop(voiceChannel, textChannel = false) {
     let canModify;
     
+    let queue = this.queue.get(voiceChannel.guild.id);
+    
+    if (!queue) {
+      if (textChannel) {
+        return textChannel.send('There is no songs.');
+      } else {
+        throw new TypeError("There is no songs.");
+      }
+    }
+    
     await this.canModify(voiceChannel, textChannel);
     
-    
+    queue.songs = [];
+    queue.connection.dispatcher.end();
+    if (textChannel) {
+      return textChannel.send(`Music stopped.`);
+    } else {
+      return true;
+    }
     
   }
 }
