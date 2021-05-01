@@ -989,99 +989,43 @@ select:focus {
   }
 }
 
-/* modal */
-.modal {
-    position: absolute;
-    z-index: 10000; /* 1 */
-    top: 0;
-    left: 0;
-    visibility: hidden;
-    width: 100%;
-    height: 100%;
+/*  */
+#modal_form {
+	width: 300px; 
+	height: 300px; /* Размеры должны быть фиксированы */
+	border-radius: 5px;
+	border: 3px #000 solid;
+	background: #fff;
+	position: fixed; /* чтобы окно было в видимой зоне в любом месте */
+	top: 45%; /* отступаем сверху 45%, остальные 5% подвинет скрипт */
+	left: 50%; /* половина экрана слева */
+	margin-top: -150px;
+	margin-left: -150px; /* тут вся магия центровки css, отступаем влево и вверх минус половину ширины и высоты соответственно =) */
+	display: none; /* в обычном состоянии окна не должно быть */
+	opacity: 0; /* полностью прозрачно для анимирования */
+	z-index: 5; /* окно должно быть наиболее большем слое */
+	padding: 20px 10px;
 }
-
-.modal.is-visible {
-    visibility: visible;
+/* Кнопка закрыть для тех кто в танке) */
+#modal_form #modal_close {
+	width: 21px;
+	height: 21px;
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	cursor: pointer;
+	display: block;
 }
-
-.modal-overlay {
-  position: fixed;
-  z-index: 10;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: hsla(0, 0%, 0%, 0.5);
-  visibility: hidden;
-  opacity: 0;
-  transition: visibility 0s linear 0.3s, opacity 0.3s;
-}
-
-.modal.is-visible .modal-overlay {
-  opacity: 1;
-  visibility: visible;
-  transition-delay: 0s;
-}
-
-.modal-wrapper {
-  position: absolute;
-  z-index: 9999;
-  top: 6em;
-  left: 50%;
-  width: 32em;
-  margin-left: -16em;
-  background-color: #fff;
-  box-shadow: 0 0 1.5em hsla(0, 0%, 0%, 0.35);
-}
-
-.modal-transition {
-  transition: all 0.3s 0.12s;
-  transform: translateY(-10%);
-  opacity: 0;
-}
-
-.modal.is-visible .modal-transition {
-  transform: translateY(0);
-  opacity: 1;
-}
-
-.modal-header,
-.modal-content {
-  padding: 1em;
-}
-
-.modal-header {
-  position: relative;
-  background-color: #fff;
-  box-shadow: 0 1px 2px hsla(0, 0%, 0%, 0.06);
-  border-bottom: 1px solid #e8e8e8;
-}
-
-.modal-close {
-  position: absolute;
-  top: 0;
-  right: 0;
-  padding: 1em;
-  color: #aaa;
-  background: none;
-  border: 0;
-}
-
-.modal-close:hover {
-  color: #777;
-}
-
-.modal-heading {
-  font-size: 1.125em;
-  margin: 0;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-.modal-content > *:first-child {
-  margin-top: 0;
-}
-
-.modal-content > *:last-child {
-  margin-bottom: 0;
+/* Подложка */
+#overlay {
+	z-index: 3; /* подложка должна быть выше слоев элементов сайта, но ниже слоя модального окна */
+	position: fixed; /* всегда перекрывает весь сайт */
+	background-color: #000; /* черная */
+	opacity: 0.8; /* но немного прозрачна */
+	width: 100%; 
+	height: 100%; /* размером во весь экран */
+	top: 0; 
+	left: 0; /* сверху и слева 0, обязательные свойства! */
+	cursor: pointer;
+	display: none; /* в обычном состоянии её нет) */
 }

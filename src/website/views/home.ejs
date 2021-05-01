@@ -38,23 +38,15 @@
 </div>
       
       
-      <button class="modal-toggle">Show modal</button>
-  <div class="modal">
-    <div class="modal-overlay modal-toggle"></div>
-    <div class="modal-wrapper modal-transition">
-      <div class="modal-header">
-        <button class="modal-close modal-toggle"><svg class="icon-close icon" viewBox="0 0 32 32"><use xlink:href="#icon-close"></use></svg></button>
-        <h2 class="modal-heading">This is a modal</h2>
-      </div>
-      
-      <div class="modal-body">
-        <div class="modal-content">
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Impedit eum delectus, libero, accusantium dolores inventore obcaecati placeat cum sapiente vel laboriosam similique totam id ducimus aperiam, ratione fuga blanditiis maiores.</p>
-          <button class="modal-toggle">Update</button>
-        </div>
-      </div>
-    </div>
-  </div>      
+<!-- test   -->
+<a href="#" id="go">Modal Test</a>
+</br>
+
+<div id="modal_form"> 
+  <span class="modal_name">Name here</span>
+      <span id="modal_close"><i class="fa fa-close"></i></span>
+</div>
+<div id="overlay"></div><
     </main>
 
     <%- include('part/footer.ejs') %>
@@ -65,10 +57,28 @@
 
       socket.on('easterEgg', function(msg) {
         document.getElementById("h1").innerHTML = msg;
-      });
-$('.modal-toggle').on('click', function(e) {
-  e.preventDefault();
-  $('.modal').toggleClass('is-visible');
+      });    
+      
+//       
+$(document).ready(function() {
+	$('a#go').click( function(event){
+		event.preventDefault();
+		$('#overlay').fadeIn(400,
+		 	function(){
+				$('#modal_form') 
+					.css('display', 'block')
+					.animate({opacity: 1, top: '50%'}, 200);
+		});
+	});
+	$('#modal_close, #overlay').click( function(){
+		$('#modal_form')
+			.animate({opacity: 0, top: '45%'}, 200,
+				function(){
+					$(this).css('display', 'none');
+					$('#overlay').fadeOut(400);
+				}
+			);
+	});
 });      
     </script>
   </body>
