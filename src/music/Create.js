@@ -222,6 +222,34 @@ class CreateMusic extends MusicRoutes {
     
   }
 
+  async canModify(voiceChannel, textChannel = null) {
+    if (!voiceChannel) {
+      if (textChannel) {
+        return textChannel.send(`Please join a voice channel.`);
+      } else {
+        throw new TypeError("Please join a voice channel.");
+      }
+    }
+    
+    try {
+      
+      if (!voiceChannel.guild.me.voice.channel) {
+        return;
+      }
+      
+      if (voiceChannel.id !== voiceChannel.guild.me.voice.channel.id) {
+        if (textChannel) {
+          return textChannel.send("You cannot use this command.");
+        } else {
+          throw new TypeError("You cannot use this command.")
+        }
+      }
+      
+    } catch (e) {
+      throw new TypeError(e)
+    }
+  }
+  
   async validateVideoURL(url) {
     var p = /^(?:https?:\/\/)?(?:m\.|www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/;
     if (url.match(p)) {
