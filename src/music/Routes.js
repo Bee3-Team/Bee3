@@ -96,6 +96,29 @@ to see songs, use \`queue\` command.`);
       }
     }
   }
+  
+  async Queue(id, textChannel = null) {
+    
+    let canModify;
+    
+    let queue = this.queue.get(id);
+    
+    if (!queue) {
+      if (textChannel) {
+        return textChannel.send('There is no songs.');
+      } else {
+        throw new TypeError("There is no songs.");
+      }
+    }
+    
+    if (textChannel) {
+      return textChannel.send(`https://beee.cf/queue?id=${id} - there have **${queue.songs.length}** songs.`)
+    } else {
+      return {
+        songs: queue.songs
+      }
+    }
+  }  
 }
 
 module.exports = MusicRoutes;
