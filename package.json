@@ -29,7 +29,8 @@
     "http": "^0.0.0",
     "ffmpeg-static": "^4.3.0",
     "distube": "^2.8.13",
-    "discord-player": "^4.0.5"
+    "discord-player": "^4.0.5",
+    "discord-rpc": "^3.2.0"
   },
   "engines": {
     "node": "12.x"

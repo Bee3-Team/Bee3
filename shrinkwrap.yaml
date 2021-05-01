@@ -2,6 +2,7 @@ dependencies:
   '@discordjs/opus': 0.5.0
   body-parser: 1.19.0
   discord-player: 4.0.5
+  discord-rpc: 3.2.0
   discord.js: 12.5.3
   distube: 2.8.13
   dotenv: 8.2.0
@@ -622,6 +623,15 @@ packages:
     dev: false
     resolution:
       integrity: sha512-A/lEgvnnkrytMPKy8NDQlkm6yi70kyygFfZMGMRsPpYNjPko/y7/KxTnNqh7K5UY1Wg65uxaOBofDKIcDQmwgw==
+  /discord-rpc/3.2.0:
+    dependencies:
+      node-fetch: 2.6.1
+      ws: 7.4.5
+    dev: false
+    peerDependencies:
+      register-scheme: 'github:devsnek/node-register-scheme'
+    resolution:
+      integrity: sha512-KJv0EVbGMlr04HoG6f5b3wD7X9kSHzQ2Ed2qfHSDvYJ1MkE8RbCQmMcQQrSvAxpfsqZgUjB/bsfi/mjyicCH+A==
   /discord-ytdl-core/5.0.2:
     dependencies:
       prism-media: 1.2.9
@@ -2066,6 +2076,7 @@ specifiers:
   '@discordjs/opus': ^0.5.0
   body-parser: ^1.19.0
   discord-player: ^4.0.5
+  discord-rpc: ^3.2.0
   discord.js: ^12.5.2
   distube: ^2.8.13
   dotenv: ^8.2.0
