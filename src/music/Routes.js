@@ -46,8 +46,10 @@ class MusicRoutes extends EventEmitter {
     }
   }
   
-  async stop(voiceChannel, textChannel) {
+  async stop(voiceChannel, textChannel = false) {
+    let canModify;
     
+    canModify = this.canModify(voiceChannel);
   }
 }
 

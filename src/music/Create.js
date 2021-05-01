@@ -234,7 +234,7 @@ class CreateMusic extends MusicRoutes {
     try {
       
       if (!voiceChannel.guild.me.voice.channel) {
-        return;
+        return false;
       }
       
       if (voiceChannel.id !== voiceChannel.guild.me.voice.channel.id) {
