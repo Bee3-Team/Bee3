@@ -132,7 +132,7 @@ class CreateMusic extends MusicRoutes {
   }
   
   async handlePlaylist(voiceChannel, textChannel, id, query) {
-    let isPlaylist, playlist, videos, serverQueue;
+    let isPlaylist, playlist = null, videos = [], serverQueue, playlistVideos = [];
     
     serverQueue = this.queue.get(id);
     
@@ -160,19 +160,21 @@ class CreateMusic extends MusicRoutes {
       
     }
     
-      const playlistVideos = await playlist.getVideos();
+    
+      videos = await playlist.getVideos(100);
       
-      videos = playlistVideos
+      const newSongs = videos
       .filter((video) => video.title != "Private video" && video.title != "Deleted video")
       .map(async (video) => {
         let songInfo = await ytdl.getInfo(video.url);
                 
-        return ({
+        return (song = {
           title: songInfo.videoDetails.title,
           url: songInfo.videoDetails.video_url,
           duration: songInfo.videoDetails.lengthSeconds
         });
       });
+    
     let Constructor = {
       connection: null,
       songs: [],
