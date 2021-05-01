@@ -132,7 +132,7 @@ class CreateMusic extends MusicRoutes {
   }
   
   async handlePlaylist(voiceChannel, textChannel, id, query) {
-    let isPlaylist, playlist, videos = [], serverQueue;
+    let isPlaylist, playlist, videos, serverQueue;
     
     serverQueue = this.queue.get(id);
     
@@ -162,19 +162,18 @@ class CreateMusic extends MusicRoutes {
     
       const playlistVideos = await playlist.getVideos();
       
-      playlistVideos
+      videos = playlistVideos
       .filter((video) => video.title != "Private video" && video.title != "Deleted video")
       .map(async (video) => {
         let songInfo = await ytdl.getInfo(video.url);
-        
-        return videos.push({
+                
+        return ({
           title: songInfo.videoDetails.title,
           url: songInfo.videoDetails.video_url,
           duration: songInfo.videoDetails.lengthSeconds
         });
       });
-    
-    const Constructor = {
+    let Constructor = {
       connection: null,
       songs: [],
       volume: this.option.volume,
@@ -185,15 +184,11 @@ class CreateMusic extends MusicRoutes {
     };      
     
     
-    if (serverQueue) {
-      serverQueue.songs.push(...videos);
-      this.emit("playlistAdded", playlist, textChannel);
-      return;
-    }
-    
-    
+    setTimeout(async () => {
+      
+    serverQueue ? serverQueue.songs.push(...videos) : Constructor.songs.push(...videos);
+  
     if (!serverQueue) {
-      Constructor.songs.push(...videos);
       this.queue.set(id, Constructor);
       const queue = this.queue.get(id);
       
@@ -205,7 +200,6 @@ class CreateMusic extends MusicRoutes {
         }
         
         this.play(textChannel, id, Constructor.songs[0]);
-        this.emit("playlistAdded", playlist, textChannel);
       } catch (e) {
         this.queue.delete(id);
         if (textChannel) {
@@ -215,6 +209,7 @@ class CreateMusic extends MusicRoutes {
         }
       }
     }
+    }, 500)
     
   }
 

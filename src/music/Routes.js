@@ -19,7 +19,7 @@ class MusicRoutes extends EventEmitter {
       }
       
     }
-    
+     
     this.dispatcher = queue.connection.play(ytdl(song.url, this.option.stream))
       .on("finish", () => {
       if (queue.loop) {
