@@ -70,6 +70,21 @@ class MusicRoutes extends EventEmitter {
     }
     
   }
+  
+  async nowPlaying(id, textChannel = null) {
+    
+    let canModify;
+    
+    let queue = this.queue.get(id);
+    
+    if (!queue) {
+      if (textChannel) {
+        return textChannel.send('There is no songs.');
+      } else {
+        throw new TypeError("There is no songs.");
+      }
+    }    
+  }
 }
 
 module.exports = MusicRoutes;
