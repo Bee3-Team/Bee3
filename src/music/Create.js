@@ -34,7 +34,7 @@ class CreateMusic extends MusicRoutes {
 
     let serverQueue = this.queue.get(id);
 
-    let song = await this.VideoPlaylist(query);
+    let song = await this.VideoPlaylist(voiceChannel, textChannel = null, id, query);
 
     if (!serverQueue) {
       const Constructor = {
@@ -69,12 +69,12 @@ class CreateMusic extends MusicRoutes {
       }
       
     } else {
-      serverQueue.songs.push(song);
+      serverQueue.songs.push(...song);
       this.emit("trackAdded", song, textChannel);
     }
   }
 
-  async VideoPlaylist(query) {
+  async VideoPlaylist(voiceChannel, textChannel = null, id, query) {
     if (!query) throw new TypeError("Need a query to search song.");
     
     let song, isVideoURL, isPlaylistURL;
@@ -85,7 +85,7 @@ class CreateMusic extends MusicRoutes {
     if (isPlaylistURL) {
       
       // playlist
-      this.handlePlaylist(query);
+      return this.handlePlaylist(voiceChannel, textChannel = null, id, query);
       
     } else if (isVideoURL) {
       
@@ -124,8 +124,11 @@ class CreateMusic extends MusicRoutes {
     return song;
   }
   
-  async handlePlaylist(query) {
-    let isPlaylist, playlist, videos;
+  async handlePlaylist(voiceChannel, textChannel = null, id, query) {
+    let isPlaylist, playlist, videos = [], serverQueue;
+    
+    serverQueue = this.queue.get(id);
+    
     
     isPlaylist = await this.validatePlayistURL(query);
     
@@ -133,24 +136,55 @@ class CreateMusic extends MusicRoutes {
       
       // if playlist url.
       playlist = await youtube.getPlaylist(query, {part: "snippet"});
+      
+      if (!playlist) {
+        throw new TypeError("Cannot optain result with this query.");
+      }
+  
+    } else {
+      
+      const searchPlaylist = await youtube.searchPlaylists(query, 1, {part: "snippet"});
+      
+      if (!searchPlaylist[0]) {
+        throw new TypeError("Cannot optain result with this query.");
+      }
+      
+      playlist = searchPlaylist[0]
+      
+    }
+    
       const playlistVideos = await playlist.getVideos();
       
       playlistVideos
       .filter((video) => video.title != "Private video" && video.title != "Deleted video")
-      .map((video) => {
-        let songInfo
-        return {
-          title: video.title,
-          url: video.url,
-          duration: video.durationSeconds
-        };
+      .map(async (video) => {
+        let songInfo = await ytdl.getInfo(video.url);
+        
+        return videos.push({
+          title: songInfo.videoDetails.title,
+          url: songInfo.videoDetails.video_url,
+          duration: songInfo.videoDetails.lengthSeconds
+        });
       });
-      
-      
-      
-    } else {
+    
+    const Constructor = {
+      connection: null,
+      songs: [],
+      volume: this.option.volume,
+      playing: true,
+      loop: false,
+      voiceChannel: voiceChannel,
+      textChannel
+    };      
+    
+    serverQueue ? serverQueue.songs.push(...videos) : Constructor.songs.push(...videos);
+    
+    this.emit()
+    
+    if (!serverQueue) {
       
     }
+    
   }
 
   async validateVideoURL(url) {
