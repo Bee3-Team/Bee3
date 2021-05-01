@@ -76,7 +76,7 @@ class CreateMusic extends MusicRoutes {
       }
       
     } else {
-      serverQueue.songs.push(...song);
+      serverQueue.songs.push(song);
       this.emit("trackAdded", song, textChannel);
     }
   }
@@ -180,6 +180,8 @@ class CreateMusic extends MusicRoutes {
     
     setTimeout(async () => {
     
+      this.emit("playlistAdded", playlist, textChannel);
+      
     let Constructor = {
       connection: null,
       songs: newSongs,
