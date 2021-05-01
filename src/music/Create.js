@@ -79,9 +79,15 @@ class CreateMusic extends MusicRoutes {
     
     let song, isVideoURL, isPlaylistURL;
     
+    isPlaylistURL = await this.validatePlaylistURL(query);
     isVideoURL = await this.validateVideoURL(query);
     
-    if (isVideoURL) {
+    if (isPlaylistURL) {
+      
+      // playlist
+      this.handlePlaylist(query);
+      
+    } else if (isVideoURL) {
       
       // video
       try {
@@ -116,6 +122,35 @@ class CreateMusic extends MusicRoutes {
     
     // callback.
     return song;
+  }
+  
+  async handlePlaylist(query) {
+    let isPlaylist, playlist, videos;
+    
+    isPlaylist = await this.validatePlayistURL(query);
+    
+    if (isPlaylist) {
+      
+      // if playlist url.
+      playlist = await youtube.getPlaylist(query, {part: "snippet"});
+      const playlistVideos = await playlist.getVideos();
+      
+      playlistVideos
+      .filter((video) => video.title != "Private video" && video.title != "Deleted video")
+      .map((video) => {
+        let songInfo
+        return {
+          title: video.title,
+          url: video.url,
+          duration: video.durationSeconds
+        };
+      });
+      
+      
+      
+    } else {
+      
+    }
   }
 
   async validateVideoURL(url) {
