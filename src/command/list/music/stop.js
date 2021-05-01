@@ -1,7 +1,7 @@
 module.exports = {
   name: "stop",
-  description: "Play a music / video / playlist",
-  aliases: ["p"],
+  description: "Stop playing queue.",
+  aliases: ["stop"],
   permissions: {
     user: [],
     client: ["SPEAK", "CONNECT"]
@@ -9,7 +9,7 @@ module.exports = {
   cooldown: 5,
   run: async (message, args, client) => {
     
-    client.music.handle(message.member.voice.channel, message.channel);
+    client.music.stop(message.member.voice.channel, message.channel);
     
   }
 }
