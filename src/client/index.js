@@ -37,9 +37,15 @@ client.music.on("trackEndWeb", async channel => {
 });
 
 client.music.on("trackAdded", async (track, channel) => {
-  if (!channel) return;
+  if (!channel) return true;
   channel.send(`Queued **${track.title}**`)
 });
+
+client.music.on("playlistAdded", async (playlist, channel) => {
+  if (!channel) return true;
+  
+  channel.send(`Queued **${playlist.title} [${playlist.length}]**`);
+})
 
 const Guild = require("../mongodb/schemas/Guild.js");
 

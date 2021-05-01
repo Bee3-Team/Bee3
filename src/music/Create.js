@@ -34,7 +34,10 @@ class CreateMusic extends MusicRoutes {
 
     let serverQueue = this.queue.get(id);
 
-    let song = await this.VideoPlaylist(voiceChannel, textChannel = null, id, query);
+    let song;
+    song = await this.VideoPlaylist(voiceChannel, textChannel, id, query).catch(e => {
+        throw new Error(e)
+    });
 
     if (!serverQueue) {
       const Constructor = {
@@ -74,8 +77,14 @@ class CreateMusic extends MusicRoutes {
     }
   }
 
-  async VideoPlaylist(voiceChannel, textChannel = null, id, query) {
-    if (!query) throw new TypeError("Need a query to search song.");
+  async VideoPlaylist(voiceChannel, textChannel, id, query) {
+    if (!query) {
+      if (textChannel) {
+        return textChannel.send(`Need a query to search song/playlist.`)
+      } else {
+        throw new TypeError("Need a query to search song/playlist.");
+      }
+    }
     
     let song, isVideoURL, isPlaylistURL;
     
@@ -85,7 +94,7 @@ class CreateMusic extends MusicRoutes {
     if (isPlaylistURL) {
       
       // playlist
-      return this.handlePlaylist(voiceChannel, textChannel = null, id, query);
+      return this.handlePlaylist(voiceChannel, textChannel, id, query);
       
     } else if (isVideoURL) {
       
@@ -124,7 +133,7 @@ class CreateMusic extends MusicRoutes {
     return song;
   }
   
-  async handlePlaylist(voiceChannel, textChannel = null, id, query) {
+  async handlePlaylist(voiceChannel, textChannel, id, query) {
     let isPlaylist, playlist, videos = [], serverQueue;
     
     serverQueue = this.queue.get(id);
@@ -179,10 +188,28 @@ class CreateMusic extends MusicRoutes {
     
     serverQueue ? serverQueue.songs.push(...videos) : Constructor.songs.push(...videos);
     
-    this.emit()
+    this.emit("playlistAdded", playlist, textChannel)
     
     if (!serverQueue) {
+      this.queue.set(id, Constructor);
+      const queue = this.queue.get(id);
       
+      try {
+        queue.connection = await voiceChannel.join();
+        
+        if (this.option.autoSelfDeaf) {
+          await queue.connection.voice.setSelfDeaf(true);
+        }
+        
+        this.play(textChannel, id, Constructor.songs[0]);
+      } catch (e) {
+        this.queue.delete(id);
+        if (textChannel) {
+          textChannel.send(`Error: ${e.message}`);
+        } else {
+          throw new TypeError(`Error: ${e.message}`)
+        }
+      }
     }
     
   }
