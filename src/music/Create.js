@@ -245,6 +245,8 @@ class CreateMusic extends MusicRoutes {
         }
       }
       
+      return true;
+      
     } catch (e) {
       throw new TypeError(e)
     }

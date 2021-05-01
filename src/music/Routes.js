@@ -49,7 +49,10 @@ class MusicRoutes extends EventEmitter {
   async stop(voiceChannel, textChannel = false) {
     let canModify;
     
-    canModify = this.canModify(voiceChannel);
+    await this.canModify(voiceChannel, textChannel);
+    
+    
+    
   }
 }
 
