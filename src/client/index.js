@@ -7,16 +7,16 @@ const config = require("../other/config.js");
 client.login(config.token);
 client.config = config;
 
+const Music = require("../music/Create.js");
+const MusicConfig = require("../music/Config.js");
+
+client.music = new Music(client, MusicConfig);
 // require("../other/clientNavigation.js")(client);
 require("../mongodb/connect.js")(client);
 require("../event/eventManager.js")(client);
 require("../command/commandManager.js")(client);
 require("../website/app.js")(client);
 
-const Music = require("../music/Create.js");
-const MusicConfig = require("../music/Config.js");
-
-client.music = new Music(client, MusicConfig);
 
     client.music.on("trackEnd", channel => {
       let queue = client.music.queue.get(channel.guild.id);
