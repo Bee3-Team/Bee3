@@ -35,7 +35,7 @@ module.exports = {
     Guild.Settings.DisabledCommands.map(disabledCMD => {
       disable.push(disabledCMD.name.toLowerCase());
     });
-    
+     
     const command = client.Commands.get(cmd) || client.Commands.get(client.Aliases.get(cmd));
     if (!command) return;
     

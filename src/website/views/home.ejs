@@ -47,6 +47,8 @@
       socket.on('easterEgg', function(msg) {
         document.getElementById("h1").innerHTML = msg;
       });
+      
+      const bot = <%= JSON.stringify(bot) %>;
     </script>
   </body>
 </html>
