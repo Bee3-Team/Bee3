@@ -404,14 +404,23 @@ module.exports = async client => {
     let guild = req.params.id;
     let user = req.query.user;
     let query = req.query.query;
-    if (!guild) return res.redirect("/");
-    if (!user) return res.redirect("/");
-    if (!query) return res.redirect("/");
+    if (!guild) return res.status(404).send({succes: false});
+    if (!user) return res.status(404).send({succes: false});
+    if (!query) return res.status(404).send({succes: false});
     
     let userR, guildR, channelR;
+    guildR = await client.guilds.cache.get(guild);
+    if (!guildR) return res.status(404).send({succes: false});
     
-    userR = await client.users.fetch(user)
+    userR = await client.users.fetch(user);
+    if (!userR) return res.status(404).send({succes: false});
     
+    channelR = guildR.members.cache.get(userR.id).voice.channel;
+    if (!channelR) return res.status(404).send({succes: false});
+    
+    client.music.handle(channelR, null, guildR.id, query);
+    
+    return res.status(200).send({succes: true});
   });
   
   app.get("/musicplayer", checkAuth, async (req, res) => {
