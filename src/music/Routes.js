@@ -162,6 +162,18 @@ class MusicRoutes extends EventEmitter {
     if (!queue) return this.emit("noQueue", textChannel);
     
     await this.canModify(voiceChannel, textChannel);
+    
+    let playing;
+    
+    queue.playing ? queue.connection.dispatcher.pause() : queue.connection.dispatcher.resume();
+    playing = queue.playing;
+    queue.playing = !queue.playing;
+    
+    if (textChannel) {
+      return textChannel.send(`Queue was **${playing ? "resumed" : "paused"}**`)
+    } else {
+      return true;
+    }    
   }
 
   async nowPlaying(id, textChannel = null) {
