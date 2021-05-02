@@ -201,6 +201,8 @@ class CreateMusic extends MusicRoutes {
       if (serverQueue) {
         let currentSongsSize = parseInt(serverQueue.songs.length) + parseInt(newSongs.length);
         console.log(currentSongsSize)
+        console.log(serverQueue.songs.length);
+        console.log(parseInt(newSongs.length))
         if (currentSongsSize >= 100) return this.emit("queueReachLimit", textChannel, '500');
         
         return serverQueue.songs.push(...newSongs);
