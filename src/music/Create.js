@@ -135,7 +135,7 @@ class CreateMusic extends MusicRoutes {
     } 
     
     // callback.
-    return song;
+    return song; 
   }
   
   async handlePlaylist(voiceChannel, textChannel, id, query) {

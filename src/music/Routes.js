@@ -60,7 +60,12 @@ class MusicRoutes extends EventEmitter {
 
     await this.canModify(voiceChannel, textChannel);
 
+    
     queue.songs = [];
+    if (!queue.playing) {
+      queue.playing = !queue.playing;
+      queue.connection.dispatcher.resume();
+    }
     queue.connection.dispatcher.end();
     if (textChannel) {
       return textChannel.send(`Music stopped.`);
@@ -170,7 +175,7 @@ class MusicRoutes extends EventEmitter {
     queue.playing = !queue.playing;
     
     if (textChannel) {
-      return textChannel.send(`Queue was **${playing ? "resumed" : "paused"}**`)
+      return textChannel.send(`Queue was **${playing ? "paused" : "resumed"}**`)
     } else {
       return true;
     }    
@@ -197,6 +202,19 @@ to see songs, use \`queue\` command.`);
         duration: queue.songs[0].duration
       };
     }
+  }
+  
+  async shuffle(voiceChannel, textChannel = null) {
+    
+    if (!voiceChannel) return this.emit("noChannel", textChannel);
+    if (voiceChannel.guild.me.voice.channel) {
+      if (voiceChannel.id !== voiceChannel.guild.me.voice.channel.id)
+        return this.emit("noSameChannel", textChannel);
+    }    
+    
+    let queue = this.queue.get(voiceChannel.guild.id);
+    
+    if (!queue) return this.emit("noQueue", textChannel);
   }
 
   async Queue(id, textChannel = null) {
