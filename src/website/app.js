@@ -418,7 +418,11 @@ module.exports = async client => {
     channelR = guildR.members.cache.get(userR.id).voice.channel;
     if (!channelR) return res.status(404).send({succes: false});
     
-    client.music.handle(channelR, null, guildR.id, query);
+    try {
+      client.music.handle(channelR, null, guildR.id, query);
+    } catch (e) {
+      return res.send({succes: false, error: `${e.message}`});
+    }
     
     return res.status(200).send({succes: true, voiceChannel: channelR, guild: guildR, query: query});
   });
@@ -439,9 +443,34 @@ module.exports = async client => {
     channelR = guildR.members.cache.get(userR.id).voice.channel;
     if (!channelR) return res.status(404).send({succes: false});
     
-    client.music.stop(channelR, null);
+    try {
+      client.music.stop(channelR, null);
+    } catch (e) {
+      return res.send({succes: false, error: `${e.message}`});
+    }
     
     return res.status(200).send({succes: true, voiceChannel: channelR, guild: guildR});
+  });
+  
+  app.get("/player/now-playing/:id", async (req, res) => {
+    let guild = req.params.id;
+    let user = req.query.user;
+    if (!guild) return res.status(404).send({succes: false});
+    
+    let userR, guildR, channelR;
+    guildR = await client.guilds.cache.get(guild);
+    if (!guildR) return res.status(404).send({succes: false});
+    
+    let nowPlaying;
+    
+    try {
+      nowPlaying = await client.music.nowPlaying(guildR.id, null);
+    } catch (e) {
+      return res.send({succes: false, error: `${e.message}`});
+    }
+    
+    return res.status(200).send({succes: true, song: {title: nowPlaying.title, url: nowPlaying.url, duration: nowPlaying.duration}});
+    
   });
   
   app.get("/musicplayer", checkAuth, async (req, res) => {
