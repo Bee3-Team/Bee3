@@ -71,6 +71,14 @@ client.music.on("noChannel", async channel => {
   }   
 });
 
+client.music.on("queueReachLimit", async (channel, limit) => {
+  if (channel) {
+    return channel.send(`The queue songs was reach the limit (\`${limit}\`)`);
+  } else {
+    throw new TypeError(`The queue songs was reach the limit (\`${limit}\`)`);
+  }
+});
+
 const Guild = require("../mongodb/schemas/Guild.js");
 
 // GLOBAL

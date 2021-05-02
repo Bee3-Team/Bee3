@@ -215,6 +215,18 @@ to see songs, use \`queue\` command.`);
     let queue = this.queue.get(voiceChannel.guild.id);
     
     if (!queue) return this.emit("noQueue", textChannel);
+    
+    let songs = queue.songs;
+    for (let i = songs.length - 1; i > 1; i--) {
+      let j = 1 + Math.floor(Math.random() * i);
+      [songs[i], songs[j]] = [songs[j], songs[i]];
+    }
+    queue.songs = songs;
+    if (textChannel) {
+      return textChannel.send(`Server songs was shuffled.`);
+    } else {
+      return true;
+    }
   }
 
   async Queue(id, textChannel = null) {

@@ -47,7 +47,7 @@ class CreateMusic extends MusicRoutes {
     });
     
     if (!song) return;
-
+    
     if (!serverQueue) {
       const Constructor = {
         connection: null,
@@ -82,6 +82,10 @@ class CreateMusic extends MusicRoutes {
       
     } else {
       if (voiceChannel.id !== serverQueue.voiceChannel.id) return this.emit("notSameChannel", textChannel);
+      
+      if (serverQueue.songs.length > 500) {
+        return this.emit("queueReachLimit", textChannel, '500');
+      }
       
       serverQueue.songs.push(song);
       this.emit("trackAdded", song, textChannel);
@@ -173,8 +177,8 @@ class CreateMusic extends MusicRoutes {
     }
     
     
-      videos = await playlist.getVideos(100, {part: "snippet"});
-      let newSongs = [];  
+      videos = await playlist.getVideos(500, {part: "snippet"});
+      let newSongs = [];
     
       videos
       .filter((video) => video.title != "Private video" && video.title != "Deleted video")
@@ -205,6 +209,8 @@ class CreateMusic extends MusicRoutes {
     };   
       
       if (serverQueue) {
+        if (serverQueue.songs.length + newSongs.length > 100) return this.emit("queueReachLimit", textChannel, '500');
+        
         return serverQueue.songs.push(...newSongs);
       }
       
