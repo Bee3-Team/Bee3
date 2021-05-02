@@ -20,7 +20,7 @@ class MusicRoutes extends EventEmitter {
       
     }
       
-    this.dispatcher = queue.connection.play(ytdl(song.url, this.option.stream))
+    const dispatcher = queue.connection.play(ytdl(song.url, this.option.stream))
       .on("finish", () => {
       if (queue.loop) {
         let lastSong = queue.songs.shift();
@@ -37,7 +37,7 @@ class MusicRoutes extends EventEmitter {
       this.play(textChannel, id, queue.songs[0]);
     });
    
-    this.dispatcher.setVolumeLogarithmic(queue.volume / 100);
+    dispatcher.setVolumeLogarithmic(queue.volume / 100);
     
     if (textChannel) {
       textChannel.send(`Playing **${song.title}** 🎶`);
@@ -99,7 +99,47 @@ class MusicRoutes extends EventEmitter {
     
     let queue = this.queue.get(voiceChannel.guild.id);
     
-    if (!queue) 
+    if (!queue) {
+      if (textChannel) {
+        return textChannel.send('There is no songs.');
+      } else {
+        throw new TypeError("There is no songs.");
+      }
+    }
+    
+    await this.canModify(voiceChannel, textChannel);
+    
+    if (!value) {
+      if (textChannel) {
+        return textChannel.send('Please give volume value.' + ' - current volume: ' + queue.volume);
+      } else {
+        throw new TypeError('Please give volume value.' + ' - current volume: ' + queue.volume);
+      }      
+    }    
+    
+    if (isNaN(value)) {
+      if (textChannel) {
+        return textChannel.send('Please provide valid volume value.');
+      } else {
+        throw new TypeError("Please provide valid volume value.");
+      }      
+    }
+    
+    if (value < 1 || value > 100) {
+      if (textChannel) {
+        return textChannel.send('Please provide valid volume value between 1 - 100.');
+      } else {
+        throw new TypeError("Please provide valid volume value between 1 - 100");
+      }            
+    }
+    
+    queue.connection.dispatcher.setVolumeLogarithmic(value / 100);
+    queue.volume = value;
+    if (textChannel) {
+      return textChannel.send(`Music volume set to **${value}%**`);
+    } else {
+      return true;
+    }
   }
   
   async nowPlaying(id, textChannel = null) {
