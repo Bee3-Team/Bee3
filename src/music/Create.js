@@ -76,6 +76,8 @@ class CreateMusic extends MusicRoutes {
       }
       
     } else {
+      if (voiceChannel.id !== serverQueue.voiceChannel.id) return this.emit("notSameChannel", textChannel);
+      
       serverQueue.songs.push(song);
       this.emit("trackAdded", song, textChannel);
     }
@@ -237,13 +239,7 @@ class CreateMusic extends MusicRoutes {
         return false;
       }
       
-      if (voiceChannel.id !== voiceChannel.guild.me.voice.channel.id) {
-        if (textChannel) {
-          return textChannel.send("You cannot use this command.");
-        } else {
-          throw new TypeError("You cannot use this command.")
-        }
-      }
+      if (voiceChannel.id !== voiceChannel.guild.me.voice.channel.id)  return this.emit("notSameChannel", textChannel);
       
       return true;
       

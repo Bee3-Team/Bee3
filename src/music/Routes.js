@@ -142,6 +142,12 @@ class MusicRoutes extends EventEmitter {
     }
   }
   
+  async pauseResume(voiceChannel, id, textChannel = null) {
+    if (!voiceChannel) {
+      
+    }
+  }
+  
   async nowPlaying(id, textChannel = null) {
     
     let canModify;

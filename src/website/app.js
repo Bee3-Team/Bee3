@@ -535,6 +535,10 @@ module.exports = async client => {
     return res.status(200).send({succes: true, by: userR, voiceChannel: channelR, guild: guildR, volume: value});
   });
   
+  app.get("/player/pause-resume/:id", async (req, res) => {
+    
+  });
+  
   app.get("/musicplayer", checkAuth, async (req, res) => {
     const guildQ = req.query.g;
     if (!guildQ) return res.redirect("/");
