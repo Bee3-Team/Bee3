@@ -15,7 +15,7 @@
     
     <main id="main" role="main" class="container main">
 <div class="accordion" id="accordionExample">      
-  <% queue.tracks.map(cmd => { %>
+  <% queue.songs.map(cmd => { %>
   <div class="card" id="search-item">
     <div class="card-header" id="head-<%= cmd.url.replace(/\s/g, '').replace(/[^a-zA-Z ]/g, "") %>" data-toggle="collapse" data-target="#<%= cmd.url.replace(/\s/g, '').replace(/[^a-zA-Z ]/g, "") %>" aria-expanded="true" aria-controls="<%= cmd.url.replace(/\s/g, '').replace(/[^a-zA-Z ]/g, "") %>">
       <h2 class="mb-0" id="search-item-name"><a><%= cmd.title %></a></h2>
@@ -24,11 +24,11 @@
     <div id="<%= cmd.url.replace(/\s/g, '').replace(/[^a-zA-Z ]/g, "") %>" class="collapse" aria-labelledby="head-<%= cmd.url.replace(/\s/g, '').replace(/[^a-zA-Z ]/g, "") %>" data-parent="#accordionExample">
       <div class="card-body">
         <div class="card-sec-item">
-          <h5>Duration:</h5>
-          <pre><code><%= cmd.duration == "0:00" ? "Live" : cmd.duration || "Unknown" %></code></pre>
+          <h5><i class="fas fa-clock"></i> Duration:</h5>
+          <pre><code><%= cmd.duration == "0" ? "Live" : cmd.duration.toHHMMSS() || "Unknown" %></code></pre>
         </div>
         <div class="card-sec-item">
-          <h5>URL: <i class="fas fa-external-link-alt"></i></h5>
+          <h5><i class="fas fa-external-link-alt"></i> URL:</h5>
           <pre><code><a href="<%= cmd.url %>" target="_blank"><%= cmd.url %></a></code></pre>
         </div>
       </div>

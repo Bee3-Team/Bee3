@@ -352,7 +352,7 @@ module.exports = async client => {
     let findGuild = client.guilds.cache.get(guild_id);
     if (!findGuild) return res.redirect("/");
     
-    let serverQueue = client.music.music.getQueue({guild: {id: findGuild.id}})
+    let serverQueue = client.music.queue.get(findGuild.id)
     if (!serverQueue) return res.redirect("/");
     
     return res.render("queue.ejs", {
@@ -420,7 +420,28 @@ module.exports = async client => {
     
     client.music.handle(channelR, null, guildR.id, query);
     
-    return res.status(200).send({succes: true});
+    return res.status(200).send({succes: true, voiceChannel: channelR, guild: guildR, query: query});
+  });
+  
+  app.get("/player/stop/:id", async (req, res) => {
+    let guild = req.params.id;
+    let user = req.query.user;
+    if (!guild) return res.status(404).send({succes: false});
+    if (!user) return res.status(404).send({succes: false});    
+    
+    let userR, guildR, channelR;
+    guildR = await client.guilds.cache.get(guild);
+    if (!guildR) return res.status(404).send({succes: false});
+    
+    userR = await client.users.fetch(user);
+    if (!userR) return res.status(404).send({succes: false});
+    
+    channelR = guildR.members.cache.get(userR.id).voice.channel;
+    if (!channelR) return res.status(404).send({succes: false});
+    
+    client.music.stop(channelR, null);
+    
+    return res.status(200).send({succes: true, voiceChannel: channelR, guild: guildR});
   });
   
   app.get("/musicplayer", checkAuth, async (req, res) => {
