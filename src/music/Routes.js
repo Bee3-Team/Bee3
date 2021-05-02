@@ -15,6 +15,7 @@ class MusicRoutes extends EventEmitter {
       if (textChannel) {
         return this.emit("trackEnd", textChannel);
       } else {
+        console.log(queue.voiceChannel.guild.id)
         return this.emit("trackEndWeb", queue.voiceChannel);
       }
       
