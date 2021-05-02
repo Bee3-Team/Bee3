@@ -28,12 +28,12 @@ client.music.on("trackEnd", channel => {
 });
 
 client.music.on("trackEndWeb", async channel => {
-  let queue = this.queue.get(channel.guild.id);
+  let queue = client.music.queue.get(channel.guild.id);
 
   setTimeout(() => {
     queue.voiceChannel.leave();
-    this.queue.delete(channel.guild.id);
-  }, this.option.leaveOnEndDelay * 1000 || 1000);
+    client.music.queue.delete(channel.guild.id);
+  }, client.music.option.leaveOnEndDelay * 1000 || 1000);
 });
 
 client.music.on("trackAdded", async (track, channel) => {
