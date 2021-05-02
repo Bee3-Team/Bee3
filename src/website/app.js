@@ -399,6 +399,21 @@ module.exports = async client => {
 
   // music player
   
+  // music player api.
+  app.get("/player/play/:id", async (req, res) => {
+    let guild = req.params.id;
+    let user = req.query.user;
+    let query = req.query.query;
+    if (!guild) return res.redirect("/");
+    if (!user) return res.redirect("/");
+    if (!query) return res.redirect("/");
+    
+    let userR, guildR, channelR;
+    
+    userR = await client.users.fetch(user)
+    
+  });
+  
   app.get("/musicplayer", checkAuth, async (req, res) => {
     const guildQ = req.query.g;
     if (!guildQ) return res.redirect("/");
