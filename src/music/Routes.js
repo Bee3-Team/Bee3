@@ -94,6 +94,14 @@ class MusicRoutes extends EventEmitter {
     }
   }
   
+  async setVolume(voiceChannel, textChannel = false, value) {
+    let canModify;
+    
+    let queue = this.queue.get(voiceChannel.guild.id);
+    
+    if (!queue) 
+  }
+  
   async nowPlaying(id, textChannel = null) {
     
     let canModify;
