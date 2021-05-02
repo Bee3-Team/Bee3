@@ -419,7 +419,9 @@ module.exports = async client => {
     if (!channelR) return res.status(404).send({succes: false});
     
     try {
-      client.music.handle(channelR, null, guildR.id, query);
+      client.music.handle(channelR, null, guildR.id, query).catch(e => {
+        return res.send({succes: false, error: `${e.message}`});
+      })
     } catch (e) {
       return res.send({succes: false, error: `${e.message}`});
     }
@@ -444,7 +446,9 @@ module.exports = async client => {
     if (!channelR) return res.status(404).send({succes: false});
     
     try {
-      client.music.stop(channelR, null);
+      client.music.stop(channelR, null).catch(e => {
+        return res.send({succes: false, error: `${e.message}`});
+      })
     } catch (e) {
       return res.send({succes: false, error: `${e.message}`});
     }
@@ -464,7 +468,9 @@ module.exports = async client => {
     let nowPlaying;
     
     try {
-      nowPlaying = await client.music.nowPlaying(guildR.id, null);
+      nowPlaying = await client.music.nowPlaying(guildR.id, null).catch(e => {
+        return res.send({succes: false, error: `${e.message}`});
+      })
     } catch (e) {
       return res.send({succes: false, error: `${e.message}`});
     }
@@ -490,12 +496,43 @@ module.exports = async client => {
     if (!channelR) return res.status(404).send({succes: false});
     
     try {
-      client.music.skip(channelR, null);
+      client.music.skip(channelR, null).catch(e => {
+        return res.send({succes: false, error: `${e.message}`});
+      })
     } catch (e) {
       return res.send({succes: false, error: `${e.message}`});
     }
     
     return res.status(200).send({succes: true, by: userR, voiceChannel: channelR, guild: guildR});    
+  });
+  
+  app.get("/player/set-volume/:id", async (req, res) => {
+    let guild = req.params.id;
+    let user = req.query.user;
+    let value = req.query.value;
+    if (!guild) return res.status(404).send({succes: false});
+    if (!user) return res.status(404).send({succes: false});    
+    if (!value) return res.status(404).send({succes: false});
+    
+    let userR, guildR, channelR;
+    guildR = await client.guilds.cache.get(guild);
+    if (!guildR) return res.status(404).send({succes: false});
+    
+    userR = await client.users.fetch(user);
+    if (!userR) return res.status(404).send({succes: false});
+    
+    channelR = guildR.members.cache.get(userR.id).voice.channel;
+    if (!channelR) return res.status(404).send({succes: false});
+
+    try {
+      client.music.setVolume(channelR, null, value).catch(e => {
+        return res.send({succes: false, error: `${e.message}`});
+      })
+    } catch (e) {
+      return res.send({succes: false, error: `${e.message}`});
+    }
+    
+    return res.status(200).send({succes: true, by: userR, voiceChannel: channelR, guild: guildR, volume: value});
   });
   
   app.get("/musicplayer", checkAuth, async (req, res) => {
