@@ -161,7 +161,7 @@ class MusicRoutes extends EventEmitter {
     
     if (!queue) return this.emit("noQueue", textChannel);
     
-    canModify
+    await this.canModify(voiceChannel, textChannel);
   }
 
   async nowPlaying(id, textChannel = null) {
