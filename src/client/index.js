@@ -55,6 +55,14 @@ client.music.on("notSameChannel", async channel => {
   }  
 });
 
+client.music.on("noQueue", async channel => {
+  if (channel) {
+    return channel.send('There is no songs.');
+  } else {
+    throw new TypeError("There is no songs.");
+  }  
+});
+
 const Guild = require("../mongodb/schemas/Guild.js");
 
 // GLOBAL

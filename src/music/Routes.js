@@ -51,13 +51,7 @@ class MusicRoutes extends EventEmitter {
     
     let queue = this.queue.get(voiceChannel.guild.id);
     
-    if (!queue) {
-      if (textChannel) {
-        return textChannel.send('There is no songs.');
-      } else {
-        throw new TypeError("There is no songs.");
-      }
-    }
+    if (!queue) return this.emit("noQueue", textChannel);
     
     await this.canModify(voiceChannel, textChannel);
     
@@ -76,13 +70,7 @@ class MusicRoutes extends EventEmitter {
     
     let queue = this.queue.get(voiceChannel.guild.id);
     
-    if (!queue) {
-      if (textChannel) {
-        return textChannel.send('There is no songs.');
-      } else {
-        throw new TypeError("There is no songs.");
-      }
-    }
+    if (!queue) return this.emit("noQueue", textChannel);
     
     await this.canModify(voiceChannel, textChannel);   
     
@@ -99,13 +87,7 @@ class MusicRoutes extends EventEmitter {
     
     let queue = this.queue.get(voiceChannel.guild.id);
     
-    if (!queue) {
-      if (textChannel) {
-        return textChannel.send('There is no songs.');
-      } else {
-        throw new TypeError("There is no songs.");
-      }
-    }
+    if (!queue) return this.emit("noQueue", textChannel);
     
     await this.canModify(voiceChannel, textChannel);
     
@@ -143,9 +125,9 @@ class MusicRoutes extends EventEmitter {
   }
   
   async pauseResume(voiceChannel, id, textChannel = null) {
-    if (!voiceChannel) {
-      
-    }
+    let canModify;
+    
+    let queue = this.queue.get(id);
   }
   
   async nowPlaying(id, textChannel = null) {
@@ -154,13 +136,7 @@ class MusicRoutes extends EventEmitter {
     
     let queue = this.queue.get(id);
     
-    if (!queue) {
-      if (textChannel) {
-        return textChannel.send('There is no songs.');
-      } else {
-        throw new TypeError("There is no songs.");
-      }
-    }
+    if (!queue) return this.emit("noQueue", textChannel);
     
     if (textChannel) {
       return textChannel.send(`Now playing: **${queue.songs[0].title}** [\`${queue.songs[0].duration == 0 ? "Live" : queue.songs[0].duration.toHHMMSS()}\`]
@@ -180,13 +156,7 @@ to see songs, use \`queue\` command.`);
     
     let queue = this.queue.get(id);
     
-    if (!queue) {
-      if (textChannel) {
-        return textChannel.send('There is no songs.');
-      } else {
-        throw new TypeError("There is no songs.");
-      }
-    }
+    if (!queue) return this.emit("noQueue", textChannel);
     
     if (textChannel) {
       return textChannel.send(`https://beee.cf/queue?id=${id} - there have **${queue.songs.length}** songs.`)
