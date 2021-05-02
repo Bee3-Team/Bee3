@@ -37,6 +37,7 @@ class CreateMusic extends MusicRoutes {
     let song = null;
     
     if (!voiceChannel) return this.emit("noChannel", textChannel);
+    if (voiceChannel.id !== voiceChannel.guild.me.voice.channel.id) return this.emit("noSameChannel", textChannel);
     
     song = await this.VideoPlaylist(voiceChannel, textChannel, id, query).catch(e => {
       textChannel ? textChannel.send(e.message.toString()) : new TypeError(e.message);
@@ -86,7 +87,7 @@ class CreateMusic extends MusicRoutes {
   }
 
   async VideoPlaylist(voiceChannel, textChannel, id, query) {
-    if (!query) throw new TypeError("Need a query to search song/playlist.")
+    if (!query) throw new TypeError("Need a query to search song/playlist.")    
     
     let song, isVideoURL, isPlaylistURL;
     
@@ -137,6 +138,9 @@ class CreateMusic extends MusicRoutes {
   
   async handlePlaylist(voiceChannel, textChannel, id, query) {
     let isPlaylist, playlist = null, videos = [], serverQueue, playlistVideos = [];
+    
+    if (!voiceChannel) return this.emit("noChannel", textChannel);
+    if (voiceChannel.id !== voiceChannel.guild.me.voice.channel.id) return this.emit("noSameChannel", textChannel);    
     
     serverQueue = this.queue.get(id);
     
