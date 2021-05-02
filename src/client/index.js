@@ -124,6 +124,7 @@ client.Guild.Create = async function a(message, id = false) {
     return newData;
   }
 };
+
 client.Guild.Find = async function b(id) {
   let find = await client.Guild.findOne({
     ID: id.toString
