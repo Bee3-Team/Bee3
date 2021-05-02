@@ -49,6 +49,11 @@ class MusicRoutes extends EventEmitter {
   async stop(voiceChannel, textChannel = false) {
     let canModify;
     
+    if (!voiceChannel) return this.emit("noChannel", textChannel);
+    if (voiceChannel.guild.me.voice.channel) {
+      if (voiceChannel.id !== voiceChannel.guild.me.voice.channel.id) return this.emit("noSameChannel", textChannel);      
+    }
+    
     let queue = this.queue.get(voiceChannel.guild.id);
     
     if (!queue) return this.emit("noQueue", textChannel);
@@ -68,6 +73,11 @@ class MusicRoutes extends EventEmitter {
   async skip(voiceChannel, textChannel = false) {
     let canModify;
     
+    if (!voiceChannel) return this.emit("noChannel", textChannel);
+    if (voiceChannel.guild.me.voice.channel) {
+      if (voiceChannel.id !== voiceChannel.guild.me.voice.channel.id) return this.emit("noSameChannel", textChannel);      
+    }
+    
     let queue = this.queue.get(voiceChannel.guild.id);
     
     if (!queue) return this.emit("noQueue", textChannel);
@@ -84,6 +94,11 @@ class MusicRoutes extends EventEmitter {
   
   async setVolume(voiceChannel, textChannel = false, value) {
     let canModify;
+    
+    if (!voiceChannel) return this.emit("noChannel", textChannel);
+    if (voiceChannel.guild.me.voice.channel) {
+      if (voiceChannel.id !== voiceChannel.guild.me.voice.channel.id) return this.emit("noSameChannel", textChannel);      
+    } 
     
     let queue = this.queue.get(voiceChannel.guild.id);
     
@@ -126,6 +141,11 @@ class MusicRoutes extends EventEmitter {
   
   async pauseResume(voiceChannel, id, textChannel = null) {
     let canModify;
+    
+    if (!voiceChannel) return this.emit("noChannel", textChannel);
+    if (voiceChannel.guild.me.voice.channel) {
+      if (voiceChannel.id !== voiceChannel.guild.me.voice.channel.id) return this.emit("noSameChannel", textChannel);      
+    }
     
     let queue = this.queue.get(id);
   }

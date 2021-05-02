@@ -37,7 +37,9 @@ class CreateMusic extends MusicRoutes {
     let song = null;
     
     if (!voiceChannel) return this.emit("noChannel", textChannel);
-    if (voiceChannel.id !== voiceChannel.guild.me.voice.channel.id) return this.emit("noSameChannel", textChannel);
+    if (voiceChannel.guild.me.voice.channel) {
+      if (voiceChannel.id !== voiceChannel.guild.me.voice.channel.id) return this.emit("noSameChannel", textChannel);      
+    }
     
     song = await this.VideoPlaylist(voiceChannel, textChannel, id, query).catch(e => {
       textChannel ? textChannel.send(e.message.toString()) : new TypeError(e.message);
@@ -140,7 +142,9 @@ class CreateMusic extends MusicRoutes {
     let isPlaylist, playlist = null, videos = [], serverQueue, playlistVideos = [];
     
     if (!voiceChannel) return this.emit("noChannel", textChannel);
-    if (voiceChannel.id !== voiceChannel.guild.me.voice.channel.id) return this.emit("noSameChannel", textChannel);    
+    if (voiceChannel.guild.me.voice.channel) {
+      if (voiceChannel.id !== voiceChannel.guild.me.voice.channel.id) return this.emit("noSameChannel", textChannel);      
+    } 
     
     serverQueue = this.queue.get(id);
     
