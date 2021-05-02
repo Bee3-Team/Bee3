@@ -83,7 +83,9 @@ class CreateMusic extends MusicRoutes {
     } else {
       if (voiceChannel.id !== serverQueue.voiceChannel.id) return this.emit("notSameChannel", textChannel);
       
-      if (serverQueue.songs.length > 500) {
+      console.log(serverQueue.songs.length);
+      
+      if (parseInt(serverQueue.songs.length) >= 100) {
         return this.emit("queueReachLimit", textChannel, '500');
       }
       
@@ -195,8 +197,14 @@ class CreateMusic extends MusicRoutes {
     
     
     setTimeout(async () => {
-    
-      this.emit("playlistAdded", playlist, textChannel);
+
+      if (serverQueue) {
+        let currentSongsSize = parseInt(serverQueue.songs.length) + parseInt(newSongs.length);
+        console.log(currentSongsSize)
+        if (currentSongsSize >= 100) return this.emit("queueReachLimit", textChannel, '500');
+        
+        return serverQueue.songs.push(...newSongs);
+      }
       
     let Constructor = {
       connection: null,
@@ -208,12 +216,7 @@ class CreateMusic extends MusicRoutes {
       textChannel
     };   
       
-      if (serverQueue) {
-        if (serverQueue.songs.length + newSongs.length > 100) return this.emit("queueReachLimit", textChannel, '500');
-        
-        return serverQueue.songs.push(...newSongs);
-      }
-      
+       
   
     if (!serverQueue) {
       this.queue.set(id, Constructor);
@@ -225,11 +228,11 @@ class CreateMusic extends MusicRoutes {
         if (this.option.autoSelfDeaf) {
           await queue.connection.voice.setSelfDeaf(true);
         }
-        
+
         this.play(textChannel, id, Constructor.songs[0]);
       } catch (e) {
         this.queue.delete(id);
-        if (textChannel) {
+        if (textChannel) { 
           textChannel.send(`Error: ${e.message}`);
         } else {
           throw new TypeError(`Error: ${e.message}`)
