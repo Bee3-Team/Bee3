@@ -9,4 +9,4 @@ module.exports = {
   leaveOnEmpty: true,
   leaveOnEmptyCooldown: 30,
   autoSelfDeaf: true
-}
+} 

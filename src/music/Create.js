@@ -36,6 +36,8 @@ class CreateMusic extends MusicRoutes {
 
     let song = null;
     
+    if (!voiceChannel) return this.emit("noChannel", textChannel);
+    
     song = await this.VideoPlaylist(voiceChannel, textChannel, id, query).catch(e => {
       textChannel ? textChannel.send(e.message.toString()) : new TypeError(e.message);
       return;
@@ -225,13 +227,7 @@ class CreateMusic extends MusicRoutes {
   }
 
   async canModify(voiceChannel, textChannel = null) {
-    if (!voiceChannel) {
-      if (textChannel) {
-        return textChannel.send(`Please join a voice channel.`);
-      } else {
-        throw new TypeError("Please join a voice channel.");
-      }
-    }
+    if (!voiceChannel) return this.emit("noChannel", textChannel)
     
     try {
       

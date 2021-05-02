@@ -63,6 +63,14 @@ client.music.on("noQueue", async channel => {
   }  
 });
 
+client.music.on("noChannel", async channel => {
+  if (channel) {
+    return channel.send('Please join voice channel.');
+  } else {
+    throw new TypeError("Please join voice channel.");
+  }   
+});
+
 const Guild = require("../mongodb/schemas/Guild.js");
 
 // GLOBAL
