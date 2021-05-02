@@ -45,7 +45,15 @@ client.music.on("playlistAdded", async (playlist, channel) => {
   if (!channel) return true;
   
   channel.send(`Queued **${playlist.title}** songs.`);
-})
+});
+
+client.music.on("notSameChannel", async channel => {
+  if (channel) {
+    return channel.send("You cannot use this command.");
+  } else {
+    throw new TypeError("You cannot use this command.")
+  }  
+});
 
 const Guild = require("../mongodb/schemas/Guild.js");
 
