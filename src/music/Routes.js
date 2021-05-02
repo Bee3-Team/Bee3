@@ -158,6 +158,10 @@ class MusicRoutes extends EventEmitter {
     }
 
     let queue = this.queue.get(id);
+    
+    if (!queue) return this.emit("noQueue", textChannel);
+    
+    canModify
   }
 
   async nowPlaying(id, textChannel = null) {
