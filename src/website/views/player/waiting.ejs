@@ -53,12 +53,19 @@
 
     <script>
       var socket = io();
+      
+      <% setInterval(() => { %>
+      <% if (guild.members.cache.get(req.user.id)) { %>
+      window.location.href = "/musicplayer?g=<%= guild.id %>";
+      <% } %>
+      <% }, 5000) %>
+      
 
       socket.on('voiceUpdate', function(user) {
         if (user !== <%= req.user.id.toString() %>) return;
-        
-        location.href = "/musicplayer?g=<%= guild.id %>";
+
       });
+
 //       
 $(document).ready(function() {
 	$('a#go').click( function(event){
