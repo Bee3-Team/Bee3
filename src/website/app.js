@@ -565,7 +565,7 @@ module.exports = async client => {
       return res.send({succes: false, error: `${e.message}`})
     }
     
-    return res.send({succes: true, by: userR, voiceChannel: channelR, guild: guildR, playing: playing})
+    return res.send({succes: true, by: userR, voiceChannel: channelR, guild: guildR, playing: !playing})
   });
   
   app.get("/musicplayer", checkAuth, async (req, res) => {
