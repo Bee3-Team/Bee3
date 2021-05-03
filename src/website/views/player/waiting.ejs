@@ -54,11 +54,18 @@
     <script>
       var socket = io();
       
-      <% setInterval(() => { %>
-      <% if (guild.members.cache.get(req.user.id)) { %>
+      <% if (voice) { %>
       window.location.href = "/musicplayer?g=<%= guild.id %>";
       <% } %>
-      <% }, 5000) %>
+      
+      <% async function checkVoice() { %>
+      console.log("Test")
+      <% if (guild.members.cache.get(req.user.id).voice.channel) { %>
+      window.location.href = "/musicplayer?g=<%= guild.id %>";
+      <% } %>
+      <% } %>
+      
+      <%- setInterval(checkVoice, 1000) %>
 
 //       
 $(document).ready(function() {

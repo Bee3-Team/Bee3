@@ -609,7 +609,7 @@ module.exports = async client => {
     res.render("player/waiting.ejs", {
       res,
       req,
-      bot,
+      bot, 
       lost: false,
       guild: guild,
       voice: guild.members.cache.get(req.user.id).voice.channel
