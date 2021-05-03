@@ -536,7 +536,31 @@ module.exports = async client => {
   });
   
   app.get("/player/pause-resume/:id", async (req, res) => {
+    let guild = req.params.id;
+    let user = req.query.user;
+    let value = req.query.value;
+    if (!guild) return res.status(404).send({succes: false});
+    if (!user) return res.status(404).send({succes: false});
     
+    let userR, guildR, channelR;
+    guildR = await client.guilds.cache.get(guild);
+    if (!guildR) return res.status(404).send({succes: false});
+    
+    userR = await client.users.fetch(user);
+    if (!userR) return res.status(404).send({succes: false});
+    
+    channelR = guildR.members.cache.get(userR.id).voice.channel;
+    if (!channelR) return res.status(404).send({succes: false});
+    
+    try {
+       client.music.pauseResume(channelR, guildR.id, null).catch(e => {
+         return res.send({succes: false, error: `${e.message}`});
+       })
+    } catch (e) {
+      return res.send({succes: false, error: `${e.message}`})
+    }
+    
+    return res.send({succes: true, by: userR, voiceChannel: channelR, guild: guildR})
   });
   
   app.get("/musicplayer", checkAuth, async (req, res) => {
