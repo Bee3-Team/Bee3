@@ -576,7 +576,7 @@ module.exports = async client => {
     if (!guild) return res.redirect("/");
     
     let voiceChannel = guild.members.cache.get(req.user.id);
-    if (!voiceChannel) return res.reidrect("/musicplayer/novoice")
+    if (!voiceChannel) return res.redirect("/musicplayer/novoice");
     
     let status;
     
@@ -599,7 +599,19 @@ module.exports = async client => {
   });
   
   app.get("/musicplayer/novoice", checkAuth, async (req, res) => {
+    const guildQ = req.query.g;
+    if (!guildQ) return res.redirect("/");
     
+    let guild = client.guilds.cache.get(guildQ);
+    if (!guild) return res.redirect("/");
+    
+    res.render("player/waiting.ejs", {
+      res,
+      req,
+      bot,
+      lost: false,
+      guild: guild
+    })
   });
   
   // music player end
