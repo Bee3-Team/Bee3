@@ -83,12 +83,6 @@ class CreateMusic extends MusicRoutes {
     } else {
       if (voiceChannel.id !== serverQueue.voiceChannel.id) return this.emit("notSameChannel", textChannel);
       
-      console.log(serverQueue.songs.length);
-      
-      if (parseInt(serverQueue.songs.length) >= 100) {
-        return this.emit("queueReachLimit", textChannel, '500');
-      }
-      
       serverQueue.songs.push(song);
       this.emit("trackAdded", song, textChannel);
     }
@@ -199,12 +193,6 @@ class CreateMusic extends MusicRoutes {
     setTimeout(async () => {
 
       if (serverQueue) {
-        let currentSongsSize = parseInt(serverQueue.songs.length) + parseInt(newSongs.length);
-        console.log(currentSongsSize)
-        console.log(serverQueue.songs.length);
-        console.log(parseInt(newSongs.length))
-        if (currentSongsSize >= 100) return this.emit("queueReachLimit", textChannel, '500');
-        
         return serverQueue.songs.push(...newSongs);
       }
       
