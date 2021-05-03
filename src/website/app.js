@@ -538,7 +538,6 @@ module.exports = async client => {
   app.get("/player/pause-resume/:id", async (req, res) => {
     let guild = req.params.id;
     let user = req.query.user;
-    let value = req.query.value;
     if (!guild) return res.status(404).send({succes: false});
     if (!user) return res.status(404).send({succes: false});
     
@@ -554,7 +553,9 @@ module.exports = async client => {
     
     let playing;
     
-    playing = client.music.queue.get(guildR).playing;
+    if (!client.music.queue.get(guildR.id)) return this.emit("noQueue")
+    
+    playing = client.music.queue.get(guildR.id).playing;
     
     try {
        client.music.pauseResume(channelR, guildR.id, null).catch(e => {
