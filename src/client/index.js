@@ -20,20 +20,17 @@ require("../website/app.js")(client);
 client.music.on("trackEnd", channel => {
   let queue = client.music.queue.get(channel.guild.id);
 
-  client.music.queue.delete(channel.guild.id);
   channel.send("Queue ended.");
-  setTimeout(() => {
-    queue.voiceChannel.leave();
-  }, client.music.option.leaveOnEndDelay * 1000 || 1000);
+  
+  queue.voiceChannel.leave();
+  client.music.queue.delete(channel.guild.id);
 });
 
 client.music.on("trackEndWeb", async channel => {
   let queue = client.music.queue.get(channel.guild.id);
 
-  setTimeout(() => {
-    queue.voiceChannel.leave();
-    client.music.queue.delete(channel.guild.id);
-  }, client.music.option.leaveOnEndDelay * 1000 || 1000);
+  queue.voiceChannel.leave();
+  client.music.queue.delete(channel.guild.id);
 });
 
 client.music.on("trackAdded", async (track, channel) => {
