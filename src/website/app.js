@@ -575,6 +575,9 @@ module.exports = async client => {
     let guild = client.guilds.cache.get(guildQ);
     if (!guild) return res.redirect("/");
     
+    let voiceChannel = guild.members.cache.get(req.user.id);
+    if (!voiceChannel) return res.reidrect("/musicplayer/novoice")
+    
     let status;
     
     let queue = client.music.music.getQueue({guild: {id: guild.id}});
@@ -593,6 +596,10 @@ module.exports = async client => {
       guild: guild, 
       queue
     })
+  });
+  
+  app.get("/musicplayer/novoice", checkAuth, async (req, res) => {
+    
   });
   
   // music player end
