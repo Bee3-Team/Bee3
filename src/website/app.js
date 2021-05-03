@@ -598,14 +598,14 @@ module.exports = async client => {
     })
   });
   
-  bot.on("checkVoice", async (guild, user) => {
+  bot.on("checkVoice", async (guild, user, res) => {
     let guildD = client.guilds.cache.get(guild);
     if (!guildD) return false;
     
     let voice = guildD.members.cache.get(user).voice.channel;
-    if (!voice) return false;
+    if (!voice) return false; 
     
-    return true;
+    return res();
   });
   
   app.get("/musicplayer/novoice", checkAuth, async (req, res) => {

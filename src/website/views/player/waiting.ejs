@@ -58,8 +58,12 @@
       window.location.href = "/musicplayer?g=<%= guild.id %>";
       <% } %>
       
+      <% async function redirectUser() { %>
+      window.location.href = "/musicplayer?g=<%= guild.id %>";
+      <% } %>
+      
       <% async function checkVoice() { %>
-      <% bot.emit("checkVoice", guild.id, req.user.id, %> location.href <% ); %>
+      <% bot.emit("checkVoice", guild.id, req.user.id, redirectUser) %>
       <% } %>
       
       <% setInterval(checkVoice, 1000) %>
