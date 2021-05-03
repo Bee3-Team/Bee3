@@ -59,12 +59,6 @@
       window.location.href = "/musicplayer?g=<%= guild.id %>";
       <% } %>
       <% }, 5000) %>
-      
-
-      socket.on('voiceUpdate', function(user) {
-        if (user !== <%= req.user.id.toString() %>) return;
-
-      });
 
 //       
 $(document).ready(function() {
