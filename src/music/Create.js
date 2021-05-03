@@ -173,7 +173,7 @@ class CreateMusic extends MusicRoutes {
     }
     
     
-      videos = await playlist.getVideos(500, {part: "snippet"});
+      videos = await playlist.getVideos(100, {part: "snippet"});
       let newSongs = [];
     
       videos
