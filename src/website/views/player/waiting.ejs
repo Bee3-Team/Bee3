@@ -59,13 +59,10 @@
       <% } %>
       
       <% async function checkVoice() { %>
-      console.log("Test")
-      <% if (guild.members.cache.get(req.user.id).voice.channel) { %>
-      window.location.href = "/musicplayer?g=<%= guild.id %>";
-      <% } %>
+      <% bot.emit("checkVoice", guild.id, req.user.id, %> location.href <% ); %>
       <% } %>
       
-      <%- setInterval(checkVoice, 1000) %>
+      <% setInterval(checkVoice, 1000) %>
 
 //       
 $(document).ready(function() {
