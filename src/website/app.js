@@ -580,7 +580,7 @@ module.exports = async client => {
     
     let status;
     
-    let queue = client.music.music.getQueue({guild: {id: guild.id}});
+    let queue = client.music.queue.get(guild.id);
     if (!queue) {
       status = false;
     } else if (queue) {
@@ -610,7 +610,8 @@ module.exports = async client => {
       req,
       bot,
       lost: false,
-      guild: guild
+      guild: guild,
+      voice: guild.members.cache.get(req.user.id).voice.channel
     })
   });
   

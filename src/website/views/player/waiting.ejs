@@ -52,6 +52,18 @@
     <script src="/socket.io/socket.io.js"></script>
 
     <script>
+      setInterval(() => {
+        let voice_ = null;
+            
+            if (voice) {
+              voice_ = true
+            }
+            
+        if (voice_) {
+          location.href = "/musicplayer?g=<%= guild.id %>";
+        }
+      }, 5000)
+      
       var socket = io();
 
       socket.on('easterEgg', function(msg) {
