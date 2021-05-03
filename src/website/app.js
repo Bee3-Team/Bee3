@@ -653,11 +653,11 @@ io.on('connection', (socket) => {
   client.socket = socket;
 	
   socket.on("voiceUpdate", user => {
-    io.sockets.emit("voiceUpdate", user);
+    io.emit("voiceUpdate", user);
   });
-  
-  module.exports = {socket};
 });
+  
+module.exports = {io}
   
 http.listen(process.env.PORT, () => {
   console.log(`[WEBSITE] the bot web was running!`);

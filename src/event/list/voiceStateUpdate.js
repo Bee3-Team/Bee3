@@ -1,13 +1,15 @@
-const { socket } = require("..")
+const { io } = require("../../website/app.js");
 
 module.exports = {
   name: "voiceStateUpdate",
   execute: async (oldVoice, newVoice, client) => {
     
+    console.log(newVoice.member.id);
+    
     let waiting_ = client.waiting.get(newVoice.member.id);
     
     if (waiting_) {
-      client.socket.emit("voiceUpdate", newVoice.member.id);
+      io.emit("voiceUpdate", newVoice.member.id);
     }
     
   }
