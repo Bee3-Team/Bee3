@@ -602,6 +602,7 @@ module.exports = async client => {
     const guildQ = req.query.g;
     if (!guildQ) return res.redirect("/");
     
+    client.waiting.set(req.user.id, true);
     let guild = client.guilds.cache.get(guildQ);
     if (!guild) return res.redirect("/");
     
@@ -649,26 +650,14 @@ module.exports = async client => {
 //listen on every connection
 io.on('connection', (socket) => {
 
-	//default username
-	socket.username = "Anonymous"
-	socket.emit("new_message", {message: `Welcome ${socket.username}`, username: "Bot"})
-
-    //listen on change_username
-    socket.on('change_username', (data) => {
-        socket.username = data.username
-    })
-
-    //listen on new_message
-    socket.on('new_message', (data) => {
-        //broadcast the new message
-        io.sockets.emit('new_message', {message : data.message, username : socket.username});
-    })
-
-    //listen on typing
-    socket.on('typing', (data) => {
-    	socket.broadcast.emit('typing', {username : socket.username})
-    })
-})
+  client.socket = socket;
+	
+  socket.on("voiceUpdate", user => {
+    io.sockets.emit("voiceUpdate", user);
+  });
+  
+  module.exports = {socket};
+});
   
 http.listen(process.env.PORT, () => {
   console.log(`[WEBSITE] the bot web was running!`);

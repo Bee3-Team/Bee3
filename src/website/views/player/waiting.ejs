@@ -52,24 +52,13 @@
     <script src="/socket.io/socket.io.js"></script>
 
     <script>
-      setInterval(() => {
-        let voice_ = null;
-            
-            if (voice) {
-              voice_ = true
-            }
-            
-        if (voice_) {
-          location.href = "/musicplayer?g=<%= guild.id %>";
-        }
-      }, 5000)
-      
       var socket = io();
 
-      socket.on('easterEgg', function(msg) {
-        document.getElementById("h1").innerHTML = msg;
-      });    
-      
+      socket.on('voiceUpdate', function(user) {
+        if (user !== <%= req.user.id.toString() %>) return;
+        
+        location.href = "/musicplayer?g=<%= guild.id %>";
+      });
 //       
 $(document).ready(function() {
 	$('a#go').click( function(event){

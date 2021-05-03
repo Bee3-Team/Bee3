@@ -6,6 +6,7 @@ const config = require("../other/config.js");
 
 client.login(config.token);
 client.config = config;
+client.waiting = new Map();
 
 const Music = require("../music/Create.js");
 const MusicConfig = require("../music/Config.js");
