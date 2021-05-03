@@ -552,6 +552,10 @@ module.exports = async client => {
     channelR = guildR.members.cache.get(userR.id).voice.channel;
     if (!channelR) return res.status(404).send({succes: false});
     
+    let playing;
+    
+    playing = client.music.queue.get(guildR).playing;
+    
     try {
        client.music.pauseResume(channelR, guildR.id, null).catch(e => {
          return res.send({succes: false, error: `${e.message}`});
@@ -560,7 +564,7 @@ module.exports = async client => {
       return res.send({succes: false, error: `${e.message}`})
     }
     
-    return res.send({succes: true, by: userR, voiceChannel: channelR, guild: guildR})
+    return res.send({succes: true, by: userR, voiceChannel: channelR, guild: guildR, playing: playing})
   });
   
   app.get("/musicplayer", checkAuth, async (req, res) => {
