@@ -47,7 +47,19 @@
     <span class='side-panel-toggle'>
       <i class="fa fa-bars"></i>
     </span>
-    
+    <div class="automods">
+      <div class="row">
+        <div class="automod">
+          <div class="automod-titles">
+            <h5 class="automod-title">Anti link</h5>
+            <label class="switch >">
+              <input class="<%= cmd.cmd.name === "help" ? "disabled" : "" %>" type="checkbox" name="<%= cmd.cmd.name %>" checked="checked" onclick="return false;">
+              <span class="slider round <%= cmd.cmd.name === "help" ? "disabled" : "" %>"></span>
+            </label>                        
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
     </main>
