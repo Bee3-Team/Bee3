@@ -24,7 +24,7 @@
           %>
           <br>
             <input id="search-query" class="search-input" type="text" placeholder="search YouTube" required>
-            <button onclick="onclickPlay(<%= guild.id %>, <%= req.user.id %>, document.getElementById('search-query').value)" class="btn btn-danger search-btn">Go! <i class="fa fa-youtube"></i></button>
+            <button onclick="onclickPlay(<%= guild.id.toString() %>, <%= req.user.id.toString() %>, document.getElementById('search-query').value)" class="btn btn-danger search-btn">Go! <i class="fa fa-youtube"></i></button>
         </form>
         <form id="result">
           <ul class="results">
