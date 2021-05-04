@@ -78,7 +78,7 @@ module.exports = async client => {
     passport.authenticate("discord", { failureRedirect: "/" }),
     function(req, res, next) {
       return res.redirect("/account/server-list");
-    } // auth success
+    } // auth successs
   );
   app.get("/logout", function(req, res) {
     req.logout();
@@ -404,152 +404,152 @@ module.exports = async client => {
     let guild = req.params.id;
     let user = req.query.user;
     let query = req.query.query;
-    if (!guild) return res.status(404).send({succes: false});
-    if (!user) return res.status(404).send({succes: false});
-    if (!query) return res.status(404).send({succes: false});
+    if (!guild) return res.status(404).send({success: false});
+    if (!user) return res.status(404).send({success: false});
+    if (!query) return res.status(404).send({success: false});
     
     let userR, guildR, channelR;
     guildR = await client.guilds.cache.get(guild);
-    if (!guildR) return res.status(404).send({succes: false});
+    if (!guildR) return res.status(404).send({success: false});
     
     userR = await client.users.fetch(user);
-    if (!userR) return res.status(404).send({succes: false});
+    if (!userR) return res.status(404).send({success: false});
     
     channelR = guildR.members.cache.get(userR.id).voice.channel;
-    if (!channelR) return res.status(404).send({succes: false});
+    if (!channelR) return res.status(404).send({success: false});
     
     try {
       client.music.handle(channelR, null, guildR.id, query).catch(e => {
-        return res.send({succes: false, error: `${e.message}`});
+        return res.send({success: false, error: `${e.message}`});
       })
     } catch (e) {
-      return res.send({succes: false, error: `${e.message}`});
+      return res.send({success: false, error: `${e.message}`});
     }
     
-    return res.status(200).send({succes: true, voiceChannel: channelR, guild: guildR, query: query});
+    return res.status(200).send({success: true, voiceChannel: channelR, guild: guildR, query: query});
   });
   
   app.get("/player/stop/:id", async (req, res) => {
     let guild = req.params.id;
     let user = req.query.user;
-    if (!guild) return res.status(404).send({succes: false});
-    if (!user) return res.status(404).send({succes: false});    
+    if (!guild) return res.status(404).send({success: false});
+    if (!user) return res.status(404).send({success: false});    
     
     let userR, guildR, channelR;
     guildR = await client.guilds.cache.get(guild);
-    if (!guildR) return res.status(404).send({succes: false});
+    if (!guildR) return res.status(404).send({success: false});
     
     userR = await client.users.fetch(user);
-    if (!userR) return res.status(404).send({succes: false});
+    if (!userR) return res.status(404).send({success: false});
     
     channelR = guildR.members.cache.get(userR.id).voice.channel;
-    if (!channelR) return res.status(404).send({succes: false});
+    if (!channelR) return res.status(404).send({success: false});
     
     try {
       client.music.stop(channelR, null).catch(e => {
-        return res.send({succes: false, error: `${e.message}`});
+        return res.send({success: false, error: `${e.message}`});
       })
     } catch (e) {
-      return res.send({succes: false, error: `${e.message}`});
+      return res.send({success: false, error: `${e.message}`});
     }
     
-    return res.status(200).send({succes: true, by: userR, voiceChannel: channelR, guild: guildR});
+    return res.status(200).send({success: true, by: userR, voiceChannel: channelR, guild: guildR});
   });
   
   app.get("/player/now-playing/:id", async (req, res) => {
     let guild = req.params.id;
     let user = req.query.user;
-    if (!guild) return res.status(404).send({succes: false});
+    if (!guild) return res.status(404).send({success: false});
     
     let userR, guildR, channelR;
     guildR = await client.guilds.cache.get(guild);
-    if (!guildR) return res.status(404).send({succes: false});
+    if (!guildR) return res.status(404).send({success: false});
     
     let nowPlaying;
     
     try {
       nowPlaying = await client.music.nowPlaying(guildR.id, null).catch(e => {
-        return res.send({succes: false, error: `${e.message}`});
+        return res.send({success: false, error: `${e.message}`});
       })
     } catch (e) {
-      return res.send({succes: false, error: `${e.message}`});
+      return res.send({success: false, error: `${e.message}`});
     }
     
-    return res.status(200).send({succes: true, song: {title: nowPlaying.title, url: nowPlaying.url, duration: nowPlaying.duration}});
+    return res.status(200).send({success: true, song: {title: nowPlaying.title, url: nowPlaying.url, duration: nowPlaying.duration}});
     
   });
   
   app.get("/player/skip/:id", async (req, res) => {
     let guild = req.params.id;
     let user = req.query.user;
-    if (!guild) return res.status(404).send({succes: false});
-    if (!user) return res.status(404).send({succes: false});    
+    if (!guild) return res.status(404).send({success: false});
+    if (!user) return res.status(404).send({success: false});    
     
     let userR, guildR, channelR;
     guildR = await client.guilds.cache.get(guild);
-    if (!guildR) return res.status(404).send({succes: false});
+    if (!guildR) return res.status(404).send({success: false});
     
     userR = await client.users.fetch(user);
-    if (!userR) return res.status(404).send({succes: false});
+    if (!userR) return res.status(404).send({success: false});
     
     channelR = guildR.members.cache.get(userR.id).voice.channel;
-    if (!channelR) return res.status(404).send({succes: false});
+    if (!channelR) return res.status(404).send({success: false});
     
     try {
       client.music.skip(channelR, null).catch(e => {
-        return res.send({succes: false, error: `${e.message}`});
+        return res.send({success: false, error: `${e.message}`});
       })
     } catch (e) {
-      return res.send({succes: false, error: `${e.message}`});
+      return res.send({success: false, error: `${e.message}`});
     }
     
-    return res.status(200).send({succes: true, by: userR, voiceChannel: channelR, guild: guildR});    
+    return res.status(200).send({success: true, by: userR, voiceChannel: channelR, guild: guildR});    
   });
   
   app.get("/player/set-volume/:id", async (req, res) => {
     let guild = req.params.id;
     let user = req.query.user;
     let value = req.query.value;
-    if (!guild) return res.status(404).send({succes: false});
-    if (!user) return res.status(404).send({succes: false});    
-    if (!value) return res.status(404).send({succes: false});
+    if (!guild) return res.status(404).send({success: false});
+    if (!user) return res.status(404).send({success: false});    
+    if (!value) return res.status(404).send({success: false});
     
     let userR, guildR, channelR;
     guildR = await client.guilds.cache.get(guild);
-    if (!guildR) return res.status(404).send({succes: false});
+    if (!guildR) return res.status(404).send({success: false});
     
     userR = await client.users.fetch(user);
-    if (!userR) return res.status(404).send({succes: false});
+    if (!userR) return res.status(404).send({success: false});
     
     channelR = guildR.members.cache.get(userR.id).voice.channel;
-    if (!channelR) return res.status(404).send({succes: false});
+    if (!channelR) return res.status(404).send({success: false});
 
     try {
       client.music.setVolume(channelR, null, value).catch(e => {
-        return res.send({succes: false, error: `${e.message}`});
+        return res.send({success: false, error: `${e.message}`});
       })
     } catch (e) {
-      return res.send({succes: false, error: `${e.message}`});
+      return res.send({success: false, error: `${e.message}`});
     }
     
-    return res.status(200).send({succes: true, by: userR, voiceChannel: channelR, guild: guildR, volume: value});
+    return res.status(200).send({success: true, by: userR, voiceChannel: channelR, guild: guildR, volume: value});
   });
   
   app.get("/player/pause-resume/:id", async (req, res) => {
     let guild = req.params.id;
     let user = req.query.user;
-    if (!guild) return res.status(404).send({succes: false});
-    if (!user) return res.status(404).send({succes: false});
+    if (!guild) return res.status(404).send({success: false});
+    if (!user) return res.status(404).send({success: false});
     
     let userR, guildR, channelR;
     guildR = await client.guilds.cache.get(guild);
-    if (!guildR) return res.status(404).send({succes: false});
+    if (!guildR) return res.status(404).send({success: false});
     
     userR = await client.users.fetch(user);
-    if (!userR) return res.status(404).send({succes: false});
+    if (!userR) return res.status(404).send({success: false});
     
     channelR = guildR.members.cache.get(userR.id).voice.channel;
-    if (!channelR) return res.status(404).send({succes: false});
+    if (!channelR) return res.status(404).send({success: false});
     
     let playing;
     
@@ -559,13 +559,13 @@ module.exports = async client => {
     
     try {
        client.music.pauseResume(channelR, guildR.id, null).catch(e => {
-         return res.send({succes: false, error: `${e.message}`});
+         return res.send({success: false, error: `${e.message}`});
        })
     } catch (e) {
-      return res.send({succes: false, error: `${e.message}`})
+      return res.send({success: false, error: `${e.message}`})
     }
     
-    return res.send({succes: true, by: userR, voiceChannel: channelR, guild: guildR, playing: !playing})
+    return res.send({success: true, by: userR, voiceChannel: channelR, guild: guildR, playing: !playing})
   });
   
   app.get("/musicplayer", checkAuth, async (req, res) => {
@@ -575,8 +575,8 @@ module.exports = async client => {
     let guild = client.guilds.cache.get(guildQ);
     if (!guild) return res.redirect("/");
     
-    let voiceChannel = guild.members.cache.get(req.user.id);
-    if (!voiceChannel) return res.redirect("/musicplayer/novoice");
+    let voiceChannel = guild.members.cache.get(req.user.id).voice.channel;
+    if (!voiceChannel) return res.redirect("/musicplayer/novoice?g=" + guildQ);
     
     let status;
     
@@ -594,7 +594,8 @@ module.exports = async client => {
       lost: false,
       Permission: Permissions,
       guild: guild, 
-      queue
+      queue,
+      status
     })
   });
   

@@ -22,14 +22,6 @@
           allowedCHL.push(chl);
           })
           %>
-          <div class="select">
-            <select class="basic simple" name="format" id="format">
-              <option selected disabled>select channel</option>
-              <% allowedCHL.map(chl => { %>
-              <option value="<%= chl.id %>">#<%= chl.name %></option>
-              <% }) %>
-            </select>
-          </div>
           <br>
           <input class="search-input" type="text" placeholder="search YouTube">
           <button class="btn btn-danger search-btn">Go! <i class="fa fa-youtube"></i></button>
@@ -49,7 +41,7 @@
           </ul>
         </form>
       </div>
-      <div id="channel">
+      <div id="channel" style="color: white;">
         Hi
       </div>
     </main>
@@ -57,9 +49,10 @@
     <%- include('../part/footer.ejs') %>
     <script src="/socket.io/socket.io.js"></script>
 
+    <script src="music.js"></script>
     <script>
       var socket = io();
-      const status = false;
+      const status = <%= status %>;
       
       if (!status) {
         document.getElementById("unchannel").style.display = "block";
