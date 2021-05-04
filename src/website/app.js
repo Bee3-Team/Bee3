@@ -14,7 +14,7 @@ module.exports = async client => {
   app.set("views", path.join(__dirname, "/views"));
   app.use(express.static(__dirname + "/public"));
   app.set("view engine", "ejs"); 
-  const bot = client; 
+  const bot = client;
   const session = require("express-session");
   const passport = require("passport");
   const Strategy = require("passport-discord").Strategy;
@@ -282,7 +282,7 @@ module.exports = async client => {
     });
   });
   
-  app.get("/dashbooard/:id/automod", checkAuth, async (req, res) => {
+  app.get("/dashboard/:id/automod", checkAuth, async (req, res) => {
     let guild_id = req.params.id;
     if (!guild_id) return res.redirect("/account/server-list");
     if (isNaN(guild_id)) return res.redirect("/account/server-list");
