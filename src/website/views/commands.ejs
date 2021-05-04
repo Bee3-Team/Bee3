@@ -67,10 +67,10 @@
           
           <div class="cmdlist-item cmdlist-cmds">
             <div class="tagcontent" id="all">
-<div class="accordion" id="accordionExample">
+<div class="accordion" id="accord-all">
   <% bot.Commands.map(cmd => { %>
   <div class="card">
-    <div class="card-header" id="head-<%= cmd.name %>" data-toggle="collapse" data-target="#<%= cmd.name %>-all" aria-expanded="true" aria-controls="<%= cmd.name %>-all">
+    <div class="card-header" id="head-<%= cmd.name %>-all" data-toggle="collapse" data-target="#<%= cmd.name %>-all" aria-expanded="true" aria-controls="<%= cmd.name %>-all">
       <h2 class="mb-0">
         <% 
         let disabled_ = false;
@@ -82,7 +82,7 @@
       </h2>
     </div>
 
-    <div id="<%= cmd.name %>-all" class="collapse" aria-labelledby="head-<%= cmd.name %>" data-parent="#accordionExample">
+    <div id="<%= cmd.name %>-all" class="collapse" aria-labelledby="head-<%= cmd.name %>-all" data-parent="#accord-all">
       <div class="card-body">
         <div class="card-sec-item">
         <div class="card-sec-item">
@@ -113,7 +113,7 @@
 <div class="accordion" id="accord-<%= mod.name %>">
   <% mod.commands.map(cmd => { %>
   <div class="card">
-    <div class="card-header" id="head-<%= cmd.name %>" data-toggle="collapse" data-target="#<%= cmd.name %>" aria-expanded="true" aria-controls="<%= cmd.name %>">
+    <div class="card-header" id="head-<%= cmd.name %>" data-toggle="collapse" data-target="#<%= cmd.name %>" aria-expanded="false" aria-controls="<%= cmd.name %>">
       <h2 class="mb-0">
         <% 
         let disabled_ = false;
@@ -125,6 +125,7 @@
       </h2>
     </div>
 
+    <div id="<%= cmd.name %>" class="collapse" aria-labelledby="head-<%= cmd.name %>" data-parent="#accord-<%= mod.name %>">
       <div class="card-body">
         <div class="card-sec-item">
           <h5>Aliases:</h5>

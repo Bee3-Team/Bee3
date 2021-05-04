@@ -43,25 +43,77 @@
       </li>
     </ul>
   </div> 
-  <div class="content content-is-open">
+  
+  <% let disabled = [] 
+  if (database.Settings.DisabledCommands[0]) {
+  database.Settings.DisabledCommands.map(cmd => {
+  disabled.push(cmd.name.toLowerCase());
+  });
+  }
+  %>
+  
+  <div class="content content-is-open" style="height: auto;">
     <span class='side-panel-toggle'>
       <i class="fa fa-bars"></i>
     </span>
-    <div class="automods">
-        <div class="automod">
-          <div class="automod-titles">
-            <h5 class="automod-title">Anti link</h5>
-<!--             <label class="switch">
-              <input type="checkbox" name="example" checked="checked">
-              <span class="slider round"></span>
-            </label>                         -->
+    <div class="module-list" onchange="save()">
+      <form method="POST" id="formnya">
+      <% bot.Modules.map(mod => { %>
+      
+      <% let cmds = []
+      mod.commands.map(cmd => {
+      if (disabled.includes(cmd.name.toLowerCase())) {
+      cmds.push({cmd: cmd, disabled: true})
+      } else if (!disabled.includes(cmd.name.toLowerCase())) {
+      cmds.push({cmd: cmd, disabled: false})
+      }
+      });
+      %>
+<!--        -->
+      <div class="module">
+        <h1 class="module-name"><%= mod.name %></h1>
+        
+    <div class="db-cmdlist">
+      <% cmds.map(cmd => { %>
+      <div class="db-cmd <%= cmd.cmd.name === "help" ? "disabled" : "" %>">  
+          <div class="db-cmd-first">
+          <h3 class="db-cmd-name"><%= cmd.cmd.name.length > 13 ? cmd.cmd.name.substring(0, 10) + "..." : cmd.cmd.name %></h3>
+            <% if (cmd.cmd.name === "help") { %>   
+<label class="switch <%= cmd.cmd.name === "help" ? "disabled" : "" %>">
+  <input class="<%= cmd.cmd.name === "help" ? "disabled" : "" %>" type="checkbox" name="<%= cmd.cmd.name %>" checked="checked" onclick="return false;">
+  <span class="slider round <%= cmd.cmd.name === "help" ? "disabled" : "" %>"></span>
+</label>            
+            <% } else { %>
+            <% if (cmd.disabled) { %>
+<label class="switch">
+  <input type="checkbox" name="<%= cmd.cmd.name %>">
+  <span class="slider round"></span>
+</label>            
+            <% } else if (!cmd.disabled) { %>
+<label class="switch">
+  <input type="checkbox" name="<%= cmd.cmd.name %>" checked>
+  <span class="slider round"></span>
+</label>            
+            <% } %>            
+            <% } %>
           </div>
+      </div>         
+      <% }) %>
+    </div>
+        
+        <hr>
       </div>
-        <div class="automod">
-          <div class="automod-titles">
-            <h5 class="automod-title">Anti invite link</h5>
-          </div>
+      
+      <% }) %>            
+        <div class="save-list">
+          <a class="save-btn-item reset-btn" onclick="resetFORM()" style="text-align: right; margin-right: 24px; cursor: pointer;">Reset</a>
+          <button class="btn btn-warning save-btn-item" id="thebtn" type="submit">Save</button>
         </div>
+      </form>
+    </div>
+      <div class="navigation">  
+        <a class="navigation-link" href="/commands?id=<%= guild.id %>" target="_blank">Go to commands list <i class="fas fa-external-link-alt"></i></a>
+      </div>
   </div>
 </div>
     </main>
@@ -69,6 +121,24 @@
 
     <%- include('../part/footer.ejs') %>
     <script>
+      
+      let form = $('#formnya')
+      let TheForm = $('#thebtn')
+      let resetBTN = $('.reset-btn')
+      TheForm.hide()
+      resetBTN.hide()
+      
+      async function save() {
+      resetBTN.show(500)
+      TheForm.show(600)
+      }
+      
+      async function resetFORM() {
+        form.trigger("reset");
+        TheForm.hide();
+        resetBTN.hide();
+      }
+      
 $(window).resize(function() {
 	var path = $(this);
 	var contW = path.width();
@@ -90,62 +160,6 @@ $(document).ready(function() {
     }
 	});
 });    
-    </script>
-<script>
-var DEFAULT_DATASET_SIZE = 7,
-			addedCount = 0,
-		    color = Chart.helpers.color;
-
-	var months = ["0", "0", "0", "0", "0"];
-
-	var chartColors = {
-		red: 'rgb(255, 99, 132)',
-		orange: 'rgb(255, 159, 64)',
-		yellow: 'rgb(255, 205, 86)',
-		green: 'rgb(75, 192, 192)',
-		blue: 'rgb(54, 162, 235)',
-		purple: 'rgb(153, 102, 255)',
-		grey: 'rgb(231,233,237)'
-	};
-
-  let data = [];
-  let dataDate = [];
-  
-  <% database.Statistics.CommandsUsed.sort((a, b) => new Date(a.Date).getTime() - new Date(b.Date).getTime()).map(x => { %>
-  data.push(`<%= x.Number %>`)
-  dataDate.push(`<%= new Date(x.Date).toLocaleDateString() %>`)
-  <% }) %>
-  
-var barData = {
-			labels: dataDate.slice(dataDate.length - 5, dataDate.length),
-			datasets: [{
-				label: 'Commands Used',
-				backgroundColor: color(chartColors.red).alpha(0.5).rgbString(),
-				borderColor: chartColors.red,
-				borderWidth: 1,
-				data: data.slice(data.length - 5, data.length)
-			}]
-
-		};
-var index = 11;
-var ctx = document.getElementById("CommandsUsed").getContext("2d");
-		var	myNewChartB = new Chart(ctx, {
-				type: 'bar',
-				data: barData,
-				options: {
-          maintainAspectRation: false,
-          padding: 0,
-					legend: {
-						position: 'top',
-					},
-					title: {
-						display: true,
-						text: 'Bar Chart'
-					},
-          devicePixelRatio: window.devicePixelRatio
-				}
-			});
-  
     </script>
   </body>
 </html>
