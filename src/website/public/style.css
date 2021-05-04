@@ -1067,3 +1067,17 @@ select:focus {
   cursor: pointer;
   display: none;
 }
+
+.automod {
+    border-radius: 5px;
+    margin: 10px;
+    padding: 10px;
+    background: #3b4c40;
+    border: 2px solid black;
+    color: white;
+    min-width: 100px;
+    text-align: center;
+    width: -webkit-fill-available;
+    height: 52px;
+    min-height: 50px;
+}
