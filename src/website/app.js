@@ -14,7 +14,7 @@ module.exports = async client => {
   app.set("views", path.join(__dirname, "/views"));
   app.use(express.static(__dirname + "/public"));
   app.set("view engine", "ejs"); 
-  const bot = client;
+  const bot = client; 
   const session = require("express-session");
   const passport = require("passport");
   const Strategy = require("passport-discord").Strategy;
@@ -280,6 +280,39 @@ module.exports = async client => {
       guild: client.guilds.cache.get(checkUserGuild.id),
       database: findGuildDB
     });
+  });
+  
+  app.get("/dashbooard/:id/automod", checkAuth, async (req, res) => {
+    let guild_id = req.params.id;
+    if (!guild_id) return res.redirect("/account/server-list");
+    if (isNaN(guild_id)) return res.redirect("/account/server-list");
+
+    let checkUserGuild = req.user.guilds.find(x => x.id == guild_id);
+    if (!checkUserGuild) return res.redirect("/account/server-list");
+
+    let perms = new Permissions(checkUserGuild.permissions);
+    if (!perms.has("MANAGE_GUILD")) {
+      return res.redirect(
+        "/account/server-list?mp=true&mpguild=" + checkUserGuild.name + "#error"
+      );
+    }
+ 
+    let findGuildDB = await client.Guild.findOne({ ID: checkUserGuild.id });
+
+    if (!findGuildDB) {
+      findGuildDB = await client.Guild.Create(false, guild_id);
+    }
+
+    res.render("acc/dashboard-automod.ejs", {
+      req,
+      res,
+      bot,
+      lost: false,
+      user: await client.users.fetch(req.user.id.toString()),
+      Permission: Permissions,
+      guild: client.guilds.cache.get(checkUserGuild.id),
+      database: findGuildDB
+    });    
   });
 
   app.post("/dashboard/:id/commands", checkAuth, async (req, res) => {
