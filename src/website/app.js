@@ -400,222 +400,222 @@ module.exports = async client => {
   // music player
   
   // music player api.
-  app.get("/player/play/:id", async (req, res) => {
-    let guild = req.params.id;
-    let user = req.query.user;
-    let query = req.query.query;
-    if (!guild) return res.status(404).send({success: false});
-    if (!user) return res.status(404).send({success: false});
-    if (!query) return res.status(404).send({success: false});
+//   app.get("/player/play/:id", async (req, res) => {
+//     let guild = req.params.id;
+//     let user = req.query.user;
+//     let query = req.query.query;
+//     if (!guild) return res.status(404).send({success: false});
+//     if (!user) return res.status(404).send({success: false});
+//     if (!query) return res.status(404).send({success: false});
     
-    let userR, guildR, channelR;
-    guildR = await client.guilds.cache.get(guild);
-    if (!guildR) return res.status(404).send({success: false, error: 'Cannot get guild'});
+//     let userR, guildR, channelR;
+//     guildR = await client.guilds.cache.get(guild);
+//     if (!guildR) return res.status(404).send({success: false, error: 'Cannot get guild'});
     
-    userR = await client.users.fetch(user);
-    if (!userR) return res.status(404).send({success: false, error: 'Cannot get user'});
+//     userR = await client.users.fetch(user);
+//     if (!userR) return res.status(404).send({success: false, error: 'Cannot get user'});
     
-    channelR = guildR.members.cache.get(userR.id).voice.channel;
-    if (!channelR) return res.status(404).send({success: false, error: 'Cannot get user voice channel'});
+//     channelR = guildR.members.cache.get(userR.id).voice.channel;
+//     if (!channelR) return res.status(404).send({success: false, error: 'Cannot get user voice channel'});
     
-    try {
-      client.music.handle(channelR, null, guildR.id, query).catch(e => {
-        return res.send({success: false, error: `${e.message}`});
-      })
-    } catch (e) {
-      return res.send({success: false, error: `${e.message}`});
-    }
+//     try {
+//       client.music.handle(channelR, null, guildR.id, query).catch(e => {
+//         return res.send({success: false, error: `${e.message}`});
+//       })
+//     } catch (e) {
+//       return res.send({success: false, error: `${e.message}`});
+//     }
     
-    return res.status(200).send({success: true, voiceChannel: channelR, guild: guildR, query: query});
-  });
+//     return res.status(200).send({success: true, voiceChannel: channelR, guild: guildR, query: query});
+//   });
   
-  app.get("/player/stop/:id", async (req, res) => {
-    let guild = req.params.id;
-    let user = req.query.user;
-    if (!guild) return res.status(404).send({success: false});
-    if (!user) return res.status(404).send({success: false});    
+//   app.get("/player/stop/:id", async (req, res) => {
+//     let guild = req.params.id;
+//     let user = req.query.user;
+//     if (!guild) return res.status(404).send({success: false});
+//     if (!user) return res.status(404).send({success: false});    
     
-    let userR, guildR, channelR;
-    guildR = await client.guilds.cache.get(guild);
-    if (!guildR) return res.status(404).send({success: false, error: 'Cannot get guild'});
+//     let userR, guildR, channelR;
+//     guildR = await client.guilds.cache.get(guild);
+//     if (!guildR) return res.status(404).send({success: false, error: 'Cannot get guild'});
     
-    userR = await client.users.fetch(user);
-    if (!userR) return res.status(404).send({success: false, error: 'Cannot get user'});
+//     userR = await client.users.fetch(user);
+//     if (!userR) return res.status(404).send({success: false, error: 'Cannot get user'});
     
-    channelR = guildR.members.cache.get(userR.id).voice.channel;
-    if (!channelR) return res.status(404).send({success: false, error: 'Cannot get user voice channel'});
+//     channelR = guildR.members.cache.get(userR.id).voice.channel;
+//     if (!channelR) return res.status(404).send({success: false, error: 'Cannot get user voice channel'});
     
-    try {
-      client.music.stop(channelR, null).catch(e => {
-        return res.send({success: false, error: `${e.message}`});
-      })
-    } catch (e) {
-      return res.send({success: false, error: `${e.message}`});
-    }
+//     try {
+//       client.music.stop(channelR, null).catch(e => {
+//         return res.send({success: false, error: `${e.message}`});
+//       })
+//     } catch (e) {
+//       return res.send({success: false, error: `${e.message}`});
+//     }
     
-    return res.status(200).send({success: true, by: userR, voiceChannel: channelR, guild: guildR});
-  });
+//     return res.status(200).send({success: true, by: userR, voiceChannel: channelR, guild: guildR});
+//   });
   
-  app.get("/player/now-playing/:id", async (req, res) => {
-    let guild = req.params.id;
-    let user = req.query.user;
-    if (!guild) return res.status(404).send({success: false});
+//   app.get("/player/now-playing/:id", async (req, res) => {
+//     let guild = req.params.id;
+//     let user = req.query.user;
+//     if (!guild) return res.status(404).send({success: false});
     
-    let userR, guildR, channelR;
-    guildR = await client.guilds.cache.get(guild);
-    if (!guildR) return res.status(404).send({success: false, error: 'Cannot get guild'});
+//     let userR, guildR, channelR;
+//     guildR = await client.guilds.cache.get(guild);
+//     if (!guildR) return res.status(404).send({success: false, error: 'Cannot get guild'});
     
-    let nowPlaying;
+//     let nowPlaying;
     
-    try {
-      nowPlaying = await client.music.nowPlaying(guildR.id, null).catch(e => {
-        return res.send({success: false, error: `${e.message}`});
-      })
-    } catch (e) {
-      return res.send({success: false, error: `${e.message}`});
-    }
+//     try {
+//       nowPlaying = await client.music.nowPlaying(guildR.id, null).catch(e => {
+//         return res.send({success: false, error: `${e.message}`});
+//       })
+//     } catch (e) {
+//       return res.send({success: false, error: `${e.message}`});
+//     }
     
-    return res.status(200).send({success: true, song: {title: nowPlaying.title, url: nowPlaying.url, duration: nowPlaying.duration}});
+//     return res.status(200).send({success: true, song: {title: nowPlaying.title, url: nowPlaying.url, duration: nowPlaying.duration}});
     
-  });
+//   });
   
-  app.get("/player/skip/:id", async (req, res) => {
-    let guild = req.params.id;
-    let user = req.query.user;
-    if (!guild) return res.status(404).send({success: false});
-    if (!user) return res.status(404).send({success: false});    
+//   app.get("/player/skip/:id", async (req, res) => {
+//     let guild = req.params.id;
+//     let user = req.query.user;
+//     if (!guild) return res.status(404).send({success: false});
+//     if (!user) return res.status(404).send({success: false});    
     
-    let userR, guildR, channelR;
-    guildR = await client.guilds.cache.get(guild);
-    if (!guildR) return res.status(404).send({success: false, error: 'Cannot get guild'});
+//     let userR, guildR, channelR;
+//     guildR = await client.guilds.cache.get(guild);
+//     if (!guildR) return res.status(404).send({success: false, error: 'Cannot get guild'});
     
-    userR = await client.users.fetch(user);
-    if (!userR) return res.status(404).send({success: false, error: 'Cannot get user'});
+//     userR = await client.users.fetch(user);
+//     if (!userR) return res.status(404).send({success: false, error: 'Cannot get user'});
     
-    channelR = guildR.members.cache.get(userR.id).voice.channel;
-    if (!channelR) return res.status(404).send({success: false, error: 'Cannot get user voice channel'});
+//     channelR = guildR.members.cache.get(userR.id).voice.channel;
+//     if (!channelR) return res.status(404).send({success: false, error: 'Cannot get user voice channel'});
     
-    try {
-      client.music.skip(channelR, null).catch(e => {
-        return res.send({success: false, error: `${e.message}`});
-      })
-    } catch (e) {
-      return res.send({success: false, error: `${e.message}`});
-    }
+//     try {
+//       client.music.skip(channelR, null).catch(e => {
+//         return res.send({success: false, error: `${e.message}`});
+//       })
+//     } catch (e) {
+//       return res.send({success: false, error: `${e.message}`});
+//     }
     
-    return res.status(200).send({success: true, by: userR, voiceChannel: channelR, guild: guildR});    
-  });
+//     return res.status(200).send({success: true, by: userR, voiceChannel: channelR, guild: guildR});    
+//   });
   
-  app.get("/player/set-volume/:id", async (req, res) => {
-    let guild = req.params.id;
-    let user = req.query.user;
-    let value = req.query.value;
-    if (!guild) return res.status(404).send({success: false});
-    if (!user) return res.status(404).send({success: false});    
-    if (!value) return res.status(404).send({success: false});
+//   app.get("/player/set-volume/:id", async (req, res) => {
+//     let guild = req.params.id;
+//     let user = req.query.user;
+//     let value = req.query.value;
+//     if (!guild) return res.status(404).send({success: false});
+//     if (!user) return res.status(404).send({success: false});    
+//     if (!value) return res.status(404).send({success: false});
     
-    let userR, guildR, channelR;
-    guildR = await client.guilds.cache.get(guild);
-    if (!guildR) return res.status(404).send({success: false, error: 'Cannot get guild'});
+//     let userR, guildR, channelR;
+//     guildR = await client.guilds.cache.get(guild);
+//     if (!guildR) return res.status(404).send({success: false, error: 'Cannot get guild'});
     
-    userR = await client.users.fetch(user);
-    if (!userR) return res.status(404).send({success: false, error: 'Cannot get user'});
+//     userR = await client.users.fetch(user);
+//     if (!userR) return res.status(404).send({success: false, error: 'Cannot get user'});
     
-    channelR = guildR.members.cache.get(userR.id).voice.channel;
-    if (!channelR) return res.status(404).send({success: false, error: 'Cannot get user voice channel'});
+//     channelR = guildR.members.cache.get(userR.id).voice.channel;
+//     if (!channelR) return res.status(404).send({success: false, error: 'Cannot get user voice channel'});
 
-    try {
-      client.music.setVolume(channelR, null, value).catch(e => {
-        return res.send({success: false, error: `${e.message}`});
-      })
-    } catch (e) {
-      return res.send({success: false, error: `${e.message}`});
-    }
+//     try {
+//       client.music.setVolume(channelR, null, value).catch(e => {
+//         return res.send({success: false, error: `${e.message}`});
+//       })
+//     } catch (e) {
+//       return res.send({success: false, error: `${e.message}`});
+//     }
     
-    return res.status(200).send({success: true, by: userR, voiceChannel: channelR, guild: guildR, volume: value});
-  });
+//     return res.status(200).send({success: true, by: userR, voiceChannel: channelR, guild: guildR, volume: value});
+//   });
   
-  app.get("/player/pause-resume/:id", async (req, res) => {
-    let guild = req.params.id;
-    let user = req.query.user;
-    if (!guild) return res.status(404).send({success: false});
-    if (!user) return res.status(404).send({success: false});
+//   app.get("/player/pause-resume/:id", async (req, res) => {
+//     let guild = req.params.id;
+//     let user = req.query.user;
+//     if (!guild) return res.status(404).send({success: false});
+//     if (!user) return res.status(404).send({success: false});
     
-    let userR, guildR, channelR;
-    guildR = await client.guilds.cache.get(guild);
-    if (!guildR) return res.status(404).send({success: false, error: 'Cannot get guild'});
+//     let userR, guildR, channelR;
+//     guildR = await client.guilds.cache.get(guild);
+//     if (!guildR) return res.status(404).send({success: false, error: 'Cannot get guild'});
     
-    userR = await client.users.fetch(user);
-    if (!userR) return res.status(404).send({success: false, error: 'Cannot get user'});
+//     userR = await client.users.fetch(user);
+//     if (!userR) return res.status(404).send({success: false, error: 'Cannot get user'});
     
-    channelR = guildR.members.cache.get(userR.id).voice.channel;
-    if (!channelR) return res.status(404).send({success: false, error: 'Cannot get user voice channel'});
+//     channelR = guildR.members.cache.get(userR.id).voice.channel;
+//     if (!channelR) return res.status(404).send({success: false, error: 'Cannot get user voice channel'});
     
-    let playing;
+//     let playing;
     
-    if (!client.music.queue.get(guildR.id)) return this.emit("noQueue")
+//     if (!client.music.queue.get(guildR.id)) return this.emit("noQueue")
     
-    playing = client.music.queue.get(guildR.id).playing;
+//     playing = client.music.queue.get(guildR.id).playing;
     
-    try {
-       client.music.pauseResume(channelR, guildR.id, null).catch(e => {
-         return res.send({success: false, error: `${e.message}`});
-       })
-    } catch (e) {
-      return res.send({success: false, error: `${e.message}`})
-    }
+//     try {
+//        client.music.pauseResume(channelR, guildR.id, null).catch(e => {
+//          return res.send({success: false, error: `${e.message}`});
+//        })
+//     } catch (e) {
+//       return res.send({success: false, error: `${e.message}`})
+//     }
     
-    return res.send({success: true, by: userR, voiceChannel: channelR, guild: guildR, playing: !playing})
-  });
+//     return res.send({success: true, by: userR, voiceChannel: channelR, guild: guildR, playing: !playing})
+//   });
   
-  app.get("/musicplayer", checkAuth, async (req, res) => {
-    const guildQ = req.query.g;
-    if (!guildQ) return res.redirect("/");
+//   app.get("/musicplayer", checkAuth, async (req, res) => {
+//     const guildQ = req.query.g;
+//     if (!guildQ) return res.redirect("/");
     
-    let guild = client.guilds.cache.get(guildQ);
-    if (!guild) return res.redirect("/");
+//     let guild = client.guilds.cache.get(guildQ);
+//     if (!guild) return res.redirect("/");
     
-    let voiceChannel = guild.members.cache.get(req.user.id).voice.channel;
-    if (!voiceChannel) return res.redirect("/musicplayer/novoice?g=" + guildQ);
+//     let voiceChannel = guild.members.cache.get(req.user.id).voice.channel;
+//     if (!voiceChannel) return res.redirect("/musicplayer/novoice?g=" + guildQ);
     
-    let status;
+//     let status;
     
-    let queue = client.music.queue.get(guild.id);
-    if (!queue) {
-      status = false;
-    } else if (queue) {
-      status = true;
-    }
+//     let queue = client.music.queue.get(guild.id);
+//     if (!queue) {
+//       status = false;
+//     } else if (queue) {
+//       status = true;
+//     }
     
-    res.render("player/player.ejs", {
-      res,
-      req,
-      bot,
-      lost: false,
-      Permission: Permissions,
-      guild: guild, 
-      queue,
-      status
-    })
-  });
+//     res.render("player/player.ejs", {
+//       res,
+//       req,
+//       bot,
+//       lost: false,
+//       Permission: Permissions,
+//       guild: guild, 
+//       queue,
+//       status
+//     })
+//   });
   
-  app.get("/musicplayer/novoice", checkAuth, async (req, res) => {
-    const guildQ = req.query.g;
-    if (!guildQ) return res.redirect("/");
+//   app.get("/musicplayer/novoice", checkAuth, async (req, res) => {
+//     const guildQ = req.query.g;
+//     if (!guildQ) return res.redirect("/");
     
-    client.waiting.set(req.user.id, true);
-    let guild = client.guilds.cache.get(guildQ);
-    if (!guild) return res.redirect("/");
+//     client.waiting.set(req.user.id, true);
+//     let guild = client.guilds.cache.get(guildQ);
+//     if (!guild) return res.redirect("/");
     
-    res.render("player/waiting.ejs", {
-      res,
-      req,
-      bot, 
-      lost: false,
-      guild: guild,
-      voice: guild.members.cache.get(req.user.id).voice.channel
-    })
-  });
+//     res.render("player/waiting.ejs", {
+//       res,
+//       req,
+//       bot, 
+//       lost: false,
+//       guild: guild,
+//       voice: guild.members.cache.get(req.user.id).voice.channel
+//     })
+//   });
   
   // music player end
   
@@ -649,14 +649,14 @@ module.exports = async client => {
 
   // socket.io (realtime music - to discord)
 //listen on every connection
-io.on('connection', (socket) => {
+// io.on('connection', (socket) => {
 
-  client.socket = socket;
+//   client.socket = socket;
 	
-  socket.on("voiceUpdate", user => {
-    io.emit("voiceUpdate", user);
-  });
-});
+//   socket.on("voiceUpdate", user => {
+//     io.emit("voiceUpdate", user);
+//   });
+// });
   
 module.exports = {io}
   
