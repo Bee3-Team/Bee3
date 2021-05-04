@@ -8,6 +8,8 @@ async function onclickPlay(guild, user, query) {
   }).then(data => {
     if (!data.success) return alert(`${data.error}`);
     
+    alert(`Joined ${data.voiceChannel.name}.`)
     
+    return location.href = "/musicplayer?g=" + guild;
   });
 }

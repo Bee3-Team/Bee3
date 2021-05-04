@@ -23,8 +23,8 @@
           })
           %>
           <br>
-          <input class="search-input" type="text" placeholder="search YouTube">
-          <button class="btn btn-danger search-btn">Go! <i class="fa fa-youtube"></i></button>
+            <input id="search-query" class="search-input" type="text" placeholder="search YouTube" required>
+            <button onclick="onclickPlay(<%= guild.id %>, <%= req.user.id %>, document.getElementById('search-query').value)" class="btn btn-danger search-btn">Go! <i class="fa fa-youtube"></i></button>
         </form>
         <form id="result">
           <ul class="results">
@@ -50,7 +50,7 @@
     <script src="/socket.io/socket.io.js"></script>
 
     <script src="music.js"></script>
-    <script>
+    <script>      
       var socket = io();
       const status = <%= status %>;
       

@@ -410,13 +410,13 @@ module.exports = async client => {
     
     let userR, guildR, channelR;
     guildR = await client.guilds.cache.get(guild);
-    if (!guildR) return res.status(404).send({success: false});
+    if (!guildR) return res.status(404).send({success: false, error: 'Cannot get guild'});
     
     userR = await client.users.fetch(user);
-    if (!userR) return res.status(404).send({success: false});
+    if (!userR) return res.status(404).send({success: false, error: 'Cannot get user'});
     
     channelR = guildR.members.cache.get(userR.id).voice.channel;
-    if (!channelR) return res.status(404).send({success: false});
+    if (!channelR) return res.status(404).send({success: false, error: 'Cannot get user voice channel'});
     
     try {
       client.music.handle(channelR, null, guildR.id, query).catch(e => {
@@ -437,13 +437,13 @@ module.exports = async client => {
     
     let userR, guildR, channelR;
     guildR = await client.guilds.cache.get(guild);
-    if (!guildR) return res.status(404).send({success: false});
+    if (!guildR) return res.status(404).send({success: false, error: 'Cannot get guild'});
     
     userR = await client.users.fetch(user);
-    if (!userR) return res.status(404).send({success: false});
+    if (!userR) return res.status(404).send({success: false, error: 'Cannot get user'});
     
     channelR = guildR.members.cache.get(userR.id).voice.channel;
-    if (!channelR) return res.status(404).send({success: false});
+    if (!channelR) return res.status(404).send({success: false, error: 'Cannot get user voice channel'});
     
     try {
       client.music.stop(channelR, null).catch(e => {
@@ -463,7 +463,7 @@ module.exports = async client => {
     
     let userR, guildR, channelR;
     guildR = await client.guilds.cache.get(guild);
-    if (!guildR) return res.status(404).send({success: false});
+    if (!guildR) return res.status(404).send({success: false, error: 'Cannot get guild'});
     
     let nowPlaying;
     
@@ -487,13 +487,13 @@ module.exports = async client => {
     
     let userR, guildR, channelR;
     guildR = await client.guilds.cache.get(guild);
-    if (!guildR) return res.status(404).send({success: false});
+    if (!guildR) return res.status(404).send({success: false, error: 'Cannot get guild'});
     
     userR = await client.users.fetch(user);
-    if (!userR) return res.status(404).send({success: false});
+    if (!userR) return res.status(404).send({success: false, error: 'Cannot get user'});
     
     channelR = guildR.members.cache.get(userR.id).voice.channel;
-    if (!channelR) return res.status(404).send({success: false});
+    if (!channelR) return res.status(404).send({success: false, error: 'Cannot get user voice channel'});
     
     try {
       client.music.skip(channelR, null).catch(e => {
@@ -516,13 +516,13 @@ module.exports = async client => {
     
     let userR, guildR, channelR;
     guildR = await client.guilds.cache.get(guild);
-    if (!guildR) return res.status(404).send({success: false});
+    if (!guildR) return res.status(404).send({success: false, error: 'Cannot get guild'});
     
     userR = await client.users.fetch(user);
-    if (!userR) return res.status(404).send({success: false});
+    if (!userR) return res.status(404).send({success: false, error: 'Cannot get user'});
     
     channelR = guildR.members.cache.get(userR.id).voice.channel;
-    if (!channelR) return res.status(404).send({success: false});
+    if (!channelR) return res.status(404).send({success: false, error: 'Cannot get user voice channel'});
 
     try {
       client.music.setVolume(channelR, null, value).catch(e => {
@@ -543,13 +543,13 @@ module.exports = async client => {
     
     let userR, guildR, channelR;
     guildR = await client.guilds.cache.get(guild);
-    if (!guildR) return res.status(404).send({success: false});
+    if (!guildR) return res.status(404).send({success: false, error: 'Cannot get guild'});
     
     userR = await client.users.fetch(user);
-    if (!userR) return res.status(404).send({success: false});
+    if (!userR) return res.status(404).send({success: false, error: 'Cannot get user'});
     
     channelR = guildR.members.cache.get(userR.id).voice.channel;
-    if (!channelR) return res.status(404).send({success: false});
+    if (!channelR) return res.status(404).send({success: false, error: 'Cannot get user voice channel'});
     
     let playing;
     
