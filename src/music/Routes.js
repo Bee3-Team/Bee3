@@ -228,6 +228,30 @@ to see songs, use \`queue\` command.`);
       return true;
     }
   }
+  
+  async loop(voiceChannel, textChannel = null) {
+    
+    if (!voiceChannel) return this.emit("noChannel", textChannel);
+    if (voiceChannel.guild.me.voice.channel) {
+      if (voiceChannel.id !== voiceChannel.guild.me.voice.channel.id)
+        return this.emit("noSameChannel", textChannel);
+    }    
+    
+    let queue = this.queue.get(voiceChannel.guild.id);
+    
+    if (!queue) return this.emit("noQueue", textChannel);
+    
+    let loop_;
+    
+    loop_ = !queue.loop;
+    queue.loop = !queue.loop;
+    
+    if (textChannel) {
+      return textChannel.send(`Loop now **${loop_ ? "on" : "off"}**`);
+    } else {
+      return true;
+    }    
+  }
 
   async Queue(id, textChannel = null) {
     let canModify;

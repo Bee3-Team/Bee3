@@ -4,7 +4,7 @@ module.exports = {
   aliases: ["shuff"],
   permissions: {
     user: [],
-    client: ["SPEAK", "CONNECT"]
+    client: []
   },
   cooldown: 5,
   run: async (message, args, client) => {

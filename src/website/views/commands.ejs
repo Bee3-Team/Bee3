@@ -51,9 +51,9 @@
         <div class="cmdlist-primary">
           <div class="cmdlist-item cmdlist-tag">
 <ul class="tags">
-  <li class="tag active" onclick="openCity(event, 'all')"><a>All</a></li>
+  <li style="cursor: pointer;" class="tag active" onclick="openCity(event, 'all')"><a>All</a></li>
   <% bot.Modules.map(mod => { %>
-  <li class="tag" onclick="openCity(event, '<%= mod.name %>')"><a><%= mod.name %></a></li>
+  <li style="cursor: pointer;" class="tag" onclick="openCity(event, '<%= mod.name %>')"><a><%= mod.name %></a></li>
   <% }) %>
 </ul>            
           </div>
@@ -145,11 +145,11 @@
         </div>
       </div>
   </div>  
-  <% }) %>
 </div>                  
+  <% }) %>
             </div>
-            <% }) %>
           </div>
+            <% }) %>
         </div>
       </div>
       
