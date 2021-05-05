@@ -115,11 +115,11 @@ class MusicRoutes extends EventEmitter {
     if (!value) {
       if (textChannel) {
         return textChannel.send(
-          "Please give volume value." + " - current volume: " + queue.volume
+          "Please give volume value." + " - current volume: **" + queue.volume + "%**"
         );
       } else {
         throw new TypeError(
-          "Please give volume value." + " - current volume: " + queue.volume
+          "Please give volume value." + " - current volume: **" + queue.volume + "%**"
         );
       }
     }
