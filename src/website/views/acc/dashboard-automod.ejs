@@ -56,64 +56,21 @@
     <span class='side-panel-toggle'>
       <i class="fa fa-bars"></i>
     </span>
-    <div class="module-list" onchange="save()">
-      <form method="POST" id="formnya">
-      <% bot.Modules.map(mod => { %>
-      
-      <% let cmds = []
-      mod.commands.map(cmd => {
-      if (disabled.includes(cmd.name.toLowerCase())) {
-      cmds.push({cmd: cmd, disabled: true})
-      } else if (!disabled.includes(cmd.name.toLowerCase())) {
-      cmds.push({cmd: cmd, disabled: false})
-      }
-      });
-      %>
-<!--        -->
-      <div class="module">
-        <h1 class="module-name"><%= mod.name %></h1>
-        
-    <div class="db-cmdlist">
-      <% cmds.map(cmd => { %>
-      <div class="db-cmd <%= cmd.cmd.name === "help" ? "disabled" : "" %>">  
-          <div class="db-cmd-first">
-          <h3 class="db-cmd-name"><%= cmd.cmd.name.length > 13 ? cmd.cmd.name.substring(0, 10) + "..." : cmd.cmd.name %></h3>
-            <% if (cmd.cmd.name === "help") { %>   
-<label class="switch <%= cmd.cmd.name === "help" ? "disabled" : "" %>">
-  <input class="<%= cmd.cmd.name === "help" ? "disabled" : "" %>" type="checkbox" name="<%= cmd.cmd.name %>" checked="checked" onclick="return false;">
-  <span class="slider round <%= cmd.cmd.name === "help" ? "disabled" : "" %>"></span>
-</label>            
-            <% } else { %>
-            <% if (cmd.disabled) { %>
-<label class="switch">
-  <input type="checkbox" name="<%= cmd.cmd.name %>">
-  <span class="slider round"></span>
-</label>            
-            <% } else if (!cmd.disabled) { %>
-<label class="switch">
-  <input type="checkbox" name="<%= cmd.cmd.name %>" checked>
-  <span class="slider round"></span>
-</label>            
-            <% } %>            
-            <% } %>
-          </div>
-      </div>         
-      <% }) %>
+<div class="accordion" id="accordionExample">
+  <div class="card" id="search-item">
+    <div class="card-header" id="head-anti-link" data-toggle="collapse" data-target="#anti-link" aria-expanded="true" aria-controls="anti-link">
+      <h2 class="mb-0" id="search-item-name"><a>Anti link</a></h2>
     </div>
-        
-        <hr>
-      </div>
-      
-      <% }) %>            
-        <div class="save-list">
-          <a class="save-btn-item reset-btn" onclick="resetFORM()" style="text-align: right; margin-right: 24px; cursor: pointer;">Reset</a>
-          <button class="btn btn-warning save-btn-item" id="thebtn" type="submit">Save</button>
+
+    <div id="anti-link" class="collapse" aria-labelledby="head-anti-link" data-parent="#accordionExample">
+      <div class="card-body">
+        <div class="card-sec-item">
+          <h5 style="text-align: left;">Enable: <label class="switch"><input type="checkbox" name="anti-link" checked="checked"><span class="slider round"></span></label></h5>
         </div>
-      </form>
-    </div>
-      <div class="navigation">  
-        <a class="navigation-link" href="/commands?id=<%= guild.id %>" target="_blank">Go to commands list <i class="fas fa-external-link-alt"></i></a>
       </div>
+    </div>
+  </div>  
+      </div>    
   </div>
 </div>
     </main>
