@@ -2,7 +2,7 @@ const fs = require("fs");
 const { Collection } = require("discord.js");
 
 module.exports = async (client) => {
-  
+   
   client.Commands = new Collection();
   client.Modules = new Collection();
   client.Aliases = new Collection();
