@@ -45,7 +45,7 @@ module.exports = {
         if (disable.includes(command.name.toLowerCase())) {
         disabled_ = true;
         }
-      if (disabled_) return message.channel.send(`this command has been \`disabled\` by the admin`).then(dcm => {
+      if (disabled_) return message.channel.send(`the \`${command.name}\` command has been \`disabled\` by the admin`).then(dcm => {
         dcm.delete({
           timeout: 7000
         })
