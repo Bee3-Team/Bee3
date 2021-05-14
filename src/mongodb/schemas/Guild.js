@@ -8,7 +8,8 @@ module.exports = model(
     },
     Settings: {
       Prefix: String,
-      DisabledCommands: []
+      DisabledCommands: [],
+      DisabledFeatures: []
     },
     Statistics: {
       CommandsUsed: []
@@ -28,3 +29,9 @@ module.exports = model(
 //
 // Number: Number,
 // Date: String
+
+// disabled features json
+//
+// Name: String,
+// Default: Boolean,
+// Note: String
