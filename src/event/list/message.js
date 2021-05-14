@@ -65,7 +65,7 @@ module.exports = {
           .filter(perm => clientChannelPermissions.has(perm) === false)
           .join(", ");
         
-        return message.reply(`Please make sure i have **${missingPermissions}** permissions :)`)
+        return message.reply(`Please make sure i have **${missingPermissions || "an error occured"}** permissions :)`)
       }
     }
 
@@ -76,12 +76,12 @@ module.exports = {
       memberChannelPermissions = new Permissions(
         memberChannelPermissions.bitfield
       );
-      if (memberChannelPermissions.has(command.permissions.user)) {
+      if (!memberChannelPermissions.has(command.permissions.user)) {
         let missingPermissions = command.permissions.user
           .filter(perm => memberChannelPermissions.has(perm) === false)
           .join(", ");
         
-        return message.reply(`Sorry, you must have **${missingPermissions}** permissions to use this command :)`)
+        return message.reply(`Sorry, you must have **${missingPermissions || "an error occured"}** permissions to use this command :)`)
       }
     }      
       

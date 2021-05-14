@@ -3,7 +3,7 @@ module.exports = {
   description: "Show all existing commands",
   aliases: ["h"],
   permissions: {
-    user: ["ADMINISTRATOR"],
+    user: ["MANAGE_GUILD"],
     client: []
   },
   cooldown: 5,
