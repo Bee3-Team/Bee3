@@ -49,15 +49,16 @@
       <i class="fa fa-bars"></i>
     </span>
 <div class="accordion" id="accordionExample">
-  <div class="card" id="search-item">
+  <div class="card" id="anti-link">
     <div class="card-header" id="head-anti-link" data-toggle="collapse" data-target="#anti-link" aria-expanded="true" aria-controls="anti-link">
-      <h2 class="mb-0" id="search-item-name"><a>Anti link -</a> <small>admin roles are not affected</small></h2>
+      <h2 class="mb-0" id="anti-link-name"><a>Anti link -</a> <small>admin roles are not affected</small></h2>
     </div>
 
     <div id="anti-link" class="collapse" aria-labelledby="head-anti-link" data-parent="#accordionExample">
       <div class="card-body">
         <div class="card-sec-item">
-          <h5 style="line-height: 1; text-align: left; float: left; width: 10px; min-width: 172px; font-size: 30px;">Enable: <label class="switch"><input type="checkbox" name="anti-link" <%= enable_ ? 'checked="checked"'' : "" %></input>><span class="slider round"></span></label></h5>
+          <% let enable_ = true %>
+          <h5 style="line-height: 1; text-align: left; float: left; width: 10px; min-width: 172px; font-size: 30px;">Enable: <label class="switch"><input type="checkbox" name="anti-link" <%= enable_ ? 'checked="checked"' : "" %></input>><span class="slider round"></span></label></h5>
         </div>
       </div>
     </div>
