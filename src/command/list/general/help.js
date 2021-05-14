@@ -3,7 +3,7 @@ module.exports = {
   description: "Show all existing commands",
   aliases: ["h"],
   permissions: {
-    user: [],
+    user: ["ADMINISTRATOR"],
     client: []
   },
   cooldown: 5,

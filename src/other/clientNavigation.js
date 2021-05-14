@@ -17,7 +17,8 @@ module.exports = async client => {
         },
         Settings: {
           Prefix: config.prefix,
-          DisabledCommands: []
+          DisabledCommands: [],
+        DisabledFeatures: [],
         },
         Statistics: {
           CommandsUsed: []
@@ -37,7 +38,8 @@ module.exports = async client => {
         },
         Settings: {
           Prefix: config.prefix,
-          DisabledCommands: []
+          DisabledCommands: [],
+        DisabledFeatures: [],
         },
         Statistics: {
           CommandsUsed: []

@@ -133,7 +133,8 @@ client.Guild.Create = async function a(message, id = false) {
       },
       Settings: {
         Prefix: config.prefix,
-        DisabledCommands: []
+        DisabledCommands: [],
+        DisabledFeatures: [],
       },
       Statistics: {
         CommandsUsed: []

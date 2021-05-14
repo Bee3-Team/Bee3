@@ -1,3 +1,5 @@
+const { Permissions } = require("discord.js");
+
 module.exports = {
   name: "message",
   execute: async (message, client) => {
@@ -49,7 +51,39 @@ module.exports = {
         dcm.delete({
           timeout: 7000
         })
-      })
+      });
+      
+    if (command.permissions.client.length > 0) {
+      let clientChannelPermissions = message.channel.permissionsFor(
+        message.guild.me
+      );
+      clientChannelPermissions = new Permissions(
+        clientChannelPermissions.bitfield
+      );
+      if (!clientChannelPermissions.has(command.permissions.client)) {
+        let missingPermissions = command.permissions.client
+          .filter(perm => clientChannelPermissions.has(perm) === false)
+          .join(", ");
+        
+        return message.reply(`Please make sure i have **${missingPermissions}** permissions :)`)
+      }
+    }
+
+    if (command.permissions.user.length > 0) {
+      let memberChannelPermissions = message.channel.permissionsFor(
+        message.member
+      );
+      memberChannelPermissions = new Permissions(
+        memberChannelPermissions.bitfield
+      );
+      if (memberChannelPermissions.has(command.permissions.user)) {
+        let missingPermissions = command.permissions.user
+          .filter(perm => memberChannelPermissions.has(perm) === false)
+          .join(", ");
+        
+        return message.reply(`Sorry, you must have **${missingPermissions}** permissions to use this command :)`)
+      }
+    }      
       
       command.run(message, args, client)
     } catch (e) {
