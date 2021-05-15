@@ -304,7 +304,12 @@ module.exports = async client => {
     }
 
     let _enable = false;
-    findGuildDB
+    let disabledF = [];
+
+      findGuildDB.Settings.DisabledFeatures.map(disabledFT => {
+        disabledF.push(disabledFT.Name.toLowerCase());
+      });
+    if (disabledF.includes("anti-link")) _enable = true;
     
     res.render("acc/dashboard-automod.ejs", {
       req,
@@ -358,6 +363,43 @@ module.exports = async client => {
     res.redirect(`/dashboard/${guild_id}/commands`);
   });
 
+  app.post("/dashboard/:id/automod", checkAuth, async (req, res) => {
+    let guild_id = req.params.id;
+    if (!guild_id) return res.redirect("/account/server-list");
+    if (isNaN(guild_id)) return res.redirect("/account/server-list");
+
+    let checkUserGuild = req.user.guilds.find(x => x.id == guild_id);
+    if (!checkUserGuild) return res.redirect("/account/server-list");
+
+    let perms = new Permissions(checkUserGuild.permissions);
+    if (!perms.has("MANAGE_GUILD")) {
+      return res.redirect(
+        "/account/server-list?mp=true&mpguild=" + checkUserGuild.name + "#error"
+      );
+    }
+
+    let findGuildDB = await client.Guild.findOne({ ID: checkUserGuild.id });
+
+    if (!findGuildDB) {
+      findGuildDB = await client.Guild.Create(false, guild_id);
+    }
+    
+    let _enable = [], _enableStruct;
+    
+    let enable = req.body[`anti-link`];
+    
+    _enableStruct = require("../other/Features.js")[0];
+    if (enable) {
+      _enable.push(_enableStruct)
+      findGuildDB.Settings.DisabledFeatures = _enable;
+    } else if (!enable) {
+      findGuildDB.Settings.DisabledFeatures = [];
+    }
+    findGuildDB.save();
+
+    res.redirect(`/dashboard/${guild_id}/automod`);
+  });  
+  
   app.get("/commands", async (req, res) => {
     let guild_id = req.query.id;
     if (!guild_id) return res.redirect("/");
