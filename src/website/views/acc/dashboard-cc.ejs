@@ -25,50 +25,17 @@
             }
             %>    
     <div class="title"><img class="server-icon" src="<%= icon %>"> <%= guild.name %></div>
-    <ul class="nav">
-      <li class="sidebar-item">
-        <a href="/dashboard/<%= guild.id %>/commands" class="a"><i class="fas fa-chart-bar"></i> Commands</a>
-      </li>      
-      <li class="sidebar-item">
-        <a href="/dashboard/<%= guild.id %>/settings" class="a"><i class="fas fa-cog"></i> Settings</a>
-      </li>      
-      <li class="sidebar-item">
-        <a href="/dashboard/<%= guild.id %>" class="a"><i class="fas fa-chart-bar"></i> Statistics</a>
-      </li>
-      <li class="sidebar-item">
-        <a href="/dashboard/<%= guild.id %>/automod" class="a"><i class="fas fa-ban"></i> Auto Mod</a>
-      </li>
-      <li class="sidebar-item">
-        <a href="/dashboard/<%= guild.id %>/cc" class="a"><i class="fas fa-code"></i> Custom Commands</a>
-      </li>
-    </ul>
+    <%- includes('../part/navbar-dashboard.ejs') %>
   </div> 
   
   <div class="content content-is-open" style="min-height: 360px; height: auto;">
-    <span class='side-panel-toggle'>
-      <i class="fa fa-bars"></i>
-    </span>
-    <form method="POST" id="formnya" onchange="save()">
-<div class="accordion" id="accordionExample">
-  <div class="card" id="anti-link">
-    <div class="card-header" id="head-anti-link" data-toggle="collapse" data-target="#anti-link" aria-expanded="true" aria-controls="anti-link">
-      <h2 class="mb-0" id="anti-link-name"><a>Anti link -</a> <small>admin are not affected</small></h2>
-    </div>
-
-    <div id="anti-link" class="collapse" aria-labelledby="head-anti-link" data-parent="#accordionExample">
-      <div class="card-body">
-        <div class="card-sec-item">
-          <h5 style="line-height: 1; text-align: left; float: left; width: 10px; min-width: 172px; font-size: 30px;">Enable: <label class="switch"><input type="checkbox" name="anti-link" <%= enable_ ? 'checked="checked"' : "" %></input>><span class="slider round"></span></label></h5>
-        </div>
+    <h3 class="cc-title">
+      Make bot response to a message
+    </h3>
+    <div class="cc-list">
+      <div class="cc">
       </div>
     </div>
-  </div>  
-      </div> 
-        <div class="save-list">
-          <a class="save-btn-item reset-btn" onclick="resetFORM()" style="text-align: right; margin-right: 24px; cursor: pointer;">Reset</a>
-          <button class="btn btn-warning save-btn-item" id="thebtn" type="submit">Save</button>
-        </div>      
-    </form>
   </div>
 </div>
     </main>
