@@ -25,8 +25,8 @@ module.exports = {
     if (!message.content.startsWith(Guild.Settings.Prefix)) {
       let disabledF = [];
 
-      Guild.Settings.DisabledFeatures.map(disabledF => {
-        disabledF.push(disabledF.Name.toLowerCase());
+      Guild.Settings.DisabledFeatures.map(disabledFA => {
+        disabledF.push(disabledFA.Name.toLowerCase());
       });
 
       var regex = new RegExp(
@@ -34,11 +34,18 @@ module.exports = {
       );
 
       if (disabledF.includes("anti-link")) {
-        if (regex.test(message.content.toLowerCase())) {
-          message.delete();
-          message.reply(`Your message includes links, we not allowed that :<`);
-          return;
-        } else {
+        if (!message.member.hasPermission("ADMINISTRATOR")) {
+          if (regex.test(message.content.toLowerCase())) {
+            message.delete();
+            message.reply(
+              `Your message includes links, we not allowed that here.`
+            ).then(m => {
+              m.delete({
+                timeout: 5000
+              })
+            })
+            return;
+          }
         }
       }
 
