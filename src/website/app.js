@@ -303,6 +303,9 @@ module.exports = async client => {
       findGuildDB = await client.Guild.Create(false, guild_id);
     }
 
+    let _enable = false;
+    findGuildDB
+    
     res.render("acc/dashboard-automod.ejs", {
       req,
       res,
@@ -311,7 +314,8 @@ module.exports = async client => {
       user: await client.users.fetch(req.user.id.toString()),
       Permission: Permissions,
       guild: client.guilds.cache.get(checkUserGuild.id),
-      database: findGuildDB
+      database: findGuildDB,
+      enable_: _enable
     });    
   });
 

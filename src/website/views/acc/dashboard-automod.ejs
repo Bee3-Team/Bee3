@@ -48,6 +48,7 @@
     <span class='side-panel-toggle'>
       <i class="fa fa-bars"></i>
     </span>
+    <form method="POST" id="formnya" onchange="save()">
 <div class="accordion" id="accordionExample">
   <div class="card" id="anti-link">
     <div class="card-header" id="head-anti-link" data-toggle="collapse" data-target="#anti-link" aria-expanded="true" aria-controls="anti-link">
@@ -57,13 +58,17 @@
     <div id="anti-link" class="collapse" aria-labelledby="head-anti-link" data-parent="#accordionExample">
       <div class="card-body">
         <div class="card-sec-item">
-          <% let enable_ = true %>
           <h5 style="line-height: 1; text-align: left; float: left; width: 10px; min-width: 172px; font-size: 30px;">Enable: <label class="switch"><input type="checkbox" name="anti-link" <%= enable_ ? 'checked="checked"' : "" %></input>><span class="slider round"></span></label></h5>
         </div>
       </div>
     </div>
   </div>  
-      </div>    
+      </div> 
+        <div class="save-list">
+          <a class="save-btn-item reset-btn" onclick="resetFORM()" style="text-align: right; margin-right: 24px; cursor: pointer;">Reset</a>
+          <button class="btn btn-warning save-btn-item" id="thebtn" type="submit">Save</button>
+        </div>      
+    </form>
   </div>
 </div>
     </main>
