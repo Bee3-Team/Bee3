@@ -21,7 +21,7 @@ dependencies:
   simple-youtube-api: 5.2.1
   smooth-scrollbar: 8.6.1
   socket.io: 4.0.1
-  ytdl-core: 4.5.0
+  ytdl-core: 4.8.0
 packages:
   /@derhuerst/http-basic/8.2.1:
     dependencies:
@@ -2065,6 +2065,16 @@ packages:
       node: '>=10'
     resolution:
       integrity: sha512-e8r6skrakWNixsVlNPBMoRM1HrdW1swE97If9nenDUjF65uogYk4DvxIuqlmqRfBWKe+6aIZwqedNxUU9XLYJA==
+  /ytdl-core/4.8.0:
+    dependencies:
+      m3u8stream: 0.8.3
+      miniget: 4.2.0
+      sax: 1.2.4
+    dev: false
+    engines:
+      node: '>=10'
+    resolution:
+      integrity: sha512-LFhhwqFojReoaME17VpsFeiamygM0W/YNG8O02mrmS2O6Em5LjCPiJYdq7Af3CmJtBEOCdptSZ3Ql+3LGWDGvg==
   /zero-fill/2.2.4:
     dev: false
     resolution:
@@ -2095,4 +2105,4 @@ specifiers:
   simple-youtube-api: ^5.2.1
   smooth-scrollbar: ^8.6.0
   socket.io: ^4.0.1
-  ytdl-core: ^4.4.5
+  ytdl-core: ^4.8.0

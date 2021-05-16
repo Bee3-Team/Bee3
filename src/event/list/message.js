@@ -1,4 +1,5 @@
-const { Permissions } = require("discord.js");
+const { Permissions, Collection } = require("discord.js");
+const cooldowns = new Collection();
 
 module.exports = {
   name: "message",
@@ -81,6 +82,32 @@ module.exports = {
       client.Commands.get(cmd) || client.Commands.get(client.Aliases.get(cmd));
     if (!command) return;
 
+  if (!cooldowns.has(command.name)) {
+    cooldowns.set(command.name, new Collection());
+  }
+  const member = message.member;
+  const now = Date.now();
+  const timestamps = cooldowns.get(command.name);
+  const cooldownAmount = (command.cooldown || 5) * 1000;
+
+
+  
+  if (!timestamps.has(member.id)) {
+    timestamps.set(member.id, now);
+  } else {
+    const expirationTime = timestamps.get(member.id) + cooldownAmount;
+
+    if (now < expirationTime) {
+      const timeLeft = (expirationTime - now) / 1000;
+      return message.reply(`Hey! you must wait \`${timeLeft.toFixed(1)}s\` before reusing \`${command.name}\``).then(m => {m.delete({
+        timeout: timeLeft.toFixed(1) * 1000
+      })})
+    }
+
+    timestamps.set(member.id, now);
+    setTimeout(() => timestamps.delete(member.id), cooldownAmount);
+  }    
+    
     try {
       if (Guild.Danger.Banned) return;
       let disabled_ = false;
