@@ -46,8 +46,20 @@ module.exports = {
             })
             return;
           }
+        } else if (!message.member.hasPermission("ADMINISTRATOR")) {
+          if (regex.test(message.content.toLowerCase())) {
+            message.delete();
+            message.reply(
+              `Your message includes links, we not allowed that here.`
+            ).then(m => {
+              m.delete({
+                timeout: 5000
+              })
+            })
+            return;
+          }          
         }
-      }
+       }
 
       return;
     }
