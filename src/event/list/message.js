@@ -34,7 +34,7 @@ module.exports = {
       );
 
       if (disabledF.includes("anti-link")) {
-        if (!message.member.hasPermission("ADMINISTRATOR")) {
+        if (!message.author.bot && !message.member.hasPermission("ADMINISTRATOR")) {
           if (regex.test(message.content.toLowerCase())) {
             message.delete();
             message.reply(
@@ -65,10 +65,6 @@ module.exports = {
       disable.push(disabledCMD.name.toLowerCase());
     });
 
-    Guild.Settings.DisabledFeatures.map(disabledF => {
-      disabledF.push(disabledF.Name.toLowerCase());
-    });
-
     const command =
       client.Commands.get(cmd) || client.Commands.get(client.Aliases.get(cmd));
     if (!command) return;
@@ -85,9 +81,15 @@ module.exports = {
             `the \`${command.name}\` command has been \`disabled\` by the admin`
           )
           .then(dcm => {
+          try {
             dcm.delete({
               timeout: 7000
-            });
+            }).catch(e => {
+            return message.channel.send(`Cannot delete message, because do not have permission.`)
+            })     
+          } catch (e) {
+            return message.channel.send(`Cannot delete message, because do not have permission.`)
+          }
           });
 
       if (command.permissions.client.length > 0) {

@@ -1,4 +1,4 @@
 module.exports = {
-  name: "aplha release",
+  name: "alpha release",
   type: "playing"
 }
