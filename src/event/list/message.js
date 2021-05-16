@@ -99,7 +99,7 @@ module.exports = {
 
     if (now < expirationTime) {
       const timeLeft = (expirationTime - now) / 1000;
-      return message.reply(`Hey! you must wait \`${timeLeft.toFixed(1)}s\` before reusing \`${command.name}\``).then(m => {m.delete({
+      return message.reply(`Hey! you must wait \`${timeLeft.toFixed(1)}s\` before reusing \`${command.name}\`.`).then(m => {m.delete({
         timeout: timeLeft.toFixed(1) * 1000
       })})
     }
