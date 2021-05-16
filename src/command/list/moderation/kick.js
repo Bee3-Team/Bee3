@@ -13,7 +13,9 @@ module.exports = {
     let reason = args.slice(1).join(" ");
     if (!reason) reason = "No reason provide."
     if (user) {
-      if (user.id == client.user.id) return message.channel.send(`Wait what !? please use other bot to kick me :<`)
+      if (user.id == client.user.id) return message.channel.send(`Wait what !? please use other bot to kick me :<`);
+      if (user.id == message.author.id) return message.channel.send(`Wait, why you try to kick yourself ?`);
+      if (user.id == message.guild.owner.id) return message.channel.send(`You cant kick server owner :<`)
       
       const member = message.guild.members.resolve(user);
       if (member) {
