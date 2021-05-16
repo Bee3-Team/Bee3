@@ -1,4 +1,4 @@
 module.exports = {
-  name: "my dashboard",
+  name: "aplha release",
   type: "playing"
 }
