@@ -4,8 +4,6 @@ module.exports = {
   name: "voiceStateUpdate",
   execute: async (oldVoice, newVoice, client) => {
     
-    console.log(newVoice.member.id);
-    
     let waiting_ = client.waiting.get(newVoice.member.id);
     
     if (waiting_) {
