@@ -1112,6 +1112,18 @@ select:focus {
     display: none;
   }
 
+@media (max-width: 350px) {
+  
+  .sidebar {
+    max-width: 100% !important;
+  }
+  
+  .sidebar.active {
+    width: 100% !important;
+  }
+  
+}
+
 /* sidebar for small screens */
 @media screen and (max-width: 767px){
   
