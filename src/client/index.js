@@ -116,7 +116,8 @@ client.Guild.Create = async function a(message, id = false) {
         DisabledFeatures: []
       },
       Statistics: {
-        CommandsUsed: []
+        CommandsUsed: [],
+        CommandsUsedTotal: 0
       },
       CustomCommands: [],
       Leveling: []

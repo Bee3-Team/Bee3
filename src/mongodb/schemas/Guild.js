@@ -12,7 +12,8 @@ module.exports = model(
       DisabledFeatures: []
     },
     Statistics: {
-      CommandsUsed: []
+      CommandsUsed: [],
+      CommandsUsedTotal: Number
     }, 
     CustomCommands: [],
     Leveling: []

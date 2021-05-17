@@ -166,8 +166,11 @@ module.exports = {
         Number: Guild.Statistics.CommandsUsed.length + 1,
         Date: Date()
       });
-      Guild.Statistics.CommandsUsed = Guild.Statistics.CommandsUsed.slice(Guild.Statistics.CommandsUsed - 5)
+      a = Guild.Statistics.CommandsUsed.length;
+      Guild.Statistics.CommandsUsedTotal = Guild.Statistics.CommandsUsedTotal + 1;
+      Guild.Statistics.CommandsUsed = Guild.Statistics.CommandsUsed.slice(Guild.Statistics.CommandsUsed.length - 5)
       Guild.save();
+      console.log(a)
     }
   }
 };

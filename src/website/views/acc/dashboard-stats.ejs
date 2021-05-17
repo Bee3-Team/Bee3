@@ -38,7 +38,7 @@
     <div class="well well-sm graph">
       <div class="server-info row">
         <div class="server-info-item" data-toggle="tooltip" data-placement="bottom" title="Run Commands">
-          <%= database.Statistics.CommandsUsed.length %>
+          <%= database.Statistics.CommandsUsedTotal || 0 %>
         </div>
         <div class="server-info-item" data-toggle="tooltip" data-placement="bottom" title="Bot Status">
           <%= bot.config.status || "Ready" %>
