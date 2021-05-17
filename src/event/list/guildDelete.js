@@ -9,6 +9,7 @@ module.exports = {
     if (!check_) return;
     
     check_.remove();
+    console.log("Removed 1 server")
     
   }
 }

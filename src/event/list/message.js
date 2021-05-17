@@ -161,19 +161,15 @@ module.exports = {
     } catch (e) {
       return console.log(`[ERROR] ${e}`);
     } finally {
-      let a, b;
       Guild.Statistics.CommandsUsed.push({
         Number: Guild.Statistics.CommandsUsedTotal + 1,
         Date: Date()
       });
-      a = Guild.Statistics.CommandsUsed.length; 
-      b = Guild.Statistics.CommandsUsedTotal;
       Guild.Statistics.CommandsUsedTotal = Guild.Statistics.CommandsUsedTotal + 1;
       if (Guild.Statistics.CommandsUsed.length >= 6) {
         Guild.Statistics.CommandsUsed = Guild.Statistics.CommandsUsed.slice(Guild.Statistics.CommandsUsed.length - 5)
       }
-      Guild.save();
-      console.log(a + " - " + b)
+      Guild.save().catch(e => {return;})
     }
   }
 };
