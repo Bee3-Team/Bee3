@@ -1,3 +1,5 @@
+
+<!--  -->
 <!DOCTYPE html>
 <html>
   <head>
@@ -9,30 +11,53 @@
     <script src="https://kit.fontawesome.com/071ea1fa85.js" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.1.1/dist/chart.min.js"></script>    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.1.1/dist/chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.6/Chart.min.js"></script>
     <%- include('../part/loading.ejs') %>
     
-    <%- include('../part/navbar.ejs') %>
-    
-    <main id="main" role="main" class="main" style="padding: 10px;">
-<div class="wrapper">
-  <div class="sidebar">
-            <% let icon;
-            if (guild.icon) {
-            icon = `https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}.webp`
-            } else if (!guild.icon) {
-            icon = bot.user.displayAvatarURL()
-            }
-            %>    
-    <div class="title"><img class="server-icon" src="<%= icon %>"> <%= guild.name %></div>
-    <%- include('../part/navbar-dashboard.ejs') %>
-  </div> 
-  <div class="content content-is-open">
-    <span class='side-panel-toggle'>
-      <i class="fa fa-bars"></i>
-    </span>
-    <div class="graph-list">
-    <div class="well well-sm graph">
+<div class="container-fluid">
+  <div class="row">
+    <!-- sidebar -->
+    <%- include("../part/navbar-dashboard.ejs") %>
+    <!-- overlay to close sidebar on small screens -->
+    <div class="w-100 vh-100 position-fixed overlay d-none" id="sidebar-overlay"></div>
+    <!-- note: in the layout margin auto is the key as sidebar is fixed -->
+    <div class="col-md-9 col-lg-10 ml-md-auto px-0">
+      <!-- top nav -->
+      <nav class="w-100 d-flex py-2 mb-4 shadow-sm">
+        <!-- close sidebar -->
+        <button class="btn py-0 d-lg-none" id="open-sidebar">
+          <i class="fa fa-bars text-primary" style="font-size: 30px;"></i>
+        </button>
+        <div class="dropdown ml-auto">
+          <button class="btn py-0 d-flex align-items-center" id="logout-dropdown" data-toggle="dropdown" aria-expanded="false">
+            <span class="fas fa-user-circle text-primary h4"></span>
+            <span class="fa fa-chevron-down ml-1 mb-2 small text-primary "></span>
+          </button>
+          <div class="dropdown-menu dropdown-menu-right border-0 shadow-sm" aria-labelledby="logout-dropdown" style="box-shadow: 0px 0px 12px 3px rgb(0 0 0 / 50%) !important;">
+      <% if (req.user) { %>
+            <a class="dropdown-item" href="/account"><%= req.user.username %></a>
+      <% } else { %>
+            <a class="dropdown-item" href="/login">Login</a>
+      <% } %>            
+            <a class="dropdown-item" href="/">Home</a>
+            <a class="dropdown-item" href="/invite?permission=8">Invite</a>
+            <a class="dropdown-item" href="/support">Support</a>
+          </div>
+        </div>
+      </nav>
+      <!-- main content -->
+      <main class="container-fluid">
+        <div class="jumbotron jumbotron-fluid rounded bg-white border-0 shadow-sm border-left">
+  <div class="container">
+    <p class="lead text-muted"><%= guild.name %></p>
+  </div>
+</div>               
+        <section>
+          <div class="col-md-6 col-lg-4" style="width: 100%; height: 100%; padding-right: 0px; max-width: 100% !important; max-height: 100% !important; padding-left: 0px;">
+            <article class="p-4 rounded shadow-sm border-left
+               mb-4" style="padding: 5px !important;">
+              <a class="d-flex align-items-center">
       <form method="POST" class="form">
         <div class="input-item" id="username-clm">
         <label for="username" class="label">nickname<i style="color: red;">*</i></label>
@@ -59,16 +84,37 @@
   <span class="example-bot-msg" id="bot-msg">!help</span>
   </div>
     </div>
-    </div>      
+              </a>
+            </article>
+          </div>          
+        </section>
+      </main>
     </div>
-    <hr>
   </div>
 </div>
-    </main>
-    
+<!--     <script>
+$(window).resize(function() {
+	var path = $(this);
+	var contW = path.width();
+	if(contW >= 769){
+    $('.content').css('margin-left', '220px');
+	}else{
+    $('.content').css('margin-left', '0px');
+	}
+});
 
-    <%- include('../part/footer.ejs') %>
-    
+$(document).ready(function() {
+	$(".side-panel-toggle").click(function(e) {
+		e.preventDefault();
+    var marginLeft = $('.content').css('margin-left');
+    if (marginLeft === '220px') {
+      $('.content').css('margin-left', '0px');
+    } else {
+      $('.content').css('margin-left', '220px');
+    }
+	});
+});    
+    </script> -->
     <script>
 var button = $('#save-btn');
 var button2 = $("#reset-btn");
@@ -125,45 +171,41 @@ $('form').bind('change keyup', function () {
     button2.prop('disabled', disable);
 });
       
-    </script>
-    <script>
-      document.getElementById("bot-name").innerHTML = document.getElementById("username").value || <%= bot.user.username %>;
-      document.getElementById("bot-msg").innerHTML = `${document.getElementById("prefix").value || "!"}help`
+    </script>    
+<script>
+$(document).ready(()=>{
+  
+  $('#open-sidebar').click(()=>{
+     
+      // add class active on #sidebar
+      $('#sidebar').addClass('active');
       
-      async function deleteBtnList() {
-        document.getElementById("bot-name").innerHTML = document.getElementById("username").value || `<%= bot.user.username %>`;
-        document.getElementById("bot-msg").innerHTML = `${document.getElementById("prefix").value || "!"}help`   
-        $('#save-btn').hide(500);
-        $('#reset-btn').hide(500);
-    $('.button-list').hide(500);        
-      }
+      // show sidebar overlay
+      $('#sidebar-overlay').removeClass('d-none');
+    
+   });
+  
+  
+   $('#sidebar-overlay').click(function(){
+     
+      // add class active on #sidebar
+      $('#sidebar').removeClass('active');
       
-      async function updateExample() {
-        document.getElementById("bot-name").innerHTML = document.getElementById("username").value || <%= bot.user.username %>;
-        document.getElementById("bot-msg").innerHTML = `${document.getElementById("prefix").value || "!"}help`
-      }
-      
-$(window).resize(function() {
-	var path = $(this);
-	var contW = path.width();
-	if(contW >= 769){
-    $('.content').css('margin-left', '220px');
-	}else{
-    $('.content').css('margin-left', '0px');
-	}
-});
-
-$(document).ready(function() {
-	$(".side-panel-toggle").click(function(e) {
-		e.preventDefault();
-    var marginLeft = $('.content').css('margin-left');
-    if (marginLeft === '220px') {
-      $('.content').css('margin-left', '0px');
-    } else {
-      $('.content').css('margin-left', '220px');
-    }
-	});
-});    
+      // show sidebar overlay
+      $(this).addClass('d-none');
+    
+   });
+  
+   $('#sidebar-remove-overlay').click(function(){
+     
+      // add class active on #sidebar
+      $('#sidebar').removeClass('active');
+     
+     $("#sidebar-overlay").addClass('d-none');
+    
+   });  
+  
+});  
     </script>
   </body>
 </html>
