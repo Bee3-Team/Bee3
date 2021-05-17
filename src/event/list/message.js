@@ -4,6 +4,7 @@ const cooldowns = new Collection();
 module.exports = {
   name: "message",
   execute: async (message, client) => {
+    if (message.author.bot) return;
     let config = client.config;
 
     let Guild = null;
@@ -35,7 +36,7 @@ module.exports = {
       );
 
       if (disabledF.includes("anti-link")) {
-        if (!message.author.bot && !message.member.hasPermission("ADMINISTRATOR")) {
+        if (!message.member.hasPermission("ADMINISTRATOR")) {
           if (regex.test(message.content.toLowerCase())) {
             message.delete();
             message.reply(
@@ -65,7 +66,6 @@ module.exports = {
       return;
     }
 
-    if (message.author.bot) return;
 
     const args = message.content
       .slice(Guild.Settings.Prefix.length)
