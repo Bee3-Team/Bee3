@@ -169,7 +169,7 @@ module.exports = {
       if (Guild.Statistics.CommandsUsed.length >= 6) {
         Guild.Statistics.CommandsUsed = Guild.Statistics.CommandsUsed.slice(Guild.Statistics.CommandsUsed.length - 5)
       }
-      Guild.save().catch(e => {return;})
+      Guild.save();
     }
   }
 };
