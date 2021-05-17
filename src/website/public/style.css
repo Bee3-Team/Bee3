@@ -1108,6 +1108,10 @@ select:focus {
   z-index: 99;
 }
 
+  #sidebar-remove-overlay {
+    display: none;
+  }
+
 /* sidebar for small screens */
 @media screen and (max-width: 767px){
   
@@ -1119,6 +1123,10 @@ select:focus {
   
   .sidebar.active{
     transform : translateX(0);
+  }
+  
+  #sidebar-remove-overlay {
+    display: block;
   }
   
 }

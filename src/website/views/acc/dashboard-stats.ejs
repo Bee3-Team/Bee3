@@ -16,15 +16,8 @@
 <div class="container-fluid">
   <div class="row">
     <!-- sidebar -->
-    <div class="col-md-3 col-lg-2 px-0 position-fixed vh-100 bg-white shadow-sm sidebar" id="sidebar" style="border-radius: 0px;">
-            <% let icon;
-            if (guild.icon) {
-            icon = `https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}.webp`
-            } else if (!guild.icon) {
-            icon = bot.user.displayAvatarURL()
-            }
-            %>          
-      <button class="fa0"></button>
+    <div class="col-md-3 col-lg-2 px-0 position-fixed vh-100 bg-white shadow-sm sidebar" id="sidebar" style="border-radius: 0px;">    
+      <div class="fa fa-bars text-primary" style="padding: 10px; cursor: pointer; font-size: 30px;" id="sidebar-remove-overlay"></div>
       <div class="list-group rounded-0">
         <a href="#" class="list-group-item list-group-item-action active border-0 d-flex align-items-center">
           <span class="fa fa-border-all"></span>
@@ -87,41 +80,16 @@
       </nav>
       <!-- main content -->
       <main class="container-fluid">
-        <section class="row">
+         <section class="row">
           <div class="col-md-6 col-lg-4">
-            <!-- card -->
             <article class="p-4 rounded shadow-sm border-left
                mb-4">
-              <a href="#" class="d-flex align-items-center">
-                <span class="fa fa-box h5"></span>
-                <h5 class="ml-2">Products</h5>
-              </a>
-            </article>
-          </div>
-          <div class="col-md-6 col-lg-4">
-            <article class="p-4 rounded shadow-sm border-left mb-4">
-              <a href="#" class="d-flex align-items-center">
-                <span class="fa fa-person h5"></span>
-                <h5 class="ml-2">Customers</h5>
-              </a>
-            </article>
-          </div>
-          <div class="col-md-6 col-lg-4">
-            <article class="p-4 rounded shadow-sm border-left mb-4">
-              <a href="#" class="d-flex align-items-center">
-                <span class="fa fa-person-check h5"></span>
-                <h5 class="ml-2">Sellers</h5>
+              <a class="d-flex align-items-center">
+                <h5 class="ml-2"><%= guild.name %></h5>
               </a>
             </article>
           </div>
         </section>
-        
-        <div class="jumbotron jumbotron-fluid rounded bg-white border-0 shadow-sm border-left px-4">
-  <div class="container">
-    <h1 class="display-4 mb-2 text-primary">Simple</h1>
-    <p class="lead text-muted">Simple Admin Dashboard with Bootstrap.</p>
-  </div>
-</div>
       </main>
     </div>
   </div>
@@ -172,6 +140,15 @@ $(document).ready(()=>{
       $(this).addClass('d-none');
     
    });
+  
+   $('#sidebar-remove-overlay').click(function(){
+     
+      // add class active on #sidebar
+      $('#sidebar').removeClass('active');
+     
+     $("#sidebar-overlay").addClass('d-none');
+    
+   });  
   
 });  
   
