@@ -38,7 +38,7 @@ module.exports = {
       if (disabledF.includes("anti-link")) {
         if (!message.member.hasPermission("ADMINISTRATOR")) {
           if (regex.test(message.content.toLowerCase())) {
-            message.delete();
+            message.delete().catch(e => message.channel.send(`Cannot delete message, missing permission.`))
             message.reply(
               `Your message includes links, we not allowed that here.`
             ).then(m => {
@@ -48,18 +48,6 @@ module.exports = {
             })
             return;
           }
-        } else if (!message.member.hasPermission("ADMINISTRATOR")) {
-          if (regex.test(message.content.toLowerCase())) {
-            message.delete();
-            message.reply(
-              `Your message includes links, we not allowed that here.`
-            ).then(m => {
-              m.delete({
-                timeout: 5000
-              })
-            })
-            return;
-          }          
         }
        }
 
@@ -173,10 +161,12 @@ module.exports = {
     } catch (e) {
       return console.log(`[ERROR] ${e}`);
     } finally {
+      let a;
       Guild.Statistics.CommandsUsed.push({
         Number: Guild.Statistics.CommandsUsed.length + 1,
         Date: Date()
       });
+      Guild.Statistics.CommandsUsed = Guild.Statistics.CommandsUsed.slice(Guild.Statistics.CommandsUsed - 5)
       Guild.save();
     }
   }
