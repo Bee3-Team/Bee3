@@ -1093,6 +1093,9 @@ select:focus {
   border-left: 2px solid var(--primary) !important;
 }
 
+.my-embed {
+  border-left: 5px solid var(--primary) !important;
+}
 
 .sidebar{
   top: 0;
@@ -1146,3 +1149,4 @@ select:focus {
   }
   
 }
+
