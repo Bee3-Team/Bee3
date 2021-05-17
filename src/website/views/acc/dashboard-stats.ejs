@@ -1,143 +1,3 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <%- include('../part/head.ejs') %>
-    <%- include('../part/bootstrapCSS.ejs') %>
-  </head>
-  <body class="on-loading">
-    <%- include('../part/bootstrapJS.ejs') %>
-    <script src="https://kit.fontawesome.com/071ea1fa85.js" crossorigin="anonymous"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.1.1/dist/chart.min.js"></script>    
-    <%- include('../part/loading.ejs') %>
-    
-    <%- include('../part/navbar.ejs') %>
-    
-    <main id="main" role="main" class="main" style="padding: 10px;">
-<div class="wrapper">
-  <div class="sidebar">
-            <% let icon;
-            if (guild.icon) {
-            icon = `https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}.webp`
-            } else if (!guild.icon) {
-            icon = bot.user.displayAvatarURL()
-            }
-            %>    
-    <div class="title"><img class="server-icon" src="<%= icon %>"> <%= guild.name %></div>
-    <%- include('../part/navbar-dashboard.ejs') %>
-  </div> 
-  <div class="content content-is-open">
-    <span class='side-panel-toggle'>
-      <i class="fa fa-bars"></i>
-    </span>
-    <div class="graph-list">
-    <div class="well well-sm graph">
-      <canvas id="CommandsUsed"></canvas>
-    </div>      
-    <div class="well well-sm graph">
-      <div class="server-info row">
-        <div class="server-info-item" data-toggle="tooltip" data-placement="bottom" title="Run Commands">
-          <%= database.Statistics.CommandsUsedTotal || 0 %>
-        </div>
-        <div class="server-info-item" data-toggle="tooltip" data-placement="bottom" title="Bot Status">
-          <%= bot.config.status || "Ready" %>
-        </div>
-        <div class="server-info-item" data-toggle="tooltip" data-placement="bottom" title="Guild Members">
-          <%= guild.members.cache.size %>
-        </div>
-      </div>
-    </div>
-    </div>
-    <hr>
-  </div>
-</div>
-    </main>
-    
-
-    <%- include('../part/footer.ejs') %>
-    <script>
-$(window).resize(function() {
-	var path = $(this);
-	var contW = path.width();
-	if(contW >= 769){
-    $('.content').css('margin-left', '220px');
-	}else{
-    $('.content').css('margin-left', '0px');
-	}
-});
-
-$(document).ready(function() {
-	$(".side-panel-toggle").click(function(e) {
-		e.preventDefault();
-    var marginLeft = $('.content').css('margin-left');
-    if (marginLeft === '220px') {
-      $('.content').css('margin-left', '0px');
-    } else {
-      $('.content').css('margin-left', '220px');
-    }
-	});
-});    
-    </script>
-<script>
-var DEFAULT_DATASET_SIZE = 7,
-			addedCount = 0,
-		    color = Chart.helpers.color;
-
-	var months = ["0", "0", "0", "0", "0"];
-
-	var chartColors = {
-		red: 'rgb(255, 99, 132)',
-		orange: 'rgb(255, 159, 64)',
-		yellow: 'rgb(255, 205, 86)',
-		green: 'rgb(75, 192, 192)',
-		blue: 'rgb(54, 162, 235)',
-		purple: 'rgb(153, 102, 255)',
-		grey: 'rgb(231,233,237)'
-	};
-
-  let data = [];
-  let dataDate = [];
-  
-  <% database.Statistics.CommandsUsed.sort((a, b) => new Date(a.Date).getTime() - new Date(b.Date).getTime()).map(x => { %>
-  data.push(`<%= x.Number %>`)
-  dataDate.push(`<%= new Date(x.Date).toLocaleDateString() %>`)
-  <% }) %>
-  
-var barData = {
-			labels: dataDate.slice(dataDate.length - 5, dataDate.length),
-			datasets: [{
-				label: 'Commands Used',
-				backgroundColor: color(chartColors.red).alpha(0.5).rgbString(),
-				borderColor: chartColors.red,
-				borderWidth: 1,
-				data: data.slice(data.length - 5, data.length)
-			}]
-
-		};
-var index = 11;
-var ctx = document.getElementById("CommandsUsed").getContext("2d");
-		var	myNewChartB = new Chart(ctx, {
-				type: 'bar',
-				data: barData,
-				options: {
-          maintainAspectRation: false,
-          padding: 0,
-					legend: {
-						position: 'top',
-					},
-					title: {
-						display: true,
-						text: 'Bar Chart'
-					},
-          devicePixelRatio: window.devicePixelRatio
-				}
-			});
-  
-    </script>
-  </body>
-</html>
-<!--  -->
 <!--  -->
 <!DOCTYPE html>
 <html>
@@ -150,7 +10,8 @@ var ctx = document.getElementById("CommandsUsed").getContext("2d");
     <script src="https://kit.fontawesome.com/071ea1fa85.js" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.1.1/dist/chart.min.js"></script>    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.1.1/dist/chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.6/Chart.min.js"></script>
     <%- include('../part/loading.ejs') %>
     
 <div class="container-fluid">
@@ -226,23 +87,46 @@ var ctx = document.getElementById("CommandsUsed").getContext("2d");
       </nav>
       <!-- main content -->
       <main class="container-fluid">
+        <div class="jumbotron jumbotron-fluid rounded bg-white border-0 shadow-sm border-left px-4">
+  <div class="container">
+    <p class="lead text-muted"><%= guild.name %></p>
+  </div>
+</div>               
+        <section class="row">
           <div class="col-md-6 col-lg-4">
             <article class="p-4 rounded shadow-sm border-left
                mb-4">
               <a class="d-flex align-items-center">
-                <h5 class="ml-2"><%= guild.name %></h5>
+                <canvas id="CommandsUsed"></canvas>
               </a>
             </article>
-          </div>        
+          </div>          
+        </section>
          <section class="row">
           <div class="col-md-6 col-lg-4">
             <article class="p-4 rounded shadow-sm border-left
                mb-4">
               <a class="d-flex align-items-center">
-                <h5 class="ml-2"><%= guild.name %></h5>
+<%= database.Statistics.CommandsUsedTotal || 0 %>
               </a>
             </article>
-          </div>
+          </div>   
+          <div class="col-md-6 col-lg-4">
+            <article class="p-4 rounded shadow-sm border-left
+               mb-4">
+              <a class="d-flex align-items-center">
+<%= bot.config.status || "Ready" %>
+              </a>
+            </article>
+          </div>   
+          <div class="col-md-6 col-lg-4">
+            <article class="p-4 rounded shadow-sm border-left
+               mb-4">
+              <a class="d-flex align-items-center">
+<%= guild.members.cache.size %>
+              </a>
+            </article>
+          </div>              
         </section>
       </main>
     </div>
@@ -353,10 +237,28 @@ var ctx = document.getElementById("CommandsUsed").getContext("2d");
 						position: 'top',
 					},
 					title: {
-						display: true,
-						text: 'Bar Chart'
+						display: true
 					},
-          devicePixelRatio: window.devicePixelRatio
+          devicePixelRatio: window.devicePixelRatio,
+            legend: {
+                labels: {
+                    fontColor: "white",
+                    fontSize: 18
+                }
+            },          
+        scales: {
+            yAxes: [{
+                ticks: {
+                    fontColor: "white"
+                }
+            }],
+            xAxes: [{
+                ticks: {
+                    // Edit here for the xAxe
+                    fontColor: "white"
+                }
+            }]
+        }          
 				}
 			});
   
