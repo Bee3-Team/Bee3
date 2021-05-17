@@ -161,16 +161,19 @@ module.exports = {
     } catch (e) {
       return console.log(`[ERROR] ${e}`);
     } finally {
-      let a;
+      let a, b;
       Guild.Statistics.CommandsUsed.push({
-        Number: Guild.Statistics.CommandsUsed.length + 1,
+        Number: Guild.Statistics.CommandsUsedTotal + 1,
         Date: Date()
       });
-      a = Guild.Statistics.CommandsUsed.length;
+      a = Guild.Statistics.CommandsUsed.length; 
+      b = Guild.Statistics.CommandsUsedTotal;
       Guild.Statistics.CommandsUsedTotal = Guild.Statistics.CommandsUsedTotal + 1;
-      Guild.Statistics.CommandsUsed = Guild.Statistics.CommandsUsed.slice(Guild.Statistics.CommandsUsed.length - 5)
+      if (Guild.Statistics.CommandsUsed.length >= 6) {
+        Guild.Statistics.CommandsUsed = Guild.Statistics.CommandsUsed.slice(Guild.Statistics.CommandsUsed.length - 5)
+      }
       Guild.save();
-      console.log(a)
+      console.log(a + " - " + b)
     }
   }
 };
