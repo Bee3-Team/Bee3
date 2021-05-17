@@ -48,16 +48,15 @@
       </nav>
       <!-- main content -->
       <main class="container-fluid">
-        <div class="jumbotron jumbotron-fluid rounded bg-white border-0 shadow-sm border-left">
+        <div class="jumbotron jumbotron-fluid rounded bg-white border-0 shadow-sm">
   <div class="container">
-    <p class="lead text-muted"><%= guild.name %></p>
+    <p class="lead text-muted"><strong><%= guild.name %></strong></p>
   </div>
 </div>               
         <section>
           <div class="col-md-6 col-lg-4" style="width: 100%; height: 100%; padding-right: 0px; max-width: 100% !important; max-height: 100% !important; padding-left: 0px;">
-            <article class="p-4 rounded shadow-sm border-left
-               mb-4" style="padding: 5px !important;">
-              <a class="d-flex align-items-center">
+            <article class="p-4 rounded shadow-sm mb-4" style="padding: 5px !important;">
+              <a class="align-items-center">
       <form method="POST" class="form">
         <div class="input-item" id="username-clm">
         <label for="username" class="label">nickname<i style="color: red;">*</i></label>
@@ -171,6 +170,21 @@ $('form').bind('change keyup', function () {
     button2.prop('disabled', disable);
 });
       
+      document.getElementById("bot-name").innerHTML = document.getElementById("username").value || <%= bot.user.username %>;
+      document.getElementById("bot-msg").innerHTML = `${document.getElementById("prefix").value || "!"}help`
+      
+      async function deleteBtnList() {
+        document.getElementById("bot-name").innerHTML = document.getElementById("username").value || `<%= bot.user.username %>`;
+        document.getElementById("bot-msg").innerHTML = `${document.getElementById("prefix").value || "!"}help`   
+        $('#save-btn').hide(500);
+        $('#reset-btn').hide(500);
+    $('.button-list').hide(500);        
+      }
+      
+      async function updateExample() {
+        document.getElementById("bot-name").innerHTML = document.getElementById("username").value || <%= bot.user.username %>;
+        document.getElementById("bot-msg").innerHTML = `${document.getElementById("prefix").value || "!"}help`
+      }      
     </script>    
 <script>
 $(document).ready(()=>{
