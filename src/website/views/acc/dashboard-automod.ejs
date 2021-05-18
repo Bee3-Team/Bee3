@@ -1,3 +1,5 @@
+
+<!--  -->
 <!DOCTYPE html>
 <html>
   <head>
@@ -9,30 +11,116 @@
     <script src="https://kit.fontawesome.com/071ea1fa85.js" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.1.1/dist/chart.min.js"></script>    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.1.1/dist/chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.6/Chart.min.js"></script>
     <%- include('../part/loading.ejs') %>
     
-    <%- include('../part/navbar.ejs') %>
+<div class="container-fluid">
+  <div class="row">
+    <!-- sidebar -->
     
-    <main id="main" role="main" class="main" style="padding: 10px;">
-<div class="wrapper">
-  <div class="sidebar">
-            <% let icon;
-            if (guild.icon) {
-            icon = `https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}.webp`
-            } else if (!guild.icon) {
-            icon = bot.user.displayAvatarURL()
-            }
-            %>    
-    <div class="title"><img class="server-icon" src="<%= icon %>"> <%= guild.name %></div>
-    <%- include('../part/navbar-dashboard.ejs') %>
-  </div> 
-  
-  <div class="content content-is-open" style="min-height: 360px; height: auto;">
-    <span class='side-panel-toggle'>
-      <i class="fa fa-bars"></i>
-    </span>
-    <form method="POST" id="formnya" onchange="save()">
+    <div class="col-md-3 col-lg-2 px-0 position-fixed vh-100 bg-white shadow-sm sidebar" id="sidebar" style="border-radius: 0px;">    
+      <div class="fa fa-bars text-primary" style="padding: 10px; cursor: pointer; font-size: 30px;" id="sidebar-remove-overlay"></div>
+      <div class="list-group rounded-0">
+        <a href="/dashboard/<%= guild.id %>/commands" class="list-group-item list-group-item-action border-0 d-flex align-items-center">
+          <span class="fas fa-code"></span>
+          <span class="ml-2">Commands</span>
+        </a>
+        <a href="/dashboard/<%= guild.id %>/settings" class="list-group-item list-group-item-action border-0 align-items-center">
+          <span class="fas fa-cog"></span>
+          <span class="ml-2">Settings</span>
+        </a>
+        <a href="/dashboard/<%= guild.id %>" class="list-group-item list-group-item-action border-0 align-items-center">
+          <span class="fas fa-chart-bar"></span>
+          <span class="ml-2">Statistics</span>
+        </a>        
+        <a href="/dashboard/<%= guild.id %>/automod" class="list-group-item active list-group-item-action border-0 align-items-center">
+          <span class="fas fa-ban"></span>
+          <span class="ml-2">Auto Mod</span>
+        </a>                
+        
+<!--         <button class="list-group-item list-group-item-action border-0 d-flex justify-content-between align-items-center" data-toggle="collapse" data-target="#sale-collapse">
+          <div>
+            <span class="fa fa-cart-dash"></span>
+            <span class="ml-2">Sales</span>
+          </div>
+          <span class="fa fa-chevron-down small"></span>
+        </button>
+        <div class="collapse" id="sale-collapse" data-parent="#sidebar">
+          <div class="list-group">
+            <a href="#" class="list-group-item list-group-item-action border-0 pl-5">Customers</a>
+            <a href="#" class="list-group-item list-group-item-action border-0 pl-5">Sale Orders</a>
+          </div>
+        </div>
+
+        <button class="list-group-item list-group-item-action border-0 d-flex justify-content-between align-items-center" data-toggle="collapse" data-target="#purchase-collapse">
+          <div>
+            <span class="fa fa-cart-plus"></span>
+            <span class="ml-2">Purchase</span>
+          </div>
+          <span class="fa fa-chevron-down small"></span>
+        </button>
+        <div class="collapse" id="purchase-collapse" data-parent="#sidebar">
+          <div class="list-group">
+            <a href="#" class="list-group-item list-group-item-action border-0 pl-5">Sellers</a>
+            <a href="#" class="list-group-item list-group-item-action border-0 pl-5">Purchase Orders</a>
+          </div>
+        </div> -->
+      </div>
+    </div>    
+    
+    <!-- overlay to close sidebar on small screens -->
+    <div class="w-100 vh-100 position-fixed overlay d-none" id="sidebar-overlay"></div>
+    <!-- note: in the layout margin auto is the key as sidebar is fixed -->
+    <div class="col-md-9 col-lg-10 ml-md-auto px-0">
+      <!-- top nav -->
+      <nav class="w-100 d-flex py-2 mb-4 shadow-sm">
+        <!-- close sidebar -->
+        <button class="btn py-0 d-lg-none" id="open-sidebar">
+          <i class="fa fa-bars text-primary" style="font-size: 30px;"></i>
+        </button>
+        <div class="dropdown ml-auto">
+          <button class="btn py-0 d-flex align-items-center" id="logout-dropdown" data-toggle="dropdown" aria-expanded="false">
+            <span class="fas fa-user-circle text-primary h4"></span>
+            <span class="fa fa-chevron-down ml-1 mb-2 small text-primary "></span>
+          </button>
+          <div class="dropdown-menu dropdown-menu-right border-0 shadow-sm" aria-labelledby="logout-dropdown" style="box-shadow: 0px 0px 12px 3px rgb(0 0 0 / 50%) !important;">
+      <% if (req.user) { %>
+            <a class="dropdown-item" href="/account"><%= req.user.username %></a>
+      <% } else { %>
+            <a class="dropdown-item" href="/login">Login</a>
+      <% } %>            
+            <a class="dropdown-item" href="/">Home</a>
+            <a class="dropdown-item" href="/invite?permission=8">Invite</a>
+            <a class="dropdown-item" href="/support">Support</a>
+          </div>
+        </div>
+      </nav>
+      <!-- main content -->
+      <main class="container-fluid">
+        <div class="jumbotron jumbotron-fluid rounded bg-white my-embed">
+  <div class="container">
+    <p class="lead text-muted"><strong><%= guild.name %></strong></p>
+  </div>
+</div>               
+       <form method="POST" id="formnya" onchange="save()">
+          <div class="col-md-6 col-lg-4" style="width: 100%; height: 100%; padding-right: 0px; max-width: 100% !important; max-height: 100% !important; padding-left: 0px;" id="save-list">
+            <article class="p-4 rounded my-embed
+               mb-4" style="padding: 5px !important;">
+              <a class="align-items-center">
+        <div class="save-list">
+          <a class="save-btn-item reset-btn" onclick="resetFORM()" style="color: white; text-align: right; margin-right: 24px; cursor: pointer;">Reset</a>
+          <button class="btn btn-warning save-btn-item" id="thebtn" type="submit">Save</button>
+        </div>     
+              </a>
+            </article>
+          </div>          
+        <section>         
+         
+          <div class="col-md-6 col-lg-4" style="width: 100%; height: 100%; padding-right: 0px; max-width: 100% !important; max-height: 100% !important; padding-left: 0px;">
+            <article class="p-4 rounded my-embed
+               mb-4" style="padding: 5px !important;">
+              <a class="align-items-center">
 <div class="accordion" id="accordionExample">
   <div class="card" id="anti-link">
     <div class="card-header" id="head-anti-link" data-toggle="collapse" data-target="#anti-link" aria-expanded="true" aria-controls="anti-link">
@@ -47,37 +135,17 @@
       </div>
     </div>
   </div>  
-      </div> 
-        <div class="save-list">
-          <a class="save-btn-item reset-btn" onclick="resetFORM()" style="text-align: right; margin-right: 24px; cursor: pointer;">Reset</a>
-          <button class="btn btn-warning save-btn-item" id="thebtn" type="submit">Save</button>
-        </div>      
+      </div>    
+              </a>
+            </article>
+          </div>          
+        </section>
     </form>
+      </main>
+    </div>
   </div>
 </div>
-    </main>
-    
-
-    <%- include('../part/footer.ejs') %>
-    <script>
-      
-      let form = $('#formnya')
-      let TheForm = $('#thebtn')
-      let resetBTN = $('.reset-btn')
-      TheForm.hide()
-      resetBTN.hide()
-      
-      async function save() {
-      resetBTN.show(500)
-      TheForm.show(600)
-      }
-      
-      async function resetFORM() {
-        form.trigger("reset");
-        TheForm.hide();
-        resetBTN.hide();
-      }
-      
+<!--     <script>
 $(window).resize(function() {
 	var path = $(this);
 	var contW = path.width();
@@ -99,6 +167,63 @@ $(document).ready(function() {
     }
 	});
 });    
+    </script> -->
+    <script>
+      let form = $('#formnya')
+      let TheForm = $('#thebtn')
+      let resetBTN = $('.reset-btn');
+      let embedSave = $("#save-list")
+      TheForm.hide()
+      resetBTN.hide()
+      embedSave.hide();
+      
+      async function save() {
+      embedSave.show();
+      TheForm.show();
+      resetBTN.show();
+      }
+      
+      async function resetFORM() {
+        form.trigger("reset");
+        TheForm.hide();
+        resetBTN.hide();
+        embedSave.hide();
+      }   
+    </script>    
+<script>
+$(document).ready(()=>{
+  
+  $('#open-sidebar').click(()=>{
+     
+      // add class active on #sidebar
+      $('#sidebar').addClass('active');
+      
+      // show sidebar overlay
+      $('#sidebar-overlay').removeClass('d-none');
+    
+   });
+  
+  
+   $('#sidebar-overlay').click(function(){
+     
+      // add class active on #sidebar
+      $('#sidebar').removeClass('active');
+      
+      // show sidebar overlay
+      $(this).addClass('d-none');
+    
+   });
+  
+   $('#sidebar-remove-overlay').click(function(){
+     
+      // add class active on #sidebar
+      $('#sidebar').removeClass('active');
+     
+     $("#sidebar-overlay").addClass('d-none');
+    
+   });  
+  
+});  
     </script>
   </body>
 </html>
