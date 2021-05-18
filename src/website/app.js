@@ -184,7 +184,7 @@ module.exports = async client => {
   });
 
   app.get("/dashboard/:id", checkAuth, async (req, res) => {
-    return res.render("status/maintance.ejs");
+    
     
     let guild_id = req.params.id;
     if (!guild_id) return res.redirect("/account/server-list");
@@ -219,7 +219,7 @@ module.exports = async client => {
   });
 
   app.get("/dashboard/:id/settings", checkAuth, async (req, res) => {
-    return res.render("status/maintance.ejs");
+    
     
     let guild_id = req.params.id;
     if (!guild_id) return res.redirect("/account/server-list");
@@ -254,7 +254,7 @@ module.exports = async client => {
   });
 
   app.get("/dashboard/:id/commands", checkAuth, async (req, res) => {
-    return res.render("status/maintance.ejs");
+    
     
     let guild_id = req.params.id;
     if (!guild_id) return res.redirect("/account/server-list");
@@ -289,7 +289,7 @@ module.exports = async client => {
   });
   
   app.get("/dashboard/:id/automod", checkAuth, async (req, res) => {
-    return res.render("status/maintance.ejs");
+    
     
     let guild_id = req.params.id;
     if (!guild_id) return res.redirect("/account/server-list");
@@ -333,7 +333,7 @@ module.exports = async client => {
   });
   
   app.get("/dashboard/:id/cc", checkAuth, async (req, res) => {
-    return res.render("status/maintance.ejs");
+    
     
     let guild_id = req.params.id;
     if (!guild_id) return res.redirect("/account/server-list");
@@ -368,7 +368,7 @@ module.exports = async client => {
   });  
 
   app.post("/dashboard/:id/commands", checkAuth, async (req, res) => {
-    return res.render("status/maintance.ejs");
+    
     
     let guild_id = req.params.id;
     if (!guild_id) return res.redirect("/account/server-list");
@@ -409,7 +409,7 @@ module.exports = async client => {
   });
 
   app.post("/dashboard/:id/automod", checkAuth, async (req, res) => {
-    return res.render("status/maintance.ejs");
+    
     
     let guild_id = req.params.id;
     if (!guild_id) return res.redirect("/account/server-list");
@@ -493,7 +493,7 @@ module.exports = async client => {
   });
 
   app.post("/dashboard/:id/settings", checkAuth, async (req, res) => {
-    return res.render("status/maintance.ejs");
+    
     
     let guild_id = req.params.id;
     if (!guild_id) return res.redirect("/account/server-list");

@@ -1150,3 +1150,6 @@ select:focus {
   
 }
 
+.my-embed {
+  box-shadow: 0 0px 15px 3px black !important;
+}
