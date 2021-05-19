@@ -74,12 +74,9 @@
           <button class="btn btn-warning save-btn-item" id="thebtn" type="submit">Save</button>
         </div>
             </article>
-          </div>          
-        
-      <% bot.Modules.map(mod => { %>
-      
+          </div>
       <% let cmds = []
-      mod.commands.map(cmd => {
+      bot.Commands.map(cmd => {
       if (disabled.includes(cmd.name.toLowerCase())) {
       cmds.push({cmd: cmd, disabled: true})
       } else if (!disabled.includes(cmd.name.toLowerCase())) {
@@ -88,9 +85,6 @@
       });
       %>
 <!--        -->      
-        
-      <div class="module">
-        <h1 class="module-name" style="margin: 0 !important;"><%= mod.name %></h1>
         
     <div class="db-cmdlist">
       <% cmds.map(cmd => { %>
@@ -118,12 +112,7 @@
           </div>
       </div>         
       <% }) %>
-    </div>
-        
-        <hr>
-      </div>
-      
-      <% }) %>         
+    </div>        
       </form>
     </div>
         
