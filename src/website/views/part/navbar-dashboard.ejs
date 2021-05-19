@@ -1,7 +1,7 @@
-    <div class="col-md-3 col-lg-2 px-0 position-fixed vh-100 bg-white shadow-sm sidebar" id="sidebar" style="border-radius: 0px; background-color: #212529 !important; border-right: 2px solid #ffd700;">    
-      <div class="fa fa-bars text-primary" style="padding: 10px; cursor: pointer; font-size: 30px; color: #ffd700 !important;" id="sidebar-remove-overlay"></div>
+    <div class="col-md-3 col-lg-2 px-0 position-fixed vh-100 bg-white shadow-sm sidebar" id="sidebar" style="border-radius: 0px; background-color: #212529 !important;">    
+      <div class="fa fa-bars text-primary" style="padding: 10px; cursor: pointer; font-size: 30px;" id="sidebar-remove-overlay"></div>
       <div class="list-group rounded-0">
-         <button class="list-group-item list-group-item-action border-0 d-flex justify-content-between align-items-center" data-toggle="collapse" data-target="#config-collapse" style="background-color: transparent; color: #ffd700; font-weight: 700;">
+         <button class="list-group-item list-group-item-action border-0 d-flex justify-content-between align-items-center" data-toggle="collapse" data-target="#config-collapse" style="background-color: transparent; color: #007bff; font-weight: 700;">
           <div>
             <span class="ml-2">CONFIG</span>
           </div>
@@ -9,19 +9,19 @@
         </button>
         <div class="collapse show" id="config-collapse" data-parent="#sidebar">
           <div class="list-group">
-        <a href="/dashboard/<%= guild.id %>/commands" class="list-group-item list-group-item-action border-0 d-flex align-items-center" style="background-color: transparent; color: #ffd700;">
+        <a href="/dashboard/<%= guild.id %>/commands" class="list-group-item list-group-item-action border-0 d-flex align-items-center" style="background-color: transparent; color: #007bff;">
           <span class="fas fa-code"></span>
           <span class="ml-2">Commands</span>
         </a>
-        <a href="/dashboard/<%= guild.id %>/settings" class="list-group-item list-group-item-action border-0 align-items-center" style="background-color: transparent; color: #ffd700;">
+        <a href="/dashboard/<%= guild.id %>/settings" class="list-group-item list-group-item-action border-0 align-items-center" style="background-color: transparent; color: #007bff;">
           <span class="fas fa-cog"></span>
           <span class="ml-2">Settings</span>
         </a>
-        <a href="/dashboard/<%= guild.id %>" class="list-group-item list-group-item-action border-0 align-items-center" style="background-color: transparent; color: #ffd700;">
+        <a href="/dashboard/<%= guild.id %>" class="list-group-item list-group-item-action border-0 align-items-center" style="background-color: transparent; color: #007bff;">
           <span class="fas fa-chart-bar"></span>
           <span class="ml-2">Statistics</span>
         </a>        
-        <a href="/dashboard/<%= guild.id %>/automod" class="list-group-item list-group-item-action border-0 align-items-center" style="background-color: transparent; color: #ffd700;">
+        <a href="/dashboard/<%= guild.id %>/automod" class="list-group-item list-group-item-action border-0 align-items-center" style="background-color: transparent; color: #007bff;">
           <span class="fas fa-ban"></span>
           <span class="ml-2">Auto Mod</span>
         </a>
