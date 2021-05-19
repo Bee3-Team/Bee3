@@ -1152,3 +1152,14 @@ select:focus {
 }
 
 /*  */
+.list-group-item {
+  padding: 10px !important;
+}
+
+.dropdown-menu {
+  left: -10px !important;
+}
+
+.btn:focus {
+  box-shadow: none;
+}

@@ -397,7 +397,7 @@ module.exports = async client => {
       let cmdDisabled_ = req.body[`${cmd.name}`];
       if (!cmdDisabled_) {
         disabled.push(cmd);
-      } else if (cmdDisabled_) {
+      } else if (cmdDisabled_) { 
         noDisabled.push(cmd);
       }
     });
