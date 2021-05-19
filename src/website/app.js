@@ -20,7 +20,7 @@ module.exports = async client => {
   const Strategy = require("passport-discord").Strategy;
   passport.serializeUser(function(user, done) {
     done(null, user);
-  });
+  }); 
   passport.deserializeUser(function(obj, done) {
     done(null, obj);
   }); 
