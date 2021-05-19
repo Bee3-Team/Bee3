@@ -26,15 +26,15 @@
     <!-- note: in the layout margin auto is the key as sidebar is fixed -->
     <div class="col-md-9 col-lg-10 ml-md-auto px-0">
       <!-- top nav -->
-      <nav class="w-100 d-flex py-2 mb-4 shadow-sm">
+      <nav class="w-100 d-flex py-2 mb-4 shadow-sm" style="align-items: center;">
         <!-- close sidebar -->
         <button class="btn py-0 d-lg-none" id="open-sidebar">
           <i class="fa fa-bars text-primary" style="font-size: 30px;"></i>
         </button>
         <div class="dropdown ml-auto">
-          <button class="btn py-0 d-flex align-items-center" id="logout-dropdown" data-toggle="dropdown" aria-expanded="false">
-            <span class="fas fa-user-circle text-primary h4"></span>
-            <span class="fa fa-chevron-down ml-1 mb-2 small text-primary "></span>
+          <button class="btn py-0 d-flex align-items-center" id="logout-dropdown" data-toggle="dropdown" aria-expanded="false" style="    align-items: center !important;">
+            <span class="fas fa-user-circle text-primary h4" style="margin: 0px 0px 0px 0px !important;"></span>
+            <span class="fa fa-chevron-down ml-1 mb-2 small text-primary " style="margin: 0px 0px 0px 5px !important;"></span>
           </button>
           <div class="dropdown-menu dropdown-menu-right border-0 shadow-sm" aria-labelledby="logout-dropdown" style="box-shadow: 0px 0px 12px 3px rgb(0 0 0 / 50%) !important; left: -10px !important;">
       <% if (req.user) { %>
