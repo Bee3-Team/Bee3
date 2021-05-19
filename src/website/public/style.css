@@ -1,3 +1,7 @@
+:root {
+  --primary-color: #ffd700 !important;
+}
+
 html,
 body {
   height: 100%;
@@ -1069,17 +1073,17 @@ select:focus {
 }
 
 .automod {
-    border-radius: 5px;
-    margin: 10px;
-    padding: 10px;
-    background: #3b4c40;
-    border: 2px solid black;
-    color: white;
-    min-width: 100px;
-    text-align: center;
-    width: -webkit-fill-available;
-    height: 52px;
-    min-height: 50px;
+  border-radius: 5px;
+  margin: 10px;
+  padding: 10px;
+  background: #3b4c40;
+  border: 2px solid black;
+  color: white;
+  min-width: 100px;
+  text-align: center;
+  width: -webkit-fill-available;
+  height: 52px;
+  min-height: 50px;
 }
 
 /*  */
@@ -1090,16 +1094,18 @@ select:focus {
 }
 
 .my-embed {
-  border-left: 5px solid #ffd700 !important;
+  border-left: 5px solid var(--primary-color) !important;
+  color: #ffd700 !important;
+  box-shadow: 0 0px 15px 3px black !important;
 }
 
-.sidebar{
+.sidebar {
   top: 0;
-  left : 0;
-  z-index : 100;
+  left: 0;
+  z-index: 100;
 }
 
-.overlay{ 
+.overlay {
   transition: 0.5s;
   background-color: rgb(0 0 0 / 45%);
   filter: blur(5px);
@@ -1107,45 +1113,37 @@ select:focus {
   z-index: 99;
 }
 
-  #sidebar-remove-overlay {
-    -webkit-transition: all 0.5s ease;
-    -moz-transition: all 0.5s ease;
-    -o-transition: all 0.5s ease;    
-    transition: all 0.5s ease;
-    display: none;
-  }
+#sidebar-remove-overlay {
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+  display: none;
+}
 
 @media (max-width: 350px) {
-  
   .sidebar {
     max-width: 100% !important;
   }
-  
+
   .sidebar.active {
     width: 100% !important;
   }
-  
 }
 
 /* sidebar for small screens */
-@media screen and (max-width: 767px){
-  
-  .sidebar{
+@media screen and (max-width: 767px) {
+  .sidebar {
     max-width: 18rem;
-    transform : translateX(-100%);
-    transition : transform 0.4s ease-out;
+    transform: translateX(-100%);
+    transition: transform 0.4s ease-out;
   }
-  
-  .sidebar.active{
-    transform : translateX(0);
+
+  .sidebar.active {
+    transform: translateX(0);
   }
-  
+
   #sidebar-remove-overlay {
     display: block;
   }
-  
-}
-
-.my-embed {
-  box-shadow: 0 0px 15px 3px black !important;
 }

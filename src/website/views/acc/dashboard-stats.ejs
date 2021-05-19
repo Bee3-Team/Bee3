@@ -68,22 +68,22 @@
           <div class="col-md-6 col-lg-4">
             <article class="p-4 rounded my-embed
                mb-4">
-              <span style="color: #ffd700;">Command Used</span>
-              <a class="d-flex align-items-center" style="color: #ffd700;"><strong><%= database.Statistics.CommandsUsedTotal || 0 %></strong></a>
+              <span class="text-primary">Command Used</span>
+              <a class="d-flex align-items-center"><strong><%= database.Statistics.CommandsUsedTotal || 0 %></strong></a>
             </article>
           </div>   
           <div class="col-md-6 col-lg-4">
             <article class="p-4 rounded my-embed
                mb-4">
-              <span style="color: #ffd700;">Bot Status</span>
-              <a class="d-flex align-items-center" style="color: #ffd700;"><strong><%= bot.config.status || "Ready" %></strong></a>
+              <span class="text-primary">Bot Status</span>
+              <a class="d-flex align-items-center"><strong><%= bot.config.status || "Ready" %></strong></a>
             </article>
           </div>   
           <div class="col-md-6 col-lg-4">
             <article class="p-4 rounded my-embed
                mb-4">
-              <span style="color: #ffd700;">Server Members</span>
-              <a class="d-flex align-items-center" style="color: #ffd700;"><strong><%= guild.members.cache.size %></strong></a>
+              <span class="text-primary">Server Members</span>
+              <a class="d-flex align-items-center"><strong><%= guild.members.cache.size %></strong></a>
             </article>
           </div>              
         </section>
