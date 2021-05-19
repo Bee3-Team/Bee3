@@ -28,12 +28,12 @@
       <nav class="w-100 d-flex py-2 mb-4 shadow-sm">
         <!-- close sidebar -->
         <button class="btn py-0 d-lg-none" id="open-sidebar">
-          <i class="fa fa-bars text-primary" style="font-size: 30px;"></i>
+          <i class="fa fa-bars" style="font-size: 30px; color: #ffd700;"></i>
         </button>
         <div class="dropdown ml-auto">
-          <button class="btn py-0 d-flex align-items-center" id="logout-dropdown" data-toggle="dropdown" aria-expanded="false">
-            <span class="fas fa-user-circle text-primary h4"></span>
-            <span class="fa fa-chevron-down ml-1 mb-2 small text-primary "></span>
+          <button class="btn py-0 d-flex align-items-center" id="logout-dropdown" data-toggle="dropdown" aria-expanded="false" style="color: #ffd700;">
+            <span class="fas fa-user-circle h4"></span>
+            <span class="fa fa-chevron-down ml-1 mb-2 small"></span>
           </button>
           <div class="dropdown-menu dropdown-menu-right border-0 shadow-sm" aria-labelledby="logout-dropdown" style="box-shadow: 0px 0px 12px 3px rgb(0 0 0 / 50%) !important;">
       <% if (req.user) { %>
@@ -68,22 +68,22 @@
           <div class="col-md-6 col-lg-4">
             <article class="p-4 rounded my-embed
                mb-4">
-              <span class="text-primary">Command Used</span>
-              <a class="d-flex align-items-center"><strong><%= database.Statistics.CommandsUsedTotal || 0 %></strong></a>
+              <span style="color: #ffd700;">Command Used</span>
+              <a class="d-flex align-items-center" style="color: #ffd700;"><strong><%= database.Statistics.CommandsUsedTotal || 0 %></strong></a>
             </article>
           </div>   
           <div class="col-md-6 col-lg-4">
             <article class="p-4 rounded my-embed
                mb-4">
-              <span class="text-primary">Bot Status</span>
-              <a class="d-flex align-items-center"><strong><%= bot.config.status || "Ready" %></strong></a>
+              <span style="color: #ffd700;">Bot Status</span>
+              <a class="d-flex align-items-center" style="color: #ffd700;"><strong><%= bot.config.status || "Ready" %></strong></a>
             </article>
           </div>   
           <div class="col-md-6 col-lg-4">
             <article class="p-4 rounded my-embed
                mb-4">
-              <span class="text-primary">Server Members</span>
-              <a class="d-flex align-items-center"><strong><%= guild.members.cache.size %></strong></a>
+              <span style="color: #ffd700;">Server Members</span>
+              <a class="d-flex align-items-center" style="color: #ffd700;"><strong><%= guild.members.cache.size %></strong></a>
             </article>
           </div>              
         </section>

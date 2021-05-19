@@ -1089,12 +1089,8 @@ select:focus {
   outline: none !important;
 }
 
-.border-left{
-  border-left: 2px solid var(--primary) !important;
-}
-
 .my-embed {
-  border-left: 5px solid var(--primary) !important;
+  border-left: 5px solid #ffd700 !important;
 }
 
 .sidebar{
