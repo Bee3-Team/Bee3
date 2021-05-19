@@ -19,55 +19,7 @@
   <div class="row">
     <!-- sidebar -->
     
-    <div class="col-md-3 col-lg-2 px-0 position-fixed vh-100 bg-white shadow-sm sidebar" id="sidebar" style="border-radius: 0px;">    
-      <div class="fa fa-bars text-primary" style="padding: 10px; cursor: pointer; font-size: 30px;" id="sidebar-remove-overlay"></div>
-      <div class="list-group rounded-0">
-        <a href="/dashboard/<%= guild.id %>/commands" class="list-group-item list-group-item-action active border-0 d-flex align-items-center">
-          <span class="fas fa-code"></span>
-          <span class="ml-2">Commands</span>
-        </a>
-        <a href="/dashboard/<%= guild.id %>/settings" class="list-group-item list-group-item-action border-0 align-items-center">
-          <span class="fas fa-cog"></span>
-          <span class="ml-2">Settings</span>
-        </a>
-        <a href="/dashboard/<%= guild.id %>" class="list-group-item list-group-item-action border-0 align-items-center">
-          <span class="fas fa-chart-bar"></span>
-          <span class="ml-2">Statistics</span>
-        </a>        
-        <a href="/dashboard/<%= guild.id %>/automod" class="list-group-item list-group-item-action border-0 align-items-center">
-          <span class="fas fa-ban"></span>
-          <span class="ml-2">Auto Mod</span>
-        </a>                
-        
-<!--         <button class="list-group-item list-group-item-action border-0 d-flex justify-content-between align-items-center" data-toggle="collapse" data-target="#sale-collapse">
-          <div>
-            <span class="fa fa-cart-dash"></span>
-            <span class="ml-2">Sales</span>
-          </div>
-          <span class="fa fa-chevron-down small"></span>
-        </button>
-        <div class="collapse" id="sale-collapse" data-parent="#sidebar">
-          <div class="list-group">
-            <a href="#" class="list-group-item list-group-item-action border-0 pl-5">Customers</a>
-            <a href="#" class="list-group-item list-group-item-action border-0 pl-5">Sale Orders</a>
-          </div>
-        </div>
-
-        <button class="list-group-item list-group-item-action border-0 d-flex justify-content-between align-items-center" data-toggle="collapse" data-target="#purchase-collapse">
-          <div>
-            <span class="fa fa-cart-plus"></span>
-            <span class="ml-2">Purchase</span>
-          </div>
-          <span class="fa fa-chevron-down small"></span>
-        </button>
-        <div class="collapse" id="purchase-collapse" data-parent="#sidebar">
-          <div class="list-group">
-            <a href="#" class="list-group-item list-group-item-action border-0 pl-5">Sellers</a>
-            <a href="#" class="list-group-item list-group-item-action border-0 pl-5">Purchase Orders</a>
-          </div>
-        </div> -->
-      </div>
-    </div>    
+    <%- include("../part/navbar-dashboard.ejs") %>  
     
     <!-- overlay to close sidebar on small screens -->
     <div class="w-100 vh-100 position-fixed overlay d-none" id="sidebar-overlay"></div>
