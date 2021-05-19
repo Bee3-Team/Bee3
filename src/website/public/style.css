@@ -789,13 +789,15 @@ h2 {
 }
 
 .db-cmd {
-  background: #ffd700;
+  background: #2b2d31;
   border-radius: 3px;
   margin: 10px;
   padding: 10px;
-  box-shadow: 0px 0px 10px rgb(0, 0, 0, 0.5);
+  box-shadow: 0px 0px 10px rgb(0 0 0 / 50%);
   transition: 0.5s;
   cursor: pointer;
+  color: white;
+  border-left: 3px solid var(--primary);
 }
 
 .db-cmd-disable {
