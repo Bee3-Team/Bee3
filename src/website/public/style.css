@@ -1094,7 +1094,7 @@ select:focus {
 }
 
 .my-embed {
-  border-left: 5px solid var(--primary-color) !important;
+  border-left: 5px solid var(--primary) !important;
   color: #ffd700 !important;
   box-shadow: 0 0px 15px 3px black !important;
 }
