@@ -76,6 +76,24 @@
             </article>
           </div>          
         
+<div class="commands-list">
+  <% bot.Commands.map(cmd => { %>  
+<div class="command">
+<span class="command-title"><%= cmd.name %></span>
+		<div class="box_1">
+			<input type="checkbox" class="switch_1">
+		</div>
+</div>	
+  <% }) %>
+<div class="command disabled" disabled>
+<span class="command-title">Title here</span>
+		<div class="box_1">
+			<input type="checkbox" class="switch_1" disabled>
+		</div>
+</div>
+	
+</div>          
+        
       <% bot.Modules.map(mod => { %>
       
       <% let cmds = []
@@ -87,7 +105,8 @@
       }
       });
       %>
-<!--        -->
+<!--        -->      
+        
       <div class="module">
         <h1 class="module-name" style="margin: 0 !important;"><%= mod.name %></h1>
         
