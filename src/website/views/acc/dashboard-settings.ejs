@@ -69,10 +69,12 @@
         <label for="prefix" class="label">prefix<i style="color: red;">*</i></label>
         <input type="text" class="input" id="prefix" value="<%= database.Settings.Prefix %>" name="newPrefix" minlength="1" maxlength="4" required>               
         </div>
-        <div class="button-list">
-          <button class="btn btn-success" disabled="" type="submit" id="save-btn">Save changes</button>
-          <button class="btn btn-success" onclick="deleteBtnList()" disabled="" type="reset" id="reset-btn">Reset</button>
-        </div>
+<div class="snackbar">
+<div class="pop-up">
+  <button type="reset" onclick="deleteBtnList()" class="pop pop-up-1">Reset</button>
+  <button type="submit" class="pop pop-up-2">Save</button>
+</div>  
+</div>
       </form>
 <div class="example-bot">
   <div class="example-bot-sec">
@@ -118,12 +120,9 @@ $(document).ready(function() {
 });    
     </script> -->
     <script>
-var button = $('#save-btn');
-var button2 = $("#reset-btn");
+      var saves = $(".snackbar");
 var orig = [];
-button.hide();
-button2.hide();   
-$('.button-list').hide();   
+      saves.hide();
       
 $.fn.getType = function () {
     return this[0].tagName == "INPUT" ? $(this[0]).attr("type").toLowerCase() : this[0].tagName.toLowerCase();
@@ -160,17 +159,11 @@ $('form').bind('change keyup', function () {
     });
 
   if (disable) {
-    button.hide(500);
-    button2.hide(500);
-    $('.button-list').hide(500);
+    saves.hide();
   } else if (!disable) {
-    button.show(500);
-    button2.show(500);
-    $('.button-list').show(500);
+    saves.show();
   }
   updateExample();
-    button.prop('disabled', disable);
-    button2.prop('disabled', disable);
 });
       
       document.getElementById("bot-name").innerHTML = document.getElementById("username").value || <%= bot.user.username %>;
@@ -179,9 +172,7 @@ $('form').bind('change keyup', function () {
       async function deleteBtnList() {
         document.getElementById("bot-name").innerHTML = document.getElementById("username").value || `<%= bot.user.username %>`;
         document.getElementById("bot-msg").innerHTML = `${document.getElementById("prefix").value || "!"}help`   
-        $('#save-btn').hide(500);
-        $('#reset-btn').hide(500);
-    $('.button-list').hide(500);        
+        saves.hide();     
       }
       
       async function updateExample() {

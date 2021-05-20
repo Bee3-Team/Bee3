@@ -1163,3 +1163,54 @@ select:focus {
 .btn:focus {
   box-shadow: none !important;
 }
+
+.pop-up {
+    min-width: 161px;
+    width: -webkit-fill-available;
+    max-width: 500px;
+    background-color: #2e3036;
+    text-align: right;
+    border-radius: 5px;
+    padding: 16px;
+    position: fixed;
+    z-index: 1; 
+    bottom: 30px;
+  box-shadow: 0px 0px 6px 3px rgb(0,0,0,0.5);
+  margin-right: 15px;
+  margin-left: 15px;
+}
+
+.snackbar {
+  display: flex;
+  justify-content: center;
+}
+
+.pop-up-1 {
+  background: transparent;
+  border: none;
+  color: white;
+}
+
+.pop-up-1:hover {
+  text-decoration: underline;
+}
+
+.pop-up-2 {
+  border: none;
+  padding: 5px;
+  width: 100px;
+  height: 30px;
+  background: transparent;
+  background-color: lightgreen;
+  border-radius: 6px;
+  transition: 0.4s;
+}
+
+.pop-up-2:hover {
+  border-radius: 4px;
+}
+
+.pop {
+  cursor: pointer;
+  margin-left: 5px;
+}
