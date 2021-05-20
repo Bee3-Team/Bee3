@@ -56,17 +56,12 @@
   </div>
 </div>               
        <form method="POST" id="formnya" onchange="save()">
-          <div class="col-md-6 col-lg-4" style="width: 100%; height: 100%; padding-right: 0px; max-width: 100% !important; max-height: 100% !important; padding-left: 0px;" id="save-list">
-            <article class="p-4 rounded my-embed
-               mb-4" style="padding: 5px !important;">
-              <a class="align-items-center">
-        <div class="save-list">
-          <a class="save-btn-item reset-btn" onclick="resetFORM()" style="color: white; text-align: right; margin-right: 24px; cursor: pointer;">Reset</a>
-          <button class="btn btn-warning save-btn-item" id="thebtn" type="submit">Save</button>
-        </div>     
-              </a>
-            </article>
-          </div>          
+<div class="snackbar">
+<div class="pop-up">
+  <button type="reset" onclick="resetFORM()" class="pop pop-up-1">Reset</button>
+  <button type="submit" class="pop pop-up-2">Save</button>
+</div>  
+</div>         
         <section>         
          
           <div class="col-md-6 col-lg-4" style="width: 100%; height: 100%; padding-right: 0px; max-width: 100% !important; max-height: 100% !important; padding-left: 0px;">
@@ -123,7 +118,7 @@ $(document).ready(function() {
     <script>
       let form = $('#formnya')
       let TheForm = $('#thebtn')
-      let resetBTN = $('.reset-btn');
+      let resetBTN = $('.snackbar');
       let embedSave = $("#save-list")
       TheForm.hide()
       resetBTN.hide()
