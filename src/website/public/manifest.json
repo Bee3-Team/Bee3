@@ -1,0 +1,23 @@
+{
+    "name": "Bee3",
+    "short_name": "Bee3",
+    "theme_color": "#ffd700",
+    "background_color": "#ffd700",
+    "display": "standalone",
+    "scope": "/",
+    "start_url": "/",
+    "icons": [
+        {
+          "src": "https://cdn.discordapp.com/avatars/837251737630408734/a36cd28d69d68449059627154e900f15.webp?size=4096",
+          "sizes": "512x512",
+          "type": "image/png",
+          "purpose": "maskable"
+        },
+        {
+          "src": "https://cdn.discordapp.com/avatars/837251737630408734/a36cd28d69d68449059627154e900f15.webp?size=4096",
+          "sizes": "512x512",
+          "type": "image/png",
+          "purpose": "any"
+        }
+    ]
+}
