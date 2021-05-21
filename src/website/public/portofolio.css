@@ -101,6 +101,21 @@ body {
   color: white;  
 }
 
+.skills-list {
+  justify-content: center;
+  display: flex;
+}
+
+.skill {
+  color: black;
+  margin: 10px;
+  background-color: #d1e0d5;
+  padding: 10px;
+  border-radius: 6px;
+  width: 70px;
+  font-weight: 600;
+}
+
 @media (min-width: 992px) {
   .nav-link {
     width: 100px;
