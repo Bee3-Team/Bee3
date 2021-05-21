@@ -786,6 +786,16 @@ module.exports = async client => {
 //   });
 // });
   
+  
+  const porto = express.Router();
+  
+  porto.get("/", async (req, res) => {
+    res.send("owner/portofolio.ejs")
+  });
+  
+  var subdomain = require('express-subdomain');
+  app.use(subdomain('owner', porto));
+  
 module.exports = {io}
   
 http.listen(process.env.PORT, () => {
