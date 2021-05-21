@@ -17,5 +17,29 @@ body {
 }
 
 .navbar-light .navbar-toggler-icon {
-  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%0, 0, 0%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%280, 0, 0%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
+}
+
+.navbar-brand {
+  color: rgb(0,0,0) !important;
+}
+
+.nav-link {
+  background: #d1e0d5;
+  margin: 6px 5px 10px 5px;  
+  text-align: center !important;
+  transition: 1s;
+  border-radius: 5px;
+}
+
+.nav-link:hover {
+  box-shadow: 0px 0px 5px 2px black;
+}
+
+@media (min-width: 992px) {
+  
+  .nav-link {
+    width: 100px;
+  }
+  
 }
