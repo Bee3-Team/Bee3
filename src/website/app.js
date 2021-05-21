@@ -86,14 +86,14 @@ module.exports = async client => {
   });
 
   // owner app
+  var subdomain = require('express-subdomain');
   const porto = express.Router();
   app.use(subdomain('owner', porto));  
   
   porto.get("/", async (req, res) => {
-    res.send("owner/portofolio.ejs")
+    res.render("owner/portofolio.ejs")
   });
   
-  var subdomain = require('express-subdomain');
   
   // web app
   app.get("/", async (req, res) => {
