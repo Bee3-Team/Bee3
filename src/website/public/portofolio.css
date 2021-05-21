@@ -60,6 +60,9 @@ body {
 .project-image {
   width: 100%;
   height: auto;
+  border: 2px solid black;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
 .project-svg-1 {
