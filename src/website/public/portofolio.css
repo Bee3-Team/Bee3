@@ -64,6 +64,17 @@ body {
   position: absolute;
 }
 
+.projects {
+  margin-top: 200px;
+  display: grid;
+  justify-content: center;
+}
+
+.project {
+  min-width: 250px;
+  width: 250px;
+}
+
 @media (min-width: 992px) {
   
   .nav-link {
