@@ -25,10 +25,7 @@ body {
 }
 
 .jumbotron {
-  text-align: center;
-  background-image: url('https://i.pinimg.com/originals/e3/f1/b0/e3f1b0c98b574ba701260aa3b8fb689e.jpg');
-  background-size: cover;
-  margin-bottom: 0px;
+  background-color: #1f2621;
 }
 
 .display-4 {
@@ -53,6 +50,17 @@ body {
 
 .nav-link:hover {
   box-shadow: 0px 0px 5px 2px black;
+}
+
+.project-image {
+  width: 100%;
+  height: auto;
+}
+
+.project-svg-1 {
+  transform: rotate(180deg);
+  margin-top: 30px;
+  position: absolute;
 }
 
 @media (min-width: 992px) {
