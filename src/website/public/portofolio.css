@@ -62,7 +62,6 @@ body {
   height: auto;
   border: 2px solid black;
   border-radius: 5px;
-  cursor: pointer;
 }
 
 .project-svg-1 {
@@ -116,7 +115,7 @@ body {
   background-color: #d1e0d5;
   padding: 10px;
   border-radius: 6px;
-  width: 70px;
+  width: 150px;
   font-weight: 600;
 }
 
