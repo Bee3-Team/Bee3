@@ -24,6 +24,24 @@ body {
   color: rgb(0,0,0) !important;
 }
 
+.jumbotron {
+  text-align: center;
+  background-image: url('https://i.pinimg.com/originals/e3/f1/b0/e3f1b0c98b574ba701260aa3b8fb689e.jpg');
+  background-size: cover;
+  height: 50%;
+}
+
+.display-4 {
+  font-size: 38px;
+  color: white;
+  text-shadow: 0px 0px 10px black;
+}
+
+.lead {
+  color: white;
+  text-shadow: 0px 0px 10px black;
+}
+
 .nav-link {
   background: #d1e0d5;
   margin: 6px 5px 10px 5px;  
@@ -40,6 +58,10 @@ body {
   
   .nav-link {
     width: 100px;
+  }
+  
+  .display-4 {
+    font-size: 55px;
   }
   
 }
