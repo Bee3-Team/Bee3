@@ -76,8 +76,8 @@ body {
   margin-top: 25px;
   display: grid;
   justify-content: center;
-  grid-template-columns: auto auto auto;
   margin-bottom: 25px;
+  grid-template-columns: auto auto auto;
 }
 
 .project {
@@ -96,5 +96,21 @@ body {
   .display-4 {
     font-size: 55px;
   }
+  
+}
+
+@media (max-width: 900px) {
+  
+  .project-list {
+    grid-template-columns: auto auto;
+  }    
+  
+}
+
+@media (max-width: 635px) {
+  
+  .project-list {
+    grid-template-columns: auto;
+  }    
   
 }
