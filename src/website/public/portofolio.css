@@ -68,16 +68,23 @@ body {
   margin-top: 200px;  
 }
 
+.projects-title {
+  text-align: center;
+}
+
 .project-list {
-  margin-top: 200px;
+  margin-top: 25px;
   display: grid;
   justify-content: center;
   grid-template-columns: auto auto auto;
+  margin-bottom: 25px;
 }
 
 .project {
   min-width: 250px;
   width: 250px;
+  margin: 20px;
+  text-align: center;
 }
 
 @media (min-width: 992px) {
