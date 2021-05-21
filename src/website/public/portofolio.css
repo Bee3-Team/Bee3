@@ -65,9 +65,14 @@ body {
 }
 
 .projects {
+  margin-top: 200px;  
+}
+
+.project-list {
   margin-top: 200px;
   display: grid;
   justify-content: center;
+  grid-template-columns: auto auto auto;
 }
 
 .project {
