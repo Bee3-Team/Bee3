@@ -1,3 +1,7 @@
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   background-color: #ddede1;
   padding-top: 3.3rem;
@@ -113,4 +117,20 @@ body {
     grid-template-columns: auto;
   }    
   
+}
+
+/* scroll bar */
+::-webkit-scrollbar {
+  width: 10px;
+  position: fixed;
+  border-radius: 16px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent; 
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1f2621; 
+  border-radius: 20px;
 }
