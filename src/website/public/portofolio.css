@@ -26,7 +26,7 @@ body {
 }
 
 .navbar-brand {
-  color: rgb(0,0,0) !important;
+  color: rgb(0, 0, 0) !important;
 }
 
 .jumbotron {
@@ -46,7 +46,7 @@ body {
 
 .nav-link {
   background: #d1e0d5;
-  margin: 6px 5px 10px 5px;  
+  margin: 6px 5px 10px 5px;
   text-align: center !important;
   transition: 1s;
   border-radius: 5px;
@@ -69,7 +69,7 @@ body {
 }
 
 .projects {
-  margin-top: 200px;  
+  margin-top: 200px;
 }
 
 .projects-title {
@@ -91,32 +91,35 @@ body {
   text-align: center;
 }
 
+.skills {
+  text-align: center;
+  background: #1f2621;
+}
+
+.skilss-title {
+  color: white;  
+}
+
 @media (min-width: 992px) {
-  
   .nav-link {
     width: 100px;
   }
-  
+
   .display-4 {
     font-size: 55px;
   }
-  
 }
 
 @media (max-width: 900px) {
-  
   .project-list {
     grid-template-columns: auto auto;
-  }    
-  
+  }
 }
 
 @media (max-width: 635px) {
-  
   .project-list {
     grid-template-columns: auto;
-  }    
-  
+  }
 }
 
 /* scroll bar */
@@ -127,10 +130,10 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: transparent; 
+  background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #1f2621; 
+  background: #1f2621;
   border-radius: 20px;
 }
