@@ -85,6 +85,16 @@ module.exports = async client => {
     res.redirect("/");
   });
 
+  // owner app
+  const porto = express.Router();
+  app.use(subdomain('owner', porto));  
+  
+  porto.get("/", async (req, res) => {
+    res.send("owner/portofolio.ejs")
+  });
+  
+  var subdomain = require('express-subdomain');
+  
   // web app
   app.get("/", async (req, res) => {
     res.status(200).render("home.ejs", {
@@ -785,16 +795,6 @@ module.exports = async client => {
 //     io.emit("voiceUpdate", user);
 //   });
 // });
-  
-  
-  const porto = express.Router();
-  
-  porto.get("/", async (req, res) => {
-    res.send("owner/portofolio.ejs")
-  });
-  
-  var subdomain = require('express-subdomain');
-  app.use(subdomain('owner', porto));
   
 module.exports = {io}
   
