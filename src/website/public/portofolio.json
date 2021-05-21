@@ -1,0 +1,23 @@
+{
+    "name": "Vins - Portofolio",
+    "short_name": "Vins",
+    "theme_color": "#1f2621",
+    "background_color": "#1f2621",
+    "display": "standalone",
+    "scope": "/",
+    "start_url": "/",
+    "icons": [
+        {
+          "src": "https://cdn.discordapp.com/avatars/727110220400033865/c1ec485c87164467bed0acff475ec46a.png?size=4096",
+          "sizes": "512x512",
+          "type": "image/png",
+          "purpose": "maskable"
+        },
+        {
+          "src": "https://cdn.discordapp.com/avatars/727110220400033865/c1ec485c87164467bed0acff475ec46a.png?size=4096",
+          "sizes": "512x512",
+          "type": "image/png",
+          "purpose": "any"
+        }
+    ]
+}
