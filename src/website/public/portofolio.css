@@ -104,6 +104,7 @@ body {
 .skills-list {
   justify-content: center;
   display: flex;
+  flex-wrap: wrap;
 }
 
 .skill {
@@ -146,7 +147,7 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: transparent;
+  background: #fff;
 }
 
 ::-webkit-scrollbar-thumb {
