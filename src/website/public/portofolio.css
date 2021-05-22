@@ -124,6 +124,12 @@ body {
   -webkit-filter: blur(8px);  
 }
 
+.loadingProcess {
+  filter: blur(8px);
+  -webkit-filter: blur(8px);  
+  position: fixed;
+}
+
 @media (min-width: 992px) {
   .nav-link {
     width: 100px;
