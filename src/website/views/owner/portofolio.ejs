@@ -17,23 +17,23 @@
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
   </head>
-  <body id="home">
+  <body class="loadingProcess" id="home">
     
     <div id="loading" class="loadingProcess"></div>
     
     <script>
 $(function(){
   $(window).on('load', function(){
+    setTimeout(() => {
+      $("#home").removeClass("loadingProcess");
+    }, 1000)    
+    
     $('[src]').each(function(){
       var $this = $(this),
           src = $(this).data('src');
       $this.attr('src', src);
       $this.removeClass("onLoad");
     });
-    
-    setTimeout(() => {
-      $("#loading").hide();
-    }, 1000)
   });
 });    
     </script>    

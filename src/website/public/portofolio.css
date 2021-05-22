@@ -5,6 +5,10 @@ html {
 body {
   background-color: #ddede1;
   padding-top: 3.3rem;
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease;  
 }
 
 .section {
@@ -128,6 +132,7 @@ body {
   filter: blur(8px);
   -webkit-filter: blur(8px);  
   position: fixed;
+  width: 100%;  
 }
 
 @media (min-width: 992px) {
