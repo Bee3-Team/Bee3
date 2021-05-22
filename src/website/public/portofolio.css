@@ -5,10 +5,10 @@ html {
 body {
   background-color: #ddede1;
   padding-top: 3.3rem;
-  -webkit-transition: all 0.5s ease;
-  -moz-transition: all 0.5s ease;
-  -o-transition: all 0.5s ease;
-  transition: all 0.5s ease;  
+  -webkit-transition: all 0.5 ease;
+  -moz-transition: all 0.5 ease;
+  -o-transition: all 0.5 ease;
+  transition: all 0.5 ease;  
 }
 
 .section {
