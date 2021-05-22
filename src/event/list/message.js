@@ -165,7 +165,7 @@ module.exports = {
         Number: Guild.Statistics.CommandsUsedTotal + 1,
         Date: Date()
       });
-      Guild.Statistics.CommandsUsedTotal = Guild.Statistics.CommandsUsedTotal + 1;
+      Guild.Statistics.CommandsUsedTotal = parseInt(Guild.Statistics.CommandsUsedTotal) + 1;
       if (Guild.Statistics.CommandsUsed.length >= 6) {
         Guild.Statistics.CommandsUsed = Guild.Statistics.CommandsUsed.slice(Guild.Statistics.CommandsUsed.length - 5)
       }
