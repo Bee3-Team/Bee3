@@ -119,6 +119,11 @@ body {
   font-weight: 600;
 }
 
+.onLoad {
+  filter: blur(8px);
+  -webkit-filter: blur(8px);  
+}
+
 @media (min-width: 992px) {
   .nav-link {
     width: 100px;
