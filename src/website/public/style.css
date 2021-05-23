@@ -1194,6 +1194,7 @@ min-width: 161px;
     color: white;
     align-items: center;
     position: relative;
+  margin-right: 10px;
 }
 
 .pop-up-1:hover {
