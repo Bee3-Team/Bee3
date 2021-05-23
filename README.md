@@ -29,4 +29,14 @@ go to `MUSIC.md`
 - open `terminal` on your Code Editor or [glitch.com](https://glitch.com) and type `npm install`
 - and go to `config.js` file, path `src/other/config.js`
 - input all the necessary, some input are on `.env` file
-- 
+
+# Version
+`v1.2.0 alpha`
+
+# .env structures
+```
+token=<bot_token>
+secret=<bot_secret>
+mongodb=mongodb+srv://<username>:<password>@cluster0.56hmi.mongodb.net/database?retryWrites=true&w=majority
+yt=<yt_api>
+```
