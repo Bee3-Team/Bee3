@@ -1165,19 +1165,22 @@ select:focus {
 }
 
 .pop-up {
-    min-width: 161px;
+min-width: 161px;
     width: -webkit-fill-available;
     max-width: 500px;
-    background-color: #2e3036;
+    background-color: rgba(32, 34, 37, 0.9);
     text-align: right;
     border-radius: 5px;
-    padding: 16px;
     position: fixed;
-    z-index: 1; 
+    z-index: 1;
     bottom: 30px;
-  box-shadow: 0px 0px 6px 3px rgb(0,0,0,0.5);
-  margin-right: 15px;
-  margin-left: 15px;
+    box-shadow: 0px 0px 6px 3px rgb(0 0 0 / 50%);
+    margin-right: 15px;
+    margin-left: 15px;
+    padding: 10px 10px 10px 16px;
+    align-items: center;
+    display: inherit;
+    justify-content: flex-end;
 }
 
 .snackbar {
@@ -1186,9 +1189,11 @@ select:focus {
 }
 
 .pop-up-1 {
-  background: transparent;
-  border: none;
-  color: white;
+    background: transparent;
+    border: none;
+    color: white;
+    align-items: center;
+    position: relative;
 }
 
 .pop-up-1:hover {
@@ -1196,18 +1201,16 @@ select:focus {
 }
 
 .pop-up-2 {
-  border: none;
-  padding: 5px;
-  width: 100px;
-  height: 30px;
-  background: transparent;
-  background-color: lightgreen;
-  border-radius: 6px;
-  transition: 0.4s;
-}
-
-.pop-up-2:hover {
-  border-radius: 4px;
+    border: none;
+    padding: 5px;
+    height: 30px;
+    background-color: green;
+    border-radius: 3px;
+    transition: 0.4s;
+    width: 100px;
+    background-color: #3ba55c;
+    color: white;
+    align-items: center;
 }
 
 .pop {
