@@ -25,10 +25,14 @@ go to `MUSIC.md`
 - `loop`, `now-playing`, `pause-resume`, `play`, `queue`, `set-volume`, `shuffle`, `skip`, `stop`
 
 # Setup bot
+- first, go to [discord developer](https://discord.com/developers/application) and create new application
+- and go to `bot` page, and create bot, click `yes`
 - import this `project from github` to your Code Editor or [glitch.com](https://glitch.com)
 - open `terminal` on your Code Editor or [glitch.com](https://glitch.com) and type `npm install`
 - and go to `config.js` file, path `src/other/config.js`
 - input all the necessary, some input are on `.env` file
+- if you on [glitch.com](https://glitch.com), just wait for a few seconds, and if you not in [glitch.com](https://glitch.com), open terminal and type `node .`
+- if all done, now invite your bot to your server ([discord developer](https://discord.com/developers/application))
 
 # Version
 `v1.2.0 alpha`
