@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <%- include('part/head.ejs') %>
     <%- include('part/bootstrapCSS.ejs') %>
@@ -51,9 +51,9 @@
         <div class="cmdlist-primary">
           <div class="cmdlist-item cmdlist-tag">
 <ul class="tags">
-  <li style="cursor: pointer;" class="tag active" onclick="openCity(event, 'all')"><a>All</a></li>
+  <li style="cursor: pointer;" class="tag active" onclick="openCity(event, 'all')">All</li>
   <% bot.Modules.map(mod => { %>
-  <li style="cursor: pointer;" class="tag" onclick="openCity(event, '<%= mod.name %>')"><a><%= mod.name %></a></li>
+  <li style="cursor: pointer;" class="tag" onclick="openCity(event, '<%= mod.name.split(" ").join("-") %>')"><%= mod.name %></li>
   <% }) %>
 </ul>            
           </div>
@@ -109,8 +109,8 @@
 </div>                  
             </div>            
             <% bot.Modules.map(mod => { %>
-            <div class="tagcontent" id="<%= mod.name %>" style="display: none;">
-<div class="accordion" id="accord-<%= mod.name %>">
+            <div class="tagcontent" id="<%= mod.name.split(" ").join("-") %>" style="display: none;">
+<div class="accordion" id="accord-<%= mod.name.split(" ").join("-") %>">
   <% mod.commands.map(cmd => { %>
   <div class="card">
     <div class="card-header" id="head-<%= cmd.name %>" data-toggle="collapse" data-target="#<%= cmd.name %>" aria-expanded="false" aria-controls="<%= cmd.name %>">
@@ -125,7 +125,7 @@
       </h2>
     </div>
 
-    <div id="<%= cmd.name %>" class="collapse" aria-labelledby="head-<%= cmd.name %>" data-parent="#accord-<%= mod.name %>">
+    <div id="<%= cmd.name %>" class="collapse" aria-labelledby="head-<%= cmd.name %>" data-parent="#accord-<%= mod.name.split(" ").join("-") %>">
       <div class="card-body">
         <div class="card-sec-item">
           <h5>Aliases:</h5>

@@ -1,7 +1,7 @@
 
 <!--  -->
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <%- include('../part/head.ejs') %>
     <%- include('../part/bootstrapCSS.ejs') %>
@@ -65,6 +65,15 @@
   }
   %>        
     <div class="module-list" onchange="save()">
+          <div class="col-md-6 col-lg-4" style="width: 100%; height: 100%; padding-right: 0px; max-width: 100% !important; max-height: 100% !important; padding-left: 0px;">
+            <article class="p-4 rounded my-embed
+               mb-4" style="padding: 5px !important;">
+              <a href="/commands?id=<%= guild.id %>" target="_blank" style="justify-content: center;" class="d-flex align-items-center">
+                Commands list
+              </a>
+            </article>
+          </div>        
+      
       <form method="POST" id="formnya">
 <div class="snackbar">
 <div class="pop-up">

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <%- include('../part/head.ejs') %>
     <%- include('../part/bootstrapCSS.ejs') %>
@@ -47,8 +47,8 @@
             icon = bot.user.displayAvatarURL()
             }
             %>
-    <tr class="server">
-      <th onclick="document.location='<%= guild.redirect %>'" class="server-icon-name"><img class="server-icon" src="<%= icon %>"> <span class="server-name"><%= guild.name %></span></th>
+    <tr class="server" data-aos="fade-up" data-aos-once="false">
+      <th onclick="document.location='<%= guild.redirect %>'" class="server-icon-name"><img alt="server icon" class="server-icon" src="<%= icon %>"> <span class="server-name"><%= guild.name %></span></th>
       <td style="width: 125px; line-height: 2.9;"><button onclick="document.location='<%= guild.redirect %>'" class="btn <%= guild.btn.toLowerCase() == "add me" ? "btn-secondary" : "btn-success" %> server-btn"><%= guild.btn %></button></td>
     </tr>
         <% }) %>         

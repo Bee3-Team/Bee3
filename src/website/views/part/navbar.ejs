@@ -1,9 +1,12 @@
-<nav class="navbar navbar-expand-lg navbar-dark">
+<nav class="navbar navbar-expand-lg navbar-dark" data-aos="fade-down" data-aos-duration="1500">
   <a class="navbar-brand" style="color: #ffd700;" href="/">Bee3</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
+          <span id="logout-dropdown" class="mobile-dropdown" style="display: none; cursor: pointer;" data-toggle="dropdown" aria-expanded="false">
+            <i class="fas fa-user-circle"></i><i class="fa fa-chevron-down"></i>
+          </span>   
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav ml-auto">
       <li class="nav-item">
@@ -16,9 +19,16 @@
         <a class="nav-link" href="/support"><i class="fab fa-discord" aria-hidden="true"></i></a>
       </li>
       <% if (req.user) { %>
-      <li class="nav-item">
-        <a class="nav-link" href="/account"><%= req.user.username %> <i class="fas fa-user-circle"></i></a>
-      </li>      
+      <li class="nav-item dropdown">
+          <span class="nav-link desktop-dropdown" style="cursor: pointer;" id="logout-dropdown" data-toggle="dropdown" aria-expanded="false">
+            <%= req.user.username %> <i class="fas fa-user-circle"></i>
+          </span>         
+          <div class="dropdown-menu dropdown-menu-right border-0 shadow-sm" aria-labelledby="logout-dropdown" style="box-shadow: 0px 0px 12px 3px rgb(0 0 0 / 50%) !important; left: -100px !important; background: #ffd700; color: white !important;">
+            <a class="dropdown-item" href="/account">Account</a>
+            <a class="dropdown-item" href="/account/server-list">Dashboard</a>
+            <a class="dropdown-item" style="background: red !important;" href="/logout">Logout</a>
+          </div>        
+      </li>
       <% } else { %>
       <li class="nav-item">
         <a class="nav-link" href="/login">Login <i class="fas fa-user-circle"></i></a>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <%- include('../part/head.ejs') %>
     <%- include('../part/bootstrapCSS.ejs') %>
@@ -16,7 +16,7 @@
     <main id="main" role="main" class="container main">
       <div class="acc">
         <div class="acc-profile">
-        <img class="acc-img animate-img" src="<%= user.displayAvatarURL() %>">
+        <img class="acc-img animate-img" alt="user avatar" src="<%= user.displayAvatarURL() %>">
         <h4 class="acc-name">
           <%= user.username %>
         </h4>

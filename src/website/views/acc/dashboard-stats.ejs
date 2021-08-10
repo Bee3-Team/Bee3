@@ -1,6 +1,6 @@
 <!--  -->
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <%- include('../part/head.ejs') %>
     <%- include('../part/bootstrapCSS.ejs') %>
@@ -17,19 +17,17 @@
 <div class="container-fluid">
   <div class="row">
     <!-- sidebar -->
-
-    <%- include("../part/navbar-dashboard.ejs") %>
     
     <!-- overlay to close sidebar on small screens -->
     <div class="w-100 vh-100 position-fixed overlay d-none" id="sidebar-overlay"></div>
     <!-- note: in the layout margin auto is the key as sidebar is fixed -->
-    <div class="col-md-9 col-lg-10 ml-md-auto px-0">
+    <div class="col-lg ml-md-auto px-0">
       <!-- top nav -->
       <nav class="w-100 d-flex py-2 mb-4 shadow-sm">
         <!-- close sidebar -->
-        <button class="btn py-0 d-lg-none" id="open-sidebar">
+<!--         <button class="btn py-0 d-lg-none" id="open-sidebar">
           <i class="fa fa-bars text-primary" style="font-size: 30px;"></i>
-        </button>
+        </button> -->
         <div class="dropdown ml-auto">
           <button class="btn py-0 d-flex align-items-center text-primary" id="logout-dropdown" data-toggle="dropdown" aria-expanded="false">
             <span class="fas fa-user-circle h4"></span>
@@ -58,9 +56,9 @@
           <div class="col-md-6 col-lg-4" style="width: 100%; height: 100%; padding-right: 0px; max-width: 100% !important; max-height: 100% !important; padding-left: 0px;">
             <article class="p-4 rounded my-embed
                mb-4" style="padding: 5px !important;">
-              <a class="d-flex align-items-center">
+              <span class="d-flex align-items-center">
                 <canvas id="CommandsUsed" width="353" height="220" style="display: block; width: 353px; height: 220px;"></canvas>
-              </a>
+              </span>
             </article>
           </div>          
         </section>
@@ -91,6 +89,36 @@
     </div>
   </div>
 </div>
+    
+    <div class="choose-manage">
+      <div class="cm-list">
+        <div class="cm" onclick="location.href = '/dashboard/<%= guild.id %>/commands'">
+          <span class="cm-title">Commands</span>
+          <br>
+          <small>configure Bee3 commands for your server</small>
+        </div>
+        <div class="cm" onclick="location.href = '/dashboard/<%= guild.id %>/settings'">
+          <span class="cm-title">Settings</span>
+          <br>
+          <small>manage Bee3 prefix and user for your server</small>
+        </div>
+        <div class="cm" onclick="location.href = '/dashboard/<%= guild.id %>/automod'">
+          <span class="cm-title">Auto Mod</span>
+          <br>
+          <small>make your server members be good</small>
+        </div>
+        <div class="cm" onclick="location.href = '/dashboard/<%= guild.id %>/cc'">
+          <span class="cm-title">Custom Commands</span>
+          <br>
+          <small>make your own commands for your server with auto response</small>
+        </div>
+        <div class="cm" onclick="location.href = '/musicplayer/<%= guild.id %>'">
+          <span class="cm-title">Music (beta)</span>
+          <br>
+          <small>play music with virtual player</small>
+        </div>
+      </div>
+    </div>
 <!--     <script>
 $(window).resize(function() {
 	var path = $(this);

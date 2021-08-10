@@ -11,7 +11,7 @@ module.exports = async (client) => {
   fs.readdir("./src/command/list", async (err, categorys) => {
     
     if (!categorys[0]) return;
-    
+   
     categorys.forEach(category => {
       
       let catConfig  = require(`./list/${category}/config.js`);
@@ -19,7 +19,7 @@ module.exports = async (client) => {
       
       fs.readdir(`./src/command/list/${category}/`, async (err, commands) => {
         
-        commands.forEach(command => {
+        commands.forEach(async command => {
           
           if (!command.endsWith(".js")) return;
           
@@ -43,8 +43,8 @@ module.exports = async (client) => {
       console.log(`[HANDLER] loaded ${catConfig.name}`)
       client.Modules.set(catConfig.name.toLowerCase(), catConfig);
       
-    });
+    });      
+    
     
   });
-  
 }

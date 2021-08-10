@@ -1,15 +1,17 @@
 dependencies:
   '@discordjs/opus': 0.5.0
   body-parser: 1.19.0
+  connect-mongo: 3.2.0
+  discord-buttons: 4.0.0
   discord-player: 4.1.0
-  discord-rpc: 3.2.0
+  discord-rpc: 4.0.1
   discord.js: 12.5.3
   distube: 2.8.13
   dotenv: 8.6.0
   ejs: 3.1.6
   express: 4.17.1
   express-back: 0.0.2
-  express-session: 1.17.1
+  express-session: 1.17.2
   express-subdomain: 1.0.5
   ffmpeg: 0.0.4
   ffmpeg-static: 4.3.0
@@ -23,7 +25,7 @@ dependencies:
   simple-youtube-api: 5.2.1
   smooth-scrollbar: 8.6.2
   socket.io: 4.1.2
-  ytdl-core: 4.8.0
+  ytdl-core: 4.9.0
 packages:
   /@derhuerst/http-basic/8.2.1:
     dependencies:
@@ -44,7 +46,7 @@ packages:
     dependencies:
       asynckit: 0.4.0
       combined-stream: 1.0.8
-      mime-types: 2.1.30
+      mime-types: 2.1.32
     dev: false
     engines:
       node: '>= 6'
@@ -294,6 +296,13 @@ packages:
       node: '>=6.0.0'
     resolution:
       integrity: sha512-ir1UPr3dkwexU7FdV8qBBbNDRUhMmIekYMFZfi+C/sLNnRESKPl23nB9b2pltqfOQNnGzsDdId90AEtG5tCx4A==
+  /bindings/1.5.0:
+    dependencies:
+      file-uri-to-path: 1.0.0
+    dev: false
+    optional: true
+    resolution:
+      integrity: sha512-p2q/t/mhvuOj/UeLlV6566GD/guowlr0hHxClI0W9m7MWYkL1F0hLo+0Aexs9HSPCtR1SXQ0TD3MMKrXZajbiQ==
   /bl/2.2.1:
     dependencies:
       readable-stream: 2.3.7
@@ -462,6 +471,12 @@ packages:
       '0': node >= 0.8
     resolution:
       integrity: sha512-27HBghJxjiZtIk3Ycvn/4kbJk/1uZuJFfuPEns6LaEvpvG1f0hTea8lilrouyo9mVc2GWdcEZ8OLoGmSADlrCw==
+  /connect-mongo/3.2.0:
+    dependencies:
+      mongodb: 3.6.9
+    dev: false
+    resolution:
+      integrity: sha512-0Mx88079Z20CG909wCFlR3UxhMYGg6Ibn1hkIje1hwsqOLWtL9HJV+XD0DAjUvQScK6WqY/FA8tSVQM9rR64Rw==
   /console-control-strings/1.1.0:
     dev: false
     resolution:
@@ -619,6 +634,10 @@ packages:
     hasBin: true
     resolution:
       integrity: sha1-+hN8S9aY7fVc1c0CrFWfkaTEups=
+  /discord-buttons/4.0.0:
+    dev: false
+    resolution:
+      integrity: sha512-E/eQX4Ktj7nKwNDsTfCezBNCu73FtPWJfQcpKohfl0jct/ucMUO+7uhL2MhGsZr4SCfojk7OzccAznuntB564w==
   /discord-player/4.1.0:
     dependencies:
       discord-ytdl-core: 5.0.3
@@ -629,15 +648,15 @@ packages:
     dev: false
     resolution:
       integrity: sha512-tFmKDLoZOFjmDacriLDqZMTfeGoNlHZPwlwo2jhcpMJ7HkfoJbTpqAU544YKyJVVeyL29b4yEJ9Xhkfg/bG0qQ==
-  /discord-rpc/3.2.0:
+  /discord-rpc/4.0.1:
     dependencies:
       node-fetch: 2.6.1
-      ws: 7.4.5
+      ws: 7.5.3
     dev: false
-    peerDependencies:
-      register-scheme: 'github:devsnek/node-register-scheme'
+    optionalDependencies:
+      register-scheme: github.com/devsnek/node-register-scheme/e7cc9a63a1f512565da44cb57316d9fb10750e17
     resolution:
-      integrity: sha512-KJv0EVbGMlr04HoG6f5b3wD7X9kSHzQ2Ed2qfHSDvYJ1MkE8RbCQmMcQQrSvAxpfsqZgUjB/bsfi/mjyicCH+A==
+      integrity: sha512-HOvHpbq5STRZJjQIBzwoKnQ0jHplbEWFWlPDwXXKm/bILh4nzjcg7mNqll0UY7RsjFoaXA7e/oYb/4lvpda2zA==
   /discord-ytdl-core/5.0.3:
     dependencies:
       prism-media: 1.2.9
@@ -650,10 +669,10 @@ packages:
       '@discordjs/form-data': 3.0.1
       abort-controller: 3.0.0
       node-fetch: 2.6.1
-      prism-media: 1.2.9
+      prism-media: 1.3.1
       setimmediate: 1.0.5
       tweetnacl: 1.0.3
-      ws: 7.4.5
+      ws: 7.5.3
     dev: false
     engines:
       node: '>=12.0.0'
@@ -805,21 +824,21 @@ packages:
     dev: false
     resolution:
       integrity: sha1-eEQZljrLoOb6Fge+8oOuRzw+2VQ=
-  /express-session/1.17.1:
+  /express-session/1.17.2:
     dependencies:
-      cookie: 0.4.0
+      cookie: 0.4.1
       cookie-signature: 1.0.6
       debug: 2.6.9
       depd: 2.0.0
       on-headers: 1.0.2
       parseurl: 1.3.3
-      safe-buffer: 5.2.0
+      safe-buffer: 5.2.1
       uid-safe: 2.1.5
     dev: false
     engines:
       node: '>= 0.8.0'
     resolution:
-      integrity: sha512-UbHwgqjxQZJiWRTMyhvWGvjBQduGCSBDhhZXYenziMFjxst5rMV+aJZ6hKPHZnPyHGsrqRICxtX8jtEbm/z36Q==
+      integrity: sha512-mPcYcLA0lvh7D4Oqr5aNJFMtBMKPLl++OKKxkHzZ0U0oDq1rpKBnkR5f5vCHR26VeArlTOEF9td4x5IjICksRQ==
   /express-subdomain/1.0.5:
     dev: false
     resolution:
@@ -879,6 +898,11 @@ packages:
     dev: false
     resolution:
       integrity: sha1-HEYN+OfaUSf2LO70v6BsWciWMMs=
+  /file-uri-to-path/1.0.0:
+    dev: false
+    optional: true
+    resolution:
+      integrity: sha512-0Zt+s3L7Vf1biwWZ29aARiVYLx7iMGnEUl9x33fbB/j3jR81u/O2LbqK+Bm1CDSNDKVtJ/YjwY7TUd5SkeLQLw==
   /filelist/1.0.2:
     dependencies:
       minimatch: 3.0.4
@@ -903,7 +927,7 @@ packages:
     dependencies:
       asynckit: 0.4.0
       combined-stream: 1.0.8
-      mime-types: 2.1.30
+      mime-types: 2.1.31
     dev: false
     engines:
       node: '>= 6'
@@ -1206,6 +1230,15 @@ packages:
       node: '>=10'
     resolution:
       integrity: sha512-0nAcdrF8YJKUkb6PzWdvGftTPyCVWgoiot1AkNVbPKTeIGsWs6DrOjifrJ0Zi8WQfQmD2SuVCjkYIOip12igng==
+  /m3u8stream/0.8.4:
+    dependencies:
+      miniget: 4.2.1
+      sax: 1.2.4
+    dev: false
+    engines:
+      node: '>=10'
+    resolution:
+      integrity: sha512-sco80Db+30RvcaIOndenX6E6oQNgTiBKeJbFPc+yDXwPQIkryfboEbCvXPlBRq3mQTCVPQO93TDVlfRwqpD35w==
   /make-dir/3.1.0:
     dependencies:
       semver: 6.3.0
@@ -1245,6 +1278,18 @@ packages:
       node: '>= 0.6'
     resolution:
       integrity: sha512-QBmA/G2y+IfeS4oktet3qRZ+P5kPhCKRXxXnQEudYqUaEioAU1/Lq2us3D/t1Jfo4hE9REQPrbB7K5sOczJVIw==
+  /mime-db/1.48.0:
+    dev: false
+    engines:
+      node: '>= 0.6'
+    resolution:
+      integrity: sha512-FM3QwxV+TnZYQ2aRqhlKBMHxk10lTbMt3bBkMAp54ddrNeVSfcQYOOKuGuy3Ddrm38I04If834fOUSq1yzslJQ==
+  /mime-db/1.49.0:
+    dev: false
+    engines:
+      node: '>= 0.6'
+    resolution:
+      integrity: sha512-CIc8j9URtOVApSFCQIF+VBkX1RwXp/oMMOrqdyXSBXq5RWNEsRfyj1kiRnQgmNXmHxPoFIxOroKA3zcU9P+nAA==
   /mime-types/2.1.30:
     dependencies:
       mime-db: 1.47.0
@@ -1253,6 +1298,22 @@ packages:
       node: '>= 0.6'
     resolution:
       integrity: sha512-crmjA4bLtR8m9qLpHvgxSChT+XoSlZi8J4n/aIdn3z92e/U47Z0V/yl+Wh9W046GgFVAmoNR/fmdbZYcSSIUeg==
+  /mime-types/2.1.31:
+    dependencies:
+      mime-db: 1.48.0
+    dev: false
+    engines:
+      node: '>= 0.6'
+    resolution:
+      integrity: sha512-XGZnNzm3QvgKxa8dpzyhFTHmpP3l5YNusmne07VUOXxou9CqUqYa/HBy124RqtVh/O2pECas/MOcsDgpilPOPg==
+  /mime-types/2.1.32:
+    dependencies:
+      mime-db: 1.49.0
+    dev: false
+    engines:
+      node: '>= 0.6'
+    resolution:
+      integrity: sha512-hJGaVS4G4c9TSMYh2n6SQAGrC4RnfU+daP8G7cSCmaqNjiOoUY0VHCMS42pxnQmVF1GWwFhbHWn3RIxCqTmZ9A==
   /mime/1.6.0:
     dev: false
     engines:
@@ -1284,6 +1345,12 @@ packages:
       node: '>=10'
     resolution:
       integrity: sha512-IzTOaNgBw/qEpzkPTE7X2cUVXQfSKbG8w52Emi93zb+Zya2ZFrbmavpixzebuDJD9Ku4ecbaFlC7Y1cEESzQtQ==
+  /miniget/4.2.1:
+    dev: false
+    engines:
+      node: '>=10'
+    resolution:
+      integrity: sha512-O/DduzDR6f+oDtVype9S/Qu5hhnx73EDYGyZKwU/qN82lehFZdfhoa4DT51SpsO+8epYrB3gcRmws56ROfTIoQ==
   /minimatch/3.0.4:
     dependencies:
       brace-expansion: 1.1.11
@@ -1328,6 +1395,20 @@ packages:
       saslprep: 1.0.3
     resolution:
       integrity: sha512-WlirMiuV1UPbej5JeCMqE93JRfZ/ZzqE7nJTwP85XzjAF4rRSeq2bGCb1cjfoHLOF06+HxADaPGqT0g3SbVT1w==
+  /mongodb/3.6.9:
+    dependencies:
+      bl: 2.2.1
+      bson: 1.1.6
+      denque: 1.5.0
+      optional-require: 1.0.3
+      safe-buffer: 5.2.1
+    dev: false
+    engines:
+      node: '>=4'
+    optionalDependencies:
+      saslprep: 1.0.3
+    resolution:
+      integrity: sha512-1nSCKgSunzn/CXwgOWgbPHUWOO5OfERcuOWISmqd610jn0s8BU9K4879iJVabqgpPPbA6hO7rG48eq+fGED3Mg==
   /mongoose-legacy-pluralize/1.0.2:
     dev: false
     peerDependencies:
@@ -1389,6 +1470,11 @@ packages:
       node: '>= 0.6'
     resolution:
       integrity: sha512-hZXc7K2e+PgeI1eDBe/10Ard4ekbfrrqG8Ep+8Jmf4JID2bNg7NvCPOZN+kfF574pFQI7mum2AUqDidoKqcTOw==
+  /node-addon-api/1.7.2:
+    dev: false
+    optional: true
+    resolution:
+      integrity: sha512-ibPK3iA+vaY1eEjESkQkM0BbCqFOaZMiXRTtdB0u7b4djtY6JnsjvPdUHVMg6xQt3B8fpTTWHI9A+ADjM9frzg==
   /node-addon-api/3.2.0:
     dev: false
     resolution:
@@ -1582,6 +1668,15 @@ packages:
       opusscript: ^0.0.8
     resolution:
       integrity: sha512-UHCYuqHipbTR1ZsXr5eg4JUmHER8Ss4YEb9Azn+9zzJ7/jlTtD1h0lc4g6tNx3eMlB8Mp6bfll0LPMAV4R6r3Q==
+  /prism-media/1.3.1:
+    dev: false
+    peerDependencies:
+      '@discordjs/opus': ^0.5.0
+      ffmpeg-static: ^4.2.7 || ^3.0.0 || ^2.4.0
+      node-opus: ^0.3.3
+      opusscript: ^0.0.8
+    resolution:
+      integrity: sha512-nyYAa3KB4qteJIqdguKmwxTJgy55xxUtkJ3uRnOvO5jO+frci+9zpRXw6QZVcfDeva3S654fU9+26P2OSTzjHw==
   /process-nextick-args/2.0.1:
     dev: false
     resolution:
@@ -1686,10 +1781,6 @@ packages:
     dev: false
     resolution:
       integrity: sha512-Gd2UZBJDkXlY7GbJxfsE8/nvKkUEU1G38c1siN6QP6a9PT9MmHB8GnpscSmMJSoF8LOIrt8ud/wPtojys4G6+g==
-  /safe-buffer/5.2.0:
-    dev: false
-    resolution:
-      integrity: sha512-fZEwUGbVl7kouZs1jCdMLdt95hdIv0ZeHg6L7qPeciMZhZ+/gdesW4wgTARkrFWEpspjEATAzUGPG8N2jJiwbg==
   /safe-buffer/5.2.1:
     dev: false
     resolution:
@@ -2059,6 +2150,15 @@ packages:
       utf-8-validate: ^5.0.2
     resolution:
       integrity: sha512-xzyu3hFvomRfXKH8vOFMU3OguG6oOvhXMo3xsGy3xWExqaM2dxBbVxuD99O7m3ZUFMvvscsZDqxfgMaRr/Nr1g==
+  /ws/7.5.3:
+    dev: false
+    engines:
+      node: '>=8.3.0'
+    peerDependencies:
+      bufferutil: ^4.0.1
+      utf-8-validate: ^5.0.2
+    resolution:
+      integrity: sha512-kQ/dHIzuLrS6Je9+uv81ueZomEwH0qVYstcAQ4/Z93K8zeko9gtAbttJWzoC5ukqXY1PpoouV3+VSOqEAFt5wg==
   /yallist/4.0.0:
     dev: false
     resolution:
@@ -2080,25 +2180,49 @@ packages:
       node: '>=10'
     resolution:
       integrity: sha512-LFhhwqFojReoaME17VpsFeiamygM0W/YNG8O02mrmS2O6Em5LjCPiJYdq7Af3CmJtBEOCdptSZ3Ql+3LGWDGvg==
+  /ytdl-core/4.9.0:
+    dependencies:
+      m3u8stream: 0.8.4
+      miniget: 4.2.1
+      sax: 1.2.4
+    dev: false
+    engines:
+      node: '>=10'
+    resolution:
+      integrity: sha512-pfuWqEIrP3iYqz5jOMmaz9m+DAzfQpt8X1jmzoOsPdYWrLMV4ml7+p/zhDi0F8IF90i4Jmd0Pq0W1awnKDatKg==
   /zero-fill/2.2.4:
     dev: false
     resolution:
       integrity: sha512-/N5GEDauLHz2uGnuJXWO1Wfib4EC+q4yp9C1jojM7RubwEKADqIqMcYpETMm1lRop403fi3v1qTOdgDE8DIOdw==
+  github.com/devsnek/node-register-scheme/e7cc9a63a1f512565da44cb57316d9fb10750e17:
+    dependencies:
+      bindings: 1.5.0
+      node-addon-api: 1.7.2
+    dev: false
+    name: register-scheme
+    optional: true
+    requiresBuild: true
+    resolution:
+      registry: 'https://registry.npmjs.org/'
+      tarball: 'https://codeload.github.com/devsnek/node-register-scheme/tar.gz/e7cc9a63a1f512565da44cb57316d9fb10750e17'
+    version: 0.0.2
 registry: 'https://registry.npmjs.org/'
 shrinkwrapMinorVersion: 9
 shrinkwrapVersion: 3
 specifiers:
   '@discordjs/opus': ^0.5.0
   body-parser: ^1.19.0
+  connect-mongo: ^3.0.0
+  discord-buttons: ^4.0.0
   discord-player: ^4.0.5
-  discord-rpc: ^3.2.0
-  discord.js: ^12.5.2
+  discord-rpc: ^4.0.1
+  discord.js: ^12.5.3
   distube: ^2.8.13
   dotenv: ^8.2.0
   ejs: ^3.1.6
   express: ^4.17.1
   express-back: ^0.0.2
-  express-session: ^1.17.1
+  express-session: 1.17.2
   express-subdomain: ^1.0.5
   ffmpeg: ^0.0.4
   ffmpeg-static: ^4.3.0
@@ -2112,4 +2236,4 @@ specifiers:
   simple-youtube-api: ^5.2.1
   smooth-scrollbar: ^8.6.0
   socket.io: ^4.0.1
-  ytdl-core: ^4.8.0
+  ytdl-core: ^4.9.0

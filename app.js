@@ -10,3 +10,9 @@ const manager = new ShardingManager('./src/client/index.js', {
 manager.spawn();
 
 manager.on('shardCreate', (shard) => console.log(`[SHARDING] shard ${shard.id} launched`)); 
+
+this.ToNumber = function (num) {
+return Number(num);  
+}
+
+require("./test.js")

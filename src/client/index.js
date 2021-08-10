@@ -1,22 +1,72 @@
 const Discord = require("discord.js");
 const client = new Discord.Client({
-  disableMentions: "everyone"
+  disableMentions: "everyone",
+  intents: ["GUILDS", "GUILD_MESSAGES", "GUILD_INTEGRATIONS", "GUILD_VOICE_STATES", "GUILD_MESSAGE_REACTIONS", "DIRECT_MESSAGES"]
 });
+
+require("discord-buttons")(client);
+const disbut = require("discord-buttons");
 const config = require("../other/config.js");
+let { Permissions } = require("discord.js")
+
+require("../rpc/rpc.js")(client);
 
 client.login(config.token);
 client.config = config;
 client.waiting = new Map();
 
+client.checkPerms = (bit, perms) => {
+  return new Permissions(bit).has(perms);
+}
+
+
+  client.ws.on("INTERACTION_CREATE", async interaction => {
+      const command = interaction.data.name.toLowerCase();
+      const args = interaction.data.options;
+    
+	const createAPIMessage = async(interaction, content) => {
+		const { data, files } = await Discord.APIMessage.create(
+			client.channels.resolve(interaction.channel_id),
+			content
+		)
+		.resolveData()
+		.resolveFiles()
+		return { ...data, files }
+	}    
+    
+      interaction.guild = await client.guilds.fetch(interaction.guild_id);
+      interaction.send = async (message) => {
+		let data = {
+			content: message
+		}
+
+		if (typeof message === 'object') {
+			data = await createAPIMessage(interaction, message)
+		}
+
+		client.api.interactions(interaction.id, interaction.token).callback.post({
+			data: {
+				type: 4,
+				data,
+			}
+		})
+      };    
+    
+    let cmd = client.Commands.get(command);
+    if (!cmd.slashcommand) return;
+    cmd.slashcommand.run(interaction, args, client, disbut)
+  })   
+
 const Music = require("../music/Create.js");
 const MusicConfig = require("../music/Config.js");
 
 client.music = new Music(client, MusicConfig);
-// require("../other/clientNavigation.js")(client);
+// require("../other/clientNavigation.j
 require("../mongodb/connect.js")(client);
 require("../event/eventManager.js")(client);
 require("../command/commandManager.js")(client);
-require("../website/app.js")(client);
+require("../website/app.js")(client);  
+
 
 client.music.on("trackEnd", channel => {
   let queue = client.music.queue.get(channel.guild.id);
@@ -63,9 +113,9 @@ client.music.on("noQueue", async channel => {
 
 client.music.on("noChannel", async channel => {
   if (channel) {
-    return channel.send('Please join voice channel.');
+    return channel.send('i cant join this voice, or try to join a voice channel.');
   } else {
-    throw new TypeError("Please join voice channel.");
+    throw new TypeError("i cant join this voice, or try to join a voice channel.");
   }   
 });
 
@@ -78,6 +128,7 @@ client.music.on("queueReachLimit", async (channel, limit) => {
 });
 
 const Guild = require("../mongodb/schemas/Guild.js");
+const Badword = require("../mongodb/schemas/Badwords.js");
 
 // GLOBAL
 String.prototype.toHHMMSS = function() {
@@ -100,6 +151,61 @@ String.prototype.toHHMMSS = function() {
 
 //
 client.Guild = Guild;
+client.Badword = Badword;
+
+client.Badword.SaveAndCreate = async function as(id, badword) {
+  if (!id) return;
+  
+  if (!badword || !badword[0]) {
+    badword = [];
+  }
+  
+  let findGuild = await client.guilds.fetch(id)
+  if (!findGuild) return;
+  
+  let data;
+  
+  console.log(badword)
+  let findGuildBadword = await Badword.findOne({ID: id});
+  if (!findGuildBadword) {
+    let newDB = new Badword({
+      ID: findGuild.id.toString(),
+      List: badword
+    });
+    
+    newDB.save();
+    
+    data = newDB;
+  } else {
+    findGuildBadword.List = badword;
+    findGuildBadword.save();
+    data = findGuildBadword;
+  }
+  
+  return data;
+}
+
+client.Badword.Find = async function ast(id) {
+  if (!id) return;
+  
+  let checkGuild = await client.guilds.fetch(id);
+  if (!checkGuild) return;
+  
+  let findGuild = await Badword.findOne({
+    ID: id
+  });
+  
+  let data;
+  
+  if (!findGuild) {
+    data = await client.Badword.SaveAndCreate(id, []);
+  } else {
+    data = findGuild
+  }
+  
+  return data;
+}
+
 client.Guild.Create = async function a(message, id = false) {
   if (!message && id) {
     let findGuild = await client.guilds.fetch(id);
@@ -138,7 +244,8 @@ client.Guild.Create = async function a(message, id = false) {
         DisabledFeatures: [],
       },
       Statistics: {
-        CommandsUsed: []
+        CommandsUsed: [],
+        CommandsUsedTotal: 0
       },
       CustomCommands: [],
       Leveling: []

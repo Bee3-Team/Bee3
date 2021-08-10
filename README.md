@@ -1,30 +1,15 @@
-# Bee3 - Discord Bot
-`features includes :`
-```
-- music
-- moderation
-- general
-- auto mod
-- dashboard
-- website
-- leveling (coming soon)
-```
+![banner](https://cdn.discordapp.com/attachments/832129800914206722/867757249300004874/unknown.png)
 
-# Bee3 - Music events
-go to `MUSIC.md`
+# Bee3 Project 2021 - v4.3.1 Beta
 
-# Bee3 - Auto Mod
-`current features :`
-```
-- anti link - admin are not affected
-```
+> Welcome to Bee3 Project, we make this bot for helping you moderate your discord server, play a song for you, maintain member attitude for free. you can see all features on dashboard.
 
-# Commands List
-- `help`, `dashboard`
-- `ban`, `kick`
-- `loop`, `now-playing`, `pause-resume`, `play`, `queue`, `set-volume`, `shuffle`, `skip`, `stop`
+# Requirements
+- Bot Token
+- Node Js
+- YT API V3
 
-# Setup bot
+# Setup
 - first, go to [discord developer](https://discord.com/developers/application) and create new application
 - and go to `bot` page, and create bot, click `yes`
 - import this `project from github` to your Code Editor or [glitch.com](https://glitch.com)
@@ -34,13 +19,19 @@ go to `MUSIC.md`
 - if you on [glitch.com](https://glitch.com), just wait for a few seconds, and if you not in [glitch.com](https://glitch.com), open terminal and type `node .`
 - if all done, now invite your bot to your server ([discord developer](https://discord.com/developers/application))
 
-# Version
-`v1.2.0 alpha`
+## Features Included
+- music [MUSIC.md](MUSIC.md)
+- moderation
+- auto mod
+- custom commands
 
-# .env structures
+### .env
 ```
-token=<bot_token>
-secret=<bot_secret>
-mongodb=mongodb+srv://<username>:<password>@cluster0.56hmi.mongodb.net/database?retryWrites=true&w=majority
-yt=<yt_api>
+token=discord_bot_token
+secret=discord_bot_secret
+mongodb=mongodb_url
+yt=yt_api_v3
 ```
+
+# LICENSE
+[read here](LICENSE.md)

@@ -1,13 +1,19 @@
     <div class="col-md-3 col-lg-2 px-0 position-fixed vh-100 bg-white shadow-sm sidebar" id="sidebar" style="border-radius: 0px; background-color: #212529 !important;">    
       <div class="fa fa-bars text-primary" style="padding: 10px; cursor: pointer; font-size: 30px;" id="sidebar-remove-overlay"></div>
       <div class="list-group rounded-0">
+<!--         
          <button class="list-group-item list-group-item-action border-0 d-flex justify-content-between align-items-center" data-toggle="collapse" data-target="#config-collapse" style="background-color: transparent; color: white; font-weight: 700;">
           <div>
             <span>CONFIG</span>
           </div>
           <span class="fa fa-chevron-down small"></span>
+        </button> -->
+        
+        <button class="btn btn-primary" onclick="location.href = '/dashboard/<%= guild.id %>'">
+          Back  
         </button>
-        <div class="collapse show" id="config-collapse" data-parent="#sidebar">
+        
+<!--         <div class="collapse show" id="config-collapse" data-parent="#sidebar">
           <div class="list-group">
         <a href="/dashboard/<%= guild.id %>/commands" class="list-group-item list-group-item-action border-0 d-flex align-items-center" style="background-color: transparent; color: white;">
           <span class="fas fa-code"></span>
@@ -25,8 +31,16 @@
           <span class="fas fa-ban"></span>
           <span class="ml-2">Auto Mod</span>
         </a>
+        <a href="/dashboard/<%= guild.id %>/cc" class="list-group-item list-group-item-action border-0 align-items-center" style="background-color: transparent; color: white;">
+          <span class="fas fa-comment-dots"></span>
+          <span class="ml-2">Custom Commands</span>
+        </a>
+        <a href="/musicplayer/<%= guild.id %>" class="list-group-item list-group-item-action border-0 align-items-center" style="background-color: transparent; color: white;">
+          <span class="fas fa-music"></span>
+          <span class="ml-2">Music (beta)</span>
+        </a>             
           </div>
-        </div>        
+        </div>         -->
         
       </div>
     </div>   

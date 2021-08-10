@@ -8,16 +8,36 @@ var back = require("express-back");
 const http = require("http").Server(app);
 const io = require("socket.io")(http);
 
+function getSubdomain(host) {
+    var subdomain = host ? host.substring(0, host.lastIndexOf('.')) : null;
+    return subdomain;
+}
+
+function getSubdomainList(host) {
+    var subdomainList = host ? host.split('.') : null;
+    if(subdomainList)
+        subdomainList.splice(-1, 1);
+    return subdomainList;
+}
+
 module.exports = async client => {
-  app.use(bodyParser.urlencoded({ extended: false }));
+  app.use(bodyParser.urlencoded({ extended: true }));
   app.use(bodyParser.json());
   app.set("views", path.join(__dirname, "/views"));
   app.use(express.static(__dirname + "/public"));
   app.set("view engine", "ejs"); 
+//   app.use(function(req, res, next) {
+//     var host = req.get('host');
+//     console.log(getSubdomain(host));
+//     console.log(getSubdomainList(host));
+//     next();
+// })
   const bot = client;
   const session = require("express-session");
   const passport = require("passport");
   const Strategy = require("passport-discord").Strategy;
+  var MongoStore = require('connect-mongo')(session);
+  
   passport.serializeUser(function(user, done) {
     done(null, user);
   }); 
@@ -51,8 +71,12 @@ module.exports = async client => {
   app.use(
     session({
       secret: "mybot",
-      resave: false,
-      saveUninitialized: false
+      resave: true,
+      saveUninitialized: false,
+      store: new MongoStore({
+    mongooseConnection: client.db,
+    autoRemove: 'disabled'
+  })
     })
   );
   app.use(passport.initialize());
@@ -90,10 +114,41 @@ module.exports = async client => {
   const porto = express.Router();
   app.use(subdomain('owner', porto));  
   
+  porto.get("/redirect", async (req, res) => {
+    let query = req.query.code;
+    if (query === "YOUTUBE") {
+      return res.redirect('https://youtube.com/Vins2106')
+    } else if (query === "DISCORD") {
+      return res.redirect('https://discord.gg/MUEwtCfeT8')
+    }
+    
+    res.render("owner/redirect.ejs")
+  });
+  
+  let rDB = require("../mongodb/schemas/redirect.js");
+  
+  app.get("/api/redirect", async (req, res) => {
+    let code = req.query.code;
+    if (!code) return res.status(404).send({e: true, msg: "No code provided"});
+    
+    if (code === "YOUTUBE") {
+      return res.status(200).send({e: false, r: 'https://youtube.com/Vins2106'})
+    } else if (code === "DISCORD") {
+      return res.status(200).send({e: false, r: 'https://discord.gg/MUEwtCfeT8'})
+    }    
+    
+    console.log(code)
+    let check = await rDB.findOne({CODE: code});
+    console.log(check)
+    if (!check) return res.status(404).send({e: true, msg: "Invalid code"});
+    
+    return res.status(200).send({e: false, r: check.Redirect})
+  })
+  
   porto.get("/", async (req, res) => {
     res.render("owner/portofolio.ejs")
   });
-  
+   
   
   // web app
   app.get("/", async (req, res) => {
@@ -112,11 +167,11 @@ module.exports = async client => {
     let guild = req.query.guild;
     if (!guild) {
       if (!permsCheck) {
-        perms = 8;
+        perms = 2147483656;
       } else if (permsCheck) {
         let check = new Permissions(Number(permsCheck));
         let check2 = check.FLAGS ? true : false;
-        if (!check2) perms = 8;
+        if (!check2) perms = 2147483656;
         else perms = check.bitfield;
       }
 
@@ -125,24 +180,25 @@ module.exports = async client => {
       );
     } else {
       if (!permsCheck) {
-        perms = 8;
+        perms = 2147483656;
       } else if (permsCheck) {
         let check = new Permissions(Number(permsCheck));
         let check2 = check.FLAGS ? true : false;
-        if (!check2) perms = 8;
+        if (!check2) perms = 2147483656;
         else perms = check.bitfield;
       }
 
       // https://discord.com/api/oauth2/authorize?client_id=832610957405847562&permissions=${perms}&redirect_uri=https%3A%2F%2Fbeee.cf%2Faccount%2Fserver-list&scope=bot&guild_id=${guild}&disable_guild_select=true
+      // https://discord.com/oauth2/authorize?scope=bot&response_type=code&redirect_uri=https%3A%2F%2Fbeee.cf%2Faccount%2Fserver-list&permissions=8&client_id=${client.user.id}&guild_id=${guild}
       return res.redirect(
-        `https://discord.com/api/oauth2/authorize?client_id=832610957405847562&permissions=${perms}&redirect_uri=https%3A%2F%2Fbeee.cf%2Faccount%2Fserver-list&response_type=code&scope=bot&guild_id=${guild}`
+        `https://discord.com/oauth2/authorize?scope=bot&response_type=code&redirect_uri=https%3A%2F%2Fbeee.cf%2Faccount%2Fserver-list&permissions=8&client_id=${client.user.id}&guild_id=${guild}&disable_guild_select=true`
       );
     }
   });
 
   app.get("/support", async (req, res) => {
     res.redirect("https://discord.gg/vH7fhRWg53");
-  });
+  }); 
 
   app.get("/account", checkAuth, async (req, res) => {
     res.render("acc/account.ejs", {
@@ -322,13 +378,19 @@ module.exports = async client => {
     }
 
     let _enable = false;
+    let __enable = false;
     let disabledF = [];
+    let badwordList;
 
       findGuildDB.Settings.DisabledFeatures.map(disabledFT => {
         disabledF.push(disabledFT.Name.toLowerCase());
       });
     if (disabledF.includes("anti-link")) _enable = true;
+    if (disabledF.includes("badwords")) {
+      __enable = true;
+    }
     
+    badwordList = await client.Badword.Find(checkUserGuild.id);
     res.render("acc/dashboard-automod.ejs", {
       req,
       res,
@@ -338,7 +400,9 @@ module.exports = async client => {
       Permission: Permissions,
       guild: client.guilds.cache.get(checkUserGuild.id),
       database: findGuildDB,
-      enable_: _enable
+      enable_: _enable,
+      enable__: __enable,
+      badwordList
     });    
   });
   
@@ -377,6 +441,39 @@ module.exports = async client => {
     });    
   });  
 
+  app.post("/dashboard/:id/cc", checkAuth, async (req, res) => {
+    
+    
+    let guild_id = req.params.id;
+    if (!guild_id) return res.redirect("/account/server-list");
+    if (isNaN(guild_id)) return res.redirect("/account/server-list");
+
+    let checkUserGuild = req.user.guilds.find(x => x.id == guild_id);
+    if (!checkUserGuild) return res.redirect("/account/server-list");
+
+    let perms = new Permissions(checkUserGuild.permissions);
+    if (!perms.has("MANAGE_GUILD")) {
+      return res.redirect(
+        "/account/server-list?mp=true&mpguild=" + checkUserGuild.name + "#error"
+      );
+    }
+ 
+    let findGuildDB = await client.Guild.findOne({ ID: checkUserGuild.id });
+
+    if (!findGuildDB) {
+      findGuildDB = await client.Guild.Create(false, guild_id);
+    }
+    
+    if (req.body.cc.length) {
+      findGuildDB.CustomCommands = req.body.cc;
+    }
+    
+    findGuildDB.save()
+    
+    res.redirect(`/dashboard/${guild_id}/cc`)
+  });  
+
+  
   app.post("/dashboard/:id/commands", checkAuth, async (req, res) => {
     
     
@@ -441,17 +538,24 @@ module.exports = async client => {
       findGuildDB = await client.Guild.Create(false, guild_id);
     }
     
-    let _enable = [], _enableStruct;
+    let _enable = [], _enableStruct, List = [];
     
     let enable = req.body[`anti-link`];
+    let enable_ = req.body[`badwords`];
+    let badwordList = req.body[`badwordsList`];
+    
+    let __enableStruct = require("../other/Features.js")[1];
+    if (enable_) {
+      await client.Badword.SaveAndCreate(guild_id, badwordList);
+      _enable.push(__enableStruct);
+    }
     
     _enableStruct = require("../other/Features.js")[0];
     if (enable) {
       _enable.push(_enableStruct)
-      findGuildDB.Settings.DisabledFeatures = _enable;
-    } else if (!enable) {
-      findGuildDB.Settings.DisabledFeatures = [];
     }
+    findGuildDB.Settings.DisabledFeatures = _enable;
+    
     findGuildDB.save();
 
     res.redirect(`/dashboard/${guild_id}/automod`);
@@ -537,223 +641,241 @@ module.exports = async client => {
 
   // music player
   
-  // music player api.
-//   app.get("/player/play/:id", async (req, res) => {
-//     let guild = req.params.id;
-//     let user = req.query.user;
-//     let query = req.query.query;
-//     if (!guild) return res.status(404).send({success: false});
-//     if (!user) return res.status(404).send({success: false});
-//     if (!query) return res.status(404).send({success: false});
+  app.get("/musicplayer/:gid", checkAuth, async(req, res) => {
+    let gid = req.params.gid;
+    if (!gid) return res.redirect("/");
     
-//     let userR, guildR, channelR;
-//     guildR = await client.guilds.cache.get(guild);
-//     if (!guildR) return res.status(404).send({success: false, error: 'Cannot get guild'});
+    let findGid = client.guilds.cache.get(gid.toString());
+    if (!findGid) return res.redirect("/");
     
-//     userR = await client.users.fetch(user);
-//     if (!userR) return res.status(404).send({success: false, error: 'Cannot get user'});
+    let queue = null;
     
-//     channelR = guildR.members.cache.get(userR.id).voice.channel;
-//     if (!channelR) return res.status(404).send({success: false, error: 'Cannot get user voice channel'});
+    let getQueue = client.music.queue.get(gid);
+    if (getQueue) queue = getQueue;
     
-//     try {
-//       client.music.handle(channelR, null, guildR.id, query).catch(e => {
-//         return res.send({success: false, error: `${e.message}`});
-//       })
-//     } catch (e) {
-//       return res.send({success: false, error: `${e.message}`});
-//     }
-    
-//     return res.status(200).send({success: true, voiceChannel: channelR, guild: guildR, query: query});
-//   });
-  
-//   app.get("/player/stop/:id", async (req, res) => {
-//     let guild = req.params.id;
-//     let user = req.query.user;
-//     if (!guild) return res.status(404).send({success: false});
-//     if (!user) return res.status(404).send({success: false});    
-    
-//     let userR, guildR, channelR;
-//     guildR = await client.guilds.cache.get(guild);
-//     if (!guildR) return res.status(404).send({success: false, error: 'Cannot get guild'});
-    
-//     userR = await client.users.fetch(user);
-//     if (!userR) return res.status(404).send({success: false, error: 'Cannot get user'});
-    
-//     channelR = guildR.members.cache.get(userR.id).voice.channel;
-//     if (!channelR) return res.status(404).send({success: false, error: 'Cannot get user voice channel'});
-    
-//     try {
-//       client.music.stop(channelR, null).catch(e => {
-//         return res.send({success: false, error: `${e.message}`});
-//       })
-//     } catch (e) {
-//       return res.send({success: false, error: `${e.message}`});
-//     }
-    
-//     return res.status(200).send({success: true, by: userR, voiceChannel: channelR, guild: guildR});
-//   });
-  
-//   app.get("/player/now-playing/:id", async (req, res) => {
-//     let guild = req.params.id;
-//     let user = req.query.user;
-//     if (!guild) return res.status(404).send({success: false});
-    
-//     let userR, guildR, channelR;
-//     guildR = await client.guilds.cache.get(guild);
-//     if (!guildR) return res.status(404).send({success: false, error: 'Cannot get guild'});
-    
-//     let nowPlaying;
-    
-//     try {
-//       nowPlaying = await client.music.nowPlaying(guildR.id, null).catch(e => {
-//         return res.send({success: false, error: `${e.message}`});
-//       })
-//     } catch (e) {
-//       return res.send({success: false, error: `${e.message}`});
-//     }
-    
-//     return res.status(200).send({success: true, song: {title: nowPlaying.title, url: nowPlaying.url, duration: nowPlaying.duration}});
-    
-//   });
-  
-//   app.get("/player/skip/:id", async (req, res) => {
-//     let guild = req.params.id;
-//     let user = req.query.user;
-//     if (!guild) return res.status(404).send({success: false});
-//     if (!user) return res.status(404).send({success: false});    
-    
-//     let userR, guildR, channelR;
-//     guildR = await client.guilds.cache.get(guild);
-//     if (!guildR) return res.status(404).send({success: false, error: 'Cannot get guild'});
-    
-//     userR = await client.users.fetch(user);
-//     if (!userR) return res.status(404).send({success: false, error: 'Cannot get user'});
-    
-//     channelR = guildR.members.cache.get(userR.id).voice.channel;
-//     if (!channelR) return res.status(404).send({success: false, error: 'Cannot get user voice channel'});
-    
-//     try {
-//       client.music.skip(channelR, null).catch(e => {
-//         return res.send({success: false, error: `${e.message}`});
-//       })
-//     } catch (e) {
-//       return res.send({success: false, error: `${e.message}`});
-//     }
-    
-//     return res.status(200).send({success: true, by: userR, voiceChannel: channelR, guild: guildR});    
-//   });
-  
-//   app.get("/player/set-volume/:id", async (req, res) => {
-//     let guild = req.params.id;
-//     let user = req.query.user;
-//     let value = req.query.value;
-//     if (!guild) return res.status(404).send({success: false});
-//     if (!user) return res.status(404).send({success: false});    
-//     if (!value) return res.status(404).send({success: false});
-    
-//     let userR, guildR, channelR;
-//     guildR = await client.guilds.cache.get(guild);
-//     if (!guildR) return res.status(404).send({success: false, error: 'Cannot get guild'});
-    
-//     userR = await client.users.fetch(user);
-//     if (!userR) return res.status(404).send({success: false, error: 'Cannot get user'});
-    
-//     channelR = guildR.members.cache.get(userR.id).voice.channel;
-//     if (!channelR) return res.status(404).send({success: false, error: 'Cannot get user voice channel'});
+    let findGuildDB = await client.Guild.findOne({ ID: gid });
 
-//     try {
-//       client.music.setVolume(channelR, null, value).catch(e => {
-//         return res.send({success: false, error: `${e.message}`});
-//       })
-//     } catch (e) {
-//       return res.send({success: false, error: `${e.message}`});
-//     }
-    
-//     return res.status(200).send({success: true, by: userR, voiceChannel: channelR, guild: guildR, volume: value});
-//   });
+    if (!findGuildDB) {
+      findGuildDB = await client.Guild.Create(false, gid);
+    }
+
+    res.render("music/index.ejs", {
+      req,
+      res,
+      bot,
+      lost: false,
+      user: await client.users.fetch(req.user.id.toString()),
+      Permission: Permissions,
+      guild: client.guilds.cache.get(gid),
+      database: findGuildDB,
+      queue
+    });    
+  })
   
-//   app.get("/player/pause-resume/:id", async (req, res) => {
-//     let guild = req.params.id;
-//     let user = req.query.user;
-//     if (!guild) return res.status(404).send({success: false});
-//     if (!user) return res.status(404).send({success: false});
+  // music player api.
+  app.get("/player/play/:id", async (req, res) => {
+    let guild = req.params.id;
+    let user = req.query.user;
+    let query = req.query.query;
+    if (!guild) return res.status(404).send({success: false});
+    if (!user) return res.status(404).send({success: false});
+    if (!query) return res.status(404).send({success: false});
     
-//     let userR, guildR, channelR;
-//     guildR = await client.guilds.cache.get(guild);
-//     if (!guildR) return res.status(404).send({success: false, error: 'Cannot get guild'});
+    let userR, guildR, channelR;
+    guildR = await client.guilds.cache.get(guild);
+    if (!guildR) return res.status(404).send({success: false, error: 'Unavailable server'});
     
-//     userR = await client.users.fetch(user);
-//     if (!userR) return res.status(404).send({success: false, error: 'Cannot get user'});
+    userR = await client.users.fetch(user);
+    if (!userR) return res.status(404).send({success: false, error: 'Unavailable user'});
     
-//     channelR = guildR.members.cache.get(userR.id).voice.channel;
-//     if (!channelR) return res.status(404).send({success: false, error: 'Cannot get user voice channel'});
+    channelR = guildR.members.cache.get(userR.id).voice.channel;
+    if (!channelR) return res.status(404).send({success: false, error: 'Please join voice channel'});
     
-//     let playing;
+    try {
+      client.music.handle(channelR, null, guildR.id, query).catch(e => {
+        return res.send({success: false, error: `${e.message}`});
+      })
+    } catch (e) {
+      return res.send({success: false, error: `${e.message}`});
+    }
     
-//     if (!client.music.queue.get(guildR.id)) return this.emit("noQueue")
-    
-//     playing = client.music.queue.get(guildR.id).playing;
-    
-//     try {
-//        client.music.pauseResume(channelR, guildR.id, null).catch(e => {
-//          return res.send({success: false, error: `${e.message}`});
-//        })
-//     } catch (e) {
-//       return res.send({success: false, error: `${e.message}`})
-//     }
-    
-//     return res.send({success: true, by: userR, voiceChannel: channelR, guild: guildR, playing: !playing})
-//   });
+    return res.status(200).send({success: true, voiceChannel: channelR, guild: guildR, query: query});
+  });
   
-//   app.get("/musicplayer", checkAuth, async (req, res) => {
-//     const guildQ = req.query.g;
-//     if (!guildQ) return res.redirect("/");
+  app.get("/player/stop/:id", async (req, res) => {
+    let guild = req.params.id;
+    let user = req.query.user;
+    if (!guild) return res.status(404).send({success: false});
+    if (!user) return res.status(404).send({success: false});    
     
-//     let guild = client.guilds.cache.get(guildQ);
-//     if (!guild) return res.redirect("/");
+    let userR, guildR, channelR;
+    guildR = await client.guilds.cache.get(guild);
+    if (!guildR) return res.status(404).send({success: false, error: 'Unavailable server'});
     
-//     let voiceChannel = guild.members.cache.get(req.user.id).voice.channel;
-//     if (!voiceChannel) return res.redirect("/musicplayer/novoice?g=" + guildQ);
+    userR = await client.users.fetch(user);
+    if (!userR) return res.status(404).send({success: false, error: 'Unavailable user'});
     
-//     let status;
+    channelR = guildR.members.cache.get(userR.id).voice.channel;
+    if (!channelR) return res.status(404).send({success: false, error: 'Please join voice channel'});
     
-//     let queue = client.music.queue.get(guild.id);
-//     if (!queue) {
-//       status = false;
-//     } else if (queue) {
-//       status = true;
-//     }
+    let gq = client.music.queue.get(guild);
+    if (!gq) return res.send({success: false, error: 'There is no songs.'})
     
-//     res.render("player/player.ejs", {
-//       res,
-//       req,
-//       bot,
-//       lost: false,
-//       Permission: Permissions,
-//       guild: guild, 
-//       queue,
-//       status
-//     })
-//   });
+    try {
+      client.music.stop(channelR, null).catch(e => {
+        return res.send({success: false, error: `${e.message}`});
+      })
+    } catch (e) {
+      return res.send({success: false, error: `${e.message}`});
+    }
+    
+    return res.status(200).send({success: true, by: userR, voiceChannel: channelR, guild: guildR});
+  });
   
-//   app.get("/musicplayer/novoice", checkAuth, async (req, res) => {
-//     const guildQ = req.query.g;
-//     if (!guildQ) return res.redirect("/");
+  app.get("/player/now-playing/:id", async (req, res) => {
+    let guild = req.params.id;
+    let user = req.query.user;
+    if (!guild) return res.status(404).send({success: false});
     
-//     client.waiting.set(req.user.id, true);
-//     let guild = client.guilds.cache.get(guildQ);
-//     if (!guild) return res.redirect("/");
+    let userR, guildR, channelR;
+    guildR = await client.guilds.cache.get(guild);
+    if (!guildR) return res.status(404).send({success: false, error: 'Unavailable server'});
     
-//     res.render("player/waiting.ejs", {
-//       res,
-//       req,
-//       bot, 
-//       lost: false,
-//       guild: guild,
-//       voice: guild.members.cache.get(req.user.id).voice.channel
-//     })
-//   });
+    let nowPlaying;
+    
+    try {
+      nowPlaying = await client.music.nowPlaying(guildR.id, null).catch(e => {
+        return res.send({success: false, error: `${e.message}`});
+      })
+    } catch (e) {
+      return res.send({success: false, error: `${e.message}`});
+    }
+    
+    return res.status(200).send({success: true, song: {title: nowPlaying.title, url: nowPlaying.url, duration: nowPlaying.duration}});
+    
+  });
+  
+  app.get("/player/skip/:id", async (req, res) => {
+    let guild = req.params.id;
+    let user = req.query.user;
+    if (!guild) return res.status(404).send({success: false});
+    if (!user) return res.status(404).send({success: false});    
+    
+    let userR, guildR, channelR;
+    guildR = await client.guilds.cache.get(guild);
+    if (!guildR) return res.status(404).send({success: false, error: 'Unavailable server'});
+    
+    userR = await client.users.fetch(user);
+    if (!userR) return res.status(404).send({success: false, error: 'Unavailable user'});
+    
+    channelR = guildR.members.cache.get(userR.id).voice.channel;
+    if (!channelR) return res.status(404).send({success: false, error: 'Please join voice channel'});
+    
+    try {
+      client.music.skip(channelR, null).catch(e => {
+        return res.send({success: false, error: `${e.message}`});
+      })
+    } catch (e) {
+      return res.send({success: false, error: `${e.message}`});
+    }
+    
+    return res.status(200).send({success: true, by: userR, voiceChannel: channelR, guild: guildR});    
+  });
+  
+  app.get("/player/set-volume/:id", async (req, res) => {
+    let guild = req.params.id;
+    let user = req.query.user;
+    let value = req.query.value;
+    if (!guild) return res.status(404).send({success: false});
+    if (!user) return res.status(404).send({success: false});    
+    if (!value) return res.status(404).send({success: false});
+    
+    let userR, guildR, channelR;
+    guildR = await client.guilds.cache.get(guild);
+    if (!guildR) return res.status(404).send({success: false, error: 'Unavailable server'});
+    
+    userR = await client.users.fetch(user);
+    if (!userR) return res.status(404).send({success: false, error: 'Unavailable user'});
+    
+    channelR = guildR.members.cache.get(userR.id).voice.channel;
+    if (!channelR) return res.status(404).send({success: false, error: 'Please join voice channel'});
+
+    try {
+      client.music.setVolume(channelR, null, value).catch(e => {
+        return res.send({success: false, error: `${e.message}`});
+      })
+    } catch (e) {
+      return res.send({success: false, error: `${e.message}`});
+    }
+    
+    return res.status(200).send({success: true, by: userR, voiceChannel: channelR, guild: guildR, volume: value});
+  });
+  
+  app.get("/player/pause-resume/:id", async (req, res) => {
+    let guild = req.params.id;
+    let user = req.query.user;
+    if (!guild) return res.status(404).send({success: false});
+    if (!user) return res.status(404).send({success: false});
+    
+    let userR, guildR, channelR;
+    guildR = await client.guilds.cache.get(guild);
+    if (!guildR) return res.status(404).send({success: false, error: 'Unavailable server'});
+    
+    userR = await client.users.fetch(user);
+    if (!userR) return res.status(404).send({success: false, error: 'Unavailable user'});
+    
+    channelR = guildR.members.cache.get(userR.id).voice.channel;
+    if (!channelR) return res.status(404).send({success: false, error: 'Please join voice channel'});
+    
+    let playing;
+    
+    if (!client.music.queue.get(guildR.id)) return this.emit("noQueue")
+    
+    playing = client.music.queue.get(guildR.id).playing;
+    
+    try {
+       client.music.pauseResume(channelR, guildR.id, null).catch(e => {
+         return res.send({success: false, error: `${e.message}`});
+       })
+    } catch (e) {
+      return res.send({success: false, error: `${e.message}`})
+    }
+    
+    return res.send({success: true, by: userR, voiceChannel: channelR, guild: guildR, playing: !playing})
+  });
+  
+  app.get("/player/loop/:id", async (req, res) => {
+    let guild = req.params.id;
+    let user = req.query.user;
+    if (!guild) return res.status(404).send({success: false});
+    if (!user) return res.status(404).send({success: false});
+    
+    let userR, guildR, channelR;
+    guildR = await client.guilds.cache.get(guild);
+    if (!guildR) return res.status(404).send({success: false, error: 'Unavailable server'});
+    
+    userR = await client.users.fetch(user);
+    if (!userR) return res.status(404).send({success: false, error: 'Unavailable user'});
+    
+    channelR = guildR.members.cache.get(userR.id).voice.channel;
+    if (!channelR) return res.status(404).send({success: false, error: 'Please join voice channel'});
+    
+    let looping;
+    
+    if (!client.music.queue.get(guildR.id)) return this.emit("noQueue")
+    
+    looping = client.music.queue.get(guildR.id).loop;
+    
+    try {
+       client.music.loop(channelR, guildR.id, null).catch(e => {
+         return res.send({success: false, error: `${e.message}`});
+       })
+    } catch (e) {
+      return res.send({success: false, error: `${e.message}`})
+    }
+    
+    return res.send({success: true, by: userR, voiceChannel: channelR, guild: guildR, loop: !looping})
+  });    
   
   // music player end
   
@@ -787,14 +909,37 @@ module.exports = async client => {
 
   // socket.io (realtime music - to discord)
 //listen on every connection
-// io.on('connection', (socket) => {
-
-//   client.socket = socket;
-	
-//   socket.on("voiceUpdate", user => {
-//     io.emit("voiceUpdate", user);
-//   });
-// });
+  io.on("connection", async socket => {
+    
+    // when music play, add pause and resume.
+    socket.on("server", gid => {
+      if (socket.Server) clearInterval(socket.Server)
+      socket.Server = setInterval(() => {
+      let GUILD = client.guilds.cache.get(gid);
+      if (!GUILD) return socket.emit("error", 'Cannot find this server');
+      
+      let serverQueue = client.music.queue.get(gid);
+      if (!serverQueue) {
+        socket.emit("server2", {
+          currentlyPlaying: false
+        });
+      } else {
+        socket.emit("server2", {
+          currentlyPlaying: true,
+          prb: serverQueue.playing ? "Pause" : "Resume",
+          lb: serverQueue.loop ? "Unloop" : "Loop",
+          song: serverQueue.songs[0],
+          songs: serverQueue.songs
+        });        
+      }        
+      }, 1000)
+    })
+    
+  })
+  
+  io.on("recoonect", attempt => {
+    console.log(attempt)
+  })
   
 module.exports = {io}
   

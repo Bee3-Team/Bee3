@@ -5,6 +5,9 @@ module.exports = {
   name: "message",
   execute: async (message, client) => {
     if (message.author.bot) return;
+
+    const disbut = require("discord-buttons");   
+    
     let config = client.config;
 
     let Guild = null;
@@ -31,6 +34,19 @@ module.exports = {
         disabledF.push(disabledFA.Name.toLowerCase());
       });
 
+      if (disabledF.includes("badwords")) {        
+    let Badword = await client.Badword.Find(message.guild.id);
+      if (Badword.List[0]) {
+        if (!message.member.hasPermission("ADMINISTRATOR")) {
+        if (Badword.List.includes(message.content)) {
+          message.delete();
+          message.reply("Your message included a badword");
+          return message.author.send(`**${message.guild.name}** says: Your message included a badword, we not allowed that here!`)
+        }          
+        }
+      }    
+      }
+      
       var regex = new RegExp(
         "^(http[s]?:\\/\\/(www\\.)?|ftp:\\/\\/(www\\.)?|www\\.){1}([0-9A-Za-z-\\.@:%_+~#=]+)+((\\.[a-zA-Z]{2,3})+)(/(.)*)?(\\?(.)*)?"
       );
@@ -51,6 +67,13 @@ module.exports = {
         }
        }
 
+      if (Guild.CustomCommands[0]) {
+        let isCC = Guild.CustomCommands.find(x => x.trigger.toLowerCase() == message.content.toLowerCase());
+        if (!isCC) return;
+        
+        message.reply(isCC.response)
+      }
+      
       return;
     }
 
@@ -157,7 +180,7 @@ module.exports = {
         }
       }
 
-      command.run(message, args, client);
+      command.run(message, args, client, disbut);
     } catch (e) {
       return console.log(`[ERROR] ${e}`);
     } finally {

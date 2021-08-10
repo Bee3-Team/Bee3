@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Virtual Music Player - Discord</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script src="https://kit.fontawesome.com/d9ddeaf847.js" crossorigin="anonymous"></script>
+    
+<!--     <%- include("../part/bootstrapCSS.ejs"); %> -->
+  </head>
+  <body>  
+    <%- include("../part/loading.ejs"); %>
+    
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      
+      .on {
+        color: #ffd700;
+      }
+      
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -60px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.tooltip .tooltiptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}      
+.mc-back {
+    width: 100%;
+    font-size: 20px;
+    border: none;
+    background: #ffd700;
+    cursor: pointer;
+}
+
+h1#song-np-title {
+    background: grey;
+    border: 2px solid black;
+    margin: 10px;
+    padding: 10px;
+    font-size: 22px;
+    border-radius: 7px;
+    font-family: sans-serif;
+    color: black;
+    font-weight: bold;
+}
+
+form#form {
+    margin: 10px;
+    background: grey;
+    padding: 10px;
+    border: 2px solid black;
+    border-radius: 5px;
+}
+
+form input#query {
+    width: 92%;
+    border: none;
+    padding: 5px;
+    border-radius: 4px;
+    color: black;
+    width: -webkit-fill-available;
+}
+
+button#play-button {
+    border: none;
+    width: -webkit-fill-available;
+    height: 20px;
+    margin: 8px;
+    border-radius: 4px;
+    background: white;
+}
+
+button#stop-button {
+    margin: 10px;
+    border: 2px solid black;
+    background: white;
+    width: 70px;
+    border-radius: 4px;
+}
+
+button#pause-resume-button {
+    margin: 10px;
+    border: 2px solid black;
+    background: white;
+    width: 70px;
+    border-radius: 4px;    
+}
+
+button#loop-button {
+    margin: 10px;
+    border: 2px solid black;
+    background: white;
+    width: 70px;
+    border-radius: 4px;    
+}
+
+button#skip-button {
+    margin: 10px;
+    border: 2px solid black;
+    background: white;
+    width: 70px;
+    border-radius: 4px;    
+}      
+    </style>
+    <button class="mc-back btn btn-primary" onclick="location.href = '/dashboard/<%= guild.id %>'">
+      Back
+    </button>
+    
+    <h1 id="song-np-title">
+      Loading...
+    </h1>
+    
+    <form method="get" id="form">
+    <input type="text" id="query" placeholder="link or video title" required>
+    <button id="play-button" class="btn btn-info tooltip">
+      <i class="fas fa-plus"></i>
+      <span class="tooltiptext">play/add song</span>
+    </button>
+    </form>
+    <div style="width: 100%; text-align: center;">
+    <button id="stop-button" onclick="Stop('<%= guild.id %>', '<%= req.user.id %>')" class="btn btn-warning tooltip">
+      <i class="fas fa-stop"></i>
+      <span class="tooltiptext">stop playing</span>
+    </button>
+    <button id="pause-resume-button" onclick="PRB('<%= guild.id %>', '<%= req.user.id %>')" class="btn btn-primary tooltip">
+      Loading...
+    </button>
+    <button id="loop-button" onclick="LB('<%= guild.id %>', '<%= req.user.id %>')" class="btn btn-primary tooltip">
+      Loading...
+    </button>
+    <button id="skip-button" onclick="Skip('<%= guild.id %>', '<%= req.user.id %>')" class="btn btn-primary tooltip">
+      <i class="fas fa-forward"></i>
+      <span class="tooltiptext">skip music</span>
+    </button>      
+    </div>
+  
+<!--   <ul id="playlist">
+  </ul> -->
+    <span id="queue-size" style="background-color: green; margin-left: 10px; display: flex; width: 100px; height: 50px; justify-content: center; line-height: 1.8; border-radius: 4px; color: white; font-family: sans-serif; font-size: 28px; flex-wrap: wrap ">Loading...</span>
+    
+    <h3 style="margin-top: 10px; width: 100%; height: 56vh; text-align: center; font-sze: 28px; font-family: sans-serif; background: rgb(0,0,0,0.5);">
+      still beta - thanks for using this bot - not real design
+    </h3>
+    <script src="https://cdn.socket.io/4.0.1/socket.io.min.js"></script>
+    <script>
+      let prb = document.getElementById("pause-resume-button");
+      let snpt = document.getElementById("song-np-title");
+      let qs = document.getElementById("queue-size");
+      let lb = document.getElementById("loop-button")
+      
+      <% if (queue) { %>
+      <% if (queue.playing) { %>
+      prb.innerHTML = '<i class="fas fa-pause"></i><span class="tooltiptext">pause song</span>'
+      <% } %>
+      <% if (queue.loop) { %>
+      lb.innerHTML = '<i class="fa fa-repeat on"></i><span class="tooltiptext">repeat song on</span>'
+      <% } %>      
+      prb.innerHTML = '<i class="fas fa-play"></i><span class="tooltiptext">resume song</span>'
+      lb.innerHTML = '<i class="fa fa-repeat"></i><span class="tooltiptext">repeat song off</span>'
+      <% } else { %>
+      prb.style.display = "none";
+      lb.style.display = "none";
+      <% } %>
+      
+$( "#form" ).submit(function( event ) {
+  Play("<%= guild.id %>", "<%= req.user.id %>", document.getElementById("query").value);
+  event.preventDefault();
+  document.getElementById("form").reset();
+});
+      
+function Play(guild, user, query) {
+ fetch(`https://beee.cf/player/play/${guild}?user=${user}&query=${query}`)
+  .then(response => response.json())
+  .then(data => {
+   if (!data.success) {
+     return alert(data.error)
+   }
+ });  
+}   
+function Stop(guild, user) {
+ fetch(`https://beee.cf/player/stop/${guild}?user=${user}`)
+  .then(response => response.json())
+  .then(data => {
+   if (!data.success) {
+     return alert(data.error)
+   }
+   
+   prb.style.display = "none";
+ });  
+}
+      
+      function PRB(guild, user) {
+ fetch(`https://beee.cf/player/pause-resume/${guild}?user=${user}`)
+  .then(response => response.json())
+  .then(data => {
+   if (!data.success) {
+     return alert(data.error)
+   }
+   
+   if (data.playing) {
+     prb.innerHTML = '<i class="fas fa-play"></i><span class="tooltiptext">resume song</span>'
+   } else {
+     prb.innerHTML = '<i class="fas fa-pause"></i><span class="tooltiptext">pause song</span>'
+   }
+ });         
+      }
+      
+      function LB(guild, user) {
+ fetch(`https://beee.cf/player/loop/${guild}?user=${user}`)
+  .then(response => response.json())
+  .then(data => {
+   if (!data.success) {
+     return alert(data.error)
+   }
+   
+   if (data.loop) {
+     lb.innerHTML = '<i class="fa fa-repeat on"></i><span class="tooltiptext">repeat song on</span>'
+   } else {
+     lb.innerHTML = '<i class="fa fa-repeat"></i><span class="tooltiptext">repeat song off</span>'
+   }
+ });         
+      } 
+      
+      function Skip(guild, user) {
+ fetch(`https://beee.cf/player/skip/${guild}?user=${user}`)
+  .then(response => response.json())
+  .then(data => {
+   if (!data.success) {
+     return alert(data.error)
+   }
+ });         
+      }       
+    </script>
+    <script>
+      
+    $(document).ready(() => {
+      let socket = io();
+      socket.emit("server", '<%= guild.id %>');
+                  
+      socket.on("server2", opt => {
+                  console.log(opt)
+        if (!opt.currentlyPlaying) {
+        prb.innerHTML = '<i class="fas fa-pause"></i><span class="tooltiptext">pause song</span>';
+        prb.style.display = "none"
+        lb.innerHTML = '<i class="fa fa-repeat"></i><span class="tooltiptext">repeat song off</span>';
+        lb.style.display = "none"
+        qs.innerHTML = 0;
+        snpt.innerHTML = "Nothing playing, want to add a song?"
+        
+        return;
+      } else {
+        snpt.innerHTML = opt.song.title ? opt.song.title : "Nothing playing, want to add a song?";
+        prb.innerHTML = opt.prb === "Pause" ? '<i class="fas fa-pause"></i><span class="tooltiptext">pause song</span>' : '<i class="fas fa-play"></i><span class="tooltiptext">resume song</span>';
+        prb.style.display = "";    
+        lb.innerHTML = opt.lb === "Loop" ? '<i class="fa fa-repeat"></i><span class="tooltiptext">repeat song off</span>' : '<i class="fa fa-repeat on"></i><span class="tooltiptext">repeat song on</span>';
+        lb.style.display = ""
+        qs.innerHTML = opt.songs.length;
+        }
+        
+      })
+    })
+    
+    </script>
+  </body>
+</html>

@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <link rel="stylesheet" href="portofolio.css">
+
+    <link rel="icon" href="https://cdn.glitch.com/136d7709-13b1-47e0-8093-10e69dec318f%2F00d94c15-290e-4292-963f-787b7dbbe67d.image.png?v=1623508217310">
+    <link rel="manifest" href="portofolio.json">
+    <script async src="https://arc.io/widget.min.js#uNQR8h7F"></script>
+    <title>Vins - Portofolio</title>
+    
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Vins - Redirect">
+    <meta property="og:description" content="Halo nama saya Vincent, sering di pangil Vins, saya adalah seorang web developer yang menguasai HTML, CSS, JavaScript, JQuery, Bootstrap!">   
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script src="https://kit.fontawesome.com/d9ddeaf847.js" crossorigin="anonymous"></script>
+  </head>
+  <body class="loadingProcess" id="home">
+    
+    <script>
+$(function(){
+  $(window).on('load', function(){
+    setTimeout(() => {
+      $("#home").removeClass("loadingProcess");
+    }, 1000)    
+    
+    $('[src]').each(function(){
+      var $this = $(this),
+          src = $(this).data('src');
+      $this.attr('src', src);
+      $this.removeClass("onLoad");
+    });
+  });
+});    
+    </script>    
+    
+<div class="alert alert-warning alert-dismissible fade show container" role="alert" id="error">
+  <strong>Invalid code!</strong> Please enter a valid code.
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>    
+    
+<!-- Button trigger modal -->
+    <p align="center">
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+  ENTER CODE
+</button>      
+    </p>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">enter a code</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+<form method="GET" id="form">
+      <div class="modal-body">
+        <input id="code" class="form-control form-control-lg" placeholder="e.g AAAA1" required>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Redirect</button>
+      </div>
+    </form>
+    </div>
+  </div>
+</div>  
+    
+    <p align="center">
+      <small> make with <a href="https://www.google.com/search?q=heart" target="_blank">❤️</a> by Vins</small>
+      <br>
+      <small><a style="padding: 10px; font-size: 28px;" href="https://discord.gg/MUEwtCfeT8"><i class="fab fa-discord"></i></a><a style="padding: 10px; font-size: 28px;" href="https://youtube.com/Vins2106"><i class="fab fa-youtube"></i></a></small>
+    </p>
+    
+    <script>
+      
+          document.getElementById("error").style.display = "none"
+      
+      
+$( "#form" ).submit(function( event ) {
+  RedirectMe();
+  
+  event.preventDefault();
+  document.getElementById("form").reset();
+});      
+      
+      async function RedirectMe() {
+        let code = document.getElementById("code");
+        
+ fetch(`https://owner.beee.cf/api/redirect?code=${code.value}`,{ method: 'GET', redirect: 'follow'})
+  .then(response => response.json())
+  .then(data => {
+   if (data.e) {
+     $("#exampleModalCenter").modal("hide")
+     return alertMe();
+   }
+   
+   return location.href = data.r;
+ });          
+        
+      }
+      
+      function alertMe() {
+        document.getElementById("error").style.display = ""
+        setTimeout(() =>  {
+          document.getElementById("error").style.display = "none"
+        }, 10000)
+      }
+    </script>
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+  </body>
+</html>

@@ -1,5 +1,6 @@
 const ytdl = require("ytdl-core");
 const { EventEmitter } = require("events");
+const disbut = require("discord-buttons");   
 
 class MusicRoutes extends EventEmitter {
   constructor() {
@@ -8,7 +9,6 @@ class MusicRoutes extends EventEmitter {
 
   async play(textChannel = null, id, song) {
     const queue = this.queue.get(id);
-    if (!queue) return;
 
     if (!song) {
       if (textChannel) {
@@ -189,12 +189,17 @@ class MusicRoutes extends EventEmitter {
     if (!queue) return this.emit("noQueue", textChannel);
 
     if (textChannel) {
+      let button = new disbut.MessageButton()
+      .setStyle('blurple')
+      .setLabel('check queue')
+      .setID("check-queue")
+      
       return textChannel.send(`Now playing: **${queue.songs[0].title}** [\`${
         queue.songs[0].duration == 0
           ? "Live"
           : queue.songs[0].duration.toHHMMSS()
       }\`]
-to see songs, use \`queue\` command.`);
+to see songs, use \`queue\` command.`, button);
     } else {
       return {
         title: queue.songs[0].title,
@@ -261,9 +266,13 @@ to see songs, use \`queue\` command.`);
     if (!queue) return this.emit("noQueue", textChannel);
 
     if (textChannel) {
+let button = new disbut.MessageButton()
+  .setStyle('blurple')
+  .setLabel('now playing') 
+  .setID('now-playing');      
+      
       return textChannel.send(
-        `https://beee.cf/queue?id=${id} - there have **${queue.songs.length}** songs.`
-      );
+        `https://beee.cf/queue?id=${id} - there have **${queue.songs.length}** songs.`, button);
     } else {
       return {
         songs: queue.songs

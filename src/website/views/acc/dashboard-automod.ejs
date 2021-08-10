@@ -1,7 +1,7 @@
 
 <!--  -->
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <%- include('../part/head.ejs') %>
     <%- include('../part/bootstrapCSS.ejs') %>
@@ -14,6 +14,21 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.1.1/dist/chart.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.6/Chart.min.js"></script>
     <%- include('../part/loading.ejs') %>
+    
+    <style>
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: white;
+  opacity: 1; /* Firefox */
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+  color: white;
+}
+
+::-ms-input-placeholder { /* Microsoft Edge */
+  color: white;
+}    
+    </style>
     
 <div class="container-fluid">
   <div class="row">
@@ -64,35 +79,177 @@
 </div>  
 </div>         
         <section>         
-         
           <div class="col-md-6 col-lg-4" style="width: 100%; height: 100%; padding-right: 0px; max-width: 100% !important; max-height: 100% !important; padding-left: 0px;">
-            <article class="p-4 rounded my-embed
-               mb-4" style="padding: 5px !important;">
-              <a class="align-items-center">
-<div class="accordion" id="accordionExample">
-  <div class="card" id="anti-link">
-    <div class="card-header" id="head-anti-link" data-toggle="collapse" data-target="#anti-link" aria-expanded="true" aria-controls="anti-link">
-      <h2 class="mb-0" id="anti-link-name"><a>Anti link -</a> <small>admin are not affected</small></h2>
-    </div>
-
-    <div id="anti-link" class="collapse" aria-labelledby="head-anti-link" data-parent="#accordionExample">
-      <div class="card-body">
-        <div class="card-sec-item">
-          <h5 style="line-height: 1; text-align: left; float: left; width: 10px; min-width: 172px; font-size: 30px;">Enable: <label class="switch"><input type="checkbox" name="anti-link" <%= enable_ ? 'checked="checked"' : "" %></input>><span class="slider round"></span></label></h5>
-        </div>
-      </div>
-    </div>
-  </div>  
-      </div>    
-              </a>
+            <article class="p-4 rounded my-embed mb-4" style="padding: 15px !important; color: white !important;">
+              <h3>Anti Link <label class="switch"><input type="checkbox" name="anti-link" <%= enable_ ? 'checked="checked"' : "" %></input><span class="slider round"></span></label></h3>
+              <h4 class="my-embed-warning">admin are not affected</h4>   
             </article>
-          </div>          
+          </div> 
+          <div class="col-md-6 col-lg-4" style="width: 100%; height: 100%; padding-right: 0px; max-width: 100% !important; max-height: 100% !important; padding-left: 0px;">
+            <article class="p-4 rounded my-embed mb-4" style="padding: 15px !important; color: white !important;">
+              <h3>Badwords <label class="switch"><input id="badwordCheck" onchange="refreshDescription()" type="checkbox" name="badwords" <%= enable__ ? 'checked="checked"' : "" %></input><span class="slider round"></span></label></h3>
+              <h4 class="my-embed-warning">admin are not affected</h4>
+              <div class="my-embed-description" id="badwordDescription">
+            <div class="tags-input" data-name="tags-input">
+                <!--<span class="tag">CSS<span class="close"></span></span>
+                <span class="tag">JavaScript<span class="close"></span></span>
+                <span class="tag">HTML<span class="close"></span></span>-->
+            </div>
+              </div>
+            </article>
+          </div>           
         </section>
     </form>
       </main>
     </div>
   </div>
 </div>
+    <script>
+      refreshDescription();
+      
+      function refreshDescription() {
+  // Get the checkbox
+  var checkBox = document.getElementById("badwordCheck");
+  // Get the output text
+  var text = document.getElementById("badwordDescription");
+
+  // If the checkbox is checked, display the output text
+  if (checkBox.checked == true){
+    text.style.display = "block";
+  } else {
+    text.style.display = "none";
+  }
+      }
+      
+[].forEach.call(document.getElementsByClassName('tags-input'), function (el) {
+    let hiddenInput = document.createElement('input'),
+        mainInput = document.createElement('input'),
+        tags = [];
+  
+    hiddenInput.setAttribute('type', 'hidden');
+    hiddenInput.setAttribute('name', el.getAttribute('data-name'));
+
+    mainInput.setAttribute('type', 'text');
+    mainInput.setAttribute('placeholder', 'add word');
+    mainInput.classList.add('main-input');
+    mainInput.addEventListener('input', function () {
+        let enteredTags = mainInput.value.split(',');
+        if (enteredTags.length > 1) {
+            enteredTags.forEach(function (t) {
+                let filteredTag = filterTag(t);
+                if (filteredTag.length > 0) {
+                  if (tags.find(x => x.text.toLowerCase() === filteredTag.toLowerCase())) return alert("Cannot duplicate text.")
+                    addTag(filteredTag);
+                }
+            });
+            mainInput.value = '';
+        }
+    });
+
+    mainInput.addEventListener('keydown', function (e) {
+        let keyCode = e.which || e.keyCode;
+        if (keyCode === 8 && mainInput.value.length === 0 && tags.length > 0) {
+            removeTag(tags.length - 1);
+        }
+    });
+  
+    mainInput.addEventListener("keyup", function (e) {
+      let keyCode = e.which || e.keyCode;
+      if (keyCode === 13) {
+        let enteredTags = mainInput.value.split(',');
+
+            enteredTags.forEach(function (t) {
+                let filteredTag = filterTag(t);
+                if (filteredTag.length > 0) {
+                  if (tags.find(x => x.text.toLowerCase() === filteredTag.toLowerCase())) return alert("Cannot duplicate text.")
+                    addTag(filteredTag);
+                }
+            });
+            mainInput.value = '';
+           
+        }
+      save();
+    });
+  
+    let noteMsg = document.createElement("small");
+    noteMsg.setAttribute("style", "color: white; font-weight: bold;");
+    noteMsg.textContent = "*to add another word, type , or enter"
+    el.appendChild(mainInput);
+    el.appendChild(hiddenInput);
+    el.appendChild(noteMsg)
+
+    <% if (badwordList.List[0]) { %>
+    <% badwordList.List.map(word => { %>
+    addTag('<%= word %>')
+    <% }) %>
+    <% } %>
+  
+    function addTag (text) {
+        let tag = {
+            text: text,
+            element: document.createElement('span'),
+            hiddenElement: document.createElement('input')
+        };
+      
+        tag.hiddenElement.setAttribute("type", "hidden");
+        tag.hiddenElement.setAttribute("name", 'badwordsList[]');
+        tag.hiddenElement.setAttribute("value", tag.text);
+        tag.element.classList.add('tag-item');
+        tag.element.textContent = tag.text;
+        tag.element.setAttribute("id", `${tag.text}`)
+
+        let closeBtn = document.createElement('span');
+        closeBtn.classList.add('fa');
+        closeBtn.classList.add('fa-close');
+        closeBtn.classList.add('closebtn');
+        closeBtn.addEventListener('click', function () {
+            removeTag(tags.indexOf(tag));
+        });
+        tag.element.appendChild(closeBtn);
+        tag.element.appendChild(tag.hiddenElement);
+
+        tags.push(tag);
+
+        el.insertBefore(tag.element, mainInput);
+
+        refreshTags();
+    }
+  
+    function removeTag (index) {
+        let tag = tags[index];
+        tags.splice(index, 1);
+        el.removeChild(tag.element);
+        refreshTags();
+      save();
+    }
+
+    function refreshTags () {
+        let tagsList = [];
+        tags.forEach(function (t) {
+            tagsList.push(t.text);
+        });
+        hiddenInput.value = tagsList.join(',');
+    }
+
+    function filterTag (tag) {
+        return tag.toLowerCase();
+    }
+});      
+     
+      
+      let els = document.getElementsByClassName('tags-input');
+    function removeTagManual(id, id2) {
+      let tag = document.getElementById(id);
+      if (!tag) return;
+      
+      let hiddenTag = document.getElementById(id2);
+      if (!hiddenTag) return;
+      
+      els.removeChild(tag);
+      els.removeChild(hiddenTag);
+      refreshTags();
+    }      
+    </script>
 <!--     <script>
 $(window).resize(function() {
 	var path = $(this);
@@ -125,6 +282,14 @@ $(document).ready(function() {
       resetBTN.hide()
       embedSave.hide();
       
+      form.on('keyup keypress', function(e) {
+  var keyCode = e.keyCode || e.which;
+  if (keyCode === 13) { 
+    e.preventDefault();
+    return false;
+  }
+});
+      
       async function save() {
       embedSave.show();
       TheForm.show();
@@ -136,6 +301,8 @@ $(document).ready(function() {
         TheForm.hide();
         resetBTN.hide();
         embedSave.hide();
+        refreshDescription();
+        location.reload();
       }   
     </script>    
 <script>

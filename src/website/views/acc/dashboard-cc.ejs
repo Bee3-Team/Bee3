@@ -1,5 +1,7 @@
+
+<!--  -->
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <%- include('../part/head.ejs') %>
     <%- include('../part/bootstrapCSS.ejs') %>
@@ -9,58 +11,203 @@
     <script src="https://kit.fontawesome.com/071ea1fa85.js" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.1.1/dist/chart.min.js"></script>    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.1.1/dist/chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.6/Chart.min.js"></script>
     <%- include('../part/loading.ejs') %>
     
-    <%- include('../part/navbar.ejs') %>
+    <style>
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: white;
+  opacity: 1; /* Firefox */
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+  color: white;
+}
+
+::-ms-input-placeholder { /* Microsoft Edge */
+  color: white;
+}    
+    </style>
     
-    <main id="main" role="main" class="main" style="padding: 10px;">
-<div class="wrapper">
-  <div class="sidebar">
-            <% let icon;
-            if (guild.icon) {
-            icon = `https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}.webp`
-            } else if (!guild.icon) {
-            icon = bot.user.displayAvatarURL()
-            }
-            %>    
-    <div class="title"><img class="server-icon" src="<%= icon %>"> <%= guild.name %></div>
-    <%- include('../part/navbar-dashboard.ejs') %>
-  </div> 
-  
-  <div class="content content-is-open" style="min-height: 360px; height: auto;">
-    <h3 class="cc-title">
-      Make bot response to a message
-    </h3>
-    <div class="cc-list">
-      <div class="cc">
-      </div>
+<div class="container-fluid">
+  <div class="row">
+    <!-- sidebar -->
+    
+    <%- include("../part/navbar-dashboard.ejs") %>
+    
+    <!-- overlay to close sidebar on small screens -->
+    <div class="w-100 vh-100 position-fixed overlay d-none" id="sidebar-overlay"></div>
+    <!-- note: in the layout margin auto is the key as sidebar is fixed -->
+    <div class="col-md-9 col-lg-10 ml-md-auto px-0">
+      <!-- top nav -->
+      <nav class="w-100 d-flex py-2 mb-4 shadow-sm">
+        <!-- close sidebar -->
+        <button class="btn py-0 d-lg-none" id="open-sidebar">
+          <i class="fa fa-bars text-primary" style="font-size: 30px;"></i>
+        </button>
+        <div class="dropdown ml-auto">
+          <button class="btn py-0 d-flex align-items-center" id="logout-dropdown" data-toggle="dropdown" aria-expanded="false">
+            <span class="fas fa-user-circle text-primary h4"></span>
+            <span class="fa fa-chevron-down ml-1 mb-2 small text-primary "></span>
+          </button>
+          <div class="dropdown-menu dropdown-menu-right border-0 shadow-sm" aria-labelledby="logout-dropdown" style="box-shadow: 0px 0px 12px 3px rgb(0 0 0 / 50%) !important;">
+      <% if (req.user) { %>
+            <a class="dropdown-item" href="/account"><%= req.user.username %></a>
+      <% } else { %>
+            <a class="dropdown-item" href="/login">Login</a>
+      <% } %>            
+            <a class="dropdown-item" href="/">Home</a>
+            <a class="dropdown-item" href="/invite?permission=8">Invite</a>
+            <a class="dropdown-item" href="/support">Support</a>
+          </div>
+        </div>
+      </nav>
+      <!-- main content -->
+      <main class="container-fluid">
+        <div class="jumbotron jumbotron-fluid rounded bg-white my-embed">
+  <div class="container">
+    <p class="lead text-muted"><strong><%= guild.name %></strong></p>
+  </div>
+</div>    
+       
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+  <strong>Hey!</strong>, for now, the custom commands only support to text, cant <strong>ping, emoji, channel</strong>
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>        
+        
+       <form method="POST" id="formnya" onchange="save()">
+<div class="snackbar">
+<div class="pop-up">
+  <span style="color: white; position: initial; margin-right: auto; white-space: nowrap; text-overflow: ellipsis; overflow: hidden;">Careful, you have unsaved changes</span>
+  <button type="reset" onclick="resetFORM()" class="pop pop-up-1">Reset</button>
+  <button type="submit" class="pop pop-up-2">Save</button>
+</div>  
+</div>         
+        <section id="cc-list">         
+        </section>
+          <div class="col-md-6 col-lg-4" style="width: 100%; height: 100%; padding-right: 0px; max-width: 100% !important; max-height: 100% !important; padding-left: 0px;">
+            <article class="p-4 rounded my-embed mb-4" style="padding: 15px !important; color: white !important;">
+              <button class="btn btn-success" type="button" style="width: -webkit-fill-available;" onclick="return addCC()">+</button>
+            </article>
+          </div>            
+    </form>
+      </main>
     </div>
   </div>
 </div>
-    </main>
     
-
-    <%- include('../part/footer.ejs') %>
     <script>
+    
       
-      let form = $('#formnya')
-      let TheForm = $('#thebtn')
-      let resetBTN = $('.reset-btn')
-      TheForm.hide()
-      resetBTN.hide()
+      let ccList = document.getElementById("cc-list");
+      let ids = 0;
       
-      async function save() {
-      resetBTN.show(500)
-      TheForm.show(600)
+      <% if (database.CustomCommands.length) { %>
+      <% database.CustomCommands.map(cc => { %>
+      addCC('<%= cc.trigger %>', '<%= cc.response %>', '<%= cc.ID %>')
+      <% }) %>
+      <% } %>
+            
+      async function addCC(trigger, response, id) {
+        ids++;
+        let ourID = id ? id : ids;
+        
+        let star = document.createElement("i");
+        star.setAttribute("class", "text-danger")
+        star.textContent = "*"
+        
+        let star2 = document.createElement("i");
+        star2.setAttribute("class", "text-danger")
+        star2.textContent = "*"        
+        
+        let div1 = document.createElement("div");
+        div1.setAttribute("class", "col-md-6 col-lg-4");
+        div1.setAttribute("style", "width: 100%; height: 100%; padding-right: 0px; max-width: 100% !important; max-height: 100% !important; padding-left: 0px;")
+        div1.setAttribute("id", `cc-${ourID}`);
+        
+        let article1 = document.createElement("article");
+        article1.setAttribute("class", "p-4 rounded my-embed mb-4");
+        article1.setAttribute("style", "padding: 15px !important; color: white !important;");
+        article1.setAttribute("name", "cclist[]");
+        
+        let trigger1 = document.createElement("div");
+        trigger1.setAttribute("class", "cc-item");
+        
+        let label1 = document.createElement("label");
+        label1.setAttribute("for", `cc-trigger-${ourID}`)
+        label1.textContent = 'Trigger ';
+        label1.appendChild(star)
+        
+        let input1 = document.createElement("input");
+        input1.setAttribute("type", "text");
+        input1.setAttribute("id", `cc-trigger-${ourID}`);
+        input1.setAttribute("name", `cc[${ourID}][trigger]`)
+        input1.setAttribute("autocomplete", "off");
+        input1.setAttribute("required", "required");
+        
+        if (trigger) {
+          input1.setAttribute("value", htmlDecode(trigger))
+        }
+        
+        //
+        let response1 = document.createElement("div");
+        response1.setAttribute("class", "cc-item");
+        
+        let label2 = document.createElement("label");
+        label2.setAttribute("for", `cc-response-${ourID}`)
+        label2.textContent = 'Response '
+        label2.appendChild(star2)
+        
+        let input2 = document.createElement("input");
+        input2.setAttribute("type", "text");
+        input2.setAttribute("id", `cc-response-${ourID}`);
+        input2.setAttribute("name", `cc[${ourID}][response]`)
+        input2.setAttribute("autocomplete", "off");
+        input2.setAttribute("required", "required"); 
+        
+        if (response) {
+          input2.setAttribute("value", htmlDecode(response))
+        }        
+        
+        //
+        let removeBTN = document.createElement("button");
+        removeBTN.setAttribute("class", "btn btn-danger");
+        removeBTN.setAttribute("type", "button");
+        removeBTN.setAttribute("onclick", 'return removeCC("cc-' + ourID + '")')
+        removeBTN.textContent = "Remove"
+        
+        ccList.appendChild(div1);
+        div1.appendChild(article1)
+        article1.appendChild(trigger1)
+        trigger1.appendChild(label1)
+        trigger1.appendChild(input1)
+        article1.appendChild(response1)
+        response1.appendChild(label2)
+        response1.appendChild(input2)
+        article1.appendChild(removeBTN)
+        
+        return console.log("[CREATE_ELEMENT] Create new cc item - id: " + ourID + " - " + new Date())
       }
       
-      async function resetFORM() {
-        form.trigger("reset");
-        TheForm.hide();
-        resetBTN.hide();
+      async function removeCC(id) {
+        let target = document.getElementById(id);
+        if (!target) return;
+        
+        target.remove();
+        save()
+        
+        return console.log("[REMOVE_ELEMENT] Remove a cc item - " + new Date())
       }
       
+function htmlDecode(value) {
+  return $("<textarea/>").html(value).text();
+}
+
+    </script>
+<!--     <script>
 $(window).resize(function() {
 	var path = $(this);
 	var contW = path.width();
@@ -82,6 +229,72 @@ $(document).ready(function() {
     }
 	});
 });    
+    </script> -->
+    <script>
+      let form = $('#formnya')
+      let TheForm = $('#thebtn')
+      let resetBTN = $('.snackbar');
+      let embedSave = $("#save-list")
+      TheForm.hide()
+      resetBTN.hide()
+      embedSave.hide();
+      
+      form.on('keyup keypress', function(e) {
+  var keyCode = e.keyCode || e.which;
+  if (keyCode === 13) { 
+    e.preventDefault();
+    return false;
+  }
+});
+      
+      async function save() {
+      embedSave.show();
+      TheForm.show();
+      resetBTN.show();
+      }
+      
+      async function resetFORM() {
+        form.trigger("reset");
+        TheForm.hide();
+        resetBTN.hide();
+        embedSave.hide();
+        location.reload();
+      }   
+    </script>    
+<script>
+$(document).ready(()=>{
+  
+  $('#open-sidebar').click(()=>{
+     
+      // add class active on #sidebar
+      $('#sidebar').addClass('active');
+      
+      // show sidebar overlay
+      $('#sidebar-overlay').removeClass('d-none');
+    
+   });
+  
+  
+   $('#sidebar-overlay').click(function(){
+     
+      // add class active on #sidebar
+      $('#sidebar').removeClass('active');
+      
+      // show sidebar overlay
+      $(this).addClass('d-none');
+    
+   });
+  
+   $('#sidebar-remove-overlay').click(function(){
+     
+      // add class active on #sidebar
+      $('#sidebar').removeClass('active');
+     
+     $("#sidebar-overlay").addClass('d-none');
+    
+   });  
+  
+});  
     </script>
   </body>
 </html>
